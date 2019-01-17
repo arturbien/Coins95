@@ -1,0 +1,87 @@
+button {
+  outline: none;
+}
+
+.Button {
+  display: inline-block;
+  position: relative;
+  text-align: center;
+
+  background: #ced0cf;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #050608;
+  border-right: 2px solid #050608;
+}
+.Button:before {
+  padding: 0;
+  content: "";
+  display: inline-block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+
+  border-top: 2px solid #dfe0e3;
+  border-left: 2px solid #dfe0e3;
+  border-bottom: 2px solid #888c8f;
+  border-right: 2px solid #888c8f;
+}
+
+.Button--m {
+  height: 35px;
+  padding: 0 8px;
+}
+.Button--m.Button--square {
+  width: 35px;
+}
+.Button--s {
+  height: 27px;
+  padding: 0 4px;
+}
+.Button--s.Button--square {
+  width: 27px;
+}
+.Button--l {
+  height: 43px;
+  padding: 0 16px;
+}
+.Button--l.Button--square {
+  width: 43px;
+}
+.Button--xl {
+  height: 51px;
+  padding: 0 24px;
+}
+.Button--xl.Button--square {
+  width: 51px;
+}
+.Button.Button--square {
+  overflow: hidden;
+  padding: 0;
+}
+.Button--disabled {
+  color: gray;
+  text-shadow: 1px 1px #fff;
+  filter: grayscale(100%);
+}
+.Button--fullWidth {
+  width: 100%;
+}
+
+.Button:not(.Button--disabled):active,
+.Button--active {
+  padding-top: 2px;
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-top: 2px solid #050608;
+  border-left: 2px solid #050608;
+}
+.Button:not(.Button--disabled):active:before,
+.Button--active:before {
+  border-bottom: 2px solid #dfe0e3;
+  border-right: 2px solid #dfe0e3;
+  border-top: 2px solid #888c8f;
+  border-left: 2px solid #888c8f;
+}
