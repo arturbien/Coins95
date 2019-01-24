@@ -1,22 +1,16 @@
-.AppBar {
-  min-height: 35px;
-  display: flex;
-  align-items: center;
+.Window {
   position: relative;
-  padding: 5px;
-
-  background: #ced0cf;
+  display: inline-block;
+  /* width: 100%; */
+  padding: 2px;
+  background: #bdbebd;
   border-top: 2px solid #fff;
   border-left: 2px solid #fff;
   border-bottom: 2px solid #050608;
   border-right: 2px solid #050608;
+}
 
-  box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.35);
-}
-.AppBar.AppBar--noShadow {
-  box-shadow: none;
-}
-.AppBar:before {
+.Window:before {
   padding: 0;
   content: "";
   display: inline-block;
@@ -30,4 +24,8 @@
   border-left: 2px solid #dfe0e3;
   border-bottom: 2px solid #888c8f;
   border-right: 2px solid #888c8f;
+}
+
+.Window.Window--noShadow {
+  box-shadow: none;
 }

@@ -6,12 +6,13 @@ button {
   display: inline-block;
   position: relative;
   text-align: center;
-
   background: #ced0cf;
   border-top: 2px solid #fff;
   border-left: 2px solid #fff;
   border-bottom: 2px solid #050608;
   border-right: 2px solid #050608;
+
+  font-size: 16px;
 }
 .Button:before {
   padding: 0;

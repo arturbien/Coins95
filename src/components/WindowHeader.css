@@ -1,0 +1,12 @@
+.WindowHeader {
+  display: flex;
+  padding: 4px 6px;
+  margin-bottom: 2px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(to right, navy, #00f);
+}
+.WindowHeader.gray {
+  color: #bdbebd;
+  background: #827f82;
+}

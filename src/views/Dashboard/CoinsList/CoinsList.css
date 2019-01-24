@@ -1,0 +1,28 @@
+.CoinsListWrapper {
+  position: relative;
+  margin: 1em 0;
+  /* overflow: hidden; */
+  background: #fff;
+  min-height: 350px;
+
+  border-bottom: 2px solid #dfe0e3;
+  border-right: 2px solid #dfe0e3;
+  border-top: 2px solid #050608;
+  border-left: 2px solid #050608;
+}
+
+.CoinsList {
+  position: relative;
+}
+.CoinsListWrapper:before {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #888c8f;
+  border-top: 2px solid #888c8f;
+}

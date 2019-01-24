@@ -1,12 +1,21 @@
-import { FETCH_COINS_LIST_SUCCESS } from "../actions/actionTypes";
+import {
+  FETCH_COINS_LIST_SUCCESS,
+  FETCH_COINS_DATA_SUCCESS
+} from "../actions/actionTypes";
 
 const initialState = {
-  coinsList: null
+  coinsList: null,
+  coinsInfo: null,
+  coinsData: null
 };
 const coinsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_COINS_LIST_SUCCESS:
-      return { ...state, coinsList: action.payload };
+      const coinsInfo = action.payload;
+      const coinsList = Object.keys(coinsInfo);
+      return { ...state, coinsList, coinsInfo };
+    case FETCH_COINS_DATA_SUCCESS:
+      return { ...state, coinsData: action.payload };
     default:
       return state;
   }
