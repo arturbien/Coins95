@@ -5,10 +5,12 @@ import { connect } from "react-redux";
 import { fetchCoinsList, fetchCoinsData } from "../../store/actions/coins";
 // import { Link } from "react-router-dom";
 
-import AppBar from "../../components/AppBar/AppBar";
+// import AppBar from "../../components/AppBar/AppBar";
 import Button from "../../components/Button/Button";
-import Divider from "../../components/Divider/Divider";
-import CoinsList from "./CoinsList/CoinsList";
+// import Divider from "../../components/Divider/Divider";
+// import CoinsList from "./CoinsList/CoinsList";
+
+import CoinsTable from "./CoinsTable/CoinsTable";
 
 export class Dashboard extends Component {
   static propTypes = {
@@ -38,7 +40,8 @@ export class Dashboard extends Component {
     }));
     return (
       <section className={baseClass}>
-        <CoinsList data={data} />
+        {/* <CoinsList data={data} /> */}
+        <CoinsTable data={data} />
         <Button>+ Search icons</Button>
         <Button square>...</Button>
       </section>

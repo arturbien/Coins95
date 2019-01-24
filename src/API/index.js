@@ -8,7 +8,7 @@ class API {
     });
   }
 
-  fetchCoinsList = async (ammount = 5) => {
+  fetchCoinsList = async (ammount = 10) => {
     const query = "/data/all/coinlist";
     const response = await this.axios.get(query);
     const data = response.data.Data;

@@ -1,0 +1,85 @@
+.CoinsTableWrapper {
+  position: relative;
+  /* overflow: hidden; */
+  background: #fff;
+  margin-bottom: 1em;
+  border-bottom: 2px solid #dfe0e3;
+  border-right: 2px solid #dfe0e3;
+  border-top: 2px solid #050608;
+  border-left: 2px solid #050608;
+}
+.CoinsTableWrapper:before {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #888c8f;
+  border-top: 2px solid #888c8f;
+}
+
+.CoinsTable {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+  /* table-layout: fixed; */
+}
+
+.CoinsTable-tr,
+.CoinsTable-td,
+.CoinsTable-th,
+.CoinsTable-thead {
+  height: 34px;
+  line-height: 34px;
+  margin: 0;
+  padding: 0;
+}
+.CoinsTable-td {
+  padding: 0 3px;
+}
+.CoinsTable-tbody .CoinsTable-tr:hover {
+  background: navy;
+  color: #fff;
+}
+.CoinsTable-th {
+  position: relative;
+  text-align: center;
+  background: #ced0cf;
+  /* border-top: 2px solid #fff;
+  border-left: 2px solid #fff; */
+  border-bottom: 2px solid #050608;
+  border-right: 2px solid #050608;
+  font-weight: normal;
+  font-size: 16px;
+}
+.CoinsTable-th:before {
+  padding: 0;
+  content: "";
+  display: inline-block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+
+  border-top: 2px solid #dfe0e3;
+  border-left: 2px solid #dfe0e3;
+  border-bottom: 2px solid #888c8f;
+  border-right: 2px solid #888c8f;
+}
+
+.CoinName {
+  display: flex;
+  align-items: center;
+}
+
+.CoinName__icon {
+  margin-top: -2px;
+  margin-right: 6px;
+  margin-left: 4px;
+}

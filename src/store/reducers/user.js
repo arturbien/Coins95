@@ -11,7 +11,7 @@ const userReducer = (state = initialState, action) => {
         const data = action.payload;
         const coinsList = Object.keys(action.payload)
           .sort((coinA, coinB) => data[coinA].sortOrder - data[coinB].sortOrder)
-          .splice(0, 5);
+          .splice(0, 10);
         return { ...state, coinsList: coinsList };
       } else {
         return state;
