@@ -1,4 +1,7 @@
 import { FETCH_COINS_LIST_SUCCESS } from "../actions/actionTypes";
+
+import { coinsLimit } from "../../config";
+
 const initialState = {
   coinsList: null,
   currency: "USD"
@@ -11,8 +14,8 @@ const userReducer = (state = initialState, action) => {
         const data = action.payload;
         const coinsList = Object.keys(action.payload)
           .sort((coinA, coinB) => data[coinA].sortOrder - data[coinB].sortOrder)
-          .splice(0, 10);
-        return { ...state, coinsList: coinsList };
+          .splice(0, coinsLimit);
+        return { ...state, coinsList };
       } else {
         return state;
       }

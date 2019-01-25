@@ -14,6 +14,7 @@ button {
 
   font-size: 16px;
 }
+
 .Button:before {
   padding: 0;
   content: "";
@@ -32,7 +33,7 @@ button {
 
 .Button--m {
   height: 35px;
-  padding: 0 8px;
+  padding: 0 16px;
 }
 .Button--m.Button--square {
   width: 35px;
@@ -73,7 +74,6 @@ button {
 
 .Button:not(.Button--disabled):active,
 .Button--active {
-  padding-top: 2px;
   border-bottom: 2px solid #fff;
   border-right: 2px solid #fff;
   border-top: 2px solid #050608;
@@ -85,4 +85,10 @@ button {
   border-right: 2px solid #dfe0e3;
   border-top: 2px solid #888c8f;
   border-left: 2px solid #888c8f;
+}
+
+.Button:not(.Button--disabled):active .Button__content,
+.Button--active .Button__content {
+  position: relative;
+  top: 2px;
 }

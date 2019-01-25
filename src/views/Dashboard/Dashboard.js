@@ -7,7 +7,7 @@ import { fetchCoinsList, fetchCoinsData } from "../../store/actions/coins";
 
 // import AppBar from "../../components/AppBar/AppBar";
 import Button from "../../components/Button/Button";
-// import Divider from "../../components/Divider/Divider";
+import Divider from "../../components/Divider/Divider";
 // import CoinsList from "./CoinsList/CoinsList";
 
 import CoinsTable from "./CoinsTable/CoinsTable";
@@ -38,12 +38,30 @@ export class Dashboard extends Component {
       ...coinsInfo[coin],
       ...coinsData[coin]
     }));
+    console.log(data);
+
     return (
       <section className={baseClass}>
-        {/* <CoinsList data={data} /> */}
+        <span
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between"
+          }}
+        >
+          <h1
+            style={{
+              fontFamily: "TimesNewRoman",
+              fontSize: "2em",
+              margin: "0.5em 0"
+            }}
+          >
+            Dashboard
+          </h1>
+          <Button>+ Add</Button>
+        </span>
         <CoinsTable data={data} />
-        <Button>+ Search icons</Button>
-        <Button square>...</Button>
+        <Divider />
       </section>
     );
   }

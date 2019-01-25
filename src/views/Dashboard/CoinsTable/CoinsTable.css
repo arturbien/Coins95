@@ -56,6 +56,8 @@
   border-right: 2px solid #050608;
   font-weight: normal;
   font-size: 16px;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 .CoinsTable-th:before {
   padding: 0;
@@ -71,6 +73,27 @@
   border-left: 2px solid #dfe0e3;
   border-bottom: 2px solid #888c8f;
   border-right: 2px solid #888c8f;
+}
+
+.CoinsTable-th:not(.CoinsTable-th--disabled):active,
+.CoinsTable-th--active {
+  border-bottom: 2px solid #fff;
+  /* border-right: 2px solid #fff; */
+  /* border-top: 2px solid #050608;
+  border-left: 2px solid #050608; */
+}
+.CoinsTable-th:not(.CoinsTable-th--disabled):active:before,
+.CoinsTable-th--active:before {
+  border-bottom: 2px solid #dfe0e3;
+  border-right: 2px solid #dfe0e3;
+  border-top: 2px solid #888c8f;
+  border-left: 2px solid #888c8f;
+}
+
+.CoinsTable-th:not(.CoinsTable-th--disabled):active .CoinsTable-th__content,
+.CoinsTable-th--active .CoinsTable-th__content {
+  position: relative;
+  top: 2px;
 }
 
 .CoinName {

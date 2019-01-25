@@ -37,7 +37,7 @@ const Button = ({
       onClick={!disabled && onClick}
       {...otherProps}
     >
-      {children}
+      <span className={`${baseClass}__content`}>{children}</span>
     </button>
   );
 };
