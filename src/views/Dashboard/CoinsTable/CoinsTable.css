@@ -1,4 +1,4 @@
-.CoinsTableWrapper {
+.CoinsTable-wrapper {
   position: relative;
   /* overflow: hidden; */
   background: #fff;
@@ -8,7 +8,7 @@
   border-top: 2px solid #050608;
   border-left: 2px solid #050608;
 }
-.CoinsTableWrapper:before {
+.CoinsTable-wrapper:before {
   content: "";
   position: absolute;
   right: -4px;

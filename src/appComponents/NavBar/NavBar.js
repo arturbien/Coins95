@@ -1,6 +1,7 @@
 import React from "react";
 import AppBar from "../../components/AppBar/AppBar";
 import Button from "../../components/Button/Button";
+import Fab from "../../components/Fab/Fab";
 
 import "./NavBar.css";
 
@@ -20,6 +21,7 @@ const NavBar = props => {
       <Button fullWidth size="l">
         4
       </Button>
+      <Fab>{"+"}</Fab>
     </AppBar>
   );
 };

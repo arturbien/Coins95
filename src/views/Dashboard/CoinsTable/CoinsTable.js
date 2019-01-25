@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./CoinsTable.css";
 
+import { withRouter } from "react-router-dom";
+
 import FileIcon from "../../../components/FileIcon/FileIcon";
 
 class CoinsTable extends React.Component {
@@ -23,6 +25,7 @@ class CoinsTable extends React.Component {
   };
 
   render() {
+    const { history } = this.props;
     const { data } = this.state;
     const baseClass = "CoinsTable";
     console.log(data);
@@ -43,7 +46,11 @@ class CoinsTable extends React.Component {
     const tableData = orderedData.map((coinData, i) => {
       const { name, coinName, imageURL, PRICE, CHANGEPCT24HOUR } = coinData;
       return (
-        <tr className={`${baseClass}-tr`} key={i}>
+        <tr
+          className={`${baseClass}-tr`}
+          key={i}
+          onClick={() => history.push(`/coins/${name}`)}
+        >
           <td className={`${baseClass}-td`}>
             <span className={`CoinName`}>
               <FileIcon imageURL={imageURL} className={`CoinName__icon`} />
@@ -60,7 +67,7 @@ class CoinsTable extends React.Component {
       );
     });
     return (
-      <div className={`${baseClass}Wrapper`}>
+      <div className={`${baseClass}-wrapper`}>
         <table className={`${baseClass}`}>
           <thead className={`${baseClass}-thead`}>
             <tr className={`${baseClass}-tr`}>
@@ -75,13 +82,13 @@ class CoinsTable extends React.Component {
                 className={`${baseClass}-th`}
                 onClick={() => this.handleChangeOrder("price")}
               >
-                Price
+                <span className={`${baseClass}-th__content`}>Price</span>
               </th>
               <th
                 className={`${baseClass}-th`}
                 onClick={() => this.handleChangeOrder("change")}
               >
-                Change
+                <span className={`${baseClass}-th__content`}>Change</span>
               </th>
             </tr>
           </thead>
@@ -96,4 +103,4 @@ CoinsTable.propTypes = {
   data: PropTypes.array
 };
 
-export default CoinsTable;
+export default withRouter(CoinsTable);

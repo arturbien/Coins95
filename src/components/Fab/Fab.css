@@ -35,6 +35,7 @@ button {
 
   /* violet */
   background: #b96ac9;
+  /* background: radial-gradient(#6f2dbd, #b96ac9); */
   border-top: 4px solid #e980fc;
   border-left: 4px solid #e980fc;
   border-bottom: 4px solid #6f2dbd;
