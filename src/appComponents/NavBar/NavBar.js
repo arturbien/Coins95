@@ -8,16 +8,16 @@ const NavBar = props => {
   const baseClass = "NavBar";
   return (
     <AppBar className={baseClass}>
-      <Button fullWidth size="m">
+      <Button fullWidth size="l">
         1
       </Button>
-      <Button fullWidth size="m">
+      <Button fullWidth size="l">
         2
       </Button>
-      <Button fullWidth size="m">
+      <Button fullWidth size="l">
         3
       </Button>
-      <Button fullWidth size="m">
+      <Button fullWidth size="l">
         4
       </Button>
     </AppBar>

@@ -43,7 +43,7 @@
   padding: 0 3px;
 }
 .CoinsTable-tbody .CoinsTable-tr:hover {
-  background: navy;
+  background: #000080;
   color: #fff;
 }
 .CoinsTable-th {

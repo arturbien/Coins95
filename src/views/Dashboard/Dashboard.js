@@ -7,6 +7,7 @@ import { fetchCoinsList, fetchCoinsData } from "../../store/actions/coins";
 
 // import AppBar from "../../components/AppBar/AppBar";
 import Button from "../../components/Button/Button";
+import Fab from "../../components/Fab/Fab";
 import Divider from "../../components/Divider/Divider";
 // import CoinsList from "./CoinsList/CoinsList";
 
@@ -62,6 +63,7 @@ export class Dashboard extends Component {
         </span>
         <CoinsTable data={data} />
         <Divider />
+        <Fab>{"+"}</Fab>
       </section>
     );
   }
