@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 // import PropTypes from "prop-types";
+import "./CoinDetails.css";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import API from "../../API";
+import { fetchCoinsList, fetchCoinsData } from "../../store/actions/coins";
+
 // import { fetchCoinsData } from "../../store/actions/coins";
+
+import Frame from "../../components/Frame/Frame";
+import Loader from "../../components/Loader/Loader";
 
 function HLCAverage(high, low, close) {
   return (high + low + close) / 3;
@@ -23,6 +29,15 @@ export class CoinDetails extends Component {
   componentDidMount = async () => {
     const coin = this.props.match.params.coin;
     try {
+      if (!this.props.coinsInfo) {
+        await this.props.fetchCoinsList();
+      }
+      if (!this.props.coinsData) {
+        await this.props.fetchCoinsData(
+          this.props.userCoinsList,
+          this.props.currency
+        );
+      }
       const data = await API.fetchHistoricalData(coin);
       data.forEach(dataPoint => {
         dataPoint["HLCAverage"] = HLCAverage(
@@ -41,19 +56,38 @@ export class CoinDetails extends Component {
   };
 
   render() {
-    if (this.state.data) {
-      console.log("swag");
-      return null;
-    } else {
-      return <h1>loading...</h1>;
+    if (this.state.loading) {
+      return <Loader />;
     }
+    const { coinsInfo } = this.props;
+    console.log(this.props);
+    const coin = this.props.match.params.coin;
+    const { coinName } = coinsInfo[coin];
+    const baseClass = "CoinDetails";
+    return (
+      <section className={baseClass}>
+        <Frame title={coinName}>
+          <mark>swag</mark>
+          <div className="test" />
+        </Frame>
+      </section>
+    );
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  userCoinsList: state.user.coinsList,
 
-const mapDispatchToProps = dispatch => ({});
+  currency: state.user.currency,
+  coinsInfo: state.coins.coinsInfo,
+  coinsData: state.coins.coinsData
+});
 
+const mapDispatchToProps = dispatch => ({
+  fetchCoinsList: () => dispatch(fetchCoinsList()),
+  fetchCoinsData: (coinsList, currency) =>
+    dispatch(fetchCoinsData(coinsList, currency))
+});
 export default withRouter(
   connect(
     mapStateToProps,

@@ -1,0 +1,24 @@
+.CoinDetails {
+  position: relative;
+  padding: 1em;
+  width: 100%;
+  height: 100%;
+}
+
+.globeIcon {
+  height: 25px;
+  filter: grayscale(100);
+}
+.articleIcon {
+  height: 25px;
+  filter: grayscale(100);
+}
+.folderIcon {
+  height: 32px;
+  filter: grayscale(100);
+}
+
+.notepadIcon {
+  height: 24px;
+  filter: grayscale(100);
+}

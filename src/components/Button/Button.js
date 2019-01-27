@@ -34,7 +34,7 @@ const Button = ({
       className={rootClass}
       type={type}
       style={style}
-      onClick={!disabled && onClick}
+      onClick={disabled ? null : onClick}
       {...otherProps}
     >
       <span className={`${baseClass}__content`}>{children}</span>

@@ -5,21 +5,26 @@ import Fab from "../../components/Fab/Fab";
 
 import "./NavBar.css";
 
+import ArticleIcon from "../../img/article.png";
+import FolderIcon from "../../img/folder.png";
+import GlobeIcon from "../../img/globe.png";
+import NotepadIcon from "../../img/notepad.png";
+
 const NavBar = props => {
   const baseClass = "NavBar";
   return (
     <AppBar className={baseClass}>
-      <Button fullWidth size="l">
-        1
+      <Button fullWidth size="l" active>
+        <img className={"globeIcon"} src={GlobeIcon} />
       </Button>
       <Button fullWidth size="l">
-        2
+        <img className={"articleIcon"} src={ArticleIcon} />
       </Button>
       <Button fullWidth size="l">
-        3
+        <img className={"folderIcon"} src={FolderIcon} />
       </Button>
       <Button fullWidth size="l">
-        4
+        <img className={"notepadIcon"} src={NotepadIcon} />
       </Button>
       <Fab>{"+"}</Fab>
     </AppBar>

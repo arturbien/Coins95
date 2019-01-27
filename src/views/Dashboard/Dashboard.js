@@ -31,6 +31,12 @@ export class Dashboard extends Component {
   };
 
   render() {
+    if (
+      !this.props.coinsData ||
+      !this.props.coinsInfo ||
+      !this.props.userCoinsList
+    )
+      return <Loader />;
     const baseClass = "Dashboard";
     const { userCoinsList, coinsData, coinsInfo } = this.props;
     if (!coinsData || !coinsInfo) return <p>loading...</p>;
@@ -43,7 +49,6 @@ export class Dashboard extends Component {
 
     return (
       <section className={baseClass}>
-        <Loader />
         <span
           style={{
             display: "flex",
@@ -60,10 +65,16 @@ export class Dashboard extends Component {
           >
             Dashboard
           </h1>
-          <Button>+ Add</Button>
+          <Button onClick={() => console.log("SWAG")}>+ Add</Button>
         </span>
         <CoinsTable data={data} />
-        <Divider />
+        {/* <Divider /> */}
+        <div style={{ display: "flex" }}>
+          <Button fullWidth disabled>
+            Following
+          </Button>
+          <Button fullWidth>Top volume</Button>
+        </div>
       </section>
     );
   }
