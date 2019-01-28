@@ -7,7 +7,7 @@ import { fetchCoinsList, fetchCoinsData } from "../../store/actions/coins";
 
 // import AppBar from "../../components/AppBar/AppBar";
 import Button from "../../components/Button/Button";
-import Divider from "../../components/Divider/Divider";
+// import Divider from "../../components/Divider/Divider";
 import Loader from "../../components/Loader/Loader";
 // import CoinsList from "./CoinsList/CoinsList";
 
@@ -49,7 +49,11 @@ export class Dashboard extends Component {
 
     return (
       <section className={baseClass}>
-        <span
+        <div className="portfolio">
+          <div className="hole" />
+          <h5>Portfolio</h5>
+        </div>
+        {/* <span
           style={{
             display: "flex",
             alignItems: "center",
@@ -66,14 +70,14 @@ export class Dashboard extends Component {
             Dashboard
           </h1>
           <Button onClick={() => console.log("SWAG")}>+ Add</Button>
-        </span>
+        </span> */}
         <CoinsTable data={data} />
         {/* <Divider /> */}
         <div style={{ display: "flex" }}>
           <Button fullWidth disabled>
             Following
           </Button>
-          <Button fullWidth>Top volume</Button>
+          <Button fullWidth>Top 30</Button>
         </div>
       </section>
     );

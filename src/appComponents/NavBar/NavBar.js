@@ -15,16 +15,16 @@ const NavBar = props => {
   return (
     <AppBar className={baseClass}>
       <Button fullWidth size="l" active>
-        <img className={"globeIcon"} src={GlobeIcon} />
+        <img className={"globeIcon"} src={GlobeIcon} alt="icon" />
       </Button>
       <Button fullWidth size="l">
-        <img className={"articleIcon"} src={ArticleIcon} />
+        <img className={"articleIcon"} src={ArticleIcon} alt="icon" />
       </Button>
       <Button fullWidth size="l">
-        <img className={"folderIcon"} src={FolderIcon} />
+        <img className={"folderIcon"} src={FolderIcon} alt="icon" />
       </Button>
       <Button fullWidth size="l">
-        <img className={"notepadIcon"} src={NotepadIcon} />
+        <img className={"notepadIcon"} src={NotepadIcon} alt="icon" />
       </Button>
       <Fab>{"+"}</Fab>
     </AppBar>
