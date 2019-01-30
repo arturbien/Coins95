@@ -5,3 +5,21 @@
   right: 0;
   z-index: 1;
 }
+
+.globeIcon {
+  height: 25px;
+  filter: grayscale(100);
+}
+.articleIcon {
+  height: 25px;
+  filter: grayscale(100);
+}
+.folderIcon {
+  height: 32px;
+  filter: grayscale(100);
+}
+
+.notepadIcon {
+  height: 24px;
+  filter: grayscale(100);
+}

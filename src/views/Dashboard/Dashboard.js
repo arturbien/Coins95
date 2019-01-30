@@ -52,32 +52,23 @@ export class Dashboard extends Component {
         <div className="portfolio">
           <div className="hole" />
           <h5>Portfolio</h5>
+          <h4>29/01/2019</h4>
         </div>
-        {/* <span
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between"
-          }}
-        >
-          <h1
-            style={{
-              fontFamily: "TimesNewRoman",
-              fontSize: "2em",
-              margin: "0.5em 0"
-            }}
-          >
-            Dashboard
-          </h1>
-          <Button onClick={() => console.log("SWAG")}>+ Add</Button>
-        </span> */}
+
         <CoinsTable data={data} />
         {/* <Divider /> */}
         <div style={{ display: "flex" }}>
-          <Button fullWidth disabled>
-            Following
-          </Button>
-          <Button fullWidth>Top 30</Button>
+          <div style={{ width: "50%" }}>
+            <Button fullWidth>Top 30</Button>
+          </div>
+          <div style={{ width: "50%" }}>
+            <div style={{ display: "flex" }}>
+              <Button fullWidth>Following</Button>
+              <Button square disabled style={{ flexShrink: 0 }}>
+                +
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
     );

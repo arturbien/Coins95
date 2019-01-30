@@ -4,7 +4,7 @@ import { coinsLimit } from "../../config";
 
 const initialState = {
   coinsList: null,
-  currency: "USD"
+  currency: "EUR"
 };
 
 const userReducer = (state = initialState, action) => {

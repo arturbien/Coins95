@@ -29,7 +29,7 @@ class API {
     return formattedData;
   };
 
-  fetchCoinsData = async (coinsList, currency = "USD") => {
+  fetchCoinsData = async (coinsList, currency = "PLN") => {
     const query = `data/pricemultifull?fsyms=${coinsList.join(
       ","
     )}&tsyms=${currency}`;
@@ -45,7 +45,7 @@ class API {
 
   fetchHistoricalData = async coin => {
     const limit = 10;
-    const query = `https://min-api.cryptocompare.com/data/histoday?fsym=${coin}&tsym=USD&limit=${limit}`;
+    const query = `https://min-api.cryptocompare.com/data/histoday?fsym=${coin}&tsym=PLN&limit=${limit}`;
     const response = await this.axios.get(query);
     const data = response.data.Data;
     return data;
