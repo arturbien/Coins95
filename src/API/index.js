@@ -43,11 +43,22 @@ class API {
     return formattedData;
   };
 
-  fetchHistoricalData = async coin => {
+  fetchCoinsHistoricalData = async (coin, timeSpan) => {
+    // let limit;
+    switch (timeSpan) {
+      case "1H":
+      case "24H":
+      case "1M":
+      case "3M":
+      case "1Y":
+      default:
+    }
     const limit = 10;
     const query = `https://min-api.cryptocompare.com/data/histoday?fsym=${coin}&tsym=PLN&limit=${limit}`;
     const response = await this.axios.get(query);
     const data = response.data.Data;
+    console.log("👗", data);
+
     return data;
   };
 }

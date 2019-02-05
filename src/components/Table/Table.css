@@ -1,20 +1,14 @@
-.CoinsListWrapper {
+.Table-wrapper {
   position: relative;
-  margin: 1em 0;
   /* overflow: hidden; */
   background: #fff;
-  min-height: 350px;
-
+  margin-bottom: 1em;
   border-bottom: 2px solid #dfe0e3;
   border-right: 2px solid #dfe0e3;
   border-top: 2px solid #050608;
   border-left: 2px solid #050608;
 }
-
-.CoinsList {
-  position: relative;
-}
-.CoinsListWrapper:before {
+.Table-wrapper:before {
   content: "";
   position: absolute;
   right: -4px;
@@ -25,4 +19,13 @@
   border-right: 2px solid #fff;
   border-left: 2px solid #888c8f;
   border-top: 2px solid #888c8f;
+}
+
+.Table {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+  /* table-layout: fixed; */
 }

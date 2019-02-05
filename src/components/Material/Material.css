@@ -1,17 +1,15 @@
-.Window {
+.Material {
   position: relative;
   display: inline-block;
-  /* width: 100%; */
-  padding: 2px;
-  background: #ced0cf;
+
+  background: #bdbebd;
   border-top: 2px solid #fff;
   border-left: 2px solid #fff;
   border-bottom: 2px solid #050608;
   border-right: 2px solid #050608;
 }
 
-.Window:before {
-  padding: 0;
+.Material:before {
   content: "";
   display: inline-block;
   position: absolute;
@@ -26,6 +24,15 @@
   border-right: 2px solid #888c8f;
 }
 
-.Window.Window--noShadow {
-  box-shadow: none;
+.Material.Material--hollow {
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-top: 2px solid #050608;
+  border-left: 2px solid #050608;
+}
+.Material.Material--hollow:before {
+  border-bottom: 2px solid #dfe0e3;
+  border-right: 2px solid #dfe0e3;
+  border-top: 2px solid #888c8f;
+  border-left: 2px solid #888c8f;
 }

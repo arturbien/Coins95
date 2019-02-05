@@ -4,17 +4,9 @@ import PropTypes from "prop-types";
 
 import cx from "classnames";
 
-const WindowContent = ({
-  border,
-  className,
-  children,
-  style,
-  ...otherProps
-}) => {
+const WindowContent = ({ className, children, style, ...otherProps }) => {
   const baseClass = "WindowContent";
-  const rootClass = cx(baseClass, className, {
-    [`${baseClass}--border`]: border
-  });
+  const rootClass = cx(baseClass, className);
 
   return (
     <div className={rootClass} style={style}>
@@ -28,7 +20,6 @@ WindowContent.defaultProps = {
 };
 
 WindowContent.propTypes = {
-  border: PropTypes.bool,
   className: PropTypes.string,
   style: PropTypes.object,
   children: PropTypes.node

@@ -11,7 +11,10 @@ class App extends Component {
     return (
       <BrowserRouter>
         <>
-          <NavBar />
+          <Switch>
+            <Route exact path={"/coins/:coin"} component={null} />
+            <NavBar />
+          </Switch>
           <Switch>
             <Route exact path={"/coins"} component={Dashboard} />
             <Route exact path={"/coins/:coin"} component={CoinDetails} />

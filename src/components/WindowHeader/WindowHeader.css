@@ -1,6 +1,7 @@
 .WindowHeader {
   display: flex;
-  padding: 4px 6px;
+  align-items: center;
+  height: 35px;
   margin-bottom: 2px;
   font-weight: 700;
   color: #fff;

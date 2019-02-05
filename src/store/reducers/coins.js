@@ -1,6 +1,7 @@
 import {
   FETCH_COINS_LIST_SUCCESS,
-  FETCH_COINS_DATA_SUCCESS
+  FETCH_COINS_DATA_SUCCESS,
+  FETCH_COINS_HISTORICAL_DATA_SUCCESS
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -16,6 +17,9 @@ const coinsReducer = (state = initialState, action) => {
       return { ...state, coinsList, coinsInfo };
     case FETCH_COINS_DATA_SUCCESS:
       return { ...state, coinsData: action.payload };
+    case FETCH_COINS_HISTORICAL_DATA_SUCCESS:
+      const { timeSpan, data } = action.payload;
+      return { ...state, coinsHistoricalData: { data, timeSpan } };
     default:
       return state;
   }
