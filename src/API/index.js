@@ -29,7 +29,7 @@ class API {
     return formattedData;
   };
 
-  fetchCoinsData = async (coinsList, currency = "PLN") => {
+  fetchCoinsData = async (coinsList, currency = "EUR") => {
     const query = `data/pricemultifull?fsyms=${coinsList.join(
       ","
     )}&tsyms=${currency}`;
@@ -44,17 +44,35 @@ class API {
   };
 
   fetchCoinsHistoricalData = async (coin, timeSpan) => {
+    const maxDataPoints = 180;
     // let limit;
+    let query, limit, aggregate;
     switch (timeSpan) {
       case "1H":
+        limit = 60;
+        query = `https://min-api.cryptocompare.com/data/histominute?fsym=${coin}&tsym=EUR&limit=${limit}`;
+        break;
       case "24H":
+        limit = 24 * 60;
+        aggregate = limit / maxDataPoints;
+        query = `https://min-api.cryptocompare.com/data/histominute?fsym=${coin}&tsym=EUR&limit=${maxDataPoints}&aggregate=${aggregate}`;
+        break;
       case "1M":
+        limit = 30 * 24;
+        aggregate = limit / maxDataPoints;
+        query = `https://min-api.cryptocompare.com/data/histohour?fsym=${coin}&tsym=EUR&limit=${maxDataPoints}&aggregate=${aggregate}`;
+        break;
       case "3M":
+        limit = 90;
+        query = `https://min-api.cryptocompare.com/data/histoday?fsym=${coin}&tsym=EUR&limit=${maxDataPoints}`;
+        break;
       case "1Y":
+        limit = 360;
+        aggregate = limit / maxDataPoints;
+        query = `https://min-api.cryptocompare.com/data/histoday?fsym=${coin}&tsym=EUR&limit=${maxDataPoints}&aggregate=${aggregate}`;
+        break;
       default:
     }
-    const limit = 10;
-    const query = `https://min-api.cryptocompare.com/data/histoday?fsym=${coin}&tsym=PLN&limit=${limit}`;
     const response = await this.axios.get(query);
     const data = response.data.Data;
     console.log("👗", data);

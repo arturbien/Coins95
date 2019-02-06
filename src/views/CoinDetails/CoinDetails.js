@@ -12,6 +12,8 @@ import {
   fetchCoinsHistoricalData
 } from "../../store/actions/coins";
 
+import SimpleLineChart from "./SimpleLineChart/SimpleLineChart";
+
 import Frame from "../../components/Frame/Frame";
 import Button from "../../components/Button/Button";
 import CenteredLoader from "../../appComponents/CenteredLoader/CenteredLoader";
@@ -27,16 +29,16 @@ export class CoinDetails extends Component {
   // static propTypes = {
   // prop: PropTypes
   // };
-
+  _isMounted = false;
   state = {
     coin: this.props.match.params.coin,
     data: null,
-    dataLoading: true,
+    dataLoading: false,
     infoLoading: true,
     timeSpan: "24H"
   };
-
   componentDidMount = async () => {
+    this._isMounted = true;
     const { timeSpan } = this.state;
     try {
       if (!this.props.coinInfo) {
@@ -49,23 +51,24 @@ export class CoinDetails extends Component {
         );
       }
       this.handleFetchHistoricalData(timeSpan);
-      this.setState({ infoLoading: false });
+      if (this._isMounted) this.setState({ infoLoading: false });
     } catch (error) {
       console.log("Error in CoinDetails componentDidMount");
-      this.setState({ infoLoading: false });
+      if (this._isMounted) this.setState({ infoLoading: false });
     }
   };
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
 
   async handleFetchHistoricalData(timeSpan) {
+    if (this.state.dataLoading) return;
+    this.setState({ timeSpan, dataLoading: true });
     // for optimistic update
     const previousTimespan = this.state.timeSpan;
-    this.setState({ timeSpan, dataLoading: true });
     const coin = this.state.coin;
     try {
-      const data = await API.fetchCoinsHistoricalData(
-        coin,
-        this.state.timeSpan
-      );
+      const data = await API.fetchCoinsHistoricalData(coin, timeSpan);
       data.forEach(dataPoint => {
         dataPoint["HLCAverage"] = HLCAverage(
           dataPoint.high,
@@ -74,18 +77,20 @@ export class CoinDetails extends Component {
         );
       });
 
-      this.setState({ dataLoading: false, data, timeSpan });
+      if (this._isMounted)
+        this.setState({ dataLoading: false, data, timeSpan });
     } catch (error) {
       console.log("Error in CoinDetails handleFetchHistoricalData ");
-      this.setState({
-        dataLoading: false,
-        timeSpan: previousTimespan
-      });
+      if (this._isMounted)
+        this.setState({
+          dataLoading: false,
+          timeSpan: previousTimespan
+        });
     }
   }
   render() {
     const baseClass = "CoinDetails";
-    const { dataLoading, infoLoading, timeSpan } = this.state;
+    const { data, dataLoading, infoLoading, timeSpan } = this.state;
     const { coinInfo, coinData } = this.props;
 
     let coinName, symbol, sortOrder, HIGH24HOUR, LOW24HOUR, MKTCAP, imageURL;
@@ -131,7 +136,19 @@ export class CoinDetails extends Component {
         <WindowContent className={`${baseClass}-windowContent`}>
           <section className={baseClass}>
             <div className={`${baseClass}-layout`}>
-              <div className="window">{dataLoading && <CenteredLoader />}</div>
+              <div className="window">
+                {(dataLoading || !data) && <CenteredLoader />}
+                {data && (
+                  <SimpleLineChart
+                    data={data.map((dataPoint, i) => ({
+                      name: i,
+                      AVG: dataPoint.HLCAverage,
+                      HIGH: dataPoint.high,
+                      LOW: dataPoint.low
+                    }))}
+                  />
+                )}
+              </div>
               <div className="btns">
                 <Button
                   size="s"
@@ -211,6 +228,7 @@ export class CoinDetails extends Component {
                   </div>
                 </div>
               </Frame>
+              <Button style={{ marginTop: "1em" }}>TEST</Button>
             </div>
           </section>
         </WindowContent>
