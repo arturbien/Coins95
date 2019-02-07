@@ -1,0 +1,13 @@
+.SelectItem {
+  height: 35px;
+  font-size: 1em;
+  width: 100%;
+  /* display: inline-block; */
+  line-height: 35px;
+  padding: 0 0.5em;
+}
+
+.SelectItem:hover {
+  background: #000080;
+  color: #fff;
+}

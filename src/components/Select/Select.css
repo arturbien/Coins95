@@ -1,0 +1,95 @@
+.Select-wrapper {
+  position: relative;
+}
+.Select {
+  font-size: 1em;
+  position: absolute;
+  bottom: 0;
+  /* width: calc(100% + 4px); */
+  left: -2px;
+  background: #fff;
+  border: 2px solid #050608;
+  border-top: none;
+  transform: translateY(calc(100% + 2px));
+  /* box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.35); */
+  cursor: pointer;
+}
+
+.Select-header {
+  font-size: 1em;
+  height: 30px;
+  background: #fff;
+  border: none;
+  width: 100%;
+  text-align-last: left;
+  padding-left: 0.5em;
+  padding-right: 38px;
+  position: relative;
+  /* overflow: hidden; */
+  background: #fff;
+  border-bottom: 2px solid #dfe0e3;
+  border-right: 2px solid #dfe0e3;
+  border-top: 2px solid #050608;
+  border-left: 2px solid #050608;
+  cursor: pointer;
+}
+.Select-header:before {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #888c8f;
+  border-top: 2px solid #888c8f;
+}
+
+.Select-button {
+  display: inline-block;
+  width: 28px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
+  background: #ced0cf;
+  /* border-top: 2px solid #fff;
+  border-left: 2px solid #fff; */
+  border-bottom: 2px solid #050608;
+  border-right: 2px solid #050608;
+  border-top: 2px solid #dfe0e3;
+  border-left: 2px solid #dfe0e3;
+  font-weight: normal;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.Select-button:before {
+  padding: 0;
+  content: "";
+  display: inline-block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #888c8f;
+  border-right: 2px solid #888c8f;
+}
+
+.Select-button__icon {
+  position: relative;
+  left: 50%;
+  top: 4px;
+  transform: translate(-50%, -50%);
+  width: 0px;
+  height: 0px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  display: inline-block;
+  border-top: 6px solid #050608;
+}
