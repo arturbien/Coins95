@@ -1,18 +1,25 @@
 .Select-wrapper {
+  height: 32px;
   position: relative;
+  display: inline-block;
+  width: 200px;
 }
 .Select {
   font-size: 1em;
   position: absolute;
   bottom: 0;
-  /* width: calc(100% + 4px); */
+  width: calc(100% + 4px);
+  transform: translateY(100%);
   left: -2px;
   background: #fff;
   border: 2px solid #050608;
   border-top: none;
-  transform: translateY(calc(100% + 2px));
-  /* box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.35); */
+  box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.35);
   cursor: pointer;
+  z-index: 99;
+}
+.Select--noShadow {
+  box-shadow: none;
 }
 
 .Select-header {
@@ -32,6 +39,7 @@
   border-top: 2px solid #050608;
   border-left: 2px solid #050608;
   cursor: pointer;
+  white-space: nowrap;
 }
 .Select-header:before {
   content: "";
@@ -82,9 +90,9 @@
 }
 
 .Select-button__icon {
-  position: relative;
+  position: absolute;
   left: 50%;
-  top: 4px;
+  top: 50%;
   transform: translate(-50%, -50%);
   width: 0px;
   height: 0px;

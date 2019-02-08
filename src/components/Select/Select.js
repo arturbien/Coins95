@@ -10,14 +10,12 @@ export class Select extends React.Component {
   static propTypes = {
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
     className: PropTypes.string,
-    style: PropTypes.object,
-    fullWidth: PropTypes.bool,
+    width: PropTypes.number,
     noShadow: PropTypes.bool,
     onSelect: PropTypes.func.isRequired
   };
   static defaultProps = {
     style: {},
-    fullWidth: false,
     noShadow: false
   };
 
@@ -34,37 +32,38 @@ export class Select extends React.Component {
   };
 
   render() {
-    const { noShadow, className, style, fullWidth, otherProps } = this.props;
+    const { noShadow, className, width, otherProps } = this.props;
     const { items, selectedItem, open } = this.state;
     const baseClass = "Select";
 
     const rootClass = cx(baseClass, className, {
-      [`${baseClass}--fullWidth`]: fullWidth,
       [`${baseClass}--noShadow`]: noShadow
     });
     return (
-      <div className={`${baseClass}-wrapper`}>
-        <ul className={rootClass} {...otherProps} style={style}>
-          <button onClick={this.toggle} className={`${baseClass}-header`}>
-            {items.length ? items[selectedItem].title : ""}
-            <span className={`${baseClass}-button`}>
-              <span className={`${baseClass}-button__icon`} />
-            </span>
-          </button>
-          {open &&
-            items.map((item, i) => (
+      <div
+        className={`${baseClass}-wrapper`}
+        style={{ width: width ? width : "auto" }}
+      >
+        <button onClick={this.toggle} className={`${baseClass}-header`}>
+          {items.length ? items[selectedItem].title : ""}
+          <span className={`${baseClass}-button`}>
+            <span className={`${baseClass}-button__icon`} />
+          </span>
+        </button>
+        {open && (
+          <ul className={rootClass} {...otherProps}>
+            {items.map((item, i) => (
               <SelectItem key={i} onClick={() => this.handleSelect(i)}>
                 {item.title}
               </SelectItem>
             ))}
-        </ul>
+          </ul>
+        )}
       </div>
     );
   }
 }
 Select.defaultProps = {
-  style: {},
-  fullWidth: false,
   noShadow: false
 };
 export default Select;

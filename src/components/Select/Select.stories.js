@@ -8,7 +8,8 @@ export const actions = { onClick: action("onClick") };
 
 const items = [
   { value: "volvo", title: "Volvo" },
-  { value: "BMW", title: "BMW" }
+  { value: "BMW", title: "BMW" },
+  { value: "longStuff", title: "Hello world!" }
 ];
 const onSelect = value => console.log(value);
 storiesOf("Select", module)
@@ -22,8 +23,7 @@ storiesOf("Select", module)
       {story()}
     </div>
   ))
-  .add("default", () => <Select items={items} onSelect={onSelect} />)
-  .add("noShadow", () => <Select noShadow items={items} onSelect={onSelect} />)
-  .add("fullWidth", () => (
-    <Select fullWidth items={items} onSelect={onSelect} />
-  ));
+  .add("default", () => (
+    <Select items={items} onSelect={onSelect} width={140} />
+  ))
+  .add("noShadow", () => <Select noShadow items={items} onSelect={onSelect} />);

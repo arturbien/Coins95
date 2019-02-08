@@ -20,6 +20,7 @@ import CenteredLoader from "../../appComponents/CenteredLoader/CenteredLoader";
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import Window from "../../components/Window/Window";
 import WindowContent from "../../components/WindowContent/WindowContent";
+import Select from "../../components/Select/Select";
 
 function HLCAverage(high, low, close) {
   return (high + low + close) / 3;
@@ -136,6 +137,18 @@ export class CoinDetails extends Component {
         <WindowContent className={`${baseClass}-windowContent`}>
           <section className={baseClass}>
             <div className={`${baseClass}-layout`}>
+              <div style={{ marginBottom: "8px" }}>
+                <Select
+                  width={85}
+                  onSelect={value => console.log(value)}
+                  items={[
+                    { value: 1, title: "EUR" },
+                    { value: 2, title: "USD" },
+                    { value: 3, title: "PLN" }
+                  ]}
+                />
+              </div>
+
               <div className="window">
                 {(dataLoading || !data) && <CenteredLoader />}
                 {data && (

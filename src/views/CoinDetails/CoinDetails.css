@@ -10,8 +10,8 @@
 .CoinDetails-windowHeader__icon {
   height: 24px;
   width: auto;
-  margin: 0 6px;
   background: #fff;
+  margin-right: 0.5em;
 }
 .CoinDetails-windowContent {
   flex: 1;

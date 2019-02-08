@@ -4,7 +4,9 @@
   width: 100%;
   /* display: inline-block; */
   line-height: 35px;
-  padding: 0 0.5em;
+  padding-left: 0.5em;
+  padding-right: 38px;
+  white-space: nowrap;
 }
 
 .SelectItem:hover {
