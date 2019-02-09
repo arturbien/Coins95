@@ -5,17 +5,17 @@ import "./Radio.css";
 // import "./common.css";
 import cx from "classnames";
 
-const Radio = props => {
-  const { onChange, label, value, checked, name } = props;
+const Radio = ({ onChange, disabled, label, value, checked, name }) => {
   const baseClass = "Radio";
   const rootClass = cx(baseClass, {
-    [`${baseClass}--checked`]: checked
+    [`${baseClass}--checked`]: checked,
+    [`${baseClass}--disabled`]: disabled
   });
   return (
     <label className={`${rootClass}`}>
       {label}
       <input
-        onChange={onChange}
+        onChange={!disabled && onChange}
         className={`${baseClass}__input`}
         type="radio"
         value={value}
@@ -29,6 +29,7 @@ const Radio = props => {
 
 Radio.defaultProps = {
   checked: false,
+  disabled: false,
   name: "",
   value: null,
   label: ""
@@ -39,7 +40,8 @@ Radio.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  checked: PropTypes.bool
+  checked: PropTypes.bool,
+  disabled: PropTypes.bool
 };
 
 export default Radio;

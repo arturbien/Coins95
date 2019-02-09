@@ -26,7 +26,7 @@
   left: 0;
   height: 16px;
   width: 16px;
-  background-color: #eee;
+  background-color: #fff;
   border-radius: 50%;
 
   border-bottom: 2px solid #dfe0e3;
@@ -34,6 +34,7 @@
   border-top: 2px solid #050608;
   border-left: 2px solid #050608;
 }
+
 .Radio__checkmark:before {
   content: "";
   position: absolute;
@@ -49,9 +50,7 @@
   /* border-left: 2px solid #050608;
   border-top: 2px solid #050608; */
 }
-.Radio--checked ~ .Radio__checkmark {
-  background-color: #fff;
-}
+
 .Radio--checked .Radio__checkmark:after {
   position: absolute;
   content: "";
@@ -63,4 +62,16 @@
   transform: translate(-50%, -50%);
   border-radius: 50%;
   background: #000;
+}
+.Radio--disabled {
+  color: gray;
+  text-shadow: 1px 1px #fff;
+  filter: grayscale(100%);
+}
+.Radio--disabled.Radio--checked .Radio__checkmark:after {
+  background: #888c8f !important;
+}
+
+.Radio--disabled .Radio__checkmark {
+  background: #ced0cf;
 }

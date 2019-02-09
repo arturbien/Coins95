@@ -5,17 +5,17 @@ import "./Checkbox.css";
 // import "./common.css";
 import cx from "classnames";
 
-const Checkbox = props => {
-  const { onChange, label, value, checked, name } = props;
+const Checkbox = ({ onChange, label, disabled, value, checked, name }) => {
   const baseClass = "Checkbox";
   const rootClass = cx(baseClass, {
-    [`${baseClass}--checked`]: checked
+    [`${baseClass}--checked`]: checked,
+    [`${baseClass}--disabled`]: disabled
   });
   return (
     <label className={`${rootClass}`}>
       {label}
       <input
-        onChange={onChange}
+        onChange={!disabled && onChange}
         className={`${baseClass}__input`}
         type="checkbox"
         value={value}
@@ -31,7 +31,8 @@ Checkbox.defaultProps = {
   checked: false,
   name: "",
   value: null,
-  label: ""
+  label: "",
+  disabled: false
 };
 
 Checkbox.propTypes = {
@@ -39,7 +40,8 @@ Checkbox.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  checked: PropTypes.bool
+  checked: PropTypes.bool,
+  disabled: PropTypes.bool
 };
 
 export default Checkbox;

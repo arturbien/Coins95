@@ -54,6 +54,7 @@ class CheckboxGroup extends React.Component {
           value="pizza"
           label="Pizza 🍕"
           name="food"
+          disabled
         />
       </>
     );
