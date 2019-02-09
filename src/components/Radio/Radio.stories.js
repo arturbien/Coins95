@@ -1,26 +1,54 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
 
 import Radio from "./Radio";
-
-const props = {
-  type: "button",
-  onClick: null,
-  style: {}
-};
-
-export const actions = { onClick: action("onClick") };
 
 storiesOf("Radio", module)
   .addDecorator(story => (
     <div
       style={{
         padding: "5rem",
-        background: "teal"
+        background: "#ced0cf"
       }}
     >
       {story()}
     </div>
   ))
-  .add("default", () => <Radio {...actions}>+</Radio>);
+  .add("default", () => <RadioGroup />);
+
+class RadioGroup extends React.Component {
+  state = {
+    checkedValue: null
+  };
+
+  handleChange = e => this.setState({ checkedValue: e.target.value });
+
+  render() {
+    const { checkedValue } = this.state;
+    return (
+      <>
+        <Radio
+          checked={checkedValue === "bmw"}
+          onChange={this.handleChange}
+          value="bmw"
+          label="bmw"
+          name="cars"
+        />
+        <Radio
+          checked={checkedValue === "volvo"}
+          onChange={this.handleChange}
+          value="volvo"
+          label="volvo"
+          name="cars"
+        />
+        <Radio
+          checked={checkedValue === "audi"}
+          onChange={this.handleChange}
+          value="audi"
+          label="audi"
+          name="cars"
+        />
+      </>
+    );
+  }
+}

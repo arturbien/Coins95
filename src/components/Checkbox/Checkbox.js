@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import "./Radio.css";
+import "./Checkbox.css";
 // import "./common.css";
 import cx from "classnames";
 
-const Radio = props => {
+const Checkbox = props => {
   const { onChange, label, value, checked, name } = props;
-  const baseClass = "Radio";
+  const baseClass = "Checkbox";
   const rootClass = cx(baseClass, {
     [`${baseClass}--checked`]: checked
   });
@@ -17,7 +17,7 @@ const Radio = props => {
       <input
         onChange={onChange}
         className={`${baseClass}__input`}
-        type="radio"
+        type="checkbox"
         value={value}
         checked={checked}
         name={name}
@@ -27,14 +27,14 @@ const Radio = props => {
   );
 };
 
-Radio.defaultProps = {
+Checkbox.defaultProps = {
   checked: false,
   name: "",
   value: null,
   label: ""
 };
 
-Radio.propTypes = {
+Checkbox.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -42,4 +42,4 @@ Radio.propTypes = {
   checked: PropTypes.bool
 };
 
-export default Radio;
+export default Checkbox;

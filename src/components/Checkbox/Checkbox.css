@@ -1,4 +1,4 @@
-.Radio {
+.Checkbox {
   display: block;
   position: relative;
   padding-left: 1.5em;
@@ -11,15 +11,13 @@
   user-select: none;
 }
 
-/* Hide the browser's default radio button */
-.Radio__input {
+.Checkbox__input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
 }
 
-/* Create a custom radio button */
-.Radio__checkmark {
+.Checkbox__checkmark {
   position: absolute;
   display: inline-block;
   top: 0;
@@ -27,21 +25,19 @@
   height: 16px;
   width: 16px;
   background-color: #eee;
-  border-radius: 50%;
 
   border-bottom: 2px solid #dfe0e3;
   border-right: 2px solid #dfe0e3;
   border-top: 2px solid #050608;
   border-left: 2px solid #050608;
 }
-.Radio__checkmark:before {
+.Checkbox__checkmark:before {
   content: "";
   position: absolute;
   left: -3px;
   top: -3px;
   width: calc(100% + 4px);
   height: calc(100% + 4px);
-  border-radius: 50%;
   border-bottom: 1px solid #fff;
   border-right: 1px solid #fff;
   border-left: 1px solid #888c8f;
@@ -49,18 +45,20 @@
   /* border-left: 2px solid #050608;
   border-top: 2px solid #050608; */
 }
-.Radio--checked ~ .Radio__checkmark {
+.Checkbox--checked ~ .Checkbox__checkmark {
   background-color: #fff;
 }
-.Radio--checked .Radio__checkmark:after {
-  position: absolute;
+.Checkbox--checked .Checkbox__checkmark:after {
   content: "";
-  display: inline-block;
-  top: 50%;
+  display: block;
+  position: absolute;
   left: 50%;
-  width: 6px;
-  height: 6px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: #000;
+  top: calc(50% - 1px);
+  width: 3px;
+  height: 7px;
+
+  border: solid #000;
+  border-width: 0 3px 3px 0;
+
+  transform: translate(-50%, -50%) rotate(45deg);
 }
