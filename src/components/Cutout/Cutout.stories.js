@@ -1,9 +1,9 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 
-import DatePicker from "./DatePicker";
+import Cutout from "./Cutout";
 
-storiesOf("DatePicker", module)
+storiesOf("Cutout", module)
   .addDecorator(story => (
     <div
       style={{
@@ -15,5 +15,7 @@ storiesOf("DatePicker", module)
     </div>
   ))
   .add("default", () => (
-    <DatePicker onCancel={() => null} onChange={date => console.log(date)} />
+    <Cutout>
+      <h1>swag</h1>
+    </Cutout>
   ));

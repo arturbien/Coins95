@@ -1,13 +1,15 @@
 .Select-wrapper {
-  height: 32px;
+  height: 28px;
+
   position: relative;
-  display: inline-block;
+  /* display: inline-block; */
   width: 200px;
+  background: #fff;
 }
 .Select {
   font-size: 1em;
   position: absolute;
-  bottom: 0;
+  bottom: -4px;
   width: calc(100% + 4px);
   transform: translateY(100%);
   left: -2px;
@@ -21,37 +23,23 @@
 .Select--noShadow {
   box-shadow: none;
 }
-
+.Select--fixedHeight {
+  overflow-y: scroll;
+}
 .Select-header {
   font-size: 1em;
-  height: 30px;
-  background: #fff;
+  height: 26px;
   border: none;
   width: 100%;
-  text-align-last: left;
+  text-align: left;
   padding-left: 0.5em;
   padding-right: 38px;
   position: relative;
+  background: none;
   /* overflow: hidden; */
-  background: #fff;
-  border-bottom: 2px solid #dfe0e3;
-  border-right: 2px solid #dfe0e3;
-  border-top: 2px solid #050608;
-  border-left: 2px solid #050608;
+
   cursor: pointer;
   white-space: nowrap;
-}
-.Select-header:before {
-  content: "";
-  position: absolute;
-  right: -4px;
-  top: -4px;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  border-bottom: 2px solid #fff;
-  border-right: 2px solid #fff;
-  border-left: 2px solid #888c8f;
-  border-top: 2px solid #888c8f;
 }
 
 .Select-button {

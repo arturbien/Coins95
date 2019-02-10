@@ -3,16 +3,17 @@ import PropTypes from "prop-types";
 import cx from "classnames";
 
 import "./Table.css";
+import Cutout from "../Cutout/Cutout";
 
 const Table = ({ className, children, style, ...otherProps }) => {
   const baseClass = "Table";
   const rootClass = cx(baseClass, className);
   return (
-    <div className={`${baseClass}-wrapper`}>
+    <Cutout className={`${baseClass}-wrapper`}>
       <table className={rootClass} style={style} {...otherProps}>
         {children}
       </table>
-    </div>
+    </Cutout>
   );
 };
 

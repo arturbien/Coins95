@@ -4,6 +4,8 @@ import cx from "classnames";
 
 import "./TextField.css";
 
+import Cutout from "../Cutout/Cutout";
+
 const TextField = ({
   onChange,
   value,
@@ -18,7 +20,7 @@ const TextField = ({
     [`${baseClass}--disabled`]: disabled
   });
   return (
-    <div
+    <Cutout
       className={cx(`${baseClass}-wrapper`, className)}
       style={{ width: width ? width : "auto" }}
     >
@@ -30,7 +32,7 @@ const TextField = ({
         className={rootClass}
         type={type}
       />
-    </div>
+    </Cutout>
   );
 };
 

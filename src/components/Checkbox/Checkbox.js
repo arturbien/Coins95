@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import cx from "classnames";
 
 import "./Checkbox.css";
-// import "./common.css";
-import cx from "classnames";
+
+import Cutout from "../Cutout/Cutout";
 
 const Checkbox = ({ onChange, label, disabled, value, checked, name }) => {
   const baseClass = "Checkbox";
@@ -22,7 +23,7 @@ const Checkbox = ({ onChange, label, disabled, value, checked, name }) => {
         checked={checked}
         name={name}
       />
-      <span className={`${baseClass}__checkmark`} />
+      <Cutout className={`${baseClass}__checkmark`} />
     </label>
   );
 };

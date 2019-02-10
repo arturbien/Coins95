@@ -5,6 +5,7 @@ import "./Radio.css";
 // import "./common.css";
 import cx from "classnames";
 
+import Cutout from "../Cutout/Cutout";
 const Radio = ({ onChange, disabled, label, value, checked, name }) => {
   const baseClass = "Radio";
   const rootClass = cx(baseClass, {
@@ -22,7 +23,7 @@ const Radio = ({ onChange, disabled, label, value, checked, name }) => {
         checked={checked}
         name={name}
       />
-      <span className={`${baseClass}__checkmark`} />
+      <Cutout className={`${baseClass}__checkmark`} />
     </label>
   );
 };

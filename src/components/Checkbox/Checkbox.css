@@ -18,7 +18,7 @@
 }
 
 .Checkbox__checkmark {
-  position: absolute;
+  position: absolute !important;
   display: inline-block;
   top: 50%;
   left: 0;
@@ -26,26 +26,8 @@
   height: 18px;
   width: 18px;
   background-color: #fff;
+}
 
-  border-bottom: 2px solid #dfe0e3;
-  border-right: 2px solid #dfe0e3;
-  border-top: 2px solid #050608;
-  border-left: 2px solid #050608;
-}
-.Checkbox__checkmark:before {
-  content: "";
-  position: absolute;
-  left: -4px;
-  top: -4px;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  border-bottom: 2px solid #fff;
-  border-right: 2px solid #fff;
-  border-left: 2px solid #888c8f;
-  border-top: 2px solid #888c8f;
-  /* border-left: 2px solid #050608;
-  border-top: 2px solid #050608; */
-}
 .Checkbox--checked .Checkbox__checkmark:after {
   content: "";
   display: block;

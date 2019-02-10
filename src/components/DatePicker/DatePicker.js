@@ -10,17 +10,42 @@ import WindowContent from "../WindowContent/WindowContent";
 import Frame from "../Frame/Frame";
 import Select from "../Select/Select";
 import NumberField from "../NumberField/NumberField";
+import Cutout from "../Cutout/Cutout";
+import Button from "../Button/Button";
 
+function daysInMonth(year, month) {
+  return new Date(year, month, 0).getDate();
+}
+function dayIndex(year, month, day) {
+  return new Date(year, month, day).getDay();
+}
 class DatePicker extends Component {
+  static propTypes = {
+    className: PropTypes.string,
+    noShadow: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired
+  };
+  static defaultProps = {
+    style: {}
+  };
+
   state = {
-    month: 0,
-    year: 1991
+    day: 10,
+    month: 2,
+    year: 2019
   };
   handleMonthSelect = month => this.setState({ month });
   handleYearSelect = year => this.setState({ year });
+  handleDaySelect = day => this.setState({ day });
+  handleChange = () => {
+    const { year, month, day } = this.state;
+    const date = new Date(year, month, day);
+    this.props.onChange(date);
+  };
   render() {
-    const { month, year } = this.state;
-
+    let { day, month, year } = this.state;
+    const { noShadow, className, onCancel } = this.props;
     const baseClass = "DatePicker";
 
     const months = [
@@ -37,31 +62,89 @@ class DatePicker extends Component {
       { value: 11, title: "November" },
       { value: 12, title: "December" }
     ];
+    console.log("days in month: ", daysInMonth(year, month));
+    console.log("day index", dayIndex(year, month, day));
+    console.log("first day index", dayIndex(year, month, 1));
+
+    const dayPickerItems = Array.apply(null, { length: 35 });
+    const firstDayIndex = dayIndex(year, month, 1);
+    const daysNumber = daysInMonth(year, month);
+    day = day < daysNumber ? day : daysNumber;
+    dayPickerItems.forEach((item, i) => {
+      console.log("swag");
+      if (i >= firstDayIndex && i < daysNumber + firstDayIndex) {
+        let dayNumber = i - firstDayIndex + 1;
+        console.log(dayNumber);
+
+        dayPickerItems[i] = (
+          <div
+            key={i}
+            onClick={() => {
+              console.log("🥩", dayNumber);
+              this.handleDaySelect(dayNumber);
+            }}
+            className={`${baseClass}-datePicker__item`}
+          >
+            <span
+              className={cx(`${baseClass}-datePicker__item-content`, {
+                [`${baseClass}-datePicker__item-content--active`]:
+                  dayNumber === day
+              })}
+            >
+              {dayNumber}
+            </span>
+          </div>
+        );
+      } else {
+        dayPickerItems[i] = (
+          <div key={i} className={`${baseClass}-datePicker__item`} />
+        );
+      }
+    });
+    console.log(dayPickerItems);
+
     return (
-      <div>
-        <Window>
-          <WindowHeader>Date/Time Properties</WindowHeader>
-          <WindowContent>
-            <Frame title="Date">
-              <div className={`${baseClass}-toolbar`}>
-                <Select
-                  items={months}
-                  onSelect={this.handleMonthSelect}
-                  width={128}
-                  className={`${baseClass}-toolbar__input`}
-                />
-                <NumberField
-                  value={year}
-                  onChange={this.handleYearSelect}
-                  width={128}
-                  className={`${baseClass}-toolbar__input`}
-                />
-              </div>
-              <h1>swag</h1>
-            </Frame>
-          </WindowContent>
-        </Window>
-      </div>
+      <Window style={{ margin: 20 }} className={className} noShadow={noShadow}>
+        <WindowHeader>📆 Date</WindowHeader>
+        <WindowContent>
+          <div className={`${baseClass}-toolbar`}>
+            <Select
+              items={months}
+              selectedIndex={month - 1}
+              onSelect={this.handleMonthSelect}
+              width={128}
+              height={200}
+              className={`${baseClass}-toolbar__input`}
+            />
+            <NumberField
+              value={year}
+              onChange={this.handleYearSelect}
+              width={90}
+              className={`${baseClass}-toolbar__input`}
+            />
+          </div>
+          <Cutout className={`${baseClass}-datePicker`}>
+            <div className={`${baseClass}-dayNames`}>
+              <div className={`${baseClass}-datePicker__item`}>S</div>
+              <div className={`${baseClass}-datePicker__item`}>M</div>
+              <div className={`${baseClass}-datePicker__item`}>T</div>
+              <div className={`${baseClass}-datePicker__item`}>W</div>
+              <div className={`${baseClass}-datePicker__item`}>T</div>
+              <div className={`${baseClass}-datePicker__item`}>F</div>
+              <div className={`${baseClass}-datePicker__item`}>S</div>
+            </div>
+            <div className={`${baseClass}-dates`}>{dayPickerItems}</div>
+          </Cutout>
+          <div className={`${baseClass}-buttons`}>
+            <Button fullWidth onClick={onCancel}>
+              Cancel
+            </Button>
+            <Button fullWidth onClick={this.handleChange}>
+              OK
+            </Button>
+          </div>
+        </WindowContent>
+      </Window>
     );
   }
 }
