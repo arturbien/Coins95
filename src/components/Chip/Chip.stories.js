@@ -1,9 +1,9 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 
-import Cutout from "./Cutout";
+import Chip from "./Chip";
 
-storiesOf("Cutout", module)
+storiesOf("Chip", module)
   .addDecorator(story => (
     <div
       style={{
@@ -15,7 +15,7 @@ storiesOf("Cutout", module)
     </div>
   ))
   .add("default", () => (
-    <Cutout>
-      <h1>swag </h1>
-    </Cutout>
+    <Chip>
+      <h1>🌼</h1>
+    </Chip>
   ));

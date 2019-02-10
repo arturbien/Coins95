@@ -2,7 +2,7 @@
   display: block;
   position: relative;
   padding-left: calc(20px + 0.5em);
-  margin: 0.5em 0;
+  margin: 1em 0;
   cursor: pointer;
   font-size: 1em;
   -webkit-user-select: none;
@@ -23,8 +23,8 @@
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  height: 18px;
-  width: 18px;
+  height: 16px;
+  width: 16px;
   background-color: #fff;
 }
 
@@ -34,8 +34,8 @@
   position: absolute;
   left: 50%;
   top: calc(50% - 1px);
-  width: 4px;
-  height: 8px;
+  width: 3px;
+  height: 7px;
 
   border: solid #000;
   border-width: 0 3px 3px 0;

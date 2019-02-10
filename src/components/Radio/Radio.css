@@ -41,7 +41,7 @@
 
   /* border-left: 2px solid #050608;
   border-top: 2px solid #050608; */
-  box-shadow: inset 3px 3px 10px rgba(0, 0, 0, 0.4);
+  /* box-shadow: inset 3px 3px 10px rgba(0, 0, 0, 0.4); */
 }
 
 .Radio--checked .Radio__checkmark:after {
