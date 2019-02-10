@@ -1,0 +1,24 @@
+.Progress {
+  position: relative;
+  width: 100%;
+  background: #fff;
+}
+
+.Progress__bar {
+  height: 28px;
+  background: #000080;
+
+  /* 💖 super kolory niżej */
+  /* mix-blend-mode: difference; */
+  /* mix-blend-mode: hard-light; */
+}
+
+.Progress__value {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+
+  mix-blend-mode: difference;
+}
