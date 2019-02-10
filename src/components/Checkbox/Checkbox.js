@@ -38,7 +38,11 @@ Checkbox.defaultProps = {
 Checkbox.propTypes = {
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool
+  ]).isRequired,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   checked: PropTypes.bool,
   disabled: PropTypes.bool

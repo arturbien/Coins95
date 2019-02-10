@@ -21,6 +21,7 @@ import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import Window from "../../components/Window/Window";
 import WindowContent from "../../components/WindowContent/WindowContent";
 import Select from "../../components/Select/Select";
+import Checkbox from "../../components/Checkbox/Checkbox";
 
 function HLCAverage(high, low, close) {
   return (high + low + close) / 3;
@@ -137,7 +138,15 @@ export class CoinDetails extends Component {
         <WindowContent className={`${baseClass}-windowContent`}>
           <section className={baseClass}>
             <div className={`${baseClass}-layout`}>
-              <div style={{ marginBottom: "8px" }}>
+              <div className="top-toolbar">
+                <Checkbox
+                  name="follow"
+                  label="Follow"
+                  value={true}
+                  checked
+                  onChange={e => console.log(e.target.value)}
+                />
+
                 <Select
                   width={85}
                   onSelect={value => console.log(value)}
@@ -150,7 +159,6 @@ export class CoinDetails extends Component {
               </div>
 
               <div className="window">
-                {(dataLoading || !data) && <CenteredLoader />}
                 {data && (
                   <SimpleLineChart
                     data={data.map((dataPoint, i) => ({
@@ -161,6 +169,7 @@ export class CoinDetails extends Component {
                     }))}
                   />
                 )}
+                {(dataLoading || !data) && <CenteredLoader />}
               </div>
               <div className="btns">
                 <Button

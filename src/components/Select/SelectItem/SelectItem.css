@@ -1,9 +1,9 @@
 .SelectItem {
-  height: 35px;
+  height: 26px;
+  line-height: 26px;
   font-size: 1em;
   width: 100%;
   /* display: inline-block; */
-  line-height: 35px;
   padding-left: 0.5em;
   padding-right: 38px;
   white-space: nowrap;

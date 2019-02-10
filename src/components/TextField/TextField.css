@@ -1,0 +1,48 @@
+.TextField-wrapper {
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: 1em;
+  height: 30px;
+  background: #fff;
+  border: none;
+  width: 100%;
+  text-align-last: left;
+  position: relative;
+  /* overflow: hidden; */
+  background: #fff;
+  border-bottom: 2px solid #dfe0e3;
+  border-right: 2px solid #dfe0e3;
+  border-top: 2px solid #050608;
+  border-left: 2px solid #050608;
+  white-space: nowrap;
+}
+.TextField-wrapper:before {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #888c8f;
+  border-top: 2px solid #888c8f;
+  pointer-events: none;
+}
+.TextField {
+  height: 100%;
+  width: 100%;
+  padding: 0 0.5em;
+  font-size: 1em;
+  line-height: 1em;
+  border: none;
+  outline: none;
+}
+
+.TextField--disabled {
+  background: #ced0cf;
+  color: gray;
+  text-shadow: 1px 1px #fff;
+  filter: grayscale(100%);
+  pointer-events: none;
+}
