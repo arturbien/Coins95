@@ -1,7 +1,6 @@
 .Divider {
-    width: calc(100%-1px);
-    border-bottom: 1px solid #fff;
-    /* border-top: 2px solid gray; */
-    border-top: 2px solid #888c8f;
-    margin: 0;
+  width: 100%;
+  border-bottom: 2px solid #fff;
+  border-top: 2px solid #888c8f;
+  margin: 0;
 }

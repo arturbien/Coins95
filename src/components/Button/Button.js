@@ -15,6 +15,8 @@ const Button = ({
   children,
   fullWidth,
   square,
+  flat,
+  accent,
   ...otherProps
 }) => {
   const baseClass = "Button";
@@ -26,9 +28,19 @@ const Button = ({
     [`${baseClass}--disabled`]: disabled,
     [`${baseClass}--active`]: active,
     [`${baseClass}--fullWidth`]: fullWidth && !square,
-    [`${baseClass}--square`]: square
+    [`${baseClass}--square`]: square,
+    [`${baseClass}--flat`]: flat
   });
 
+  let content = children;
+  if (typeof content === "string" && accent) {
+    content = (
+      <span>
+        <span className={`${baseClass}__accent`}>{content.charAt(0)}</span>
+        {content.slice(1)}
+      </span>
+    );
+  }
   return (
     <button
       className={rootClass}
@@ -37,7 +49,7 @@ const Button = ({
       onClick={disabled ? null : onClick}
       {...otherProps}
     >
-      <span className={`${baseClass}__content`}>{children}</span>
+      <span className={`${baseClass}__content`}>{content}</span>
     </button>
   );
 };
@@ -50,7 +62,9 @@ Button.defaultProps = {
   fullWidth: false,
   size: "m",
   square: false,
-  active: false
+  active: false,
+  flat: false,
+  accent: false
 };
 
 Button.propTypes = {
@@ -63,6 +77,8 @@ Button.propTypes = {
   active: PropTypes.bool,
   fullWidth: PropTypes.bool,
   square: PropTypes.bool,
+  flat: PropTypes.bool,
+  accent: PropTypes.bool,
   children: PropTypes.node
 };
 

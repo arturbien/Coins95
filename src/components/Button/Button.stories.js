@@ -29,6 +29,11 @@ storiesOf("Button", module)
     </div>
   ))
   .add("default", () => <Button {...actions}>Button</Button>)
+  .add("accent", () => (
+    <Button {...actions} accent>
+      Button
+    </Button>
+  ))
   .add("disabled", () => (
     <Button disabled {...actions}>
       Disabled
@@ -47,5 +52,10 @@ storiesOf("Button", module)
   .add("size XL", () => (
     <Button {...actions} size={"xl"} square>
       💖
+    </Button>
+  ))
+  .add("flat", () => (
+    <Button {...actions} flat size="s" accent>
+      File
     </Button>
   ));

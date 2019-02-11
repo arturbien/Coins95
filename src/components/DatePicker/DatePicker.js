@@ -12,6 +12,7 @@ import Select from "../Select/Select";
 import NumberField from "../NumberField/NumberField";
 import Cutout from "../Cutout/Cutout";
 import Button from "../Button/Button";
+import Divider from "../Divider/Divider";
 
 function daysInMonth(year, month) {
   return new Date(year, month, 0).getDate();
@@ -107,6 +108,19 @@ class DatePicker extends Component {
       <Window style={{ margin: 20 }} className={className} noShadow={noShadow}>
         <WindowHeader>📆 Date</WindowHeader>
         <WindowContent>
+          <Button flat size="s" accent>
+            File
+          </Button>
+          <Button flat size="s" accent>
+            Edit
+          </Button>
+          <Button flat size="s" accent>
+            View
+          </Button>
+          <Button flat size="s" accent>
+            Help
+          </Button>
+          <Divider />
           <div className={`${baseClass}-toolbar`}>
             <Select
               items={months}

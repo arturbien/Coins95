@@ -18,7 +18,7 @@ storiesOf("Checkbox", module)
 
 class CheckboxGroup extends React.Component {
   state = {
-    meat: false,
+    steak: false,
     tortilla: false,
     pizza: false
   };
@@ -31,14 +31,14 @@ class CheckboxGroup extends React.Component {
   };
 
   render() {
-    const { meat, tortilla, pizza } = this.state;
+    const { steak, tortilla, pizza } = this.state;
     return (
       <>
         <Checkbox
-          checked={meat}
+          checked={steak}
           onChange={this.handleChange}
-          value="meat"
-          label="Meat 🥩"
+          value="steak"
+          label="Steak 🥩"
           name="food"
         />
         <Checkbox
