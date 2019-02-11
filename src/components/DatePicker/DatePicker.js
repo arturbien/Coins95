@@ -120,7 +120,6 @@ class DatePicker extends Component {
           <Button flat size="s" accent>
             Help
           </Button>
-          <Divider />
           <div className={`${baseClass}-toolbar`}>
             <Select
               items={months}

@@ -12,19 +12,24 @@ class NumberField extends Component {
   };
 
   add = value => {
-    const newValue = this.state.value + value;
+    const newValue = this.normalize(this.state.value + value);
     this.props.onChange(newValue);
     this.setState({ value: newValue });
   };
 
   handleChange = e => {
-    const newValue = parseInt(e.target.value);
+    const newValue = this.normalize(parseInt(e.target.value));
     this.props.onChange(newValue);
     this.setState({ value: newValue });
   };
-
+  normalize = value => {
+    const { min, max } = this.props;
+    if (min !== undefined && value < min) return min;
+    if (max !== undefined && value > max) return max;
+    return value;
+  };
   render() {
-    const { disabled, className, width } = this.props;
+    const { disabled, className, width, style, ...otherProps } = this.props;
     const { value } = this.state;
     const baseClass = "NumberField";
     const rootClass = cx(baseClass, className, {
@@ -32,7 +37,10 @@ class NumberField extends Component {
     });
 
     return (
-      <div className={rootClass} style={{ width: width ? width : "auto" }}>
+      <div
+        className={rootClass}
+        style={{ ...style, width: width ? width : "auto" }}
+      >
         <TextField
           width={"100%"}
           value={value}
