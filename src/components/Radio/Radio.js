@@ -16,7 +16,7 @@ const Radio = ({ onChange, disabled, label, value, checked, name }) => {
     <label className={`${rootClass}`}>
       {label}
       <input
-        onChange={!disabled && onChange}
+        onChange={disabled ? undefined : onChange}
         className={`${baseClass}__input`}
         type="radio"
         value={value}

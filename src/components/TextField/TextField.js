@@ -13,7 +13,9 @@ const TextField = ({
   name,
   width,
   className,
-  type
+  type,
+  multiline,
+  rows
 }) => {
   const baseClass = "TextField";
   const rootClass = cx(baseClass, {
@@ -24,14 +26,25 @@ const TextField = ({
       className={cx(`${baseClass}-wrapper`, className)}
       style={{ width: width ? width : "auto" }}
     >
-      <input
-        onChange={disabled ? undefined : onChange}
-        readOnly={disabled}
-        value={value}
-        name={name}
-        className={rootClass}
-        type={type}
-      />
+      {multiline ? (
+        <textarea
+          onChange={disabled ? undefined : onChange}
+          readOnly={disabled}
+          value={value}
+          name={name}
+          className={rootClass}
+          rows={rows || 1}
+        />
+      ) : (
+        <input
+          onChange={disabled ? undefined : onChange}
+          readOnly={disabled}
+          value={value}
+          name={name}
+          className={rootClass}
+          type={type}
+        />
+      )}
     </Cutout>
   );
 };
@@ -45,6 +58,8 @@ TextField.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   disabled: PropTypes.bool,
+  multiline: PropTypes.bool,
+  rows: PropTypes.number,
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   type: PropTypes.oneOf(["text", "number"])
 };

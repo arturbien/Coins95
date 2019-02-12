@@ -16,7 +16,7 @@ const Checkbox = ({ onChange, label, disabled, value, checked, name }) => {
     <label className={`${rootClass}`}>
       {label}
       <input
-        onChange={!disabled && onChange}
+        onChange={disabled ? undefined : onChange}
         className={`${baseClass}__input`}
         type="checkbox"
         value={value}

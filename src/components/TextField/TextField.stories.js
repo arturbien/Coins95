@@ -15,7 +15,8 @@ storiesOf("TextField", module)
     </div>
   ))
   .add("default", () => <TextFieldControl />)
-  .add("disabled", () => <TextFieldControl disabled />);
+  .add("disabled", () => <TextFieldControl disabled />)
+  .add("multiline", () => <TextFieldControl multiline rows={10} />);
 
 class TextFieldControl extends React.Component {
   state = {
@@ -26,13 +27,15 @@ class TextFieldControl extends React.Component {
 
   render() {
     const { value } = this.state;
-    const { disabled } = this.props;
+    const { disabled, multiline, rows } = this.props;
     return (
       <>
         <TextField
           disabled={disabled}
           value={value}
           onChange={this.handleChange}
+          multiline
+          rows={rows}
         />
       </>
     );

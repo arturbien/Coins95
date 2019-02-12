@@ -57,13 +57,15 @@ class TabsDemo extends React.Component {
                     name="shipping"
                     value="fast"
                     label="Fast shipping"
-                    checked
+                    onChange={() => null}
+
+                    // checked
                   />
                 </Frame>
               </TabBody>
             )}
-            {activeTab === 2 && <TabBody>Cocaine</TabBody>}
-            {activeTab === 1 && <TabBody>Marijuana</TabBody>}
+            {activeTab === 1 && <TabBody>Cocaine 💲</TabBody>}
+            {activeTab === 2 && <TabBody>Marijuana</TabBody>}
           </div>
         </WindowContent>
       </Window>
