@@ -39,7 +39,6 @@ export class Dashboard extends Component {
       !this.props.userCoinsList
     )
       return <Loader />;
-    const baseClass = "Dashboard";
     const { userCoinsList, coinsData, coinsInfo } = this.props;
     if (!coinsData || !coinsInfo) return <p>loading...</p>;
 

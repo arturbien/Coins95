@@ -1,5 +1,5 @@
 import React from "react";
-import Fab from "../../appComponents/Fab/Fab";
+import Fab from "../../components/Fab/Fab";
 
 import styled from "styled-components";
 import { AppBar, Button, Toolbar } from "react95";

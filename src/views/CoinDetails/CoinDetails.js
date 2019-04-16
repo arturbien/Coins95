@@ -14,7 +14,7 @@ import {
 
 import SimpleLineChart from "./SimpleLineChart/SimpleLineChart";
 
-import CenteredLoader from "../../appComponents/CenteredLoader/CenteredLoader";
+import CenteredLoader from "../../components/CenteredLoader/CenteredLoader";
 
 import styled from "styled-components";
 import {

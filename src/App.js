@@ -5,7 +5,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Dashboard from "./views/Dashboard/Dashboard";
 import CoinDetails from "./views/CoinDetails/CoinDetails";
 
-import NavBar from "./appComponents/NavBar/NavBar";
+import NavBar from "./components/NavBar/NavBar";
 class App extends Component {
   render() {
     return (

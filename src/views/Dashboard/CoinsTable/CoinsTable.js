@@ -34,7 +34,6 @@ class CoinsTable extends React.Component {
   render() {
     const { history } = this.props;
     const { data } = this.state;
-    const baseClass = "CoinsTable";
     console.log(data);
 
     const orderPairs = {
