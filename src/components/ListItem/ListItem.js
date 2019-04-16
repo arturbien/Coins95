@@ -26,7 +26,7 @@ const ListItem = ({
     <li
       className={rootClass}
       style={style}
-      onClick={!disabled && onClick}
+      onClick={disabled ? undefined : onClick}
       {...otherProps}
     >
       {children}

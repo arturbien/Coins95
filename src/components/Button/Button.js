@@ -22,8 +22,6 @@ const Button = ({
   const baseClass = "Button";
 
   const rootClass = cx(baseClass, className, {
-    // [`${baseClass}-group__button`]: isGroup || group,
-    // [`${baseClass}--block`]: isBlock,
     [`${baseClass}--${size}`]: size,
     [`${baseClass}--disabled`]: disabled,
     [`${baseClass}--active`]: active,

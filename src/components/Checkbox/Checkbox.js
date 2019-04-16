@@ -6,14 +6,23 @@ import "./Checkbox.css";
 
 import Cutout from "../Cutout/Cutout";
 
-const Checkbox = ({ onChange, label, disabled, value, checked, name }) => {
+const Checkbox = ({
+  onChange,
+  label,
+  disabled,
+  value,
+  checked,
+  name,
+  style,
+  ...otherProps
+}) => {
   const baseClass = "Checkbox";
   const rootClass = cx(baseClass, {
     [`${baseClass}--checked`]: checked,
     [`${baseClass}--disabled`]: disabled
   });
   return (
-    <label className={`${rootClass}`}>
+    <label className={`${rootClass}`} style={style}>
       {label}
       <input
         onChange={disabled ? undefined : onChange}
@@ -22,6 +31,7 @@ const Checkbox = ({ onChange, label, disabled, value, checked, name }) => {
         value={value}
         checked={checked}
         name={name}
+        {...otherProps}
       />
       <Cutout className={`${baseClass}__checkmark`} />
     </label>
@@ -46,7 +56,8 @@ Checkbox.propTypes = {
   ]).isRequired,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   checked: PropTypes.bool,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  style: PropTypes.object
 };
 
 export default Checkbox;

@@ -3,12 +3,24 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+
 import { Provider } from "react-redux";
 import store from "./store";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { themes, reset } from "react95";
+
+const ResetStyles = createGlobalStyle`
+  ${reset}
+`;
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ThemeProvider theme={themes.default}>
+      <>
+        <ResetStyles />
+        <App />
+      </>
+    </ThemeProvider>
   </Provider>,
   document.getElementById("root")
 );

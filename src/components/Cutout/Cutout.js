@@ -4,13 +4,13 @@ import cx from "classnames";
 
 import "./Cutout.css";
 
-const Cutout = ({ className, children, noShadow, ...otherProps }) => {
+const Cutout = ({ className, style, children, noShadow, ...otherProps }) => {
   const baseClass = "Cutout";
   const rootClass = cx(baseClass, className, {
     [`${baseClass}--noShadow`]: noShadow
   });
   return (
-    <div className={rootClass} {...otherProps}>
+    <div className={rootClass} style={style} {...otherProps}>
       {children}
     </div>
   );
@@ -21,8 +21,10 @@ Cutout.defaultProps = {
 };
 
 Cutout.propTypes = {
+  className: PropTypes.string,
   noShadow: PropTypes.bool,
-  children: PropTypes.node
+  children: PropTypes.node,
+  style: PropTypes.object
 };
 
 export default Cutout;

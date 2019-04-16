@@ -1,4 +1,5 @@
 import React from "react";
+import { withInfo } from "@storybook/addon-info";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
@@ -18,16 +19,17 @@ const props = {
 export const actions = { onClick: action("onClick") };
 
 storiesOf("Button", module)
-  .addDecorator(story => (
-    <div
-      style={{
-        padding: "5rem",
-        background: "teal"
-      }}
-    >
-      {story()}
-    </div>
-  ))
+  .addDecorator(withInfo)
+  // .addDecorator(story => (
+  //   <div
+  //     style={{
+  //       padding: "5rem",
+  //       background: "teal"
+  //     }}
+  //   >
+  //     {story()}
+  //   </div>
+  // ))
   .add("default", () => <Button {...actions}>Button</Button>)
   .add("accent", () => (
     <Button {...actions} accent>

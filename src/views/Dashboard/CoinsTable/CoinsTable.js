@@ -1,9 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./CoinsTable.css";
 
 import { withRouter } from "react-router-dom";
-
+import styled from "styled-components";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableHeadCell,
+  TableDataCell
+} from "react95";
 import FileIcon from "../../../components/FileIcon/FileIcon";
 
 class CoinsTable extends React.Component {
@@ -46,55 +53,37 @@ class CoinsTable extends React.Component {
     const tableData = orderedData.map((coinData, i) => {
       const { name, coinName, imageURL, PRICE, CHANGEPCT24HOUR } = coinData;
       return (
-        <tr
-          className={`${baseClass}-tr`}
-          key={i}
-          onClick={() => history.push(`/coins/${name}`)}
-        >
-          <td className={`${baseClass}-td`}>
-            <span className={`CoinName`}>
-              <FileIcon imageURL={imageURL} className={`CoinName__icon`} />
-              {`${coinName.toLowerCase()}.${name.toLowerCase()}`}
-            </span>
-          </td>
-          <td className={`${baseClass}-td`} style={{ textAlign: "right" }}>
+        <TableRow key={i} onClick={() => history.push(`/coins/${name}`)}>
+          <TableDataCell>
+            <FileIcon imageURL={imageURL} />
+            {`${coinName.toLowerCase()}.${name.toLowerCase()}`}
+          </TableDataCell>
+          <TableDataCell style={{ textAlign: "right" }}>
             {PRICE.toFixed(2)}
-          </td>
-          <td className={`${baseClass}-td`} style={{ textAlign: "right" }}>
+          </TableDataCell>
+          <TableDataCell style={{ textAlign: "right" }}>
             {`${CHANGEPCT24HOUR.toFixed(2)}%`}
-          </td>
-        </tr>
+          </TableDataCell>
+        </TableRow>
       );
     });
     return (
-      <div className={`${baseClass}-wrapper`}>
-        <table className={`${baseClass}`}>
-          <thead className={`${baseClass}-thead`}>
-            <tr className={`${baseClass}-tr`}>
-              <th
-                className={`${baseClass}-th`}
-                style={{ textAlign: "left", paddingLeft: 6 }}
-                onClick={() => this.handleChangeOrder("name")}
-              >
-                <span className={`${baseClass}-th__content`}>Name</span>
-              </th>
-              <th
-                className={`${baseClass}-th`}
-                onClick={() => this.handleChangeOrder("price")}
-              >
-                <span className={`${baseClass}-th__content`}>Price</span>
-              </th>
-              <th
-                className={`${baseClass}-th`}
-                onClick={() => this.handleChangeOrder("change")}
-              >
-                <span className={`${baseClass}-th__content`}>Change</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody className={`${baseClass}-tbody`}>{tableData}</tbody>
-        </table>
-      </div>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableHeadCell onClick={() => this.handleChangeOrder("name")}>
+              Name
+            </TableHeadCell>
+            <TableHeadCell onClick={() => this.handleChangeOrder("price")}>
+              Price
+            </TableHeadCell>
+            <TableHeadCell onClick={() => this.handleChangeOrder("change")}>
+              Change
+            </TableHeadCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>{tableData}</TableBody>
+      </Table>
     );
   }
 }

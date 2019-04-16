@@ -6,14 +6,23 @@ import "./Radio.css";
 import cx from "classnames";
 
 import Cutout from "../Cutout/Cutout";
-const Radio = ({ onChange, disabled, label, value, checked, name }) => {
+const Radio = ({
+  onChange,
+  disabled,
+  label,
+  value,
+  checked,
+  name,
+  style,
+  ...otherProps
+}) => {
   const baseClass = "Radio";
   const rootClass = cx(baseClass, {
     [`${baseClass}--checked`]: checked,
     [`${baseClass}--disabled`]: disabled
   });
   return (
-    <label className={`${rootClass}`}>
+    <label className={`${rootClass}`} style={style}>
       {label}
       <input
         onChange={disabled ? undefined : onChange}
@@ -22,6 +31,7 @@ const Radio = ({ onChange, disabled, label, value, checked, name }) => {
         value={value}
         checked={checked}
         name={name}
+        {...otherProps}
       />
       <Cutout className={`${baseClass}__checkmark`} />
     </label>
@@ -42,7 +52,8 @@ Radio.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   checked: PropTypes.bool,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  style: PropTypes.object
 };
 
 export default Radio;

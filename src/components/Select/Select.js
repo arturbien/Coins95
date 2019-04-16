@@ -38,7 +38,14 @@ export class Select extends React.Component {
   };
 
   render() {
-    const { noShadow, width, height, otherProps, className } = this.props;
+    const {
+      noShadow,
+      width,
+      height,
+      otherProps,
+      className,
+      style
+    } = this.props;
     const { items, selectedItem, open } = this.state;
     const baseClass = "Select";
 
@@ -49,7 +56,7 @@ export class Select extends React.Component {
     return (
       <div
         className={cx(`${baseClass}-wrapper`, className)}
-        style={{ width: width ? width : "auto" }}
+        style={{ ...style, width: width ? width : "auto" }}
       >
         <Cutout>
           <button onClick={this.toggle} className={`${baseClass}-header`}>

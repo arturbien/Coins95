@@ -10,7 +10,7 @@ const Material = ({ hollow, className, children, style, ...otherProps }) => {
     [`${baseClass}--hollow`]: hollow
   });
   return (
-    <div className={rootClass} style={style}>
+    <div className={rootClass} style={style} {...otherProps}>
       {children}
     </div>
   );

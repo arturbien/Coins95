@@ -7,6 +7,20 @@ import "./NumberField.css";
 import TextField from "../TextField/TextField";
 
 class NumberField extends Component {
+  static defaultProps = {
+    value: 0,
+    disabled: false,
+    width: null
+  };
+  static propTypes = {
+    onChange: PropTypes.func.isRequired,
+    value: PropTypes.number.isRequired,
+    min: PropTypes.number,
+    max: PropTypes.number,
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    disabled: PropTypes.bool,
+    className: PropTypes.string
+  };
   state = {
     value: parseInt(this.props.value) || 0
   };
@@ -29,7 +43,7 @@ class NumberField extends Component {
     return value;
   };
   render() {
-    const { disabled, className, width, style, ...otherProps } = this.props;
+    const { disabled, className, width, style } = this.props;
     const { value } = this.state;
     const baseClass = "NumberField";
     const rootClass = cx(baseClass, className, {
@@ -67,18 +81,4 @@ class NumberField extends Component {
   }
 }
 
-NumberField.defaultProps = {
-  value: 0,
-  disabled: false,
-  width: null
-};
-NumberField.propTypes = {
-  onChange: PropTypes.func.isRequired,
-  value: PropTypes.number.isRequired,
-  min: PropTypes.number,
-  max: PropTypes.number,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  disabled: PropTypes.bool,
-  className: PropTypes.string
-};
 export default NumberField;

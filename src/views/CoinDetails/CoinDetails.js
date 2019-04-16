@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import "./CoinDetails.css";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import API from "../../API";
 import {
@@ -14,15 +14,20 @@ import {
 
 import SimpleLineChart from "./SimpleLineChart/SimpleLineChart";
 
-import Frame from "../../components/Frame/Frame";
-import Button from "../../components/Button/Button";
 import CenteredLoader from "../../appComponents/CenteredLoader/CenteredLoader";
-import WindowHeader from "../../components/WindowHeader/WindowHeader";
-import Window from "../../components/Window/Window";
-import WindowContent from "../../components/WindowContent/WindowContent";
-import Select from "../../components/Select/Select";
-import Checkbox from "../../components/Checkbox/Checkbox";
 
+import styled from "styled-components";
+import {
+  Cutout,
+  Fieldset,
+  Toolbar,
+  Button,
+  WindowHeader,
+  Window,
+  WindowContent,
+  Select,
+  Checkbox
+} from "react95";
 function HLCAverage(high, low, close) {
   return (high + low + close) / 3;
 }
@@ -123,7 +128,7 @@ export class CoinDetails extends Component {
           {`${coinName}.${symbol.toLocaleLowerCase()}`}
           <Button
             square
-            size="s"
+            size="sm"
             style={{
               position: "absolute",
               right: 4,
@@ -138,7 +143,7 @@ export class CoinDetails extends Component {
         <WindowContent className={`${baseClass}-windowContent`}>
           <section className={baseClass}>
             <div className={`${baseClass}-layout`}>
-              <div className="top-toolbar">
+              <Toolbar>
                 <Checkbox
                   name="follow"
                   label="Follow"
@@ -151,14 +156,14 @@ export class CoinDetails extends Component {
                   width={85}
                   onSelect={value => console.log(value)}
                   items={[
-                    { value: 1, title: "EUR" },
-                    { value: 2, title: "USD" },
-                    { value: 3, title: "PLN" }
+                    { value: 1, label: "EUR" },
+                    { value: 2, label: "USD" },
+                    { value: 3, label: "PLN" }
                   ]}
                 />
-              </div>
+              </Toolbar>
 
-              <div className="window">
+              <Cutout className="window">
                 {data && (
                   <SimpleLineChart
                     data={data.map((dataPoint, i) => ({
@@ -170,10 +175,10 @@ export class CoinDetails extends Component {
                   />
                 )}
                 {(dataLoading || !data) && <CenteredLoader />}
-              </div>
-              <div className="btns">
+              </Cutout>
+              <Toolbar>
                 <Button
-                  size="s"
+                  size="sm"
                   onClick={() => this.handleFetchHistoricalData("1H")}
                   active={timeSpan === "1H"}
                   fullWidth
@@ -181,7 +186,7 @@ export class CoinDetails extends Component {
                   1H
                 </Button>
                 <Button
-                  size="s"
+                  size="sm"
                   onClick={() => this.handleFetchHistoricalData("24H")}
                   active={timeSpan === "24H"}
                   fullWidth
@@ -189,7 +194,7 @@ export class CoinDetails extends Component {
                   24H
                 </Button>
                 <Button
-                  size="s"
+                  size="sm"
                   onClick={() => this.handleFetchHistoricalData("1M")}
                   active={timeSpan === "1M"}
                   fullWidth
@@ -197,7 +202,7 @@ export class CoinDetails extends Component {
                   1M
                 </Button>
                 <Button
-                  size="s"
+                  size="sm"
                   onClick={() => this.handleFetchHistoricalData("3M")}
                   active={timeSpan === "3M"}
                   fullWidth
@@ -205,16 +210,16 @@ export class CoinDetails extends Component {
                   3M
                 </Button>
                 <Button
-                  size="s"
+                  size="sm"
                   onClick={() => this.handleFetchHistoricalData("1Y")}
                   active={timeSpan === "1Y"}
                   fullWidth
                 >
                   1Y
                 </Button>
-              </div>
-              <Frame
-                title={"Coin information"}
+              </Toolbar>
+              <Fieldset
+                label={"Coin information"}
                 className={`${baseClass}-frame`}
               >
                 <div className={`${baseClass}-details`}>
@@ -249,7 +254,7 @@ export class CoinDetails extends Component {
                     </span>
                   </div>
                 </div>
-              </Frame>
+              </Fieldset>
               <Button style={{ marginTop: "1em" }}>TEST</Button>
             </div>
           </section>

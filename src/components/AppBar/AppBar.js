@@ -4,13 +4,13 @@ import cx from "classnames";
 
 import "./AppBar.css";
 
-const AppBar = ({ children, className, style, noShadow }) => {
+const AppBar = ({ children, className, style, noShadow, ...otherProps }) => {
   const baseClass = "AppBar";
   const rootClass = cx(baseClass, className, {
     [`${baseClass}--noShadow`]: noShadow
   });
   return (
-    <header style={style} className={rootClass}>
+    <header style={style} className={rootClass} {...otherProps}>
       {children}
     </header>
   );
