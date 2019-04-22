@@ -32,6 +32,36 @@ function HLCAverage(high, low, close) {
   return (high + low + close) / 3;
 }
 
+const SWindow = styled(Window)`
+  width: 100%;
+  height: 100%;
+  display: flex !important;
+  flex-direction: column;
+`;
+const SWindowHeader = styled(WindowHeader)`
+  flex-shrink: 0;
+`;
+const SWindowContent = styled(WindowContent)`
+  flex: 1;
+`;
+const TopToolbar = styled(Toolbar)`
+  justify-content: space-between;
+  padding: 0;
+  margin-bottom: 0.5em;
+`;
+const ChartWrapper = styled(Cutout)`
+  position: relative;
+  width: 100%;
+  flex: 1;
+  background: teal;
+  background: radial-gradient(#1d8a99, teal);
+  padding: 1em;
+`;
+const PeriodButtonsWrapper = styled(Toolbar)`
+  padding: 0;
+  margin-bottom: 1.5em;
+  margin-top: 0.5em;
+`;
 export class CoinDetails extends Component {
   // static propTypes = {
   // prop: PropTypes
@@ -122,9 +152,9 @@ export class CoinDetails extends Component {
       console.log(coinInfo);
     }
     return (
-      <Window className={`${baseClass}-window`}>
-        <WindowHeader className={`${baseClass}-windowHeader`}>
-          <img src={imageURL} className={`${baseClass}-windowHeader__icon`} />
+      <SWindow>
+        <SWindowHeader>
+          {/* <img src={imageURL} className={`${baseClass}-SwindowHeader__icon`} /> */}
           {`${coinName}.${symbol.toLocaleLowerCase()}`}
           <Button
             square
@@ -139,16 +169,15 @@ export class CoinDetails extends Component {
           >
             X
           </Button>
-        </WindowHeader>
-        <WindowContent className={`${baseClass}-windowContent`}>
+        </SWindowHeader>
+        <SWindowContent>
           <section className={baseClass}>
             <div className={`${baseClass}-layout`}>
-              <Toolbar>
+              <TopToolbar>
                 <Checkbox
                   name="follow"
                   label="Follow"
                   value={true}
-                  checked
                   onChange={e => console.log(e.target.value)}
                 />
 
@@ -161,9 +190,9 @@ export class CoinDetails extends Component {
                     { value: 3, label: "PLN" }
                   ]}
                 />
-              </Toolbar>
+              </TopToolbar>
 
-              <Cutout className="window">
+              <ChartWrapper>
                 {data && (
                   <SimpleLineChart
                     data={data.map((dataPoint, i) => ({
@@ -175,8 +204,8 @@ export class CoinDetails extends Component {
                   />
                 )}
                 {(dataLoading || !data) && <CenteredLoader />}
-              </Cutout>
-              <Toolbar>
+              </ChartWrapper>
+              <PeriodButtonsWrapper>
                 <Button
                   size="sm"
                   onClick={() => this.handleFetchHistoricalData("1H")}
@@ -217,7 +246,7 @@ export class CoinDetails extends Component {
                 >
                   1Y
                 </Button>
-              </Toolbar>
+              </PeriodButtonsWrapper>
               <Fieldset
                 label={"Coin information"}
                 className={`${baseClass}-frame`}
@@ -255,11 +284,10 @@ export class CoinDetails extends Component {
                   </div>
                 </div>
               </Fieldset>
-              <Button style={{ marginTop: "1em" }}>TEST</Button>
             </div>
           </section>
-        </WindowContent>
-      </Window>
+        </SWindowContent>
+      </SWindow>
     );
   }
 }

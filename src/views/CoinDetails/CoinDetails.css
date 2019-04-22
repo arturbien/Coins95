@@ -1,21 +1,8 @@
-.CoinDetails-window {
-  width: 100%;
-  height: 100%;
-  display: flex !important;
-  flex-direction: column;
-}
-.CoinDetails-windowHeader {
-  flex-shrink: 0;
-}
 .CoinDetails-windowHeader__icon {
   height: 24px;
   width: auto;
   background: #fff;
   margin-right: 0.5em;
-}
-.CoinDetails-windowContent {
-  flex: 1;
-  padding: 0.5em !important;
 }
 
 .CoinDetails {
@@ -30,33 +17,6 @@
   flex-direction: column;
   justify-content: space-between;
   flex-wrap: nowrap;
-}
-.window {
-  position: relative;
-  width: 100%;
-  flex: 1;
-  background: teal;
-  background: radial-gradient(#1d8a99, teal);
-  padding: 1em;
-  border-bottom: 2px solid #dfe0e3;
-  border-right: 2px solid #dfe0e3;
-  border-top: 2px solid #050608;
-  border-left: 2px solid #050608;
-}
-.window:before {
-  content: "";
-  position: absolute;
-  right: -4px;
-  top: -4px;
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  border-bottom: 2px solid #fff;
-  border-right: 2px solid #fff;
-  border-left: 2px solid #888c8f;
-  border-top: 2px solid #888c8f;
-}
-
-.CoinDetails-frame {
 }
 .CoinDetails-details {
   width: 100%;
