@@ -1,26 +1,61 @@
 import React from "react";
 import propTypes from "prop-types";
-import cx from "classnames";
 
-import "./FileIcon.css";
+import styled from "styled-components";
 
-const FileIcon = ({ imageURL, className, style, ...otherProps }) => {
-  const baseClass = "FileIcon";
-  const rootClass = cx(baseClass, className);
-
-  return (
-    <span className={rootClass} style={style} {...otherProps}>
-      {imageURL && (
-        <img className={`${baseClass}__img`} src={imageURL} alt={`icon`} />
-      )}
-    </span>
-  );
-};
+const Icon = styled.span`
+  position: relative;
+  display: inline-block;
+  height: ${({ height }) => (height ? parseInt(height) : 24)}px;
+  width: ${({ height }) =>
+    height ? Math.round(0.83 * parseInt(height)) : 20}px;
+  border-bottom: 2px solid #050608;
+  border-right: 2px solid #050608;
+  border-left: 2px solid #ced0cf;
+  border-top: 2px solid #ced0cf;
+  flex-shrink: 0;
+  background: #fff;
+  :before,
+  :after {
+    content: "";
+    position: absolute;
+    right: -2px;
+    top: -2px;
+  }
+  &:before {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    background: #fff;
+    z-index: 1;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    right: -2px;
+    top: 0px;
+    width: 7px;
+    border-top: 2px solid #ced0cf;
+    transform: rotate(45deg);
+    z-index: 2;
+  }
+`;
+const IconIMG = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  position: absolute;
+`;
+const FileIcon = ({ imageURL, height, ...otherProps }) => (
+  <Icon {...otherProps} height={height}>
+    {imageURL && <IconIMG src={imageURL} alt={`icon`} />}
+  </Icon>
+);
 
 FileIcon.propTypes = {
-  imageURL: propTypes.string,
-  className: propTypes.string,
-  style: propTypes.object
+  imageURL: propTypes.string
 };
 
 export default FileIcon;

@@ -43,6 +43,10 @@ const SWindowHeader = styled(WindowHeader)`
 `;
 const SWindowContent = styled(WindowContent)`
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: nowrap;
 `;
 const TopToolbar = styled(Toolbar)`
   justify-content: space-between;
@@ -161,7 +165,7 @@ export class CoinDetails extends Component {
             size="sm"
             style={{
               position: "absolute",
-              right: 4,
+              right: "0.5rem",
               top: 7,
               fontWeight: "bold"
             }}
@@ -171,121 +175,111 @@ export class CoinDetails extends Component {
           </Button>
         </SWindowHeader>
         <SWindowContent>
-          <section className={baseClass}>
-            <div className={`${baseClass}-layout`}>
-              <TopToolbar>
-                <Checkbox
-                  name="follow"
-                  label="Follow"
-                  value={true}
-                  onChange={e => console.log(e.target.value)}
-                />
+          <TopToolbar>
+            <Checkbox
+              name="follow"
+              label="Follow"
+              value={true}
+              onChange={e => console.log(e.target.value)}
+            />
 
-                <Select
-                  width={85}
-                  onSelect={value => console.log(value)}
-                  items={[
-                    { value: 1, label: "EUR" },
-                    { value: 2, label: "USD" },
-                    { value: 3, label: "PLN" }
-                  ]}
-                />
-              </TopToolbar>
-
-              <ChartWrapper>
-                {data && (
-                  <SimpleLineChart
-                    data={data.map((dataPoint, i) => ({
-                      name: i,
-                      AVG: dataPoint.HLCAverage,
-                      HIGH: dataPoint.high,
-                      LOW: dataPoint.low
-                    }))}
-                  />
-                )}
-                {(dataLoading || !data) && <CenteredLoader />}
-              </ChartWrapper>
-              <PeriodButtonsWrapper>
-                <Button
-                  size="sm"
-                  onClick={() => this.handleFetchHistoricalData("1H")}
-                  active={timeSpan === "1H"}
-                  fullWidth
-                >
-                  1H
-                </Button>
-                <Button
-                  size="sm"
-                  onClick={() => this.handleFetchHistoricalData("24H")}
-                  active={timeSpan === "24H"}
-                  fullWidth
-                >
-                  24H
-                </Button>
-                <Button
-                  size="sm"
-                  onClick={() => this.handleFetchHistoricalData("1M")}
-                  active={timeSpan === "1M"}
-                  fullWidth
-                >
-                  1M
-                </Button>
-                <Button
-                  size="sm"
-                  onClick={() => this.handleFetchHistoricalData("3M")}
-                  active={timeSpan === "3M"}
-                  fullWidth
-                >
-                  3M
-                </Button>
-                <Button
-                  size="sm"
-                  onClick={() => this.handleFetchHistoricalData("1Y")}
-                  active={timeSpan === "1Y"}
-                  fullWidth
-                >
-                  1Y
-                </Button>
-              </PeriodButtonsWrapper>
-              <Fieldset
-                label={"Coin information"}
-                className={`${baseClass}-frame`}
-              >
-                <div className={`${baseClass}-details`}>
-                  <div className={`${baseClass}-details-row`}>
-                    <span className={`${baseClass}-details__title`}>Rank:</span>
-                    <span className={`${baseClass}-details__value`}>
-                      {infoLoading ? "-" : sortOrder}
-                    </span>
-                  </div>
-                  <div className={`${baseClass}-details-row`}>
-                    <span className={`${baseClass}-details__title`}>
-                      High (24h):
-                    </span>
-                    <span className={`${baseClass}-details__value`}>
-                      {HIGH24HOUR}
-                    </span>
-                  </div>
-                  <div className={`${baseClass}-details-row`}>
-                    <span className={`${baseClass}-details__title`}>
-                      Low (24h):
-                    </span>
-                    <span className={`${baseClass}-details__value`}>
-                      {LOW24HOUR}
-                    </span>
-                  </div>
-                  <div className={`${baseClass}-details-row`}>
-                    <span className={`${baseClass}-details__title`}>
-                      Total market cap:
-                    </span>
-                    <span className={`${baseClass}-details__value`}>
-                      {MKTCAP}
-                    </span>
-                  </div>
-                </div>
-              </Fieldset>
+            <Select
+              width={85}
+              onSelect={value => console.log(value)}
+              items={[
+                { value: 1, label: "EUR" },
+                { value: 2, label: "USD" },
+                { value: 3, label: "PLN" }
+              ]}
+            />
+          </TopToolbar>
+          <ChartWrapper>
+            {data && (
+              <SimpleLineChart
+                data={data.map((dataPoint, i) => ({
+                  name: i,
+                  AVG: dataPoint.HLCAverage,
+                  HIGH: dataPoint.high,
+                  LOW: dataPoint.low
+                }))}
+              />
+            )}
+            {(dataLoading || !data) && <CenteredLoader />}
+          </ChartWrapper>
+          <PeriodButtonsWrapper>
+            <Button
+              size="sm"
+              onClick={() => this.handleFetchHistoricalData("1H")}
+              active={timeSpan === "1H"}
+              fullWidth
+            >
+              1H
+            </Button>
+            <Button
+              size="sm"
+              onClick={() => this.handleFetchHistoricalData("24H")}
+              active={timeSpan === "24H"}
+              fullWidth
+            >
+              24H
+            </Button>
+            <Button
+              size="sm"
+              onClick={() => this.handleFetchHistoricalData("1M")}
+              active={timeSpan === "1M"}
+              fullWidth
+            >
+              1M
+            </Button>
+            <Button
+              size="sm"
+              onClick={() => this.handleFetchHistoricalData("3M")}
+              active={timeSpan === "3M"}
+              fullWidth
+            >
+              3M
+            </Button>
+            <Button
+              size="sm"
+              onClick={() => this.handleFetchHistoricalData("1Y")}
+              active={timeSpan === "1Y"}
+              fullWidth
+            >
+              1Y
+            </Button>
+          </PeriodButtonsWrapper>
+          <Fieldset label={"Coin information"}>
+            <div className={`${baseClass}-details`}>
+              <div className={`${baseClass}-details-row`}>
+                <span className={`${baseClass}-details__title`}>Rank:</span>
+                <span className={`${baseClass}-details__value`}>
+                  {infoLoading ? "-" : sortOrder}
+                </span>
+              </div>
+              <div className={`${baseClass}-details-row`}>
+                <span className={`${baseClass}-details__title`}>
+                  High (24h):
+                </span>
+                <span className={`${baseClass}-details__value`}>
+                  {HIGH24HOUR}
+                </span>
+              </div>
+              <div className={`${baseClass}-details-row`}>
+                <span className={`${baseClass}-details__title`}>
+                  Low (24h):
+                </span>
+                <span className={`${baseClass}-details__value`}>
+                  {LOW24HOUR}
+                </span>
+              </div>
+              <div className={`${baseClass}-details-row`}>
+                <span className={`${baseClass}-details__title`}>
+                  Total market cap:
+                </span>
+                <span className={`${baseClass}-details__value`}>{MKTCAP}</span>
+              </div>
             </div>
-          </section>
+          </Fieldset>
         </SWindowContent>
       </SWindow>
     );

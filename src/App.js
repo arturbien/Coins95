@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./App.css";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import Dashboard from "./views/Dashboard/Dashboard";

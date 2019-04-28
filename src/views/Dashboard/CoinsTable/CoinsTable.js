@@ -13,6 +13,11 @@ import {
 } from "react95";
 import FileIcon from "../../../components/FileIcon/FileIcon";
 
+const SFileIcon = styled(FileIcon)`
+  top: 5px;
+  margin-right: 6px;
+`;
+
 class CoinsTable extends React.Component {
   constructor(props) {
     super(props);
@@ -54,7 +59,7 @@ class CoinsTable extends React.Component {
       return (
         <TableRow key={i} onClick={() => history.push(`/coins/${name}`)}>
           <TableDataCell>
-            <FileIcon imageURL={imageURL} />
+            <SFileIcon height={22} imageURL={imageURL} />
             {`${coinName.toLowerCase()}.${name.toLowerCase()}`}
           </TableDataCell>
           <TableDataCell style={{ textAlign: "right" }}>

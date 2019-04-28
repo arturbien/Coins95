@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { fetchCoinsList, fetchCoinsData } from "../../store/actions/coins";
 
 import styled from "styled-components";
-import { Window, WindowContent, Button } from "react95";
+import { Window, WindowContent, Button, Toolbar, Divider } from "react95";
 import Loader from "../../components/Loader/Loader";
 
 import CoinsTable from "./CoinsTable/CoinsTable";
@@ -14,7 +14,10 @@ const SWindow = styled(Window)`
   height: 100%;
   width: 100%;
 `;
-
+const SToolbar = styled(Toolbar)`
+  margin: 1rem 0;
+  padding: 0;
+`;
 export class Dashboard extends Component {
   static propTypes = {
     userCoinsList: PropTypes.array,
@@ -52,20 +55,11 @@ export class Dashboard extends Component {
       <SWindow>
         <WindowContent>
           <CoinsTable data={data} />
-          {/* <Divider /> */}
-          <div style={{ display: "flex" }}>
-            <div style={{ width: "50%" }}>
-              <Button fullWidth>Top 30</Button>
-            </div>
-            <div style={{ width: "50%" }}>
-              <div style={{ display: "flex" }}>
-                <Button fullWidth>Following</Button>
-                <Button square disabled style={{ flexShrink: 0 }}>
-                  +
-                </Button>
-              </div>
-            </div>
-          </div>
+          <SToolbar>
+            <Button fullWidth>Top 30</Button>
+            <Button fullWidth>Following</Button>
+          </SToolbar>
+          <Divider />
         </WindowContent>
       </SWindow>
     );

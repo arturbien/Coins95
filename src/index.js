@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
@@ -11,6 +10,9 @@ import { themes, reset } from "react95";
 
 const ResetStyles = createGlobalStyle`
   ${reset}
+  html, body, #root {
+    height: 100%;
+  }
 `;
 
 ReactDOM.render(
