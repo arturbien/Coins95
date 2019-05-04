@@ -10,13 +10,34 @@ import Loader from "../../components/Loader/Loader";
 import CoinsTable from "./CoinsTable/CoinsTable";
 
 const SWindow = styled(Window)`
+  box-sizing: border-box;
   position: relative;
   height: 100%;
   width: 100%;
 `;
+const SWindowContent = styled(WindowContent)`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 5rem;
+`;
+const CoinsTableWrapper = styled.div`
+  flex: 1;
+  & > div {
+    height: 100%;
+  }
+`;
 const SToolbar = styled(Toolbar)`
   margin: 1rem 0;
   padding: 0;
+`;
+const Header = styled.header`
+  display: block;
+  height: 100px;
+  margin-bottom: 1em;
+  background: pink;
 `;
 export class Dashboard extends Component {
   static propTypes = {
@@ -53,14 +74,16 @@ export class Dashboard extends Component {
 
     return (
       <SWindow>
-        <WindowContent>
-          <CoinsTable data={data} />
+        <SWindowContent>
+          <Header />
+          <CoinsTableWrapper>
+            <CoinsTable data={data} />
+          </CoinsTableWrapper>
           <SToolbar>
             <Button fullWidth>Top 30</Button>
             <Button fullWidth>Following</Button>
           </SToolbar>
-          <Divider />
-        </WindowContent>
+        </SWindowContent>
       </SWindow>
     );
   }

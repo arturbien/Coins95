@@ -1,1 +1,1 @@
-export const coinsLimit = 5;
+export const coinsLimit = 15;

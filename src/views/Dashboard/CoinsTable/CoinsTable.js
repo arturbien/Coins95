@@ -18,6 +18,46 @@ const SFileIcon = styled(FileIcon)`
   margin-right: 6px;
 `;
 
+const ScrollTable = styled(Table)`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  thead,
+  tbody,
+  tr,
+  th,
+  td {
+    display: block;
+  }
+  th,
+  td {
+    flex-shrink: 0 !important;
+  }
+  tr {
+    display: flex;
+  }
+  th:nth-child(1),
+  td:nth-child(1) {
+    flex: 4;
+  }
+  th:nth-child(2),
+  td:nth-child(2) {
+    flex: 2;
+  }
+  th:nth-child(3),
+  td:nth-child(3) {
+    flex: 1.5;
+  }
+  thead {
+    flex-shrink: 0;
+  }
+  tbody {
+    height: 200px;
+    flex: 1;
+    overflow: auto;
+  }
+`;
 class CoinsTable extends React.Component {
   constructor(props) {
     super(props);
@@ -72,7 +112,7 @@ class CoinsTable extends React.Component {
       );
     });
     return (
-      <Table>
+      <ScrollTable>
         <TableHead>
           <TableRow>
             <TableHeadCell onClick={() => this.handleChangeOrder("name")}>
@@ -87,7 +127,7 @@ class CoinsTable extends React.Component {
           </TableRow>
         </TableHead>
         <TableBody>{tableData}</TableBody>
-      </Table>
+      </ScrollTable>
     );
   }
 }
