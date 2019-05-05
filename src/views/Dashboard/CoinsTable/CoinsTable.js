@@ -63,7 +63,12 @@ class CoinsTable extends React.Component {
     super(props);
     this.state = {
       orderBy: "price",
-      desc: true,
+      desc: true
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    return {
       data: props.data
     };
   }
@@ -79,7 +84,7 @@ class CoinsTable extends React.Component {
   render() {
     const { history } = this.props;
     const { data } = this.state;
-    console.log(data);
+    console.log("RERENDER", data);
 
     const orderPairs = {
       price: "PRICE",

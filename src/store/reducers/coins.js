@@ -32,3 +32,12 @@ export default coinsReducer;
 export const selectCoins = (state, ammount) => {
   return state.splice(0, ammount);
 };
+
+export const selectTopCoinsList = (state, ammount) => {
+  if (!state) return null;
+  const data = state;
+  const topCoinsList = Object.keys(data)
+    .sort((coinA, coinB) => data[coinA].sortOrder - data[coinB].sortOrder)
+    .splice(0, ammount);
+  return topCoinsList;
+};
