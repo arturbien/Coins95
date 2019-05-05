@@ -16,7 +16,7 @@ const SAppBar = styled(AppBar)`
 `;
 const Icon = styled.img`
   height: 25px;
-  filter: grayscale(1);
+  /* filter: grayscale(1); */
 `;
 const NavBar = props => (
   <SAppBar fixed>
@@ -25,13 +25,13 @@ const NavBar = props => (
         <Icon src={GlobeIcon} alt="icon" />
       </Button>
       <Button fullWidth size="lg">
-        <Icon src={ArticleIcon} alt="icon" />
+        <Icon src={ArticleIcon} alt="icon" style={{ filter: "grayscale(1)" }} />
       </Button>
       <Button fullWidth size="lg">
-        <Icon src={FolderIcon} alt="icon" />
+        <Icon src={FolderIcon} alt="icon" style={{ filter: "grayscale(1)" }} />
       </Button>
       <Button fullWidth size="lg">
-        <Icon src={NotepadIcon} alt="icon" />
+        <Icon src={NotepadIcon} alt="icon" style={{ filter: "grayscale(1)" }} />
       </Button>
     </Toolbar>
     <Fab>{"+"}</Fab>

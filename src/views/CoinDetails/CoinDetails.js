@@ -6,11 +6,7 @@ import { withRouter } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 import API from "../../API";
-import {
-  fetchCoinsList,
-  fetchCoinsData,
-  fetchCoinsHistoricalData
-} from "../../store/actions/coins";
+import { fetchCoinsList } from "../../store/actions/coins";
 
 import { setUserCoin } from "../../store/actions/user";
 import SimpleLineChart from "./SimpleLineChart/SimpleLineChart";
@@ -274,10 +270,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   fetchCoinsList: () => dispatch(fetchCoinsList()),
-  fetchCoinsData: (coinsList, currency) =>
-    dispatch(fetchCoinsData(coinsList, currency)),
-  fetchCoinsHistoricalData: (coin, timeSpan) =>
-    dispatch(fetchCoinsHistoricalData(coin, timeSpan)),
   setUserCoin: (coin, follow) => dispatch(setUserCoin(coin, follow))
 });
 export default withRouter(

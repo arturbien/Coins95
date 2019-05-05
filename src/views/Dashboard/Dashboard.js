@@ -33,14 +33,15 @@ export class Dashboard extends Component {
     if (!topCoinsList) {
       fetchCoinsList();
     } else {
-      // case when user laods app on /coins/BTC and presses X
+      // case when user laods app on /coins/BTC and presses X to go to dashboard
       if (!coinsData) {
         fetchCoinsData([...new Set([...userCoinsList, ...topCoinsList])]);
       }
     }
   };
   componentDidUpdate(prevProps, prevState) {
-    // then if we already have topCoinsList fetch data for both top coins and user coins
+    // then if we already have topCoinsList, we need to
+    // fetch data for both top coins and user coins
     const {
       userCoinsList,
       topCoinsList,
