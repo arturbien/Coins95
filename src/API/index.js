@@ -12,6 +12,7 @@ class API {
     const query = "/data/all/coinlist";
     const response = await this.axios.get(query);
     const data = response.data.Data;
+    console.log(data);
     const formattedData = {};
     for (let coin in data) {
       const coinData = data[coin];
@@ -75,8 +76,6 @@ class API {
     }
     const response = await this.axios.get(query);
     const data = response.data.Data;
-    console.log("👗", data);
-
     return data;
   };
 }

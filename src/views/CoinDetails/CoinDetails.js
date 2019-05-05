@@ -12,6 +12,7 @@ import {
   fetchCoinsHistoricalData
 } from "../../store/actions/coins";
 
+import { setUserCoin } from "../../store/actions/user";
 import SimpleLineChart from "./SimpleLineChart/SimpleLineChart";
 
 import CenteredLoader from "../../components/CenteredLoader/CenteredLoader";
@@ -32,67 +33,32 @@ function HLCAverage(high, low, close) {
   return (high + low + close) / 3;
 }
 
-const SWindow = styled(Window)`
-  width: 100%;
-  height: 100%;
-  display: flex !important;
-  flex-direction: column;
-`;
-const SWindowHeader = styled(WindowHeader)`
-  flex-shrink: 0;
-`;
-const SWindowContent = styled(WindowContent)`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-`;
-const TopToolbar = styled(Toolbar)`
-  justify-content: space-between;
-  padding: 0;
-  margin-bottom: 0.5em;
-`;
-const ChartWrapper = styled(Cutout)`
-  position: relative;
-  width: 100%;
-  flex: 1;
-  background: teal;
-  background: radial-gradient(#1d8a99, teal);
-  padding: 1em;
-`;
-const PeriodButtonsWrapper = styled(Toolbar)`
-  padding: 0;
-  margin-bottom: 1.5em;
-  margin-top: 0.5em;
-`;
 export class CoinDetails extends Component {
   // static propTypes = {
   // prop: PropTypes
   // };
+  // TO PREVENT UPDATES ON UNMOUNTED COMPONENT
   _isMounted = false;
   state = {
     coin: this.props.match.params.coin,
     data: null,
+    historicalData: null,
     dataLoading: false,
     infoLoading: true,
     timeSpan: "24H"
   };
   componentDidMount = async () => {
     this._isMounted = true;
-    const { timeSpan } = this.state;
+    let { coin, data, timeSpan } = this.state;
     try {
       if (!this.props.coinInfo) {
         await this.props.fetchCoinsList();
       }
-      if (!this.props.coinData) {
-        await this.props.fetchCoinsData(
-          this.props.userCoinsList,
-          this.props.currency
-        );
-      }
+
+      data = await API.fetchCoinsData([coin], this.props.currency);
+      data = data[coin];
       this.handleFetchHistoricalData(timeSpan);
-      if (this._isMounted) this.setState({ infoLoading: false });
+      if (this._isMounted) this.setState({ infoLoading: false, data });
     } catch (error) {
       console.log("Error in CoinDetails componentDidMount");
       if (this._isMounted) this.setState({ infoLoading: false });
@@ -109,17 +75,17 @@ export class CoinDetails extends Component {
     const previousTimespan = this.state.timeSpan;
     const coin = this.state.coin;
     try {
-      const data = await API.fetchCoinsHistoricalData(coin, timeSpan);
-      data.forEach(dataPoint => {
-        dataPoint["HLCAverage"] = HLCAverage(
-          dataPoint.high,
-          dataPoint.low,
-          dataPoint.close
+      const historicalData = await API.fetchCoinsHistoricalData(coin, timeSpan);
+      historicalData.forEach(historicalDataPoint => {
+        historicalDataPoint["HLCAverage"] = HLCAverage(
+          historicalDataPoint.high,
+          historicalDataPoint.low,
+          historicalDataPoint.close
         );
       });
 
       if (this._isMounted)
-        this.setState({ dataLoading: false, data, timeSpan });
+        this.setState({ dataLoading: false, historicalData, timeSpan });
     } catch (error) {
       console.log("Error in CoinDetails handleFetchHistoricalData ");
       if (this._isMounted)
@@ -131,24 +97,29 @@ export class CoinDetails extends Component {
   }
   render() {
     const baseClass = "CoinDetails";
-    const { data, dataLoading, infoLoading, timeSpan } = this.state;
-    const { coinInfo, coinData } = this.props;
+    const {
+      data,
+      historicalData,
+      dataLoading,
+      infoLoading,
+      timeSpan
+    } = this.state;
+    const { coin, following, coinInfo, setUserCoin } = this.props;
 
-    let coinName, symbol, sortOrder, HIGH24HOUR, LOW24HOUR, MKTCAP, imageURL;
-    coinName = symbol = sortOrder = HIGH24HOUR = LOW24HOUR = MKTCAP = "-";
-    if (coinInfo && coinData) {
-      coinName = coinInfo.coinName;
+    let symbol, sortOrder, HIGH24HOUR, LOW24HOUR, MKTCAP, imageURL;
+    symbol = sortOrder = HIGH24HOUR = LOW24HOUR = MKTCAP = "-";
+    if (coinInfo && data) {
       symbol = coinInfo.symbol;
       sortOrder = coinInfo.sortOrder;
-      HIGH24HOUR = coinData.HIGH24HOUR.toLocaleString("de-DE", {
+      HIGH24HOUR = data.HIGH24HOUR.toLocaleString("de-DE", {
         style: "currency",
         currency: "EUR"
       });
-      LOW24HOUR = coinData.LOW24HOUR.toLocaleString("de-DE", {
+      LOW24HOUR = data.LOW24HOUR.toLocaleString("de-DE", {
         style: "currency",
         currency: "EUR"
       });
-      MKTCAP = coinData.MKTCAP.toLocaleString("de-DE", {
+      MKTCAP = data.MKTCAP.toLocaleString("de-DE", {
         style: "currency",
         currency: "EUR"
       });
@@ -159,7 +130,7 @@ export class CoinDetails extends Component {
       <SWindow>
         <SWindowHeader>
           {/* <img src={imageURL} className={`${baseClass}-SwindowHeader__icon`} /> */}
-          {`${coinName}.${symbol.toLocaleLowerCase()}`}
+          {`${coin}.${symbol.toLocaleLowerCase()}`}
           <Button
             square
             size="sm"
@@ -180,7 +151,8 @@ export class CoinDetails extends Component {
               name="follow"
               label="Follow"
               value={true}
-              onChange={e => console.log(e.target.value)}
+              checked={following}
+              onChange={() => setUserCoin(coin, !following)}
             />
 
             <Select
@@ -194,17 +166,17 @@ export class CoinDetails extends Component {
             />
           </TopToolbar>
           <ChartWrapper>
-            {data && (
+            {historicalData && (
               <SimpleLineChart
-                data={data.map((dataPoint, i) => ({
+                data={historicalData.map((historicalDataPoint, i) => ({
                   name: i,
-                  AVG: dataPoint.HLCAverage,
-                  HIGH: dataPoint.high,
-                  LOW: dataPoint.low
+                  AVG: historicalDataPoint.HLCAverage,
+                  HIGH: historicalDataPoint.high,
+                  LOW: historicalDataPoint.low
                 }))}
               />
             )}
-            {(dataLoading || !data) && <CenteredLoader />}
+            {(dataLoading || !historicalData) && <CenteredLoader />}
           </ChartWrapper>
           <PeriodButtonsWrapper>
             <Button
@@ -288,14 +260,15 @@ export class CoinDetails extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const coin = ownProps.match.params.coin;
+  const following = state.user.coinsList.includes(coin);
   const coinInfo = state.coins.coinsInfo ? state.coins.coinsInfo[coin] : null;
-  const coinData = state.coins.coinsData ? state.coins.coinsData[coin] : null;
 
   return {
+    coin,
+    following,
     userCoinsList: state.user.coinsList,
     currency: state.user.currency,
-    coinInfo,
-    coinData
+    coinInfo
   };
 };
 
@@ -304,7 +277,8 @@ const mapDispatchToProps = dispatch => ({
   fetchCoinsData: (coinsList, currency) =>
     dispatch(fetchCoinsData(coinsList, currency)),
   fetchCoinsHistoricalData: (coin, timeSpan) =>
-    dispatch(fetchCoinsHistoricalData(coin, timeSpan))
+    dispatch(fetchCoinsHistoricalData(coin, timeSpan)),
+  setUserCoin: (coin, follow) => dispatch(setUserCoin(coin, follow))
 });
 export default withRouter(
   connect(
@@ -312,3 +286,38 @@ export default withRouter(
     mapDispatchToProps
   )(CoinDetails)
 );
+
+let SWindow = styled(Window)`
+  width: 100%;
+  height: 100%;
+  display: flex !important;
+  flex-direction: column;
+`;
+let SWindowHeader = styled(WindowHeader)`
+  flex-shrink: 0;
+`;
+let SWindowContent = styled(WindowContent)`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+`;
+let TopToolbar = styled(Toolbar)`
+  justify-content: space-between;
+  padding: 0;
+  margin-bottom: 0.5em;
+`;
+let ChartWrapper = styled(Cutout)`
+  position: relative;
+  width: 100%;
+  flex: 1;
+  background: teal;
+  background: radial-gradient(#1d8a99, teal);
+  padding: 1em;
+`;
+let PeriodButtonsWrapper = styled(Toolbar)`
+  padding: 0;
+  margin-bottom: 1.5em;
+  margin-top: 0.5em;
+`;

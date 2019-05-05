@@ -13,7 +13,11 @@ const coinsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_COINS_LIST_SUCCESS:
       const coinsInfo = action.payload;
-      const coinsList = Object.keys(coinsInfo);
+      // sorting by  rank
+      const coinsList = Object.keys(coinsInfo).sort(
+        (coinA, coinB) =>
+          coinsInfo[coinA].sortOrder - coinsInfo[coinB].sortOrder
+      );
       return { ...state, coinsList, coinsInfo };
     case FETCH_COINS_DATA_SUCCESS:
       return { ...state, coinsData: action.payload };
@@ -26,18 +30,7 @@ const coinsReducer = (state = initialState, action) => {
 };
 
 export default coinsReducer;
-
 // selectors
-
 export const selectCoins = (state, ammount) => {
   return state.splice(0, ammount);
-};
-
-export const selectTopCoinsList = (state, ammount) => {
-  if (!state) return null;
-  const data = state;
-  const topCoinsList = Object.keys(data)
-    .sort((coinA, coinB) => data[coinA].sortOrder - data[coinB].sortOrder)
-    .splice(0, ammount);
-  return topCoinsList;
 };
