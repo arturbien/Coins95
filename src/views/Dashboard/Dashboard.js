@@ -121,7 +121,7 @@ export default connect(
 
 let Header = styled.header`
   display: block;
-  height: 100px;
+  height: 40px;
   margin-bottom: 1em;
   /* background: pink; */
 `;

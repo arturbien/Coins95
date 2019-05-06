@@ -7,7 +7,12 @@ class API {
       baseURL: "https://min-api.cryptocompare.com"
     });
   }
-
+  fetchNews = async (sortOrder = "latest") => {
+    const query = `/data/v2/news/?lang=EN`;
+    let news = await this.axios.get(query);
+    news = news.data.Data;
+    return news;
+  };
   fetchCoinsList = async (ammount = 10) => {
     const query = "/data/all/coinlist";
     const response = await this.axios.get(query);

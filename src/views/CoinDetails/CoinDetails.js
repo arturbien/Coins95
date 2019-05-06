@@ -101,10 +101,11 @@ export class CoinDetails extends Component {
       timeSpan
     } = this.state;
     const { coin, following, coinInfo, setUserCoin } = this.props;
-
-    let symbol, sortOrder, HIGH24HOUR, LOW24HOUR, MKTCAP, imageURL;
-    symbol = sortOrder = HIGH24HOUR = LOW24HOUR = MKTCAP = "-";
+    let coinName, symbol, sortOrder, HIGH24HOUR, LOW24HOUR, MKTCAP, imageURL;
+    coinName = symbol = sortOrder = HIGH24HOUR = LOW24HOUR = MKTCAP = "-";
     if (coinInfo && data) {
+      console.log(this.props);
+      coinName = coinInfo.coinName;
       symbol = coinInfo.symbol;
       sortOrder = coinInfo.sortOrder;
       HIGH24HOUR = data.HIGH24HOUR.toLocaleString("de-DE", {
@@ -126,7 +127,7 @@ export class CoinDetails extends Component {
       <SWindow>
         <SWindowHeader>
           {/* <img src={imageURL} className={`${baseClass}-SwindowHeader__icon`} /> */}
-          {`${coin}.${symbol.toLocaleLowerCase()}`}
+          {`${coinName}.${symbol.toLocaleLowerCase()}`}
           <Button
             square
             size="sm"
@@ -294,6 +295,7 @@ let SWindowContent = styled(WindowContent)`
   flex-direction: column;
   justify-content: space-between;
   flex-wrap: nowrap;
+  padding-top: 0.5rem;
 `;
 let TopToolbar = styled(Toolbar)`
   justify-content: space-between;

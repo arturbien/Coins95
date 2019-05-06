@@ -1,7 +1,10 @@
 import React from "react";
-import Fab from "../../components/Fab/Fab";
+import { withRouter } from "react-router-dom";
 
 import styled from "styled-components";
+
+import Fab from "../../components/Fab/Fab";
+
 import { AppBar, Button, Toolbar } from "react95";
 
 import ArticleIcon from "../../img/article.png";
@@ -16,26 +19,48 @@ const SAppBar = styled(AppBar)`
 `;
 const Icon = styled.img`
   height: 25px;
-  /* filter: grayscale(1); */
+  filter: ${({ active }) => (active ? "none" : "grayscale(1)")};
 `;
-const NavBar = props => (
-  <SAppBar fixed>
-    <Toolbar>
-      <Button fullWidth size="lg" active>
-        <Icon src={GlobeIcon} alt="icon" />
-      </Button>
-      <Button fullWidth size="lg">
-        <Icon src={ArticleIcon} alt="icon" style={{ filter: "grayscale(1)" }} />
-      </Button>
-      <Button fullWidth size="lg">
-        <Icon src={FolderIcon} alt="icon" style={{ filter: "grayscale(1)" }} />
-      </Button>
-      <Button fullWidth size="lg">
-        <Icon src={NotepadIcon} alt="icon" style={{ filter: "grayscale(1)" }} />
-      </Button>
-    </Toolbar>
-    <Fab>{"+"}</Fab>
-  </SAppBar>
-);
+const NavBar = props => {
+  console.log(props);
+  const currentLocation = props.location.pathname;
+  return (
+    <SAppBar fixed>
+      <Toolbar>
+        <Button
+          active={currentLocation === "/coins"}
+          onClick={() => props.history.push("/coins")}
+          fullWidth
+          size="lg"
+        >
+          <Icon
+            active={currentLocation === "/coins"}
+            src={GlobeIcon}
+            alt="icon"
+          />
+        </Button>
+        <Button
+          active={currentLocation === "/news"}
+          onClick={() => props.history.push("/news")}
+          fullWidth
+          size="lg"
+        >
+          <Icon
+            active={currentLocation === "/news"}
+            src={ArticleIcon}
+            alt="icon"
+          />
+        </Button>
+        <Button fullWidth size="lg">
+          <Icon src={FolderIcon} alt="icon" />
+        </Button>
+        <Button fullWidth size="lg">
+          <Icon src={NotepadIcon} alt="icon" />
+        </Button>
+      </Toolbar>
+      <Fab>{"+"}</Fab>
+    </SAppBar>
+  );
+};
 
-export default NavBar;
+export default withRouter(NavBar);
