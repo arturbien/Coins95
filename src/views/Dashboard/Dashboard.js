@@ -3,9 +3,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchCoinsList, fetchCoinsData } from "../../store/actions/coins";
 import styled from "styled-components";
-import { Window, WindowContent, Button, Toolbar } from "react95";
+import { Button, Toolbar } from "react95";
 import Loader from "../../components/Loader/Loader";
 import CoinsTable from "./CoinsTable/CoinsTable";
+import Fullpage from "../../components/Fullpage/Fullpage";
 
 export class Dashboard extends Component {
   static propTypes = {
@@ -66,34 +67,32 @@ export class Dashboard extends Component {
     }));
 
     return (
-      <SWindow>
-        <SWindowContent>
-          <Header />
-          <CoinsTableWrapper>
-            <CoinsTable data={data} />
-          </CoinsTableWrapper>
-          <SToolbar>
-            <Button
-              active={!showFollowing}
-              onClick={() =>
-                showFollowing && this.setState({ showFollowing: false })
-              }
-              fullWidth
-            >
-              Top 30
-            </Button>
-            <Button
-              active={showFollowing}
-              onClick={() =>
-                !showFollowing && this.setState({ showFollowing: true })
-              }
-              fullWidth
-            >
-              Following
-            </Button>
-          </SToolbar>
-        </SWindowContent>
-      </SWindow>
+      <Fullpage>
+        <Header />
+        <CoinsTableWrapper>
+          <CoinsTable data={data} />
+        </CoinsTableWrapper>
+        <SToolbar>
+          <Button
+            active={!showFollowing}
+            onClick={() =>
+              showFollowing && this.setState({ showFollowing: false })
+            }
+            fullWidth
+          >
+            Top 30
+          </Button>
+          <Button
+            active={showFollowing}
+            onClick={() =>
+              !showFollowing && this.setState({ showFollowing: true })
+            }
+            fullWidth
+          >
+            Following
+          </Button>
+        </SToolbar>
+      </Fullpage>
     );
   }
 }
@@ -125,20 +124,7 @@ let Header = styled.header`
   margin-bottom: 1em;
   /* background: pink; */
 `;
-let SWindow = styled(Window)`
-  box-sizing: border-box;
-  position: relative;
-  height: 100%;
-  width: 100%;
-`;
-let SWindowContent = styled(WindowContent)`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  padding-bottom: 5rem;
-`;
+
 let CoinsTableWrapper = styled.div`
   flex: 1;
   & > div {

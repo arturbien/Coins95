@@ -4,6 +4,9 @@ import { connect } from "react-redux";
 
 import { fetchNews } from "../../store/actions/news";
 
+import NewsList from "./NewsList/NewsList";
+import Fullpage from "../../components/Fullpage/Fullpage";
+
 export class News extends Component {
   static propTypes = {};
   componentDidMount = async () => {
@@ -12,11 +15,18 @@ export class News extends Component {
   };
 
   render() {
-    return <div>swag</div>;
+    const { news } = this.props;
+    return (
+      <Fullpage style={{ overflowY: "scroll" }}>
+        {news && <NewsList news={news} />}
+      </Fullpage>
+    );
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  news: state.news
+});
 
 const mapDispatchToProps = dispatch => ({
   fetchNews: () => dispatch(fetchNews())

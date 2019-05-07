@@ -295,6 +295,7 @@ let SWindowContent = styled(WindowContent)`
   flex-direction: column;
   justify-content: space-between;
   flex-wrap: nowrap;
+  padding: 0.25rem;
   padding-top: 0.5rem;
 `;
 let TopToolbar = styled(Toolbar)`
