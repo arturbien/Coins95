@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import { fetchNews } from "../../store/actions/news";
 
+import {  Cutout } from "react95";
+
 import NewsList from "./NewsList/NewsList";
 import Fullpage from "../../components/Fullpage/Fullpage";
 
@@ -17,8 +19,10 @@ export class News extends Component {
   render() {
     const { news } = this.props;
     return (
-      <Fullpage style={{ overflowY: "scroll" }}>
+      <Fullpage >
+        <Cutout style={{ overflowY: "scroll", background: "teal" }}>
         {news && <NewsList news={news} />}
+        </Cutout>
       </Fullpage>
     );
   }

@@ -176,46 +176,46 @@ export class CoinDetails extends Component {
             {(dataLoading || !historicalData) && <CenteredLoader />}
           </ChartWrapper>
           <PeriodButtonsWrapper>
-            <Button
+            <SButton
               size="sm"
               onClick={() => this.handleFetchHistoricalData("1H")}
               active={timeSpan === "1H"}
               fullWidth
             >
               1H
-            </Button>
-            <Button
+            </SButton>
+            <SButton
               size="sm"
               onClick={() => this.handleFetchHistoricalData("24H")}
               active={timeSpan === "24H"}
               fullWidth
             >
               24H
-            </Button>
-            <Button
+            </SButton>
+            <SButton
               size="sm"
               onClick={() => this.handleFetchHistoricalData("1M")}
               active={timeSpan === "1M"}
               fullWidth
             >
               1M
-            </Button>
-            <Button
+            </SButton>
+            <SButton
               size="sm"
               onClick={() => this.handleFetchHistoricalData("3M")}
               active={timeSpan === "3M"}
               fullWidth
             >
               3M
-            </Button>
-            <Button
+            </SButton>
+            <SButton
               size="sm"
               onClick={() => this.handleFetchHistoricalData("1Y")}
               active={timeSpan === "1Y"}
               fullWidth
             >
               1Y
-            </Button>
+            </SButton>
           </PeriodButtonsWrapper>
           <Fieldset label={"Coin information"}>
             <div className={`${baseClass}-details`}>
@@ -315,4 +315,14 @@ let PeriodButtonsWrapper = styled(Toolbar)`
   padding: 0;
   margin-bottom: 1.5em;
   margin-top: 0.5em;
+`;
+
+const SButton = styled(Button)`
+  margin: 0 1px;
+
+  ${({active}) => active && `
+    background: url(
+data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIElEQVQYV2P8////fwYGBgZGRkZGMI0hABIFAbgEugAAQFQP/QfjEPcAAAAASUVORK5CYII=
+    ) repeat;
+  `}
 `;

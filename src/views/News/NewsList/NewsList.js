@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { Divider, Cutout } from "react95";
+import { Divider, Cutout, Window, WindowContent } from "react95";
 
 const Li = styled.li`
-  padding: 0.5em 0;
+  padding: 0.25rem 0;
 `;
 
 const Square = styled.div`
@@ -24,17 +24,23 @@ const ArticleIMG = styled.img`
   width: 100%;
   height: 100%;
 `;
+const SWindow = styled(Window)`
+  width: 100%;
+`;
 const NewsList = ({ news }) => {
   const newsItems = news
     .map(n => (
       <Li>
-        <Cutout>
+      <SWindow>
+
+      <WindowContent>
           <Square>
             <ArticleIMG src={n.imageurl} />
           </Square>
-        </Cutout>
         <div>{n.title}</div>
-        <Divider />
+        {/* <Divider /> */}
+      </WindowContent>
+      </SWindow>
       </Li>
     ))
     .splice(0, 10);

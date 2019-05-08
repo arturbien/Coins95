@@ -8,6 +8,8 @@ import Loader from "../../components/Loader/Loader";
 import CoinsTable from "./CoinsTable/CoinsTable";
 import Fullpage from "../../components/Fullpage/Fullpage";
 
+
+
 export class Dashboard extends Component {
   static propTypes = {
     userCoinsList: PropTypes.array,
@@ -73,7 +75,7 @@ export class Dashboard extends Component {
           <CoinsTable data={data} />
         </CoinsTableWrapper>
         <SToolbar>
-          <Button
+          <SButton
             active={!showFollowing}
             onClick={() =>
               showFollowing && this.setState({ showFollowing: false })
@@ -81,8 +83,8 @@ export class Dashboard extends Component {
             fullWidth
           >
             Top 30
-          </Button>
-          <Button
+          </SButton>
+          <SButton
             active={showFollowing}
             onClick={() =>
               !showFollowing && this.setState({ showFollowing: true })
@@ -90,7 +92,7 @@ export class Dashboard extends Component {
             fullWidth
           >
             Following
-          </Button>
+          </SButton>
         </SToolbar>
       </Fullpage>
     );
@@ -132,6 +134,16 @@ let CoinsTableWrapper = styled.div`
   }
 `;
 let SToolbar = styled(Toolbar)`
-  margin: 1rem 0;
+  margin: 0.5rem -1px;
   padding: 0;
+`;
+
+let SButton = styled(Button)`
+  margin: 0 1px;
+
+  ${({active}) => active && `
+    background: url(
+data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIElEQVQYV2P8////fwYGBgZGRkZGMI0hABIFAbgEugAAQFQP/QfjEPcAAAAASUVORK5CYII=
+    ) repeat;
+  `}
 `;
