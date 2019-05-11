@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
 import { connect } from "react-redux";
 
 import { fetchNews } from "../../store/actions/news";
 
-import {  Cutout } from "react95";
+import { Cutout } from "react95";
 
 import NewsList from "./NewsList/NewsList";
 import Fullpage from "../../components/Fullpage/Fullpage";
@@ -19,11 +20,12 @@ export class News extends Component {
   render() {
     const { news } = this.props;
     return (
-      <Fullpage >
-        <Cutout style={{ overflowY: "scroll", background: "teal" }}>
-        {news && <NewsList news={news} />}
-        </Cutout>
-      </Fullpage>
+      // <Fullpage>
+      //   <SCutout>
+      //     <NewsListWrapper>{news && <NewsList news={news} />}</NewsListWrapper>
+      //   </SCutout>
+      // </Fullpage>
+      <NewsListWrapper>{news && <NewsList news={news} />}</NewsListWrapper>
     );
   }
 }
@@ -40,3 +42,12 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(News);
+
+let SCutout = styled(Cutout)`
+  height: 100%;
+`;
+let NewsListWrapper = styled.div`
+  box-sizing: border-box;
+  width: 100%;
+  background: white;
+`;
