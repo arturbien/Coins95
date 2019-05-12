@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+// import propTypes from "prop-types";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
 import { fetchNews } from "../../store/actions/news";
 
-import { Cutout } from "react95";
-
 import NewsList from "./NewsList/NewsList";
-import Fullpage from "../../components/Fullpage/Fullpage";
 
 export class News extends Component {
   static propTypes = {};
@@ -43,9 +40,6 @@ export default connect(
   mapDispatchToProps
 )(News);
 
-let SCutout = styled(Cutout)`
-  height: 100%;
-`;
 let NewsListWrapper = styled.div`
   box-sizing: border-box;
   width: 100%;

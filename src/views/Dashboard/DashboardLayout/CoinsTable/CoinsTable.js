@@ -11,8 +11,8 @@ import {
   TableHeadCell,
   TableDataCell
 } from "react95";
-import FileIcon from "../../../components/FileIcon/FileIcon";
-
+// import FileIcon from "../../../components/FileIcon/FileIcon";
+import FileIcon from "../../../../components/FileIcon/FileIcon";
 const SFileIcon = styled(FileIcon)`
   top: 5px;
   margin-right: 6px;
@@ -67,12 +67,6 @@ class CoinsTable extends React.Component {
     };
   }
 
-  static getDerivedStateFromProps(props, state) {
-    return {
-      data: props.data
-    };
-  }
-
   handleChangeOrder = orderBy => {
     if (orderBy === this.state.orderBy) {
       this.setState(prevState => ({ desc: !prevState.desc }));
@@ -82,9 +76,7 @@ class CoinsTable extends React.Component {
   };
 
   render() {
-    const { history } = this.props;
-    const { data } = this.state;
-    console.log("RERENDER", data);
+    const { history, data } = this.props;
 
     const orderPairs = {
       price: "PRICE",
@@ -92,30 +84,36 @@ class CoinsTable extends React.Component {
       name: "coinName"
     };
 
-    const orderBy = orderPairs[this.state.orderBy];
-    let desc = this.state.desc ? 1 : -1;
-    desc = this.state.orderBy === "name" ? -desc : desc;
-    const orderedData = data.sort((a, b) => {
-      return (b[orderBy] > a[orderBy] ? 1 : -1) * desc;
-    });
+    let tableData;
+    if (!data) {
+      tableData = null;
+    } else {
+      const orderBy = orderPairs[this.state.orderBy];
+      let desc = this.state.desc ? 1 : -1;
+      desc = this.state.orderBy === "name" ? -desc : desc;
 
-    const tableData = orderedData.map((coinData, i) => {
-      const { name, coinName, imageURL, PRICE, CHANGEPCT24HOUR } = coinData;
-      return (
-        <TableRow key={i} onClick={() => history.push(`/coins/${name}`)}>
-          <TableDataCell>
-            <SFileIcon height={22} imageURL={imageURL} />
-            {`${coinName.toLowerCase()}.${name.toLowerCase()}`}
-          </TableDataCell>
-          <TableDataCell style={{ textAlign: "right" }}>
-            {PRICE.toFixed(2)}
-          </TableDataCell>
-          <TableDataCell style={{ textAlign: "right" }}>
-            {`${CHANGEPCT24HOUR.toFixed(2)}%`}
-          </TableDataCell>
-        </TableRow>
-      );
-    });
+      const orderedData = data.sort((a, b) => {
+        return (b[orderBy] > a[orderBy] ? 1 : -1) * desc;
+      });
+
+      tableData = orderedData.map((coinData, i) => {
+        const { name, coinName, imageURL, PRICE, CHANGEPCT24HOUR } = coinData;
+        return (
+          <TableRow key={i} onClick={() => history.push(`/coins/${name}`)}>
+            <TableDataCell>
+              <SFileIcon height={22} imageURL={imageURL} />
+              {`${coinName.toLowerCase()}.${name.toLowerCase()}`}
+            </TableDataCell>
+            <TableDataCell style={{ textAlign: "right" }}>
+              {PRICE.toFixed(2)}
+            </TableDataCell>
+            <TableDataCell style={{ textAlign: "right" }}>
+              {`${CHANGEPCT24HOUR.toFixed(2)}%`}
+            </TableDataCell>
+          </TableRow>
+        );
+      });
+    }
     return (
       <ScrollTable>
         <TableHead>

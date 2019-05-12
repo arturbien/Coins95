@@ -11,6 +11,7 @@ import { fetchCoinsList } from "../../store/actions/coins";
 import { setUserCoin } from "../../store/actions/user";
 import SimpleLineChart from "./SimpleLineChart/SimpleLineChart";
 
+import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
 import CenteredLoader from "../../components/CenteredLoader/CenteredLoader";
 
 import styled from "styled-components";
@@ -175,48 +176,36 @@ export class CoinDetails extends Component {
             )}
             {(dataLoading || !historicalData) && <CenteredLoader />}
           </ChartWrapper>
-          <PeriodButtonsWrapper>
-            <SButton
-              size="sm"
-              onClick={() => this.handleFetchHistoricalData("1H")}
-              active={timeSpan === "1H"}
-              fullWidth
-            >
-              1H
-            </SButton>
-            <SButton
-              size="sm"
-              onClick={() => this.handleFetchHistoricalData("24H")}
-              active={timeSpan === "24H"}
-              fullWidth
-            >
-              24H
-            </SButton>
-            <SButton
-              size="sm"
-              onClick={() => this.handleFetchHistoricalData("1M")}
-              active={timeSpan === "1M"}
-              fullWidth
-            >
-              1M
-            </SButton>
-            <SButton
-              size="sm"
-              onClick={() => this.handleFetchHistoricalData("3M")}
-              active={timeSpan === "3M"}
-              fullWidth
-            >
-              3M
-            </SButton>
-            <SButton
-              size="sm"
-              onClick={() => this.handleFetchHistoricalData("1Y")}
-              active={timeSpan === "1Y"}
-              fullWidth
-            >
-              1Y
-            </SButton>
-          </PeriodButtonsWrapper>
+
+          <ButtonSwitch
+            buttons={[
+              {
+                label: "1H",
+                onClick: () => this.handleFetchHistoricalData("1H"),
+                active: timeSpan === "1H"
+              },
+              {
+                label: "24H",
+                onClick: () => this.handleFetchHistoricalData("24H"),
+                active: timeSpan === "24H"
+              },
+              {
+                label: "1M",
+                onClick: () => this.handleFetchHistoricalData("1M"),
+                active: timeSpan === "1M"
+              },
+              {
+                label: "3M",
+                onClick: () => this.handleFetchHistoricalData("3M"),
+                active: timeSpan === "3M"
+              },
+              {
+                label: "1Y",
+                onClick: () => this.handleFetchHistoricalData("1Y"),
+                active: timeSpan === "1Y"
+              }
+            ]}
+          />
           <Fieldset label={"Coin information"}>
             <div className={`${baseClass}-details`}>
               <div className={`${baseClass}-details-row`}>
@@ -310,19 +299,4 @@ let ChartWrapper = styled(Cutout)`
   background: teal;
   background: radial-gradient(#1d8a99, teal);
   padding: 1em;
-`;
-let PeriodButtonsWrapper = styled(Toolbar)`
-  padding: 0;
-  margin-bottom: 1.5em;
-  margin-top: 0.5em;
-`;
-
-const SButton = styled(Button)`
-  margin: 0 1px;
-
-  ${({active}) => active && `
-    background: url(
-data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIElEQVQYV2P8////fwYGBgZGRkZGMI0hABIFAbgEugAAQFQP/QfjEPcAAAAASUVORK5CYII=
-    ) repeat;
-  `}
 `;

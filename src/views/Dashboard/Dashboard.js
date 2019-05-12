@@ -1,26 +1,23 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
+
 import { connect } from "react-redux";
 import { fetchCoinsList, fetchCoinsData } from "../../store/actions/coins";
-import styled from "styled-components";
-import { Button, Toolbar } from "react95";
-import Loader from "../../components/Loader/Loader";
-import CoinsTable from "./CoinsTable/CoinsTable";
-import Fullpage from "../../components/Fullpage/Fullpage";
 
-
-
+import DashboardLayout from "./DashboardLayout/DashboardLayout";
 export class Dashboard extends Component {
   static propTypes = {
-    userCoinsList: PropTypes.array,
-    coinsInfo: PropTypes.object,
-    coinsData: PropTypes.object,
-    fetchCoinsList: PropTypes.func,
-    fetchCoinsData: PropTypes.func
+    topCoinsList: propTypes.array,
+    userCoinsList: propTypes.array,
+    coinsInfo: propTypes.object,
+    coinsData: propTypes.object,
+    currency: propTypes.string,
+    fetchCoinsList: propTypes.func,
+    fetchCoinsData: propTypes.func
   };
 
   state = {
-    showFollowing: false
+    showingFollowing: false
   };
 
   componentDidMount = async () => {
@@ -29,6 +26,7 @@ export class Dashboard extends Component {
       topCoinsList,
       userCoinsList,
       coinsData,
+      currency,
       fetchCoinsList,
       fetchCoinsData
     } = this.props;
@@ -38,7 +36,10 @@ export class Dashboard extends Component {
     } else {
       // case when user laods app on /coins/BTC and presses X to go to dashboard
       if (!coinsData) {
-        fetchCoinsData([...new Set([...userCoinsList, ...topCoinsList])]);
+        fetchCoinsData(
+          [...new Set([...userCoinsList, ...topCoinsList])],
+          currency
+        );
       }
     }
   };
@@ -46,55 +47,45 @@ export class Dashboard extends Component {
     // then if we already have topCoinsList, we need to
     // fetch data for both top coins and user coins
     const {
-      userCoinsList,
       topCoinsList,
+      userCoinsList,
       coinsData,
+      currency,
       fetchCoinsData
     } = this.props;
     // case when app is loaded in /coins
     if (coinsData === null && prevProps.topCoinsList === null) {
       // new Set() for removing duplicates
-      fetchCoinsData([...new Set([...userCoinsList, ...topCoinsList])]);
+      fetchCoinsData(
+        [...new Set([...userCoinsList, ...topCoinsList])],
+        currency
+      );
     }
   }
+  switchView = showFollowing => {
+    this.state.showingFollowing !== showFollowing &&
+      this.setState({ showingFollowing: showFollowing });
+  };
   render() {
-    const { showFollowing } = this.state;
+    const { showingFollowing } = this.state;
     const { userCoinsList, topCoinsList, coinsData, coinsInfo } = this.props;
 
-    if (!coinsData) return <Loader />;
-
-    const data = (showFollowing ? userCoinsList : topCoinsList).map(coin => ({
-      ...coinsInfo[coin],
-      ...coinsData[coin]
-    }));
-
+    let data;
+    if (!coinsInfo || !coinsData) {
+      data = null;
+    } else {
+      data = (showingFollowing ? userCoinsList : topCoinsList).map(coin => ({
+        ...coinsInfo[coin],
+        ...coinsData[coin]
+      }));
+    }
     return (
-      <Fullpage>
-        <Header />
-        <CoinsTableWrapper>
-          <CoinsTable data={data} />
-        </CoinsTableWrapper>
-        <SToolbar>
-          <SButton
-            active={!showFollowing}
-            onClick={() =>
-              showFollowing && this.setState({ showFollowing: false })
-            }
-            fullWidth
-          >
-            Top 30
-          </SButton>
-          <SButton
-            active={showFollowing}
-            onClick={() =>
-              !showFollowing && this.setState({ showFollowing: true })
-            }
-            fullWidth
-          >
-            Following
-          </SButton>
-        </SToolbar>
-      </Fullpage>
+      <DashboardLayout
+        data={data}
+        showingFollowing={showingFollowing}
+        showFollowing={() => this.switchView(true)}
+        showTop={() => this.switchView(false)}
+      />
     );
   }
 }
@@ -119,31 +110,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Dashboard);
-
-let Header = styled.header`
-  display: block;
-  height: 40px;
-  margin-bottom: 1em;
-  /* background: pink; */
-`;
-
-let CoinsTableWrapper = styled.div`
-  flex: 1;
-  & > div {
-    height: 100%;
-  }
-`;
-let SToolbar = styled(Toolbar)`
-  margin: 0.5rem -1px;
-  padding: 0;
-`;
-
-let SButton = styled(Button)`
-  margin: 0 1px;
-
-  ${({active}) => active && `
-    background: url(
-data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIElEQVQYV2P8////fwYGBgZGRkZGMI0hABIFAbgEugAAQFQP/QfjEPcAAAAASUVORK5CYII=
-    ) repeat;
-  `}
-`;
