@@ -1,37 +1,19 @@
 import React from "react";
 import styled, { css } from "styled-components";
+
+import Dropdown from "../../../components/Dropdown/Dropdown";
 import { Anchor, Divider, Button } from "react95";
 
 import { timeSince } from "../../../utils";
-const Ul = styled.ul`
-  /* padding: 0.5rem; */
-  display: block;
-`;
-const Li = styled.li`
-  display: block;
-`;
+import { linkSync } from "fs";
 
-const ArticleIMG = styled.img`
-  display: block;
-  flex-shrink: 0;
-  width: 90px;
-  height: 90px;
-  object-fit: cover;
-  width: 100%;
-  height: auto;
-`;
-const Title = styled.h1`
-  font-size: 0.9rem;
-  line-height: 1.3;
-  padding: 0 0.25rem;
-`;
 const NewsList = ({ news }) => {
   const newsItems = news
     .map(n => {
       const date = timeSince(n.published_on);
       const hashtags = n.categories
         .split("|")
-        .map(h => <Hashtag>{` #${h.toLowerCase()} `}</Hashtag>);
+        .map((h, i) => <Hashtag key={i}>{` #${h.toLowerCase()} `}</Hashtag>);
       return (
         <Li key={n.id}>
           <article>
@@ -43,14 +25,18 @@ const NewsList = ({ news }) => {
                     <SourceIMG src={n.source_info.img} />
                     <SourceInfo>
                       <SourceName>{n.source}</SourceName>
-                      <Time datetime={date}>{date} ago</Time>
+                      <Time
+                        dateTime={new Date(
+                          n.published_on * 1000
+                        ).toLocaleString()}
+                      >
+                        {date} ago
+                      </Time>
                     </SourceInfo>
                   </Row>
                 </div>
                 <div>
-                  <Button size="md" square style={{ fontWeight: "bold" }}>
-                    ...
-                  </Button>
+                  <ArticleMenu link={n.url} />
                 </div>
               </Row>
             </ArticleSource>
@@ -60,8 +46,8 @@ const NewsList = ({ news }) => {
               <Title>
                 <SourceName as="span">{n.source}</SourceName>
                 {n.title}
+                <span>{hashtags}</span>
               </Title>
-              {hashtags}
             </ArticleHeader>
           </article>
         </Li>
@@ -74,6 +60,73 @@ const NewsList = ({ news }) => {
 
 export default NewsList;
 
+let ArticleMenu = ({ link }) => (
+  <Dropdown
+    verticalAlign="bottom"
+    horizontalAlign="right"
+    trigger={({ ...props }) => (
+      <Button style={{ fontWeight: "bold" }} {...props}>
+        ...
+      </Button>
+    )}
+    items={[
+      {
+        label: "Share",
+        onClick: () => {
+          if (navigator.share) {
+            navigator
+              .share({
+                title: "Web Fundamentals",
+                text: "Check out Web Fundamentals — it rocks!",
+                url: "https://developers.google.com/web"
+              })
+              .then(() => console.log("Successful share"))
+              .catch(error => console.log("Error sharing", error));
+          }
+        }
+      },
+      {
+        label: "Copy link",
+        onClick: () => {
+          navigator.clipboard.writeText(link).then(
+            function() {
+              alert(`you just copied link: ${link}`);
+            },
+            function() {
+              alert(`cant copy :(`);
+            }
+          );
+        }
+      },
+      { label: "Swag", onClick: () => undefined }
+    ]}
+  >
+    asdasd
+  </Dropdown>
+);
+
+let Ul = styled.ul`
+  /* padding: 0.5rem; */
+  display: block;
+`;
+let Li = styled.li`
+  display: block;
+`;
+
+let ArticleIMG = styled.img`
+  display: block;
+  flex-shrink: 0;
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+`;
+let Title = styled.h2`
+  font-size: 0.9rem;
+  line-height: 1.3;
+  padding: 0 0.25rem;
+`;
 let Hashtag = styled.a`
   color: blue;
   text-decoration: none;
@@ -105,6 +158,8 @@ let Time = styled.time`
 `;
 let SourceIMG = styled.img`
   display: inline-block;
+  position: relative;
+  top: 50%;
   width: 30px;
   height: 30px;
   margin-right: 0.5rem;
