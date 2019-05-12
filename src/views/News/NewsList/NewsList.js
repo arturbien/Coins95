@@ -1,15 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import {
-  Anchor,
-  Divider,
-  Cutout,
-  Toolbar,
-  Window,
-  WindowContent,
-  WindowHeader
-} from "react95";
+import { Anchor, Divider, Button } from "react95";
 
+import { timeSince } from "../../../utils";
 const Ul = styled.ul`
   /* padding: 0.5rem; */
   display: block;
@@ -27,38 +20,97 @@ const ArticleIMG = styled.img`
   width: 100%;
   height: auto;
 `;
-const Title = styled(Anchor)`
-  color: black;
-  text-decoration: none;
-  padding-right: 0.5rem;
-  padding-left: 0.25rem;
+const Title = styled.h1`
+  font-size: 0.9rem;
+  line-height: 1.3;
+  padding: 0 0.25rem;
 `;
 const NewsList = ({ news }) => {
   const newsItems = news
-    .map(n => (
-      <Li>
-        <article>
-          <ArticleSource>
-            <SDivider />
-            <Toolbar>
-              <SourceIMG src={n.source_info.img} />
-              <h4>{n.source}</h4>
-            </Toolbar>
-          </ArticleSource>
+    .map(n => {
+      const date = timeSince(n.published_on);
+      const hashtags = n.categories
+        .split("|")
+        .map(h => <Hashtag>{` #${h.toLowerCase()} `}</Hashtag>);
+      return (
+        <Li key={n.id}>
+          <article>
+            <ArticleSource>
+              <SDivider />
+              <Row>
+                <div>
+                  <Row>
+                    <SourceIMG src={n.source_info.img} />
+                    <SourceInfo>
+                      <SourceName>{n.source}</SourceName>
+                      <Time datetime={date}>{date} ago</Time>
+                    </SourceInfo>
+                  </Row>
+                </div>
+                <div>
+                  <Button size="md" square style={{ fontWeight: "bold" }}>
+                    ...
+                  </Button>
+                </div>
+              </Row>
+            </ArticleSource>
 
-          <ArticleIMG src={n.imageurl} />
-          <ArticleHeader>
-            <Title>{n.title}</Title>
-          </ArticleHeader>
-        </article>
-      </Li>
-    ))
+            <ArticleIMG src={n.imageurl} />
+            <ArticleHeader>
+              <Title>
+                <SourceName as="span">{n.source}</SourceName>
+                {n.title}
+              </Title>
+              {hashtags}
+            </ArticleHeader>
+          </article>
+        </Li>
+      );
+    })
     .splice(0, 10);
   console.log("😂", news);
   return <Ul>{newsItems}</Ul>;
 };
 
 export default NewsList;
+
+let Hashtag = styled.a`
+  color: blue;
+  text-decoration: none;
+`;
+let Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+`;
+let SDivider = styled(Divider)`
+  position: absolute;
+  top: -0.25rem;
+  width: calc(100% - 1rem);
+  left: 0.5rem;
+`;
+let SourceInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.9rem;
+`;
+let SourceName = styled.h4`
+  font-weight: bold;
+  font-size: inherit;
+  margin-right: 0.5rem;
+`;
+let Time = styled.time`
+  font-size: inherit;
+`;
+let SourceIMG = styled.img`
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  object-fit: contain;
+`;
 
 let createMaterialStyles = (top = true) => css`
   position: relative;
@@ -95,18 +147,5 @@ let ArticleSource = styled.header`
 `;
 let ArticleHeader = styled.header`
   ${createMaterialStyles(true)}
-`;
-
-let SDivider = styled(Divider)`
-  position: absolute;
-  top: -0.25rem;
-  width: calc(100% - 1rem);
-  left: 0.5rem;
-`;
-let SourceIMG = styled.img`
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  object-fit: contain;
+  padding-bottom: 1rem;
 `;
