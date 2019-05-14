@@ -2,10 +2,9 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 import Dropdown from "../../../components/Dropdown/Dropdown";
-import { Anchor, Divider, Button } from "react95";
+import { Divider, Button } from "react95";
 
 import { timeSince } from "../../../utils";
-import { linkSync } from "fs";
 
 const NewsList = ({ news }) => {
   const newsItems = news

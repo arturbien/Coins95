@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import propTypes from "prop-types";
+import propTypes from "prop-types";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
@@ -8,7 +8,10 @@ import { fetchNews } from "../../store/actions/news";
 import NewsList from "./NewsList/NewsList";
 
 export class News extends Component {
-  static propTypes = {};
+  static propTypes = {
+    fetchNews: propTypes.func,
+    news: propTypes.array
+  };
   componentDidMount = async () => {
     const { fetchNews } = this.props;
     await fetchNews();

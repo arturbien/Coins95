@@ -33,14 +33,12 @@ export class Dashboard extends Component {
 
     if (!topCoinsList) {
       fetchCoinsList();
-    } else {
       // case when user laods app on /coins/BTC and presses X to go to dashboard
-      if (!coinsData) {
-        fetchCoinsData(
-          [...new Set([...userCoinsList, ...topCoinsList])],
-          currency
-        );
-      }
+    } else if (!coinsData) {
+      fetchCoinsData(
+        [...new Set([...userCoinsList, ...topCoinsList])],
+        currency
+      );
     }
   };
   componentDidUpdate(prevProps, prevState) {
@@ -63,7 +61,8 @@ export class Dashboard extends Component {
     }
   }
   switchView = showFollowing => {
-    this.state.showingFollowing !== showFollowing &&
+    const { showingFollowing } = this.state;
+    showingFollowing !== showFollowing &&
       this.setState({ showingFollowing: showFollowing });
   };
   render() {

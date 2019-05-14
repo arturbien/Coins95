@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "react95";
 
 import Fullpage from "../../../components/Fullpage/Fullpage";
 

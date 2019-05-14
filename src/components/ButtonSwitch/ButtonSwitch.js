@@ -4,9 +4,9 @@ import styled from "styled-components";
 
 import { Button } from "react95";
 
-const ButtonSwitch = ({ buttons, size }) => {
+const ButtonSwitch = ({ buttons, size, ...otherProps }) => {
   return (
-    <Switch>
+    <Switch {...otherProps}>
       {buttons.map((btn, i) => (
         <SwitchButton
           onClick={btn.onClick}
