@@ -16,7 +16,7 @@ const Menu = ({ horizontalAlign, verticalAlign, trigger, items }) => {
 
   const TriggerElement = trigger;
   const listItems = items.map((item, i) => (
-    <ListItem key={i} onClick={item.onClick}>
+    <ListItem key={i} onClick={item.onClick} size="lg">
       {item.label}
     </ListItem>
   ));
@@ -28,6 +28,7 @@ const Menu = ({ horizontalAlign, verticalAlign, trigger, items }) => {
           verticalAlign={verticalAlign}
           open={open}
           onClick={handleClose}
+          style={{ zIndex: 999 }}
         >
           {listItems}
         </List>

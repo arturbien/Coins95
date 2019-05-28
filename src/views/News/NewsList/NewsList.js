@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 
 import Dropdown from "../../../components/Dropdown/Dropdown";
@@ -7,52 +7,77 @@ import { Divider, Button } from "react95";
 import { timeSince } from "../../../utils";
 
 const NewsList = ({ news }) => {
-  const newsItems = news
-    .map(n => {
-      const date = timeSince(n.published_on);
-      const hashtags = n.categories
-        .split("|")
-        .map((h, i) => <Hashtag key={i}>{` #${h.toLowerCase()} `}</Hashtag>);
-      return (
-        <Li key={n.id}>
-          <article>
-            <ArticleSource>
-              <SDivider />
-              <Row>
-                <div>
-                  <Row>
-                    <SourceIMG src={n.source_info.img} />
-                    <SourceInfo>
-                      <SourceName>{n.source}</SourceName>
-                      <Time
-                        dateTime={new Date(
-                          n.published_on * 1000
-                        ).toLocaleString()}
-                      >
-                        {date} ago
-                      </Time>
-                    </SourceInfo>
-                  </Row>
-                </div>
-                <div>
-                  <ArticleMenu link={n.url} />
-                </div>
-              </Row>
-            </ArticleSource>
+  useEffect(() => {
+    const lazyImages = Array.from(document.querySelectorAll("[data-src]"));
+    console.log("MOUNTED 🔥", lazyImages);
+    var options = {
+      root: document.querySelector("#scrollArea"),
+      rootMargin: "400px",
+      threshold: 0
+    };
+    var callback = function(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          console.log("swag");
 
-            <ArticleIMG src={n.imageurl} />
-            <ArticleHeader>
-              <Title>
-                <SourceName as="span">{n.source}</SourceName>
-                {n.title}
-                <span>{hashtags}</span>
-              </Title>
-            </ArticleHeader>
-          </article>
-        </Li>
-      );
-    })
-    .splice(0, 10);
+          lazyImage.src = lazyImage.dataset.src;
+          observer.unobserve(lazyImage);
+        }
+      });
+    };
+    var observer = new IntersectionObserver(callback, options);
+    lazyImages.forEach(lazyImage => observer.observe(lazyImage));
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  const newsItems = news.map(n => {
+    const date = timeSince(n.published_on);
+    const hashtags = n.categories
+      .split("|")
+      .map((h, i) => <Hashtag key={i}>{` #${h.toLowerCase()} `}</Hashtag>);
+    return (
+      <Li key={n.id}>
+        <article>
+          <ArticleSource>
+            <SDivider />
+            <Row>
+              <div>
+                <Row>
+                  <SourceIMG data-src={n.source_info.img} />
+                  <SourceInfo>
+                    <SourceName>{n.source}</SourceName>
+                    <Time
+                      dateTime={new Date(
+                        n.published_on * 1000
+                      ).toLocaleString()}
+                    >
+                      {date} ago
+                    </Time>
+                  </SourceInfo>
+                </Row>
+              </div>
+              <div>
+                <ArticleMenu link={n.url} />
+              </div>
+            </Row>
+          </ArticleSource>
+          <Square>
+            <ArticleIMG data-src={n.imageurl} />
+          </Square>
+          <ArticleHeader>
+            <Title>
+              <SourceName as="span">{n.source}</SourceName>
+              {n.title}
+              <span>{hashtags}</span>
+            </Title>
+          </ArticleHeader>
+        </article>
+      </Li>
+    );
+  });
   console.log("😂", news);
   return <Ul>{newsItems}</Ul>;
 };
@@ -113,10 +138,11 @@ let Li = styled.li`
 `;
 
 let ArticleIMG = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
   display: block;
   flex-shrink: 0;
-  width: 90px;
-  height: 90px;
   object-fit: cover;
   width: 100%;
   height: auto;
@@ -202,4 +228,17 @@ let ArticleSource = styled.header`
 let ArticleHeader = styled.header`
   ${createMaterialStyles(true)}
   padding-bottom: 1rem;
+`;
+let Square = styled.div`
+  width: 100%;
+  position: relative;
+
+  &:before {
+    content: "";
+    left: 0;
+    top: 0;
+    display: block;
+    width: 100%;
+    padding-top: 100%;
+  }
 `;

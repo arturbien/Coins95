@@ -8,6 +8,7 @@ import {
   Cutout,
   Fieldset,
   Toolbar,
+  Hourglass,
   Button,
   WindowHeader,
   Window,
@@ -55,8 +56,8 @@ const CoinDetailsLayout = ({
           size="sm"
           style={{
             position: "absolute",
-            right: "0.5rem",
-            top: 7,
+            right: "7px",
+            top: "6px",
             fontWeight: "bold"
           }}
           onClick={() => otherProps.history.goBack()}
@@ -73,6 +74,7 @@ const CoinDetailsLayout = ({
             checked={following}
             onChange={onFollow}
           />
+          <Hourglass />
 
           <Select
             width={85}

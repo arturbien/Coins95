@@ -45,12 +45,4 @@ let Switch = styled.nav`
 
 let SwitchButton = styled(Button)`
   margin: 0 1px;
-
-  ${({ active }) =>
-    active &&
-    `
-    background: url(
-data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIElEQVQYV2P8////fwYGBgZGRkZGMI0hABIFAbgEugAAQFQP/QfjEPcAAAAASUVORK5CYII=
-    ) repeat;
-  `}
 `;
