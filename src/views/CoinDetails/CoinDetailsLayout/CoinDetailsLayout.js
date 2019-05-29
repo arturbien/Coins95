@@ -8,7 +8,6 @@ import {
   Cutout,
   Fieldset,
   Toolbar,
-  Hourglass,
   Button,
   WindowHeader,
   Window,
@@ -49,7 +48,7 @@ const CoinDetailsLayout = ({
   return (
     <SWindow>
       <SWindowHeader>
-        {/* <img src={imageURL} className={`${baseClass}-SwindowHeader__icon`} /> */}
+        <SourceIMG src={imageURL} />
         {`${coinName}.${symbol.toLocaleLowerCase()}`}
         <Button
           square
@@ -74,7 +73,6 @@ const CoinDetailsLayout = ({
             checked={following}
             onChange={onFollow}
           />
-          <Hourglass />
 
           <Select
             width={85}
@@ -192,4 +190,15 @@ let ChartWrapper = styled(Cutout)`
   background: teal;
   background: radial-gradient(#1d8a99, teal);
   padding: 1em;
+`;
+let SourceIMG = styled.img`
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: white;
+  margin-right: 0.5rem;
 `;

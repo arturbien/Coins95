@@ -12,7 +12,7 @@ const NewsList = ({ news }) => {
     console.log("MOUNTED 🔥", lazyImages);
     var options = {
       root: document.querySelector("#scrollArea"),
-      rootMargin: "400px",
+      rootMargin: "1400px",
       threshold: 0
     };
     var callback = function(entries, observer) {

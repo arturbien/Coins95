@@ -24,7 +24,6 @@ const Icon = styled.img`
 
 const SwitchButton = styled(Button)`
   margin: 0 1px;
-
 `;
 const SToolbar = styled(Toolbar)`
   margin: 0 -1px;
@@ -59,7 +58,12 @@ const NavBar = props => {
             alt="icon"
           />
         </SwitchButton>
-        <SwitchButton fullWidth size="lg">
+        <SwitchButton
+          active={currentLocation === "/settings"}
+          onClick={() => props.history.push("/settings")}
+          fullWidth
+          size="lg"
+        >
           <Icon src={FolderIcon} alt="icon" />
         </SwitchButton>
         <SwitchButton fullWidth size="lg">
