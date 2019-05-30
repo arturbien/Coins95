@@ -70,7 +70,7 @@ const NavBar = props => {
           <Icon src={NotepadIcon} alt="icon" />
         </SwitchButton>
       </SToolbar>
-      <Fab>{"+"}</Fab>
+      <Fab onClick={() => props.history.push("/search")}>{"+"}</Fab>
     </SAppBar>
   );
 };

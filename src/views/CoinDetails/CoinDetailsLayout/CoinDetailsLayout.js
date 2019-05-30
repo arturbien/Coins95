@@ -56,7 +56,7 @@ const CoinDetailsLayout = ({
           style={{
             position: "absolute",
             right: "7px",
-            top: "6px",
+            top: "5px",
             fontWeight: "bold"
           }}
           onClick={() => otherProps.history.goBack()}
