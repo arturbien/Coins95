@@ -5,7 +5,6 @@ const SimpleLineChart = ({ data }) => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart data={data}>
-        {/* <XAxis dataKey="name" /> */}
         <CartesianGrid strokeDasharray="3 3" />
         <Line
           type="monotone"

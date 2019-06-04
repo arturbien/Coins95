@@ -1,8 +1,7 @@
 import React from "react";
 
-import Loader from "../../components/Loader/Loader";
-
-const CenteredLoader = () => (
+import { Hourglass } from "react95";
+const CenteredHourglass = () => (
   <div
     style={{
       width: "100%",
@@ -12,7 +11,7 @@ const CenteredLoader = () => (
       top: 0
     }}
   >
-    <Loader
+    <Hourglass
       style={{
         position: "absolute",
         left: "50%",
@@ -23,4 +22,4 @@ const CenteredLoader = () => (
   </div>
 );
 
-export default CenteredLoader;
+export default CenteredHourglass;

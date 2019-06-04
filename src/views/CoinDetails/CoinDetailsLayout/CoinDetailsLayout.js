@@ -18,9 +18,7 @@ import {
 
 import SimpleLineChart from "./SimpleLineChart/SimpleLineChart";
 import ButtonSwitch from "../../../components/ButtonSwitch/ButtonSwitch";
-import CenteredLoader from "../../../components/CenteredLoader/CenteredLoader";
-
-import "./CoinDetails.css";
+import CenteredHourglass from "../../../components/CenteredHourglass/CenteredHourglass";
 
 const CoinDetailsLayout = ({
   coinInfo,
@@ -32,8 +30,6 @@ const CoinDetailsLayout = ({
   onTimeSpanChange,
   ...otherProps
 }) => {
-  const baseClass = "CoinDetails";
-
   let coinName, symbol, sortOrder, HIGH24HOUR, LOW24HOUR, MKTCAP, imageURL;
   coinName = symbol = sortOrder = HIGH24HOUR = LOW24HOUR = MKTCAP = "-";
   if (coinInfo && data) {
@@ -45,6 +41,7 @@ const CoinDetailsLayout = ({
     MKTCAP = data.MKTCAP;
     imageURL = coinInfo.imageURL;
   }
+
   return (
     <SWindow>
       <SWindowHeader>
@@ -55,7 +52,7 @@ const CoinDetailsLayout = ({
           size="sm"
           style={{
             position: "absolute",
-            right: "7px",
+            right: "6px",
             top: "5px",
             fontWeight: "bold"
           }}
@@ -95,7 +92,7 @@ const CoinDetailsLayout = ({
               }))}
             />
           )}
-          {!historicalData && <CenteredLoader />}
+          {!historicalData && <CenteredHourglass />}
         </ChartWrapper>
 
         <ButtonSwitch
@@ -128,30 +125,22 @@ const CoinDetailsLayout = ({
           ]}
         />
         <Fieldset label={"Coin information"}>
-          <div className={`${baseClass}-details`}>
-            <div className={`${baseClass}-details-row`}>
-              <span className={`${baseClass}-details__title`}>Rank:</span>
-              <span className={`${baseClass}-details__value`}>
-                {sortOrder ? sortOrder : "-"}
-              </span>
-            </div>
-            <div className={`${baseClass}-details-row`}>
-              <span className={`${baseClass}-details__title`}>High (24h):</span>
-              <span className={`${baseClass}-details__value`}>
-                {HIGH24HOUR}
-              </span>
-            </div>
-            <div className={`${baseClass}-details-row`}>
-              <span className={`${baseClass}-details__title`}>Low (24h):</span>
-              <span className={`${baseClass}-details__value`}>{LOW24HOUR}</span>
-            </div>
-            <div className={`${baseClass}-details-row`}>
-              <span className={`${baseClass}-details__title`}>
-                Total market cap:
-              </span>
-              <span className={`${baseClass}-details__value`}>{MKTCAP}</span>
-            </div>
-          </div>
+          <Row>
+            <Col>Rank:</Col>
+            <Col>{sortOrder ? sortOrder : "-"}</Col>
+          </Row>
+          <Row>
+            <Col>High (24h):</Col>
+            <Col>{HIGH24HOUR}</Col>
+          </Row>
+          <Row>
+            <Col>Low (24h):</Col>
+            <Col>{LOW24HOUR}</Col>
+          </Row>
+          <Row>
+            <Col>Total market cap:</Col>
+            <Col>{MKTCAP}</Col>
+          </Row>
         </Fieldset>
       </SWindowContent>
     </SWindow>
@@ -160,38 +149,17 @@ const CoinDetailsLayout = ({
 
 export default withRouter(CoinDetailsLayout);
 
-let SWindow = styled(Window)`
+const SWindow = styled(Window)`
   width: 100%;
   height: 100%;
   display: flex !important;
   flex-direction: column;
 `;
-let SWindowHeader = styled(WindowHeader)`
+const SWindowHeader = styled(WindowHeader)`
   flex-shrink: 0;
 `;
-let SWindowContent = styled(WindowContent)`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  padding: 0.25rem;
-  padding-top: 0.5rem;
-`;
-let TopToolbar = styled(Toolbar)`
-  justify-content: space-between;
-  padding: 0;
-  margin-bottom: 0.5em;
-`;
-let ChartWrapper = styled(Cutout)`
-  position: relative;
-  width: 100%;
-  flex: 1;
-  background: teal;
-  background: radial-gradient(#1d8a99, teal);
-  padding: 1em;
-`;
-let SourceIMG = styled.img`
+
+const SourceIMG = styled.img`
   position: relative;
   top: 50%;
   transform: translateY(-50%);
@@ -201,4 +169,36 @@ let SourceIMG = styled.img`
   border-radius: 50%;
   background: white;
   margin-right: 0.5rem;
+`;
+
+const SWindowContent = styled(WindowContent)`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  padding: 0.25rem;
+  padding-top: 0.5rem;
+`;
+const TopToolbar = styled(Toolbar)`
+  justify-content: space-between;
+  padding: 0;
+  margin-bottom: 0.5em;
+`;
+const ChartWrapper = styled(Cutout)`
+  position: relative;
+  width: 100%;
+  flex: 1;
+  background: teal;
+  background: radial-gradient(#1d8a99, teal);
+  padding: 1em;
+`;
+
+const Row = styled.div`
+  display: flex;
+  flex-wrap: no-wrap;
+  line-height: 1.8;
+`;
+const Col = styled.div`
+  width: 50%;
 `;

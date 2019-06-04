@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 // import PropTypes from "prop-types";
-import "./CoinDetails.css";
 import { connect } from "react-redux";
 
 import API from "../../API";
@@ -96,7 +95,6 @@ const mapStateToProps = (state, ownProps) => {
   const coin = ownProps.match.params.coin;
   const following = state.user.coinsList.includes(coin);
   const coinInfo = state.coins.coinsInfo ? state.coins.coinsInfo[coin] : null;
-
   return {
     coin,
     following,
@@ -110,6 +108,7 @@ const mapDispatchToProps = dispatch => ({
   fetchCoinsList: () => dispatch(fetchCoinsList()),
   setUserCoin: (coin, follow) => dispatch(setUserCoin(coin, follow))
 });
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

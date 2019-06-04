@@ -11,7 +11,6 @@ import {
   TableHeadCell,
   TableDataCell
 } from "react95";
-// import FileIcon from "../../../components/FileIcon/FileIcon";
 import FileIcon from "../../../../components/FileIcon/FileIcon";
 const SFileIcon = styled(FileIcon)`
   top: 5px;
