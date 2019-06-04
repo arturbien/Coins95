@@ -13,7 +13,6 @@ import {
 } from "react95";
 import FileIcon from "../../../../components/FileIcon/FileIcon";
 const SFileIcon = styled(FileIcon)`
-  top: 5px;
   margin-right: 6px;
 `;
 
@@ -39,6 +38,10 @@ const ScrollTable = styled(Table)`
   th:nth-child(1),
   td:nth-child(1) {
     flex: 4;
+  }
+  td:nth-child(1) {
+    display: flex;
+    align-items: center;
   }
   th:nth-child(2),
   td:nth-child(2) {

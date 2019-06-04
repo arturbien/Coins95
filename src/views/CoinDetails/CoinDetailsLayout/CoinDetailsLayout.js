@@ -124,7 +124,7 @@ const CoinDetailsLayout = ({
             }
           ]}
         />
-        <Fieldset label={"Coin information"}>
+        <SFieldset label={"Coin information"}>
           <Row>
             <Col>Rank:</Col>
             <Col>{sortOrder ? sortOrder : "-"}</Col>
@@ -141,7 +141,7 @@ const CoinDetailsLayout = ({
             <Col>Total market cap:</Col>
             <Col>{MKTCAP}</Col>
           </Row>
-        </Fieldset>
+        </SFieldset>
       </SWindowContent>
     </SWindow>
   );
@@ -193,7 +193,9 @@ const ChartWrapper = styled(Cutout)`
   background: radial-gradient(#1d8a99, teal);
   padding: 1em;
 `;
-
+const SFieldset = styled(Fieldset)`
+  margin-top: 1rem;
+`;
 const Row = styled.div`
   display: flex;
   flex-wrap: no-wrap;
