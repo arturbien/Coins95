@@ -1,22 +1,45 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import propTypes from "prop-types";
 import { connect } from "react-redux";
+import { fetchCoinsList } from "../../store/actions/coins";
+import { setUserCoin } from "../../store/actions/user";
 
 import Layout from "./Layout";
 
 export class CoinSearch extends Component {
   static propTypes = {
-    prop: PropTypes
+    data: propTypes.array,
+    fetchCoinsList: propTypes.func
   };
+  componentDidMount = async () => {
+    // first fetch coins list and info
+    const { coinsList, fetchCoinsList } = this.props;
 
+    if (!coinsList) {
+      fetchCoinsList();
+    }
+  };
   render() {
-    return <Layout />;
+    const { data, setUserCoin } = this.props;
+    return <Layout data={data} onFollow={setUserCoin} />;
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  data: state.coins.coinsList
+    ? state.coins.coinsList.map(coin => {
+        const coinData = state.coins.coinsInfo[coin];
+        coinData.isFollowed = state.user.coinsList.includes(coin);
+        coinData.sortOrder = parseInt(coinData.sortOrder);
+        return coinData;
+      })
+    : null
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = dispatch => ({
+  fetchCoinsList: () => dispatch(fetchCoinsList()),
+  setUserCoin: (coin, follow) => dispatch(setUserCoin(coin, follow))
+});
 
 export default connect(
   mapStateToProps,
