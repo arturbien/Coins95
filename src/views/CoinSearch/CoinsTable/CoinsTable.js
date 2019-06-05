@@ -28,7 +28,6 @@ class CoinsTable extends React.Component {
       searchPhrase: ""
     };
   }
-
   handleChangeOrder = orderBy => {
     if (orderBy === this.state.orderBy) {
       this.setState(prevState => ({ desc: !prevState.desc }));
@@ -62,8 +61,7 @@ class CoinsTable extends React.Component {
           return (b[orderBy] > a[orderBy] ? 1 : -1) * desc;
         })
         .splice(0, COIN_LIMIT);
-      console.log(orderedData, orderedData.length);
-
+      console.log("💖");
       tableData = orderedData.map((coinData, i) => {
         const { name, coinName, imageURL, sortOrder, isFollowed } = coinData;
         return (
@@ -101,7 +99,10 @@ class CoinsTable extends React.Component {
             width="100%"
             style={{ marginRight: "4px" }}
           />
-          <Button onClick={() => this.setState({ searchPhrase: "" })}>
+          <Button
+            disabled={searchPhrase === ""}
+            onClick={() => this.setState({ searchPhrase: "" })}
+          >
             Clear
           </Button>
         </Toolbar>
@@ -138,6 +139,7 @@ const SFileIcon = styled(FileIcon)`
 let CoinsTableWrapper = styled.div`
   flex: 1;
   margin-top: 1rem;
+  padding-bottom: calc(56px + 35px + 1rem);
   & > div {
     height: 100%;
   }
