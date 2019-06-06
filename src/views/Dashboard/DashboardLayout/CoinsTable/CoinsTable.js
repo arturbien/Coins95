@@ -101,12 +101,13 @@ class CoinsTable extends React.Component {
         const {
           name,
           coinName,
+          symbol,
           imageURL,
           PRICE = 0,
           CHANGEPCT24HOUR = 0
         } = coinData;
         return (
-          <TableRow key={i} onClick={() => history.push(`/coins/${name}`)}>
+          <TableRow key={i} onClick={() => history.push(`/coins/${symbol}`)}>
             <TableDataCell>
               <SFileIcon height={22} imageURL={imageURL} />
               {`${coinName.toLowerCase()}.${name.toLowerCase()}`}

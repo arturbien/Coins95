@@ -85,7 +85,7 @@ export class CoinDetails extends Component {
         following={following}
         timeSpan={timeSpan}
         onTimeSpanChange={this.handleFetchHistoricalData}
-        onFollow={() => setUserCoin(coin, !following)}
+        onFollow={() => setUserCoin(coinInfo.symbol, !following)}
       />
     );
   }

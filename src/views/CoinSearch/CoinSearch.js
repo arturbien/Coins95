@@ -28,9 +28,8 @@ export class CoinSearch extends Component {
 const mapStateToProps = state => ({
   data: state.coins.coinsList
     ? state.coins.coinsList.map(coin => {
-        const coinData = state.coins.coinsInfo[coin];
+        const coinData = { ...state.coins.coinsInfo[coin] };
         coinData.isFollowed = state.user.coinsList.includes(coin);
-        coinData.sortOrder = parseInt(coinData.sortOrder);
         return coinData;
       })
     : null

@@ -63,9 +63,16 @@ class CoinsTable extends React.Component {
         .splice(0, COIN_LIMIT);
       console.log("💖");
       tableData = orderedData.map((coinData, i) => {
-        const { name, coinName, imageURL, sortOrder, isFollowed } = coinData;
+        const {
+          name,
+          coinName,
+          symbol,
+          imageURL,
+          sortOrder,
+          isFollowed
+        } = coinData;
         return (
-          <TableRow key={i} onClick={() => history.push(`/coins/${name}`)}>
+          <TableRow key={i} onClick={() => history.push(`/coins/${symbol}`)}>
             <TableDataCell>
               <SFileIcon height={22} imageURL={imageURL} />
               {`${coinName.toLowerCase()}.${name.toLowerCase()}`}
@@ -81,7 +88,7 @@ class CoinsTable extends React.Component {
                 checked={isFollowed}
                 variant="flat"
                 value={name}
-                onChange={() => onFollow(name, !isFollowed)}
+                onChange={() => onFollow(symbol, !isFollowed)}
               />
             </TableDataCell>
           </TableRow>
