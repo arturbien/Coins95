@@ -28,13 +28,15 @@ export class Dashboard extends Component {
       coinsData,
       currency,
       fetchCoinsList,
+      needsUpdate,
       fetchCoinsData
     } = this.props;
 
     if (!topCoinsList) {
       fetchCoinsList();
       // case when user laods app on /coins/BTC and presses X to go to dashboard
-    } else if (!coinsData) {
+      // or user follows new coins in /search, we have to get data for the new coins
+    } else if (!coinsData || needsUpdate) {
       fetchCoinsData(
         [...new Set([...userCoinsList, ...topCoinsList])],
         currency
@@ -96,7 +98,8 @@ const mapStateToProps = state => ({
     : null,
   currency: state.user.currency,
   coinsInfo: state.coins.coinsInfo,
-  coinsData: state.coins.coinsData
+  coinsData: state.coins.coinsData,
+  needsUpdate: state.coins.needsUpdate
 });
 
 const mapDispatchToProps = dispatch => ({

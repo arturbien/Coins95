@@ -13,13 +13,20 @@ class API {
     news = news.data.Data;
     return news;
   };
-  fetchCoinsList = async (ammount = 10) => {
+  fetchCoinsList = async (amount = 1000) => {
     const query = "/data/all/coinlist";
     const response = await this.axios.get(query);
     const data = response.data.Data;
-    console.log(data);
     const formattedData = {};
-    for (let coin in data) {
+    const sortedCoins = Object.keys(data)
+      .sort(
+        (coinA, coinB) =>
+          parseInt(data[coinA].sortOrder) - parseInt(data[coinB].sortOrder)
+      )
+      .splice(0, amount);
+    console.log(data, sortedCoins);
+
+    for (let coin of sortedCoins) {
       const coinData = data[coin];
       formattedData[coin] = {
         name: coinData.Name,

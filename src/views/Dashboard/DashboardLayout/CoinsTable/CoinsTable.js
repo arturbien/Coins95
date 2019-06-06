@@ -97,9 +97,14 @@ class CoinsTable extends React.Component {
       const orderedData = data.sort((a, b) => {
         return (b[orderBy] > a[orderBy] ? 1 : -1) * desc;
       });
-
       tableData = orderedData.map((coinData, i) => {
-        const { name, coinName, imageURL, PRICE, CHANGEPCT24HOUR } = coinData;
+        const {
+          name,
+          coinName,
+          imageURL,
+          PRICE = 0,
+          CHANGEPCT24HOUR = 0
+        } = coinData;
         return (
           <TableRow key={i} onClick={() => history.push(`/coins/${name}`)}>
             <TableDataCell>
@@ -110,7 +115,7 @@ class CoinsTable extends React.Component {
               {PRICE.toFixed(2)}
             </TableDataCell>
             <TableDataCell style={{ textAlign: "right" }}>
-              {`${CHANGEPCT24HOUR.toFixed(2)}%`}
+              {CHANGEPCT24HOUR.toFixed(2)}%
             </TableDataCell>
           </TableRow>
         );

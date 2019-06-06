@@ -1,12 +1,14 @@
 import {
   FETCH_COINS_LIST_SUCCESS,
-  FETCH_COINS_DATA_SUCCESS
+  FETCH_COINS_DATA_SUCCESS,
+  FOLLOW_COIN
 } from "../actions/actionTypes";
 
 const initialState = {
   coinsList: null,
   coinsInfo: null,
-  coinsData: null
+  coinsData: null,
+  needsUpdate: false
 };
 const coinsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -19,8 +21,9 @@ const coinsReducer = (state = initialState, action) => {
       );
       return { ...state, coinsList, coinsInfo };
     case FETCH_COINS_DATA_SUCCESS:
-      return { ...state, coinsData: action.payload };
-
+      return { ...state, coinsData: action.payload, needsUpdate: false };
+    case FOLLOW_COIN:
+      return { ...state, needsUpdate: true };
     default:
       return state;
   }
