@@ -18,12 +18,10 @@ class API {
     const response = await this.axios.get(query);
     const data = response.data.Data;
     const formattedData = {};
-    const sortedCoins = Object.keys(data)
-      .sort(
-        (coinA, coinB) =>
-          parseInt(data[coinA].sortOrder) - parseInt(data[coinB].sortOrder)
-      )
-      .splice(0, amount);
+    const sortedCoins = Object.keys(data).sort(
+      (coinA, coinB) =>
+        parseInt(data[coinA].sortOrder) - parseInt(data[coinB].sortOrder)
+    );
     console.log(data, sortedCoins);
 
     for (let coin of sortedCoins) {
@@ -36,7 +34,7 @@ class API {
         imageURL: cryptoURL + coinData.ImageUrl,
         totalCoinSupply: coinData.TotalCoinSupply,
         totalCoinsMined: coinData.TotalCoinsMined,
-        sortOrder: coinData.SortOrder
+        sortOrder: parseInt(coinData.SortOrder)
       };
     }
     return formattedData;

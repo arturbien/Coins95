@@ -63,13 +63,21 @@ export class Dashboard extends Component {
     }
   }
   switchView = showFollowing => {
-    const { showingFollowing } = this.state;
-    showingFollowing !== showFollowing &&
-      this.setState({ showingFollowing: showFollowing });
+    const { history } = this.props;
+    // keeping view state in URL
+    history.push(
+      `${history.location.pathname}#${showFollowing ? "following" : "top"}`
+    );
   };
   render() {
-    const { showingFollowing } = this.state;
-    const { userCoinsList, topCoinsList, coinsData, coinsInfo } = this.props;
+    const {
+      userCoinsList,
+      topCoinsList,
+      coinsData,
+      coinsInfo,
+      history
+    } = this.props;
+    const showingFollowing = history.location.hash === "#following";
 
     let data;
     if (!coinsInfo || !coinsData) {
