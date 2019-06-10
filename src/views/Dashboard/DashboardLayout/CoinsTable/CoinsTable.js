@@ -61,25 +61,33 @@ const ScrollTable = styled(Table)`
   }
 `;
 class CoinsTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      orderBy: "price",
-      desc: true
-    };
-  }
-
   handleChangeOrder = orderBy => {
-    if (orderBy === this.state.orderBy) {
-      this.setState(prevState => ({ desc: !prevState.desc }));
+    const { history } = this.props;
+
+    const currentSearchParams = new URLSearchParams(history.location.search);
+    const currentOrderBy = currentSearchParams.get("orderBy");
+    console.log(currentSearchParams.get("desc"));
+    let desc;
+    if (currentOrderBy === orderBy) {
+      desc = !(currentSearchParams.get("desc") === "true" ? true : false);
     } else {
-      this.setState({ orderBy, desc: true });
+      desc = orderBy === "name" ? false : true;
     }
+
+    const location = {
+      pathname: history.location.pathname,
+      search: `?orderBy=${orderBy}&desc=${desc}`,
+      hash: history.location.hash
+    };
+    history.push(location);
   };
 
   render() {
     const { history, data } = this.props;
-
+    const searchParams = new URLSearchParams(history.location.search);
+    let orderBy = searchParams.get("orderBy");
+    let desc = searchParams.get("desc") === "true" ? 1 : -1;
+    console.log(orderBy, desc);
     const orderPairs = {
       price: "PRICE",
       change: "CHANGEPCT24HOUR",
@@ -90,9 +98,8 @@ class CoinsTable extends React.Component {
     if (!data) {
       tableData = null;
     } else {
-      const orderBy = orderPairs[this.state.orderBy];
-      let desc = this.state.desc ? 1 : -1;
-      desc = this.state.orderBy === "name" ? -desc : desc;
+      orderBy = orderPairs[orderBy];
+      desc = orderBy === "name" ? -desc : desc;
 
       const orderedData = data.sort((a, b) => {
         return (b[orderBy] > a[orderBy] ? 1 : -1) * desc;
