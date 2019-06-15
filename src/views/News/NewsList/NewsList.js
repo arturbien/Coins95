@@ -1,26 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 
 import Dropdown from "../../../components/Dropdown/Dropdown";
-import { Divider, Button } from "react95";
+import { Divider, Button, Hourglass } from "react95";
 
 import { timeSince } from "../../../utils";
 
-const NewsList = ({ news }) => {
+const NewsList = ({ news, fetchNews }) => {
   useEffect(() => {
     const lazyImages = Array.from(document.querySelectorAll("[data-src]"));
     console.log("MOUNTED 🔥", lazyImages);
     var options = {
-      root: document.querySelector("#scrollArea"),
-      rootMargin: "1400px",
+      root: null,
+      rootMargin: "400px 0px 400px 0px",
       threshold: 0
     };
     var callback = function(entries, observer) {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           let lazyImage = entry.target;
-          console.log("swag");
-
           lazyImage.src = lazyImage.dataset.src;
           observer.unobserve(lazyImage);
         }
@@ -31,8 +29,9 @@ const NewsList = ({ news }) => {
     return () => {
       observer.disconnect();
     };
-  }, []);
-
+  }, [news]);
+  const lastNewsTimestamp = news[news.length - 1].published_on;
+  console.log("lastNewsTimestamp: ", lastNewsTimestamp);
   const newsItems = news.map(n => {
     const date = timeSince(n.published_on);
     const hashtags = n.categories
@@ -79,11 +78,55 @@ const NewsList = ({ news }) => {
     );
   });
   console.log("😂", news);
-  return <Ul>{newsItems}</Ul>;
+  return (
+    <>
+      <Ul>
+        {newsItems}
+        <LastItem onVisible={() => fetchNews(lastNewsTimestamp - 1)} />
+      </Ul>
+    </>
+  );
 };
-
 export default NewsList;
 
+const LastItem = ({ onVisible }) => {
+  const loader = useRef(null);
+  console.log("loader", loader);
+  useEffect(() => {
+    var options = {
+      root: null,
+      rootMargin: "400px 0px 400px 0px",
+      threshold: 0
+    };
+    var callback = function(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          onVisible();
+        }
+      });
+    };
+    var observer = new IntersectionObserver(callback, options);
+    observer.observe(loader.current);
+    return () => {
+      observer.disconnect();
+    };
+  }, [onVisible]);
+
+  return (
+    <div ref={loader}>
+      <ArticleSource
+        style={{
+          paddingBottom: "6rem",
+          paddingTop: "1rem"
+        }}
+      >
+        <SDivider />
+
+        <Hourglass />
+      </ArticleSource>
+    </div>
+  );
+};
 let ArticleMenu = ({ link }) => (
   <Dropdown
     verticalAlign="bottom"
@@ -204,7 +247,6 @@ let createMaterialStyles = (top = true) => css`
     top ? "none" : `2px solid ${theme.borderDarkest}`};
   border-left: 2px solid ${({ theme }) => theme.borderLightest};
   border-right: 2px solid ${({ theme }) => theme.borderDarkest};
-  box-shadow: ${({ theme }) => (top ? "none" : "0 4px 10px rgba(0,0,0,0.35)")};
   &:before {
     content: "";
     display: block;

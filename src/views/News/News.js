@@ -18,14 +18,16 @@ export class News extends Component {
   };
 
   render() {
-    const { news } = this.props;
+    const { news, fetchNews } = this.props;
     return (
       // <Fullpage>
       //   <SCutout>
       //     <NewsListWrapper>{news && <NewsList news={news} />}</NewsListWrapper>
       //   </SCutout>
       // </Fullpage>
-      <NewsListWrapper>{news && <NewsList news={news} />}</NewsListWrapper>
+      <NewsListWrapper>
+        {news && <NewsList news={news} fetchNews={fetchNews} />}
+      </NewsListWrapper>
     );
   }
 }
@@ -35,7 +37,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchNews: () => dispatch(fetchNews())
+  fetchNews: timestamp => dispatch(fetchNews(timestamp))
 });
 
 export default connect(
