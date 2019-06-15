@@ -19,15 +19,18 @@ import {
 import SimpleLineChart from "./SimpleLineChart/SimpleLineChart";
 import ButtonSwitch from "../../../components/ButtonSwitch/ButtonSwitch";
 import CenteredHourglass from "../../../components/CenteredHourglass/CenteredHourglass";
+import CurrencySelect from "../../../components/CurrencySelect/CurrencySelect";
 
 const CoinDetailsLayout = ({
   coinInfo,
   data,
+  currency,
   historicalData,
   following,
   timeSpan,
   onFollow,
   onTimeSpanChange,
+  onCurrencyChange,
   ...otherProps
 }) => {
   let coinName, symbol, sortOrder, HIGH24HOUR, LOW24HOUR, MKTCAP, imageURL;
@@ -71,14 +74,9 @@ const CoinDetailsLayout = ({
             onChange={onFollow}
           />
 
-          <Select
-            width={85}
-            onSelect={value => console.log(value)}
-            items={[
-              { value: 1, label: "EUR" },
-              { value: 2, label: "USD" },
-              { value: 3, label: "PLN" }
-            ]}
+          <CurrencySelect
+            selectedCurrency={currency}
+            onChange={onCurrencyChange}
           />
         </TopToolbar>
         <ChartWrapper>

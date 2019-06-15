@@ -18,7 +18,7 @@ export class CoinDetails extends Component {
   // TO PREVENT UPDATES ON UNMOUNTED COMPONENT
   _isMounted = false;
   state = {
-    coin: this.props.match.params.coin,
+    currency: this.props.currency,
     data: null,
     historicalData: null,
     dataLoading: false,
@@ -26,15 +26,17 @@ export class CoinDetails extends Component {
     timeSpan: "24H"
   };
   componentDidMount = async () => {
+    let { timeSpan, currency } = this.state;
+    const { coin, coinInfo, fetchCoinsList } = this.props;
+
     this._isMounted = true;
-    let { coin, data, timeSpan } = this.state;
     try {
-      if (!this.props.coinInfo) {
-        await this.props.fetchCoinsList();
+      if (!coinInfo) {
+        await fetchCoinsList();
       }
 
-      data = await API.fetchCoinsData([coin], this.props.currency);
-      data = data[coin];
+      let data = await API.fetchCoinsData([coin], currency);
+      this.handleFetchCoinsData(currency);
       this.handleFetchHistoricalData(timeSpan);
       if (this._isMounted) this.setState({ infoLoading: false, data });
     } catch (error) {
@@ -45,13 +47,19 @@ export class CoinDetails extends Component {
   componentWillUnmount() {
     this._isMounted = false;
   }
-
+  handleFetchCoinsData = async currency => {
+    const { coin } = this.props;
+    let data = await API.fetchCoinsData([coin], currency);
+    data = data[coin];
+    this.setState({ data });
+  };
   handleFetchHistoricalData = async timeSpan => {
-    if (this.state.dataLoading) return;
+    const { timeSpan: currentTimeSpan, dataLoading, currency } = this.state;
+    const { coin } = this.props;
+
+    if (dataLoading) return;
     this.setState({ timeSpan, dataLoading: true });
     // for optimistic update
-    const previousTimespan = this.state.timeSpan;
-    const coin = this.state.coin;
     try {
       const historicalData = await API.fetchCoinsHistoricalData(coin, timeSpan);
       historicalData.forEach(historicalDataPoint => {
@@ -69,22 +77,32 @@ export class CoinDetails extends Component {
       if (this._isMounted)
         this.setState({
           dataLoading: false,
-          timeSpan: previousTimespan
+          timeSpan: currentTimeSpan
         });
     }
   };
+  onCurrencyChange = currency => {
+    const { currency: currentCurrency, timeSpan } = this.state;
+    console.log(currentCurrency, currency);
+    if (currency !== currentCurrency) {
+      this.handleFetchCoinsData(currency);
+      this.handleFetchHistoricalData(timeSpan);
+      this.setState({ currency });
+    }
+  };
   render() {
-    const { data, historicalData, timeSpan } = this.state;
-    const { coin, following, coinInfo, setUserCoin } = this.props;
-
+    const { data, currency, historicalData, timeSpan } = this.state;
+    const { following, coinInfo, setUserCoin } = this.props;
     return (
       <CoinDetailsLayout
         coinInfo={coinInfo}
         data={data}
+        currency={currency}
         historicalData={historicalData}
         following={following}
         timeSpan={timeSpan}
         onTimeSpanChange={this.handleFetchHistoricalData}
+        onCurrencyChange={this.onCurrencyChange}
         onFollow={() => setUserCoin(coinInfo.symbol, !following)}
       />
     );

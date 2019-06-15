@@ -12,7 +12,7 @@ const NewsList = ({ news, fetchNews }) => {
     console.log("MOUNTED 🔥", lazyImages);
     var options = {
       root: null,
-      rootMargin: "400px 0px 400px 0px",
+      rootMargin: "400px 0px 1600px 0px",
       threshold: 0
     };
     var callback = function(entries, observer) {
@@ -95,7 +95,7 @@ const LastItem = ({ onVisible }) => {
   useEffect(() => {
     var options = {
       root: null,
-      rootMargin: "400px 0px 400px 0px",
+      rootMargin: "400px 0px 3200px 0px",
       threshold: 0
     };
     var callback = function(entries, observer) {
