@@ -19,6 +19,7 @@ import {
 import FileIcon from "../../../components/FileIcon/FileIcon";
 
 const COIN_LIMIT = 40;
+
 class CoinsTable extends React.Component {
   constructor(props) {
     super(props);
@@ -98,7 +99,7 @@ class CoinsTable extends React.Component {
 
     return (
       <>
-        <Toolbar>
+        <SearchWrapper>
           <TextField
             placeholder="Search..."
             value={searchPhrase}
@@ -112,7 +113,7 @@ class CoinsTable extends React.Component {
           >
             Clear
           </Button>
-        </Toolbar>
+        </SearchWrapper>
         <CoinsTableWrapper>
           <ScrollTable>
             <TableHead>
@@ -139,6 +140,11 @@ CoinsTable.propTypes = {
 };
 
 export default withRouter(CoinsTable);
+
+const SearchWrapper = styled(Toolbar)`
+  margin-left: -4px;
+  margin-right: 0px;
+`;
 
 const SFileIcon = styled(FileIcon)`
   margin-right: 6px;

@@ -80,6 +80,25 @@ const NewsList = ({ news, fetchNews }) => {
   console.log("😂", news);
   return (
     <>
+      <NewsHeader>💖</NewsHeader>
+      <FeedList>
+        <FeedItem>ASD</FeedItem>
+        <FeedItem>POD</FeedItem>
+        <FeedItem>PIR</FeedItem>
+        <FeedItem>ASD</FeedItem>
+        <FeedItem>POD</FeedItem>
+        <FeedItem>PIR</FeedItem>
+        <FeedItem>ASD</FeedItem>
+        <FeedItem>POD</FeedItem>
+        <FeedItem>PIR</FeedItem>
+        <FeedItem>ASD</FeedItem>
+        <FeedItem>POD</FeedItem>
+        <FeedItem>PIR</FeedItem>
+      </FeedList>
+      <FeedFooter>
+        <Well>25 news found</Well>
+        <Well>25 news found</Well>
+      </FeedFooter>
       <Ul>
         {newsItems}
         <LastItem onVisible={() => fetchNews(lastNewsTimestamp - 1)} />
@@ -235,16 +254,18 @@ let SourceIMG = styled.img`
   object-fit: contain;
 `;
 
-let createMaterialStyles = (top = true) => css`
+let createMaterialStyles = (mode = "top") => css`
   position: relative;
   box-sizing: border-box;
   width: 100%;
   padding: 0.5rem;
   background: ${({ theme }) => theme.material};
   border-top: ${({ theme }) =>
-    top ? `2px solid ${theme.borderLightest}` : "none"};
+    ["top", "full"].includes(mode)
+      ? `2px solid ${theme.borderLightest}`
+      : "none"};
   border-bottom: ${({ theme }) =>
-    top ? "none" : `2px solid ${theme.borderDarkest}`};
+    mode === "top" ? "none" : `2px solid ${theme.borderDarkest}`};
   border-left: 2px solid ${({ theme }) => theme.borderLightest};
   border-right: 2px solid ${({ theme }) => theme.borderDarkest};
   &:before {
@@ -252,23 +273,25 @@ let createMaterialStyles = (top = true) => css`
     display: block;
     position: absolute;
     width: calc(100% - 4px);
-    height: calc(100% - 2px);
-    ${!top ? "bottom: 0px" : "top: 0px"};
+    height: calc(100% - ${mode === "full" ? "4px" : "2px"});
+    ${["top", "full"].includes(mode) ? "bottom: 0px" : "top: 0px"};
     left: 0;
     pointer-events: none;
     border-left: 2px solid ${({ theme }) => theme.borderLight};
     border-right: 2px solid ${({ theme }) => theme.borderDark};
     border-top: ${({ theme }) =>
-      top ? `2px solid ${theme.borderLight}` : "none"};
+      ["top", "full"].includes(mode)
+        ? `2px solid ${theme.borderLight}`
+        : "none"};
     border-bottom: ${({ theme }) =>
-      top ? "none" : `2px solid ${theme.borderDark}`};
+      mode === "top" ? "none" : `2px solid ${theme.borderDark}`};
   }
 `;
 let ArticleSource = styled.header`
-  ${createMaterialStyles(false)}
+  ${createMaterialStyles("bottom")}
 `;
 let ArticleHeader = styled.header`
-  ${createMaterialStyles(true)}
+  ${createMaterialStyles("top")}
   padding-bottom: 1rem;
 `;
 let Square = styled.div`
@@ -283,4 +306,51 @@ let Square = styled.div`
     width: 100%;
     padding-top: 100%;
   }
+`;
+let Well = styled.div`
+  padding: 0 0.25rem;
+  height: 1.6rem;
+  line-height: 1.6rem;
+
+  border-top: 2px solid ${({ theme }) => theme.borderDark};
+  border-left: 2px solid ${({ theme }) => theme.borderDark};
+  border-bottom: 2px solid ${({ theme }) => theme.borderLightest};
+  border-right: 2px solid ${({ theme }) => theme.borderLightest};
+`;
+let NewsHeader = styled.header`
+  ${createMaterialStyles("full")}
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+`;
+let FeedFooter = styled.section`
+  ${createMaterialStyles("top")}
+  padding-bottom: 1rem;
+  display: flex;
+  flex-wrap: no-wrap;
+
+  ${Well}:first-child {
+    width: 100%;
+    margin-right: 2px;
+  }
+  ${Well}:last-child {
+    flex-shrink: 0;
+  }
+`;
+
+let FeedList = styled.ul`
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  overflow-x: scroll;
+  flex-wrap: no-wrap;
+  background: ${({ theme }) => theme.material};
+`;
+let FeedItem = styled.li`
+  display: inline-block;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  background: blue;
+  margin: 0 0.5rem;
+  flex-shrink: 0;
 `;

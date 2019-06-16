@@ -13,9 +13,9 @@ export class CoinSearch extends Component {
   };
   componentDidMount = async () => {
     // first fetch coins list and info
-    const { coinsList, fetchCoinsList } = this.props;
-
-    if (!coinsList) {
+    const { data, fetchCoinsList } = this.props;
+    console.log(data);
+    if (!data) {
       fetchCoinsList();
     }
   };
