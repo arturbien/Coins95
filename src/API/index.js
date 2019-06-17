@@ -7,7 +7,7 @@ class API {
       baseURL: "https://min-api.cryptocompare.com"
     });
   }
-  fetchNews = async (timestamp, sortOrder = "latest", limit = 15) => {
+  fetchNews = async (timestamp, sortOrder = "latest", limit = 1500) => {
     const query = `/data/v2/news/?lang=EN`;
 
     let news = await this.axios.get(query, {
