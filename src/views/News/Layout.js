@@ -10,7 +10,9 @@ import { createMaterialStyles } from "../../utils";
 const Layout = ({ news, popularNews, fetchNews }) => {
   return (
     <>
-      <Header>News</Header>
+      <Header>
+        <span style={{ opacity: 0 }}>News</span>
+      </Header>
       <Events popularNews={popularNews} />
       <NewsList news={news} fetchNews={fetchNews} />
     </>

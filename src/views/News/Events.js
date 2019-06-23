@@ -7,12 +7,17 @@ import { fetchEvents } from "../../store/actions/events";
 
 import { createMaterialStyles } from "../../utils";
 
+import EventDetails from "./EventDetails";
+
 import Well from "../../components/Well/Well";
 import { Bar } from "react95";
 
 export class Events extends React.Component {
   static propTypes = {};
 
+  state = {
+    openedEventIndex: null
+  };
   componentDidMount() {
     const { events, fetchEvents } = this.props;
 
@@ -39,20 +44,15 @@ export class Events extends React.Component {
       <div>
         <EventList>
           <li>
-            <Bar
-              style={{
-                height: "80px",
-                marginLeft: "0.5rem",
-                marginRight: "1rem"
-              }}
-            />
+            <SBar />
           </li>
           {eventsList && eventsList}
         </EventList>
         <FeedFooter>
           <Well>{events && `${events.length} upcoming events found`} </Well>
-          <Well>25 news found</Well>
+          <Well>{events && `${events.length} total`} </Well>
         </FeedFooter>
+        {/* <EventDetails /> */}
       </div>
     );
   }
@@ -71,12 +71,19 @@ export default connect(
   mapDispatchToProps
 )(Events);
 
+let SBar = styled(Bar)`
+  position: relative;
+  height: 4rem;
+  margin-top: 12px;
+  margin-left: 0.75rem;
+  margin-right: 1rem;
+`;
 let EventList = styled.ul`
   display: flex;
   align-items: flex-start;
-  padding: 0.75rem 0;
+  padding: 0.5rem 0;
   overflow-x: scroll;
-  flex-wrap: no-wrap;
+  flex-wrap: nowrap;
   background: ${({ theme }) => theme.material};
 `;
 let Event = styled.div`
@@ -124,6 +131,7 @@ let EventIMG = styled.img`
 let EventTitle = styled.span`
   width: 5.5rem;
   font-size: 0.8rem;
+  line-height: 1rem;
   text-align: center;
   white-space: nowrap;
   overflow-x: hidden;

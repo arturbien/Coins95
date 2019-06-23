@@ -30,8 +30,9 @@ const NewsList = ({ news, fetchNews }) => {
       observer.disconnect();
     };
   }, [news]);
+  news = news.sort((a, b) => b.published_on - a.published_on);
   const lastNewsTimestamp = news[news.length - 1].published_on;
-  console.log("lastNewsTimestamp: ", lastNewsTimestamp);
+  // why soring here works but not when sorted in API file or in reducer?
   const newsItems = news.map(n => {
     const date = timeSince(n.published_on);
     const hashtags = n.categories
