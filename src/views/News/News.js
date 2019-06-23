@@ -12,9 +12,11 @@ export class News extends Component {
     fetchNews: propTypes.func,
     news: propTypes.array
   };
-  componentDidMount = async () => {
-    const { fetchNews } = this.props;
-    await fetchNews();
+  componentDidMount = () => {
+    const { fetchNews, news } = this.props;
+    // if (!news) {
+    fetchNews();
+    // }
   };
 
   render() {

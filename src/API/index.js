@@ -7,6 +7,15 @@ class API {
       baseURL: "https://min-api.cryptocompare.com"
     });
   }
+
+  fetchEvents = async () => {
+    const query = `https://api.coingecko.com/api/v3/events?upcoming_events_only=${true}`;
+    const response = await axios.get(query);
+    const data = response.data.data;
+    console.log("🚀⚡", data);
+    return data;
+  };
+
   fetchNews = async (timestamp, sortOrder = "latest", limit = 1500) => {
     const query = `/data/v2/news/?lang=EN`;
 

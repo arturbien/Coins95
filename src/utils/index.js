@@ -26,6 +26,7 @@ export const timeSince = date => {
   return Math.floor(seconds) + " seconds";
 };
 
+// top / bottom/ full
 export const createMaterialStyles = (mode = "top") => css`
   position: relative;
   box-sizing: border-box;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import propTypes from "prop-types";
 
 import styled from "styled-components";
@@ -47,12 +47,24 @@ const IconIMG = styled.img`
   height: 100%;
   object-fit: contain;
   position: absolute;
+  transition: 0.2s all ease-out;
+  opacity: ${({ isLoaded }) => (isLoaded ? "1" : "0")};
 `;
-const FileIcon = ({ imageURL, height, ...otherProps }) => (
-  <Icon {...otherProps} height={height}>
-    {imageURL && <IconIMG src={imageURL} alt={`icon`} />}
-  </Icon>
-);
+const FileIcon = ({ imageURL, height, ...otherProps }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  return (
+    <Icon {...otherProps} height={height}>
+      {imageURL && (
+        <IconIMG
+          isLoaded={isLoaded}
+          src={imageURL}
+          alt={`icon`}
+          onLoad={() => setIsLoaded(true)}
+        />
+      )}
+    </Icon>
+  );
+};
 
 FileIcon.propTypes = {
   imageURL: propTypes.string

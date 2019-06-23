@@ -2,7 +2,7 @@ import { FETCH_NEWS_SUCCESS } from "../actions/actionTypes";
 
 const initialState = null;
 
-const coinsReducer = (state = initialState, action) => {
+const newsReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_NEWS_SUCCESS:
       let news;
@@ -27,4 +27,4 @@ const coinsReducer = (state = initialState, action) => {
   }
 };
 
-export default coinsReducer;
+export default newsReducer;
