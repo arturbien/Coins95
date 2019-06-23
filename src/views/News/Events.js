@@ -8,6 +8,7 @@ import { fetchEvents } from "../../store/actions/events";
 import { createMaterialStyles } from "../../utils";
 
 import Well from "../../components/Well/Well";
+import { Bar } from "react95";
 
 export class Events extends React.Component {
   static propTypes = {};
@@ -24,17 +25,30 @@ export class Events extends React.Component {
     let eventsList;
     if (events) {
       eventsList = events.map(event => (
-        <Event>
-          <EventImageWrapper>
-            <EventIMG src={event.screenshot} />
-          </EventImageWrapper>
-          <EventTitle>{event.city}</EventTitle>
-        </Event>
+        <li>
+          <Event>
+            <EventImageWrapper>
+              <EventIMG src={event.screenshot} />
+            </EventImageWrapper>
+            <EventTitle>{event.city}</EventTitle>
+          </Event>
+        </li>
       ));
     }
     return (
       <div>
-        <EventList>{eventsList && eventsList}</EventList>
+        <EventList>
+          <li>
+            <Bar
+              style={{
+                height: "80px",
+                marginLeft: "0.5rem",
+                marginRight: "1rem"
+              }}
+            />
+          </li>
+          {eventsList && eventsList}
+        </EventList>
         <FeedFooter>
           <Well>{events && `${events.length} upcoming events found`} </Well>
           <Well>25 news found</Well>
@@ -65,7 +79,7 @@ let EventList = styled.ul`
   flex-wrap: no-wrap;
   background: ${({ theme }) => theme.material};
 `;
-let Event = styled.li`
+let Event = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
