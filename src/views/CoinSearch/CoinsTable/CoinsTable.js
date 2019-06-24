@@ -162,6 +162,8 @@ const ScrollTable = styled(Table)`
   display: flex;
   flex-direction: column;
   height: 100%;
+  -webkit-overflow-scrolling: touch;
+
   thead,
   tbody,
   tr,

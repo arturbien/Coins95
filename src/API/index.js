@@ -12,11 +12,12 @@ class API {
     const query = `https://api.coingecko.com/api/v3/events?upcoming_events_only=${true}`;
     const response = await axios.get(query);
     const data = response.data.data;
-    console.log("🚀⚡", data);
+    // creating ID because CoinGecko doesn't supply one 😥
+    data.forEach(event => (event.id = event.organizer + event.title));
     return data;
   };
 
-  fetchNews = async (timestamp, sortOrder = "latest", limit = 1500) => {
+  fetchNews = async (timestamp, sortOrder = "latest", limit = 15) => {
     const query = `/data/v2/news/?lang=EN`;
 
     let news = await this.axios.get(query, {

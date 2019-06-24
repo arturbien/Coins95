@@ -25,13 +25,17 @@ export class Events extends React.Component {
       fetchEvents();
     }
   }
+  setOpenedEvent = index => this.setState({ openedEventIndex: index });
+
   render() {
     const { events } = this.props;
+    const { openedEventIndex } = this.state;
+    console.log("⚡", openedEventIndex, events && events[openedEventIndex]);
     let eventsList;
     if (events) {
-      eventsList = events.map(event => (
-        <li>
-          <Event>
+      eventsList = events.map((event, i) => (
+        <li key={event.id}>
+          <Event onClick={() => this.setOpenedEvent(i)}>
             <EventImageWrapper>
               <EventIMG src={event.screenshot} />
             </EventImageWrapper>
@@ -49,10 +53,16 @@ export class Events extends React.Component {
           {eventsList && eventsList}
         </EventList>
         <FeedFooter>
-          <Well>{events && `${events.length} upcoming events found`} </Well>
-          <Well>{events && `${events.length} total`} </Well>
+          <Well>{events && `Next event: ${events[0].title}`} </Well>
+          <Well>{events && `${events.length} event(s)`} </Well>
         </FeedFooter>
-        {/* <EventDetails /> */}
+        {openedEventIndex !== null && (
+          <EventDetails
+            events={events}
+            initialIndex={openedEventIndex}
+            onClose={() => this.setOpenedEvent(null)}
+          />
+        )}
       </div>
     );
   }
@@ -85,6 +95,7 @@ let EventList = styled.ul`
   overflow-x: scroll;
   flex-wrap: nowrap;
   background: ${({ theme }) => theme.material};
+  -webkit-overflow-scrolling: touch;
 `;
 let Event = styled.div`
   display: flex;
