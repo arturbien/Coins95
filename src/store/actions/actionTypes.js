@@ -16,3 +16,5 @@ export const FETCH_EVENTS_ERROR = "FETCH_EVENTS_ERROR";
 
 export const FOLLOW_COIN = "FOLLOW_COIN";
 export const UNFOLLOW_COIN = "UNFOLLOW_COIN";
+
+export const SET_EVENT_SEEN = "SET_EVENT_SEEN";

@@ -21,6 +21,8 @@ import ButtonSwitch from "../../../components/ButtonSwitch/ButtonSwitch";
 import CenteredHourglass from "../../../components/CenteredHourglass/CenteredHourglass";
 import CurrencySelect from "../../../components/CurrencySelect/CurrencySelect";
 
+import useLockBodyScroll from "../../../hooks/useLockBodyScroll";
+
 const CoinDetailsLayout = ({
   coinInfo,
   data,
@@ -33,6 +35,8 @@ const CoinDetailsLayout = ({
   onCurrencyChange,
   ...otherProps
 }) => {
+  useLockBodyScroll();
+
   let coinName, symbol, sortOrder, HIGH24HOUR, LOW24HOUR, MKTCAP, imageURL;
   coinName = symbol = sortOrder = HIGH24HOUR = LOW24HOUR = MKTCAP = "-";
   if (coinInfo && data) {

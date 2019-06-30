@@ -13,9 +13,11 @@ import {
 
 import Fullpage from "../../components/Fullpage/Fullpage";
 
+import useLockBodyScroll from "../../hooks/useLockBodyScroll";
+
 const Layout = () => {
   const [activeTab, setActiveTab] = useState(0);
-
+  useLockBodyScroll();
   return (
     <Fullpage>
       <Tabs value={activeTab} onChange={setActiveTab}>

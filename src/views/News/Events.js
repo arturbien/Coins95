@@ -1,9 +1,9 @@
 import React from "react";
 import propTypes from "prop-types";
 import { connect } from "react-redux";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-import { fetchEvents } from "../../store/actions/events";
+import { fetchEvents, setEventSeen } from "../../store/actions/events";
 
 import { createMaterialStyles } from "../../utils";
 
@@ -28,24 +28,24 @@ export class Events extends React.Component {
   setOpenedEvent = index => this.setState({ openedEventIndex: index });
 
   render() {
-    const { events } = this.props;
+    const { events, setEventSeen } = this.props;
     const { openedEventIndex } = this.state;
     console.log("⚡", openedEventIndex, events && events[openedEventIndex]);
     let eventsList;
     if (events) {
-      eventsList = events.map((event, i) => (
-        <li key={event.id}>
+      eventsList = events.map((e, i) => (
+        <li key={e.id}>
           <Event onClick={() => this.setOpenedEvent(i)}>
-            <EventImageWrapper>
-              <EventIMG src={event.screenshot} />
+            <EventImageWrapper seen={e.seen}>
+              <EventIMG src={e.screenshot} />
             </EventImageWrapper>
-            <EventTitle>{event.city}</EventTitle>
+            <EventTitle>{e.city}</EventTitle>
           </Event>
         </li>
       ));
     }
     return (
-      <div>
+      <div style={{ overflow: "hidden", height: "100%" }}>
         <EventList>
           <li>
             <SBar />
@@ -58,6 +58,7 @@ export class Events extends React.Component {
         </FeedFooter>
         {openedEventIndex !== null && (
           <EventDetails
+            setEventSeen={setEventSeen}
             events={events}
             initialIndex={openedEventIndex}
             onClose={() => this.setOpenedEvent(null)}
@@ -73,7 +74,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchEvents: () => dispatch(fetchEvents())
+  fetchEvents: () => dispatch(fetchEvents()),
+  setEventSeen: eventID => dispatch(setEventSeen(eventID))
 });
 
 export default connect(
@@ -96,6 +98,14 @@ let EventList = styled.ul`
   flex-wrap: nowrap;
   background: ${({ theme }) => theme.material};
   -webkit-overflow-scrolling: touch;
+  ::-webkit-scrollbar {
+    width: 0 !important;
+    display: none;
+  }
+  ::-webkit-scrollbar-thumb {
+    width: 0 !important;
+    display: none;
+  }
 `;
 let Event = styled.div`
   display: flex;
@@ -103,36 +113,48 @@ let Event = styled.div`
   align-items: center;
 `;
 let EventImageWrapper = styled.div`
+  box-sizing: border-box;
   position: relative;
   height: 4rem;
   width: 4rem;
   margin-bottom: 0.25rem;
   border-radius: 50%;
   overflow: hidden;
-  background: red;
-
-  background-image: linear-gradient(
-    to bottom right,
-    #ff71ce,
-    #ff71ce,
-    blue,
-    teal
-  );
-  background-size: 110% 110%;
-  background-position: center;
-  border: 2px solid transparent;
-
   &:after {
+    box-sizing: border-box;
     content: "";
     display: inline-block;
     position: absolute;
     top: 0;
     left: 0;
-    height: calc(100% - 6px);
-    width: calc(100% - 6px);
+    height: 100%;
+    width: 100%;
     border-radius: 50%;
-    border: 3px solid ${({ theme }) => theme.material};
   }
+  ${({ seen, theme }) =>
+    seen
+      ? css`
+          background: ${theme.borderDark};
+          border: 1px solid transparent;
+          &:after {
+            border: 4px solid ${({ theme }) => theme.material};
+          }
+        `
+      : css`
+          background-image: linear-gradient(
+            to bottom right,
+            #ff71ce,
+            #ff71ce,
+            blue,
+            teal
+          );
+          background-size: 110% 110%;
+          background-position: center;
+          border: 2px solid transparent;
+          &:after {
+            border: 3px solid ${({ theme }) => theme.material};
+          }
+        `}
 `;
 let EventIMG = styled.img`
   height: 100%;
@@ -162,6 +184,9 @@ let FeedFooter = styled.section`
   ${Well}:first-child {
     width: 100%;
     margin-right: 2px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
   }
   ${Well}:last-child {
     flex-shrink: 0;

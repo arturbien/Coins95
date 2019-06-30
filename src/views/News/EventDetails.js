@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
+import { setEventSeen } from "../../store/actions/events";
+
 import { Window, WindowContent, Cutout, Toolbar, Button } from "react95";
+import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
 let SWindow = styled(Window)`
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 0;
   box-sizing: border-box;
-  height: 100%;
+  height: 50%;
   width: 100%;
   z-index: 9999;
 
@@ -42,14 +45,19 @@ let Details = styled.div`
 let SToolbar = styled(Toolbar)`
   flex-shrink: 0;
 `;
-const EventDetails = ({ events, initialIndex, onClose }) => {
+const EventDetails = ({ events, initialIndex, onClose, setEventSeen }) => {
   const [eventIndex, setEventIndex] = useState(initialIndex);
+  useLockBodyScroll();
 
   const { title, description } = events[eventIndex];
+  if (!events[eventIndex].seen) {
+    setEventSeen(events[eventIndex].id);
+  }
   return (
     <SWindow>
       <SWindowContent>
         <Details>{title}</Details>
+        <Button onClick={onClose}>🦎</Button>
         <SCutout>
           <Description>{description}</Description>
         </SCutout>

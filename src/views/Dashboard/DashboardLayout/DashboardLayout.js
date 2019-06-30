@@ -6,12 +6,15 @@ import Fullpage from "../../../components/Fullpage/Fullpage";
 import ButtonSwitch from "../../../components/ButtonSwitch/ButtonSwitch";
 import CoinsTable from "./CoinsTable/CoinsTable";
 
+import useLockBodyScroll from "../../../hooks/useLockBodyScroll";
+
 const DashboardLayout = ({
   data,
   showingFollowing,
   showFollowing,
   showTop
 }) => {
+  useLockBodyScroll();
   return (
     <Fullpage>
       <Header />

@@ -1,7 +1,8 @@
 import {
   FETCH_EVENTS_REQUEST,
   FETCH_EVENTS_SUCCESS,
-  FETCH_EVENTS_ERROR
+  FETCH_EVENTS_ERROR,
+  SET_EVENT_SEEN
 } from "./actionTypes";
 
 import API from "../../API";
@@ -19,3 +20,8 @@ export const fetchEvents = timestamp => async dispatch => {
     dispatch({ type: FETCH_EVENTS_ERROR });
   }
 };
+
+export const setEventSeen = eventID => ({
+  type: SET_EVENT_SEEN,
+  payload: eventID
+});
