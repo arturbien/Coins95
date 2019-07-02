@@ -45,12 +45,15 @@ export class Events extends React.Component {
     }
     return (
       <div style={{ overflow: "hidden", height: "100%" }}>
-        <EventList>
-          <li>
-            <SBar />
-          </li>
-          {eventsList && eventsList}
-        </EventList>
+        <EventListWrapper>
+          <EventList>
+            <PullBars>
+              <SBar />
+              <SBar />
+            </PullBars>
+            {eventsList && eventsList}
+          </EventList>
+        </EventListWrapper>
         <FeedFooter>
           <Well>{events && `Next event: ${events[0].title}`} </Well>
           <Well>{events && `${events.length} event(s)`} </Well>
@@ -82,14 +85,7 @@ export default connect(
   mapDispatchToProps
 )(Events);
 
-let SBar = styled(Bar)`
-  position: relative;
-  height: 4rem;
-  margin-top: 12px;
-  margin-left: 0.75rem;
-  margin-right: 1rem;
-`;
-let EventList = styled.ul`
+let EventListWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   padding: 0.5rem 0;
@@ -105,6 +101,20 @@ let EventList = styled.ul`
     width: 0 !important;
     display: none;
   }
+`;
+let PullBars = styled.div`
+  margin-left: 0.75rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+`;
+let SBar = styled(Bar)`
+  position: relative;
+  height: 4rem;
+  margin-top: 12px;
+`;
+let EventList = styled.ul`
+  display: flex;
+  flex-wrap: nowrap;
 `;
 let Event = styled.div`
   display: flex;
@@ -161,7 +171,7 @@ let EventIMG = styled.img`
   object-fit: cover;
 `;
 let EventTitle = styled.span`
-  width: 5.5rem;
+  width: 5.25rem;
   font-size: 0.8rem;
   line-height: 1rem;
   text-align: center;
