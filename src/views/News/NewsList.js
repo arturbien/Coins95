@@ -78,7 +78,6 @@ const NewsList = ({ news, fetchNews }) => {
       </Li>
     );
   });
-  console.log("😂", news);
   return (
     <Ul>
       {newsItems}
@@ -90,7 +89,6 @@ export default NewsList;
 
 const LastItem = ({ onVisible }) => {
   const loader = useRef(null);
-  console.log("loader", loader);
   useEffect(() => {
     var options = {
       root: null,

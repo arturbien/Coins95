@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import propTypes from "prop-types";
-import styled from "styled-components";
 import { connect } from "react-redux";
 
 import { fetchNews } from "../../store/actions/news";
@@ -22,16 +21,9 @@ export class News extends Component {
   render() {
     const { news, popularNews, fetchNews } = this.props;
     return (
-      // <Fullpage>
-      //   <SCutout>
-      //     <NewsListWrapper>{news && <NewsList news={news} />}</NewsListWrapper>
-      //   </SCutout>
-      // </Fullpage>
-      <NewsListWrapper>
-        {news && (
-          <Layout news={news} popularNews={popularNews} fetchNews={fetchNews} />
-        )}
-      </NewsListWrapper>
+      news && (
+        <Layout news={news} popularNews={popularNews} fetchNews={fetchNews} />
+      )
     );
   }
 }
@@ -56,9 +48,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(News);
-
-let NewsListWrapper = styled.div`
-  box-sizing: border-box;
-  width: 100%;
-  background: white;
-`;

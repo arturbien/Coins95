@@ -2,13 +2,15 @@ import React from "react";
 import propTypes from "prop-types";
 
 import { withRouter } from "react-router-dom";
-
 import styled from "styled-components";
+
+import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import { Button, WindowHeader, Window, WindowContent } from "react95";
 
 import CoinsTable from "./CoinsTable/CoinsTable";
 
 const Layout = ({ data, onFollow, ...otherProps }) => {
+  useLockBodyScroll();
   return (
     <SWindow>
       <SWindowHeader>

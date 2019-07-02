@@ -30,7 +30,6 @@ export class Events extends React.Component {
   render() {
     const { events, setEventSeen } = this.props;
     const { openedEventIndex } = this.state;
-    console.log("⚡", openedEventIndex, events && events[openedEventIndex]);
     let eventsList;
     if (events) {
       eventsList = events.map((e, i) => (

@@ -5,14 +5,8 @@ export default function() {
   useLayoutEffect(() => {
     // Get current scroll  Y value
     const scrollY = window.pageYOffset;
-    // Get original body overflow
-    const { overflow: originalBodyOverflow } = window.getComputedStyle(
-      document.body
-    );
-    const {
-      overflow: originalRootOverflow,
-      position: originalRootPosition
-    } = window.getComputedStyle(root);
+
+    const { position: originalRootPosition } = window.getComputedStyle(root);
     // Prevent scrolling on mount
     document.body.style.overflow = "hidden";
     root.style.overflow = "hidden";
@@ -24,8 +18,8 @@ export default function() {
     root.scrollTo(0, scrollY);
     // Re-enable scrolling when component unmounts
     return () => {
-      document.body.style.overflow = originalBodyOverflow;
-      root.style.overflow = originalRootOverflow;
+      document.body.style.overflow = "";
+      root.style.overflow = "";
       root.style.position = originalRootPosition;
       root.style.width = "";
       root.style.height = "";
