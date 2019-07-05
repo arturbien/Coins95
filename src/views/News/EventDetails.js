@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-
-import { setEventSeen } from "../../store/actions/events";
 
 import {
   Window,
@@ -14,8 +12,8 @@ import {
   Bar
 } from "react95";
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
-const EventDetails = ({ events, initialIndex, onClose, setEventSeen }) => {
-  const [eventIndex, setEventIndex] = useState(initialIndex);
+
+const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
   useLockBodyScroll();
 
   const {
@@ -27,15 +25,13 @@ const EventDetails = ({ events, initialIndex, onClose, setEventSeen }) => {
     organizer,
     website,
     email
-  } = events[eventIndex];
-  if (!events[eventIndex].seen) {
-    setEventSeen(events[eventIndex].id);
-  }
+  } = events[openedEventIndex];
+
   const eventSelectItems = events.map((e, i) => ({
     label: `${e.title}`,
     value: i
   }));
-  console.log(eventIndex, eventSelectItems[eventIndex]);
+  console.log(openedEventIndex);
   return (
     <SWindow>
       <WindowHeader>
@@ -49,7 +45,7 @@ const EventDetails = ({ events, initialIndex, onClose, setEventSeen }) => {
             top: "5px",
             fontWeight: "bold"
           }}
-          onClick={onClose}
+          onClick={() => setOpenedEvent(null)}
         >
           X
         </Button>
@@ -60,14 +56,13 @@ const EventDetails = ({ events, initialIndex, onClose, setEventSeen }) => {
             <Bar />
             <Bar />
           </div>
-          <div style={{ width: "100%", position: "relative" }}>
-            <Select
-              items={eventSelectItems}
-              selectedIndex={2}
-              width={"100%"}
-              onChange={index => setEventIndex(index)}
-            />
-          </div>
+          <Select
+            items={eventSelectItems}
+            selectedIndex={openedEventIndex}
+            width={320}
+            height={250}
+            onChange={index => setOpenedEvent(index)}
+          />
         </EventSelectWrapper>
         <SCutout>
           <Description>
@@ -76,22 +71,22 @@ const EventDetails = ({ events, initialIndex, onClose, setEventSeen }) => {
               Date:{start_date}-{end_date}
             </div>
             <div>Organizer: {organizer}</div>
-            <div>Website: {website}</div>
+            <div>Website: {new URL(website).hostname}</div>
             {description}
           </Description>
         </SCutout>
       </SWindowContent>
       <SToolbar>
         <Button
-          onClick={() => setEventIndex(eventIndex - 1)}
-          disabled={eventIndex <= 0}
+          onClick={() => setOpenedEvent(openedEventIndex - 1)}
+          disabled={openedEventIndex <= 0}
           fullWidth
         >
           Back
         </Button>
         <Button
-          onClick={() => setEventIndex(eventIndex + 1)}
-          disabled={eventIndex >= events.length - 1}
+          onClick={() => setOpenedEvent(openedEventIndex + 1)}
+          disabled={openedEventIndex >= events.length - 1}
           fullWidth
         >
           Next

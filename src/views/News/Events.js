@@ -25,11 +25,23 @@ export class Events extends React.Component {
       fetchEvents();
     }
   }
-  setOpenedEvent = index => this.setState({ openedEventIndex: index });
+  setOpenedEvent = index => {
+    const { events, setEventSeen } = this.props;
+    if (index === null) {
+      this.setState({ openedEventIndex: null });
+    } else if (index >= 0 && index < events.length) {
+      const { id, seen } = events[index];
+      if (!seen) {
+        setEventSeen(id);
+      }
+      this.setState({ openedEventIndex: index });
+    }
+  };
 
   render() {
-    const { events, setEventSeen } = this.props;
+    const { events } = this.props;
     const { openedEventIndex } = this.state;
+
     let eventsList;
     if (events) {
       eventsList = events.map((e, i) => (
@@ -60,10 +72,9 @@ export class Events extends React.Component {
         </FeedFooter>
         {openedEventIndex !== null && (
           <EventDetails
-            setEventSeen={setEventSeen}
+            setOpenedEvent={this.setOpenedEvent}
             events={events}
-            initialIndex={openedEventIndex}
-            onClose={() => this.setOpenedEvent(null)}
+            openedEventIndex={openedEventIndex}
           />
         )}
       </div>
