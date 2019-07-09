@@ -210,5 +210,6 @@ let FeedFooter = styled.section`
   }
   ${Well}:last-child {
     flex-shrink: 0;
+    min-width: 4rem;
   }
 `;

@@ -1,12 +1,19 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
+import { connect } from "react-redux";
+
+import { fetchNews } from "../../store/actions/news";
+
 import Dropdown from "../../components/Dropdown/Dropdown";
 import { Divider, Button, Hourglass } from "react95";
 
 import { timeSince, createMaterialStyles } from "../../utils";
 
 const NewsList = ({ news, fetchNews }) => {
+  useEffect(() => {
+    fetchNews();
+  }, []);
   useEffect(() => {
     const lazyImages = Array.from(document.querySelectorAll("[data-src]"));
     console.log("MOUNTED 🔥", lazyImages);
@@ -30,6 +37,40 @@ const NewsList = ({ news, fetchNews }) => {
       observer.disconnect();
     };
   }, [news]);
+
+  if (!news) {
+    return (
+      <Li>
+        <article>
+          <ArticleSource>
+            <SDivider />
+            <Row>
+              <div>
+                <Row>
+                  {/* <SourceIMG data-src={""} style={{ background: "teal" }} /> */}
+                  <Hourglass style={{ marginRight: "0.5rem" }} />
+                  <SourceInfo>
+                    <SourceName>Placeholder</SourceName>
+                    <Time>loading...</Time>
+                  </SourceInfo>
+                </Row>
+              </div>
+              <div>
+                <ArticleMenu link={null} />
+              </div>
+            </Row>
+          </ArticleSource>
+          <Square style={{ background: "teal" }} />
+          <ArticleHeader>
+            <Title>
+              <SourceName as="span">{"coins95"}</SourceName>
+              Loading...
+            </Title>
+          </ArticleHeader>
+        </article>
+      </Li>
+    );
+  }
   news = news.sort((a, b) => b.published_on - a.published_on);
   const lastNewsTimestamp = news[news.length - 1].published_on;
   // why soring here works but not when sorted in API file or in reducer?
@@ -85,7 +126,18 @@ const NewsList = ({ news, fetchNews }) => {
     </Ul>
   );
 };
-export default NewsList;
+const mapStateToProps = state => ({
+  news: state.news
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchNews: timestamp => dispatch(fetchNews(timestamp))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewsList);
 
 const LastItem = ({ onVisible }) => {
   const loader = useRef(null);
@@ -129,7 +181,11 @@ let ArticleMenu = ({ link }) => (
     verticalAlign="bottom"
     horizontalAlign="right"
     trigger={({ ...props }) => (
-      <Button style={{ fontWeight: "bold" }} {...props}>
+      <Button
+        disabled={link === null}
+        style={{ fontWeight: "bold" }}
+        {...props}
+      >
         ...
       </Button>
     )}
@@ -202,7 +258,7 @@ let Row = styled.div`
 `;
 let SDivider = styled(Divider)`
   position: absolute;
-  top: -0.25rem;
+  top: -0.35rem;
   width: calc(100% - 1rem);
   left: 0.5rem;
 `;

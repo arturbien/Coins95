@@ -57,7 +57,7 @@ export class Dashboard extends Component {
     if (coinsData === null && prevProps.topCoinsList === null) {
       // new Set() for removing duplicates
       fetchCoinsData(
-        [...new Set([...userCoinsList, ...topCoinsList])],
+        [...new Set([...userCoinsList, ...(topCoinsList || [])])],
         currency
       );
     }
