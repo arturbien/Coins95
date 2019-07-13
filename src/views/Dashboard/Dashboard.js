@@ -4,7 +4,7 @@ import propTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchCoinsList, fetchCoinsData } from "../../store/actions/coins";
 
-import DashboardLayout from "./DashboardLayout/DashboardLayout";
+import Layout from "./Layout";
 export class Dashboard extends Component {
   static propTypes = {
     topCoinsList: propTypes.array,
@@ -89,7 +89,7 @@ export class Dashboard extends Component {
       }));
     }
     return (
-      <DashboardLayout
+      <Layout
         data={data}
         showingFollowing={showingFollowing}
         showFollowing={() => this.switchView(true)}

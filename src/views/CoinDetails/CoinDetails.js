@@ -6,7 +6,7 @@ import API from "../../API";
 import { fetchCoinsList } from "../../store/actions/coins";
 
 import { setUserCoin } from "../../store/actions/user";
-import CoinDetailsLayout from "./CoinDetailsLayout/CoinDetailsLayout";
+import Layout from "./Layout";
 
 function HLCAverage(high, low, close) {
   return (high + low + close) / 3;
@@ -94,7 +94,7 @@ export class CoinDetails extends Component {
     const { data, currency, historicalData, timeSpan } = this.state;
     const { following, coinInfo, setUserCoin } = this.props;
     return (
-      <CoinDetailsLayout
+      <Layout
         coinInfo={coinInfo}
         data={data}
         currency={currency}

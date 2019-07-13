@@ -16,7 +16,7 @@ import {
   Button
 } from "react95";
 
-import FileIcon from "../../../components/FileIcon/FileIcon";
+import FileIcon from "../../components/FileIcon/FileIcon";
 
 const COIN_LIMIT = 40;
 

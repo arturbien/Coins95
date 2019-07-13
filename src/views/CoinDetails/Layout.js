@@ -16,12 +16,12 @@ import {
   Checkbox
 } from "react95";
 
-import SimpleLineChart from "./SimpleLineChart/SimpleLineChart";
-import ButtonSwitch from "../../../components/ButtonSwitch/ButtonSwitch";
-import CenteredHourglass from "../../../components/CenteredHourglass/CenteredHourglass";
-import CurrencySelect from "../../../components/CurrencySelect/CurrencySelect";
+import SimpleLineChart from "./SimpleLineChart";
+import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
+import CenteredHourglass from "../../components/CenteredHourglass/CenteredHourglass";
+import CurrencySelect from "../../components/CurrencySelect/CurrencySelect";
 
-import useLockBodyScroll from "../../../hooks/useLockBodyScroll";
+import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
 const CoinDetailsLayout = ({
   coinInfo,

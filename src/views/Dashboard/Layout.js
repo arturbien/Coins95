@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-import Fullpage from "../../../components/Fullpage/Fullpage";
+import Fullpage from "../../components/Fullpage/Fullpage";
 
-import ButtonSwitch from "../../../components/ButtonSwitch/ButtonSwitch";
-import CoinsTable from "./CoinsTable/CoinsTable";
+import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
+import CoinsTable from "./CoinsTable";
 
-import useLockBodyScroll from "../../../hooks/useLockBodyScroll";
+import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
 const DashboardLayout = ({
   data,
