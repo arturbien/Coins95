@@ -11,9 +11,9 @@ import { Divider, Button, Hourglass } from "react95";
 import { timeSince, createMaterialStyles } from "../../utils";
 
 const NewsList = ({ news, fetchNews }) => {
-  useEffect(() => {
-    fetchNews();
-  }, []);
+  // useEffect(() => {
+  //   fetchNews();
+  // }, []);
   useEffect(() => {
     const lazyImages = Array.from(document.querySelectorAll("[data-src]"));
     console.log("MOUNTED 🔥", lazyImages);
@@ -39,37 +39,7 @@ const NewsList = ({ news, fetchNews }) => {
   }, [news]);
 
   if (!news) {
-    return (
-      <Li>
-        <article>
-          <ArticleSource>
-            <SDivider />
-            <Row>
-              <div>
-                <Row>
-                  {/* <SourceIMG data-src={""} style={{ background: "teal" }} /> */}
-                  <Hourglass style={{ marginRight: "0.5rem" }} />
-                  <SourceInfo>
-                    <SourceName>Placeholder</SourceName>
-                    <Time>loading...</Time>
-                  </SourceInfo>
-                </Row>
-              </div>
-              <div>
-                <ArticleMenu link={null} />
-              </div>
-            </Row>
-          </ArticleSource>
-          <Square style={{ background: "teal" }} />
-          <ArticleHeader>
-            <Title>
-              <SourceName as="span">{"coins95"}</SourceName>
-              Loading...
-            </Title>
-          </ArticleHeader>
-        </article>
-      </Li>
-    );
+    return <LastItem onVisible={() => fetchNews()} />;
   }
   news = news.sort((a, b) => b.published_on - a.published_on);
   const lastNewsTimestamp = news[news.length - 1].published_on;
@@ -162,18 +132,35 @@ const LastItem = ({ onVisible }) => {
   }, [onVisible]);
 
   return (
-    <div ref={loader}>
-      <ArticleSource
-        style={{
-          paddingBottom: "6rem",
-          paddingTop: "1rem"
-        }}
-      >
-        <SDivider />
-
-        <Hourglass />
-      </ArticleSource>
-    </div>
+    <Li ref={loader}>
+      <article>
+        <ArticleSource>
+          <SDivider />
+          <Row>
+            <div>
+              <Row>
+                {/* <SourceIMG data-src={""} style={{ background: "teal" }} /> */}
+                <Hourglass style={{ marginRight: "0.5rem" }} />
+                <SourceInfo>
+                  <SourceName>Placeholder</SourceName>
+                  <Time>loading...</Time>
+                </SourceInfo>
+              </Row>
+            </div>
+            <div>
+              <ArticleMenu link={null} />
+            </div>
+          </Row>
+        </ArticleSource>
+        <Square style={{ background: "teal" }} />
+        <ArticleHeader>
+          <Title>
+            <SourceName as="span">{"coins95"}</SourceName>
+            Loading...
+          </Title>
+        </ArticleHeader>
+      </article>
+    </Li>
   );
 };
 let ArticleMenu = ({ link }) => (

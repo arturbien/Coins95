@@ -215,7 +215,7 @@ const ScrollTable = styled(Table)`
   }
   tbody {
     height: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
   }
 `;
 const SCheckbox = styled(Checkbox)`

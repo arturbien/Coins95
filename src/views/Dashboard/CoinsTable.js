@@ -57,7 +57,7 @@ const ScrollTable = styled(Table)`
   }
   tbody {
     height: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
   }
 `;
 class CoinsTable extends React.Component {
