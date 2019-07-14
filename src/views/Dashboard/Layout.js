@@ -47,6 +47,7 @@ let Header = styled.header`
 
 let CoinsTableWrapper = styled.div`
   flex: 1;
+  overflow: hidden;
   & > div {
     height: 100%;
   }

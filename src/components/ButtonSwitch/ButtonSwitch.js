@@ -41,6 +41,7 @@ let Switch = styled.nav`
   display: flex;
   justify-content: space-between;
   margin: 0.5rem -1px;
+  flex-shrink: 0;
 `;
 
 let SwitchButton = styled(Button)`

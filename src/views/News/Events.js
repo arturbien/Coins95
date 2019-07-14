@@ -56,15 +56,13 @@ export class Events extends React.Component {
       ));
     }
     return (
-      <div style={{ overflow: "hidden", height: "100%" }}>
+      <section style={{ overflow: "hidden", height: "100%" }}>
         <EventListWrapper>
-          <EventList>
-            <PullBars>
-              <SBar />
-              <SBar />
-            </PullBars>
-            {eventsList && eventsList}
-          </EventList>
+          <PullBars>
+            <SBar />
+            <SBar />
+          </PullBars>
+          <EventList>{eventsList && eventsList}</EventList>
         </EventListWrapper>
         <FeedFooter>
           <Well>{events && `Next event: ${events[0].title}`} </Well>
@@ -77,7 +75,7 @@ export class Events extends React.Component {
             openedEventIndex={openedEventIndex}
           />
         )}
-      </div>
+      </section>
     );
   }
 }
@@ -97,8 +95,10 @@ export default connect(
 )(Events);
 
 let EventListWrapper = styled.div`
+  box-sizing: border-box;
   display: flex;
   align-items: flex-start;
+  height: 6.25rem;
   padding: 0.5rem 0;
   overflow-x: scroll;
   flex-wrap: nowrap;
@@ -190,7 +190,7 @@ let EventTitle = styled.span`
   overflow-x: hidden;
   text-overflow: ellipsis;
 `;
-let FeedFooter = styled.section`
+let FeedFooter = styled.footer`
   ${createMaterialStyles("top")}
 
     border-top-color: ${({ theme }) => theme.borderLight};

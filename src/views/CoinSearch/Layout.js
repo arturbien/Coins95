@@ -56,10 +56,3 @@ let SWindowContent = styled(WindowContent)`
   padding: 0.25rem;
   padding-top: 0.5rem;
 `;
-let CoinsTableWrapper = styled.div`
-  flex: 1;
-  margin-top: 1rem;
-  & > div {
-    height: 100%;
-  }
-`;

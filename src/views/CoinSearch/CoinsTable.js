@@ -153,6 +153,7 @@ let CoinsTableWrapper = styled.div`
   flex: 1;
   margin-top: 1rem;
   padding-bottom: calc(56px + 35px + 1rem);
+  overflow: hidden;
   & > div {
     height: 100%;
   }
@@ -213,9 +214,8 @@ const ScrollTable = styled(Table)`
     flex-shrink: 0;
   }
   tbody {
-    height: 200px;
-    flex: 1;
-    overflow: auto;
+    height: 100%;
+    overflow: scroll;
   }
 `;
 const SCheckbox = styled(Checkbox)`
