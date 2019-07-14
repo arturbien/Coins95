@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 
 import API from "../../API";
 import { fetchCoinsList } from "../../store/actions/coins";
-
 import { setUserCoin } from "../../store/actions/user";
 import Layout from "./Layout";
 
@@ -22,46 +21,43 @@ export class CoinDetails extends Component {
     data: null,
     historicalData: null,
     dataLoading: false,
-    infoLoading: true,
     timeSpan: "24H"
   };
   componentDidMount = async () => {
     let { timeSpan, currency } = this.state;
-    const { coin, coinInfo, fetchCoinsList } = this.props;
+    const { coinInfo, fetchCoinsList } = this.props;
 
     this._isMounted = true;
-    try {
-      if (!coinInfo) {
-        await fetchCoinsList();
-      }
-
-      let data = await API.fetchCoinsData([coin], currency);
-      this.handleFetchCoinsData(currency);
-      this.handleFetchHistoricalData(timeSpan);
-      if (this._isMounted) this.setState({ infoLoading: false, data });
-    } catch (error) {
-      console.log("Error in CoinDetails componentDidMount");
-      if (this._isMounted) this.setState({ infoLoading: false });
+    if (!coinInfo) {
+      await fetchCoinsList();
     }
+
+    // let data = await API.fetchCoinsData([coin], currency);
+    this.handleFetchCoinsData(currency);
+    this.handleFetchHistoricalData(timeSpan, currency);
   };
   componentWillUnmount() {
     this._isMounted = false;
   }
   handleFetchCoinsData = async currency => {
     const { coin } = this.props;
-    let data = await API.fetchCoinsData([coin], currency);
+    let data = await API.fetchCoinsData([coin], currency, true);
     data = data[coin];
-    this.setState({ data });
+    if (this._isMounted) this.setState({ data });
   };
-  handleFetchHistoricalData = async timeSpan => {
-    const { timeSpan: currentTimeSpan, dataLoading, currency } = this.state;
+  handleFetchHistoricalData = async (timeSpan, currency) => {
+    const { timeSpan: currentTimeSpan, dataLoading } = this.state;
     const { coin } = this.props;
 
     if (dataLoading) return;
     this.setState({ timeSpan, dataLoading: true });
     // for optimistic update
     try {
-      const historicalData = await API.fetchCoinsHistoricalData(coin, timeSpan);
+      const historicalData = await API.fetchCoinsHistoricalData(
+        coin,
+        timeSpan,
+        currency
+      );
       historicalData.forEach(historicalDataPoint => {
         historicalDataPoint["HLCAverage"] = HLCAverage(
           historicalDataPoint.high,
@@ -83,10 +79,9 @@ export class CoinDetails extends Component {
   };
   onCurrencyChange = currency => {
     const { currency: currentCurrency, timeSpan } = this.state;
-    console.log(currentCurrency, currency);
     if (currency !== currentCurrency) {
       this.handleFetchCoinsData(currency);
-      this.handleFetchHistoricalData(timeSpan);
+      this.handleFetchHistoricalData(timeSpan, currency);
       this.setState({ currency });
     }
   };

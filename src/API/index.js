@@ -82,42 +82,43 @@ class API {
     console.log("🦎", formattedData);
     return formattedData;
   };
-  fetchCoinsData = async (coinsList, currency = "EUR") => {
+  fetchCoinsData = async (coinsList, currency = "EUR", display = false) => {
     const query = `data/pricemultifull?fsyms=${coinsList.join(
       ","
     )}&tsyms=${currency}`;
 
     const response = await this.axios.get(query);
     const formattedData = {};
-    const data = response.data.RAW;
+    console.log(response.data);
+    const data = response.data[display ? "DISPLAY" : "RAW"];
     for (let coin in data) {
       formattedData[coin] = data[coin][currency];
     }
     return formattedData;
   };
 
-  fetchCoinsHistoricalData = async (coin, timeSpan) => {
+  fetchCoinsHistoricalData = async (coin, timeSpan, currency = "EUR") => {
     const maxDataPoints = 180;
     // let limit;
     let query, limit, aggregate;
     switch (timeSpan) {
       case "1H":
         limit = 60;
-        query = `https://min-api.cryptocompare.com/data/histominute?fsym=${coin}&tsym=EUR&limit=${limit}`;
+        query = `https://min-api.cryptocompare.com/data/histominute?fsym=${coin}&tsym=${currency}&limit=${limit}`;
         break;
       case "24H":
         limit = 24 * 60;
         aggregate = limit / maxDataPoints;
-        query = `https://min-api.cryptocompare.com/data/histominute?fsym=${coin}&tsym=EUR&limit=${maxDataPoints}&aggregate=${aggregate}`;
+        query = `https://min-api.cryptocompare.com/data/histominute?fsym=${coin}&tsym=${currency}&limit=${maxDataPoints}&aggregate=${aggregate}`;
         break;
       case "1M":
         limit = 30 * 24;
         aggregate = limit / maxDataPoints;
-        query = `https://min-api.cryptocompare.com/data/histohour?fsym=${coin}&tsym=EUR&limit=${maxDataPoints}&aggregate=${aggregate}`;
+        query = `https://min-api.cryptocompare.com/data/histohour?fsym=${coin}&tsym=${currency}&limit=${maxDataPoints}&aggregate=${aggregate}`;
         break;
       case "3M":
         limit = 90;
-        query = `https://min-api.cryptocompare.com/data/histoday?fsym=${coin}&tsym=EUR&limit=${maxDataPoints}`;
+        query = `https://min-api.cryptocompare.com/data/histoday?fsym=${coin}&tsym=${currency}&limit=${maxDataPoints}`;
         break;
       case "1Y":
         limit = 360;

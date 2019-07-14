@@ -7,8 +7,6 @@ const CurrencySelect = ({ selectedCurrency, onChange }) => {
     value: currency,
     label: currency
   }));
-  console.log("currency", selectedCurrency);
-
   const selectedIndex = currencies.findIndex(
     currency => currency.value === selectedCurrency
   );
