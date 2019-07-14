@@ -31,6 +31,11 @@ const ResetStyles = createGlobalStyle`
       font-family: ${({ vintageFont }) =>
         vintageFont ? "MS-Sans-Serif" : "sans-serif"};
   }
+  #root input {
+      font-family: ${({ vintageFont }) =>
+        vintageFont ? "MS-Sans-Serif" : "sans-serif"};
+    
+  }
 `;
 
 class App extends Component {
