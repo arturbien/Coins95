@@ -154,10 +154,7 @@ const LastItem = ({ onVisible }) => {
         </ArticleSource>
         <Square style={{ background: "teal" }} />
         <ArticleHeader>
-          <Title>
-            <SourceName as="span">{"coins95"}</SourceName>
-            Loading...
-          </Title>
+          <Title />
         </ArticleHeader>
       </article>
     </Li>
@@ -172,6 +169,7 @@ let ArticleMenu = ({ link }) => (
         disabled={link === null}
         style={{ fontWeight: "bold" }}
         {...props}
+        square
       >
         ...
       </Button>

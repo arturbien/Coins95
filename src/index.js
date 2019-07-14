@@ -5,24 +5,10 @@ import * as serviceWorker from "./serviceWorker";
 
 import { Provider } from "react-redux";
 import store from "./store";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { themes, reset } from "react95";
-
-const ResetStyles = createGlobalStyle`
-  ${reset}
-  html, body, #root {
-    height: 100%;
-  }
-`;
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider theme={themes.default}>
-      <>
-        <ResetStyles />
-        <App />
-      </>
-    </ThemeProvider>
+    <App />
   </Provider>,
   document.getElementById("root")
 );

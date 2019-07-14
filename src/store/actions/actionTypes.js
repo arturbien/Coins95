@@ -18,3 +18,5 @@ export const FOLLOW_COIN = "FOLLOW_COIN";
 export const UNFOLLOW_COIN = "UNFOLLOW_COIN";
 
 export const SET_EVENT_SEEN = "SET_EVENT_SEEN";
+export const SET_THEME = "SET_THEME";
+export const TOGGLE_VINTAGE_FONT = "TOGGLE_VINTAGE_FONT";

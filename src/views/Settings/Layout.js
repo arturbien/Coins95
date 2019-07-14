@@ -15,7 +15,7 @@ import Fullpage from "../../components/Fullpage/Fullpage";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
-const Layout = () => {
+const Layout = ({ theme, setTheme, vintageFont, toggleVintageFont }) => {
   const [activeTab, setActiveTab] = useState(0);
   useLockBodyScroll();
   return (
@@ -29,10 +29,20 @@ const Layout = () => {
         {activeTab === 0 && (
           <TabBody>
             <Fieldset label="Theme:">
-              <Radio style={{ width: "100%" }} checked label="default" />
-              <Radio style={{ width: "100%" }} label="🍇 grape" />
-              <Radio style={{ width: "100%" }} label="🥝 kiwi" />
-              <Radio style={{ width: "100%" }} label="🦎 custom" disabled />
+              <Radio
+                style={{ width: "100%" }}
+                value="default"
+                onChange={() => setTheme("default")}
+                checked={theme === "default"}
+                label="default"
+              />
+              <Radio
+                style={{ width: "100%" }}
+                value="coldGray"
+                onChange={() => setTheme("coldGray")}
+                checked={theme === "coldGray"}
+                label="🍇 grape"
+              />
             </Fieldset>
             <Fieldset label="Font:" style={{ marginTop: "1.5rem" }}>
               <Checkbox
@@ -40,8 +50,8 @@ const Layout = () => {
                 name="vintageFont"
                 value="vintageFont"
                 label="Vintage font"
-                onChange={() => null}
-                defaultChecked={true}
+                onChange={() => toggleVintageFont(!vintageFont)}
+                checked={vintageFont}
               />
             </Fieldset>
           </TabBody>
@@ -56,14 +66,6 @@ const Layout = () => {
                 min={0}
                 value={0}
                 onChange={() => null}
-              />
-              <Checkbox
-                style={{ marginTop: "1rem" }}
-                name="shipping"
-                value="fast"
-                label="Fast shipping"
-                onChange={() => null}
-                defaultChecked={true}
               />
             </Fieldset>
           </TabBody>

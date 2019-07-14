@@ -1,8 +1,15 @@
-import { FOLLOW_COIN, UNFOLLOW_COIN } from "../actions/actionTypes";
+import {
+  FOLLOW_COIN,
+  UNFOLLOW_COIN,
+  SET_THEME,
+  TOGGLE_VINTAGE_FONT
+} from "../actions/actionTypes";
 
 const initialState = {
   coinsList: ["BTC", "ETH"],
-  currency: "EUR"
+  currency: "EUR",
+  vintageFont: false,
+  theme: "default"
 };
 
 const userReducer = (state = initialState, action) => {
@@ -16,6 +23,10 @@ const userReducer = (state = initialState, action) => {
         userCoin => userCoin !== action.payload
       );
       return { ...state, coinsList };
+    case SET_THEME:
+      return { ...state, theme: action.payload };
+    case TOGGLE_VINTAGE_FONT:
+      return { ...state, vintageFont: action.payload };
     default:
       return state;
   }
