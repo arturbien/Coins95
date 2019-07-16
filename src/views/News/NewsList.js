@@ -26,13 +26,22 @@ const NewsList = ({ news, fetchNews }) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           let lazyImage = entry.target;
+
           lazyImage.src = lazyImage.dataset.src;
+          lazyImage.removeAttribute("data-src");
           observer.unobserve(lazyImage);
         }
       });
     };
     var observer = new IntersectionObserver(callback, options);
-    lazyImages.forEach(lazyImage => observer.observe(lazyImage));
+    lazyImages.forEach(lazyImage => {
+      lazyImage.style.opacity = 0;
+      lazyImage.style.transition = "0.25s all ease-in-out";
+      lazyImage.onload = function() {
+        lazyImage.style.opacity = 1;
+      };
+      observer.observe(lazyImage);
+    });
     return () => {
       observer.disconnect();
     };
@@ -226,6 +235,7 @@ let ArticleIMG = styled.img`
   object-fit: cover;
   width: 100%;
   height: auto;
+  background: teal;
 `;
 let Title = styled.h2`
   font-size: 0.9rem;
@@ -282,7 +292,7 @@ let ArticleHeader = styled.header`
 let Square = styled.div`
   width: 100%;
   position: relative;
-
+  background: teal;
   &:before {
     content: "";
     left: 0;
