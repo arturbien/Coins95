@@ -1,19 +1,73 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { Switch, Route } from "react-router";
+import { Switch, Route, withRouter } from "react-router";
+
+import { Button, Divider, Radio, Checkbox, Fieldset } from "react95";
 
 import ClippyIcon from "../../img/clippy4.png";
+import DeadClippy from "../../img/deadClippy.jpg";
 
-const Clippy = ({ props }) => {
-  const [isOpened, setIsOpened] = useState(true);
+const Clippy = props => {
+  const [isOpened, setIsOpened] = useState(false);
+
   return (
     <>
       {isOpened && (
-        <Modal>
-          <ModalBody>
+        <Modal onClick={() => setIsOpened(false)}>
+          <ModalBody onClick={e => e.stopPropagation()}>
             <Switch>
-              <Route exact path={"/coins"} component={() => <h1>Swag</h1>} />
+              <Route
+                exact
+                path={"/coins"}
+                component={() => (
+                  <>
+                    <h3
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: "1.1em"
+                      }}
+                    >
+                      Old Clippy's DEAD 😥
+                    </h3>
+                    <br />
+                    <DeadClippyIMG src={DeadClippy} />
+                    <br />
+                    <p>Whachu gonna do about it?</p>
+                    <br />
+                    <Fieldset label="Options" variant="flat">
+                      <Radio
+                        value="1"
+                        label="contribute to React95"
+                        checked={true}
+                        variant="flat"
+                      />
+                      <br />
+                      <Radio
+                        value="2"
+                        label="cry about it"
+                        checked={false}
+                        variant="flat"
+                      />
+                      <br />
+                      <Radio
+                        value="3"
+                        label="install Windows 95"
+                        checked={false}
+                        variant="flat"
+                      />
+                    </Fieldset>
+                    <br />
+                    <Button
+                      variant="flat"
+                      fullWidth
+                      onClick={() => setIsOpened(false)}
+                    >
+                      Confirm
+                    </Button>
+                  </>
+                )}
+              />
             </Switch>
           </ModalBody>
         </Modal>
@@ -23,7 +77,7 @@ const Clippy = ({ props }) => {
   );
 };
 
-export default Clippy;
+export default withRouter(Clippy);
 
 const Modal = styled.div`
   position: fixed;
@@ -102,4 +156,12 @@ const Fab = styled.button`
       background-position: 50% calc(50% + 2px);
     }
   }
+`;
+const DeadClippyIMG = styled.img`
+  display: block;
+  width: 140px;
+  height: auto;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 `;

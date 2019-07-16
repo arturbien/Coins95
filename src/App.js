@@ -36,6 +36,9 @@ const ResetStyles = createGlobalStyle`
         vintageFont ? "MS-Sans-Serif" : "sans-serif"};
     
   }
+  img {
+        image-rendering: pixelated!important;
+  }
 `;
 
 class App extends Component {
