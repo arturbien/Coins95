@@ -35,7 +35,10 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
   return (
     <SWindow>
       <WindowHeader>
-        🌉 Event explorer
+        <span role="img" aria-label="Event explorer logo">
+          🌉
+        </span>
+        Event explorer
         <Button
           square
           size="sm"
@@ -71,8 +74,10 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
               Date:{start_date}-{end_date}
             </div>
             <div>Organizer: {organizer}</div>
+            <div>Email: {email}</div>
             <div>Website: {new URL(website).hostname}</div>
-            {description}
+            <h1>{title}</h1>
+            <p>{description}</p>
           </Description>
         </SCutout>
       </SWindowContent>
@@ -129,10 +134,6 @@ const Description = styled.div`
   height: 100%;
   padding: 0.5rem 0.5rem 1rem 0.5rem;
   overflow-y: scroll;
-`;
-const Details = styled.div`
-  height: 100px;
-  flex-shrink: 0;
 `;
 const SToolbar = styled(Toolbar)`
   flex-shrink: 0;

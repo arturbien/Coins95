@@ -1,5 +1,5 @@
 import React from "react";
-import propTypes from "prop-types";
+// import propTypes from "prop-types";
 import { connect } from "react-redux";
 import styled, { css } from "styled-components";
 
@@ -13,7 +13,7 @@ import Well from "../../components/Well/Well";
 import { Bar } from "react95";
 
 export class Events extends React.Component {
-  static propTypes = {};
+  // static propTypes = {};
 
   state = {
     openedEventIndex: null

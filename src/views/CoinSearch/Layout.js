@@ -1,5 +1,5 @@
 import React from "react";
-import propTypes from "prop-types";
+// import propTypes from "prop-types";
 
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
@@ -14,7 +14,10 @@ const Layout = ({ data, onFollow, ...otherProps }) => {
   return (
     <SWindow>
       <SWindowHeader>
-        🔎 Search
+        <span role="img" aria-label="Magnifying glass">
+          🔎
+        </span>{" "}
+        Search
         <Button
           square
           size="sm"

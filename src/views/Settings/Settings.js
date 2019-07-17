@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+// import propTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { setTheme, toggleVintageFont } from "../../store/actions/user";
@@ -8,7 +8,7 @@ import Layout from "./Layout";
 
 export class Settings extends Component {
   // static propTypes = {
-  //   prop: PropTypes
+  //   prop: propTypes
   // };
 
   render() {

@@ -1,5 +1,5 @@
 import React from "react";
-import propTypes from "prop-types";
+// import propTypes from "prop-types";
 
 import { withRouter } from "react-router-dom";
 
@@ -12,7 +12,6 @@ import {
   WindowHeader,
   Window,
   WindowContent,
-  Select,
   Checkbox
 } from "react95";
 

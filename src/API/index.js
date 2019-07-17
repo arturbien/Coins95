@@ -52,36 +52,33 @@ class API {
         sortOrder: parseInt(coinData.SortOrder)
       };
     }
-    console.log(formattedData);
     return formattedData;
   };
-  fetchCoinsListCoinGecko = async () => {
-    const query = `https://api.coingecko.com/api/v3/search?locale=en&img_path_only=0`;
-    const response = await axios.get(query);
-    let { coins, exchanges, icos } = response.data;
+  // fetchCoinsListCoinGecko = async () => {
+  //   const query = `https://api.coingecko.com/api/v3/search?locale=en&img_path_only=0`;
+  //   const response = await axios.get(query);
+  //   let { coins, exchanges, icos } = response.data;
 
-    coins = coins
-      .filter(coin => coin.market_cap_rank !== null)
-      .sort((coinA, coinB) => coinA.market_cap_rank - coinB.market_cap_rank);
-    console.log("🦎🦎", coins.length);
+  //   coins = coins
+  //     .filter(coin => coin.market_cap_rank !== null)
+  //     .sort((coinA, coinB) => coinA.market_cap_rank - coinB.market_cap_rank);
 
-    const formattedData = {};
-    coins.forEach(coin => {
-      formattedData[coin.symbol] = {
-        ...coin,
-        name: coin.symbol,
-        symbol: coin.symbol,
-        fullName: coin.id,
-        coinName: coin.id,
-        imageURL: coin.thumb,
-        totalCoinSupply: 0,
-        totalCoinsMined: 0,
-        sortOrder: coin.market_cap_rank
-      };
-    });
-    console.log("🦎", formattedData);
-    return formattedData;
-  };
+  //   const formattedData = {};
+  //   coins.forEach(coin => {
+  //     formattedData[coin.symbol] = {
+  //       ...coin,
+  //       name: coin.symbol,
+  //       symbol: coin.symbol,
+  //       fullName: coin.id,
+  //       coinName: coin.id,
+  //       imageURL: coin.thumb,
+  //       totalCoinSupply: 0,
+  //       totalCoinsMined: 0,
+  //       sortOrder: coin.market_cap_rank
+  //     };
+  //   });
+  //   return formattedData;
+  // };
   fetchCoinsData = async (coinsList, currency = "EUR", display = false) => {
     const query = `data/pricemultifull?fsyms=${coinsList.join(
       ","
@@ -89,7 +86,6 @@ class API {
 
     const response = await this.axios.get(query);
     const formattedData = {};
-    console.log(response.data);
     const data = response.data[display ? "DISPLAY" : "RAW"];
     for (let coin in data) {
       formattedData[coin] = data[coin][currency];
@@ -138,15 +134,14 @@ class API {
     const data = response.data.Data;
     return data;
   };
-  fetchCoinsInfo = async (IDs, limit, currency = "usd") => {
-    let query = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=${limit}&page=1&sparkline=false`;
-    if (IDs) {
-      query += `&ids=${IDs.join(",")}`;
-    }
-    const response = await axios.get(query);
-    const data = response.data;
-    console.log("🚀", data);
-  };
+  // fetchCoinsInfo = async (IDs, limit, currency = "usd") => {
+  //   let query = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=${limit}&page=1&sparkline=false`;
+  //   if (IDs) {
+  //     query += `&ids=${IDs.join(",")}`;
+  //   }
+  //   const response = await axios.get(query);
+  //   const data = response.data;
+  // };
 }
 
 export default new API();

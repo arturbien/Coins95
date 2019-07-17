@@ -8,7 +8,7 @@ import {
 const initialState = {
   coinsList: ["BTC", "ETH"],
   currency: "EUR",
-  vintageFont: false,
+  vintageFont: true,
   theme: "default"
 };
 

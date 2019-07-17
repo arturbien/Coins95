@@ -62,7 +62,6 @@ class CoinsTable extends React.Component {
           return (b[orderBy] > a[orderBy] ? 1 : -1) * desc;
         })
         .splice(0, COIN_LIMIT);
-      console.log("💖");
       tableData = orderedData.map((coinData, i) => {
         const {
           name,
@@ -124,7 +123,7 @@ class CoinsTable extends React.Component {
                 <TableHeadCell onClick={() => this.handleChangeOrder("rank")}>
                   Rank
                 </TableHeadCell>
-                <TableHeadCell>🎆</TableHeadCell>
+                <TableHeadCell>+</TableHeadCell>
               </TableRow>
             </TableHead>
             <TableBody>{tableData}</TableBody>
@@ -142,8 +141,7 @@ CoinsTable.propTypes = {
 export default withRouter(CoinsTable);
 
 const SearchWrapper = styled(Toolbar)`
-  margin-left: -4px;
-  margin-right: 0px;
+  margin: 0 -4px;
 `;
 
 const SFileIcon = styled(FileIcon)`
@@ -187,6 +185,7 @@ const ScrollTable = styled(Table)`
   td:nth-child(1) {
     display: flex;
     align-items: center;
+    white-space: nowrap;
   }
   th:nth-child(2),
   td:nth-child(2) {

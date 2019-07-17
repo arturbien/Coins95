@@ -1,23 +1,27 @@
 import React from "react";
 import styled from "styled-components";
-
+import { withRouter } from "react-router";
 import Fullpage from "../../components/Fullpage/Fullpage";
 
 import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
 import CoinsTable from "./CoinsTable";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
-
+import { Button } from "react95";
 const DashboardLayout = ({
   data,
   showingFollowing,
   showFollowing,
-  showTop
+  showTop,
+  history
 }) => {
   useLockBodyScroll();
   return (
     <Fullpage>
-      <Header />
+      <Header>
+        <h1 style={{ fontSize: "1.5em", fontWeight: "bold" }}>Coins</h1>
+        <Button onClick={() => history.push("/search")}>Search</Button>
+      </Header>
       <CoinsTableWrapper>
         <CoinsTable data={data} />
       </CoinsTableWrapper>
@@ -36,10 +40,12 @@ const DashboardLayout = ({
   );
 };
 
-export default DashboardLayout;
+export default withRouter(DashboardLayout);
 
 let Header = styled.header`
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 40px;
   margin-bottom: 1em;
   /* background: pink; */
