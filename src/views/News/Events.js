@@ -200,7 +200,6 @@ let FeedFooter = styled.footer`
   padding-bottom: 1rem;
   display: flex;
   flex-wrap: no-wrap;
-
   ${Well}:first-child {
     width: 100%;
     margin-right: 2px;
@@ -210,6 +209,6 @@ let FeedFooter = styled.footer`
   }
   ${Well}:last-child {
     flex-shrink: 0;
-    min-width: 4rem;
+    min-width: 4.75rem;
   }
 `;

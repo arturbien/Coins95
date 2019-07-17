@@ -17,6 +17,8 @@ import {
 } from "react95";
 
 import FileIcon from "../../components/FileIcon/FileIcon";
+import EyeIcon from "../../img/eyeIcon.png";
+import Well from "../../components/Well/Well";
 
 const COIN_LIMIT = 40;
 
@@ -43,7 +45,8 @@ class CoinsTable extends React.Component {
     searchPhrase = searchPhrase.toLowerCase();
     const orderPairs = {
       rank: "sortOrder",
-      name: "coinName"
+      name: "coinName",
+      following: "isFollowed"
     };
 
     let tableData;
@@ -123,12 +126,24 @@ class CoinsTable extends React.Component {
                 <TableHeadCell onClick={() => this.handleChangeOrder("rank")}>
                   Rank
                 </TableHeadCell>
-                <TableHeadCell>+</TableHeadCell>
+                <TableHeadCell
+                  onClick={() => this.handleChangeOrder("following")}
+                >
+                  <EyeIconIMG src={EyeIcon} />
+                </TableHeadCell>
               </TableRow>
             </TableHead>
             <TableBody>{tableData}</TableBody>
           </ScrollTable>
         </CoinsTableWrapper>
+        <CoinsTableFooter>
+          <Well>
+            {data
+              ? `Showing ${tableData.length} coin(s) of ${data.length} total`
+              : "Loading..."}
+          </Well>
+          <Well />
+        </CoinsTableFooter>
       </>
     );
   }
@@ -143,14 +158,56 @@ export default withRouter(CoinsTable);
 const SearchWrapper = styled(Toolbar)`
   margin: 0 -4px;
 `;
-
+let CoinsTableFooter = styled.footer`
+  margin-top: 0.5rem;
+  margin-bottom: 2px;
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: no-wrap;
+  ${Well}:first-child {
+    width: 100%;
+    margin-right: 2px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+  }
+  ${Well}:last-child {
+    flex-shrink: 0;
+    min-width: 4.75rem;
+    position: relative;
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 25px;
+      height: 25px;
+      border: 2px solid ${({ theme }) => theme.material};
+      background-image: linear-gradient(
+        135deg,
+        ${({ theme }) => theme.borderLightest} 16.67%,
+        ${({ theme }) => theme.material} 16.67%,
+        ${({ theme }) => theme.material} 33.33%,
+        ${({ theme }) => theme.borderDark} 33.33%,
+        ${({ theme }) => theme.borderDark} 50%,
+        ${({ theme }) => theme.borderLightest} 50%,
+        ${({ theme }) => theme.borderLightest} 66.67%,
+        ${({ theme }) => theme.material} 66.67%,
+        ${({ theme }) => theme.material} 83.33%,
+        ${({ theme }) => theme.borderDark} 83.33%,
+        ${({ theme }) => theme.borderDark} 100%
+      );
+      background-size: 8.49px 8.49px;
+      clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    }
+  }
+`;
 const SFileIcon = styled(FileIcon)`
   margin-right: 6px;
 `;
 let CoinsTableWrapper = styled.div`
   flex: 1;
-  margin-top: 1rem;
-  padding-bottom: calc(56px + 35px + 1rem);
+  margin-top: 0.5rem;
   overflow: hidden;
   & > div {
     height: 100%;
@@ -178,6 +235,9 @@ const ScrollTable = styled(Table)`
     display: flex;
     border-bottom: 1px solid ${({ theme }) => theme.borderLight};
   }
+  tr:hover th {
+    color: ${({ theme }) => theme.text};
+  }
   th:nth-child(1),
   td:nth-child(1) {
     flex: 6;
@@ -202,7 +262,6 @@ const ScrollTable = styled(Table)`
   }
   td:nth-child(3) {
     position: relative;
-    background: ${({ theme }) => theme.canvas};
     text-align: center;
     overflow: hidden;
     display: flex;
@@ -222,4 +281,9 @@ const SCheckbox = styled(Checkbox)`
   & > div {
     margin-left: 0.25rem;
   }
+`;
+const EyeIconIMG = styled.img`
+  height: 26px;
+  width: auto;
+  margin-top: 3px;
 `;

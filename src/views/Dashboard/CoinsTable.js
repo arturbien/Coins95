@@ -36,6 +36,9 @@ const ScrollTable = styled(Table)`
   tr {
     display: flex;
   }
+  tr:hover th {
+    color: ${({ theme }) => theme.text};
+  }
   th:nth-child(1),
   td:nth-child(1) {
     flex: 4;
