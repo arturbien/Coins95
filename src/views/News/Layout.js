@@ -6,17 +6,15 @@ import Events from "./Events";
 
 import { createMaterialStyles } from "../../utils";
 
-const Layout = ({ news, popularNews, fetchNews }) => {
-  return (
-    <Wrapper>
-      <Header>
-        <span style={{ opacity: 0 }}>News</span>
-      </Header>
-      <Events popularNews={popularNews} />
-      <NewsList news={news} fetchNews={fetchNews} />
-    </Wrapper>
-  );
-};
+const Layout = () => (
+  <Wrapper>
+    <Header>
+      <span style={{ opacity: 0 }}>News</span>
+    </Header>
+    <Events />
+    <NewsList />
+  </Wrapper>
+);
 
 export default Layout;
 

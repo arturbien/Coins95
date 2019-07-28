@@ -12,58 +12,7 @@ import {
   TableDataCell
 } from "react95";
 import FileIcon from "../../components/FileIcon/FileIcon";
-const SFileIcon = styled(FileIcon)`
-  margin-right: 6px;
-`;
 
-const ScrollTable = styled(Table)`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  -webkit-overflow-scrolling: touch;
-
-  thead,
-  tbody,
-  tr,
-  th,
-  td {
-    display: block;
-  }
-  th,
-  td {
-    flex-shrink: 0 !important;
-  }
-  tr {
-    display: flex;
-  }
-  tr:hover th {
-    color: ${({ theme }) => theme.text};
-  }
-  th:nth-child(1),
-  td:nth-child(1) {
-    flex: 4;
-  }
-  td:nth-child(1) {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-  }
-  th:nth-child(2),
-  td:nth-child(2) {
-    flex: 2;
-  }
-  th:nth-child(3),
-  td:nth-child(3) {
-    flex: 1.5;
-  }
-  thead {
-    flex-shrink: 0;
-  }
-  tbody {
-    height: 100%;
-    overflow-y: scroll;
-  }
-`;
 class CoinsTable extends React.Component {
   handleChangeOrder = orderBy => {
     const { history } = this.props;
@@ -163,3 +112,56 @@ CoinsTable.propTypes = {
 };
 
 export default withRouter(CoinsTable);
+
+const SFileIcon = styled(FileIcon)`
+  margin-right: 6px;
+`;
+
+const ScrollTable = styled(Table)`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+
+  thead,
+  tbody,
+  tr,
+  th,
+  td {
+    display: block;
+  }
+  th,
+  td {
+    flex-shrink: 0 !important;
+  }
+  tr {
+    display: flex;
+  }
+  tr:hover th {
+    color: ${({ theme }) => theme.text};
+  }
+  th:nth-child(1),
+  td:nth-child(1) {
+    flex: 4;
+  }
+  td:nth-child(1) {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+  th:nth-child(2),
+  td:nth-child(2) {
+    flex: 2;
+  }
+  th:nth-child(3),
+  td:nth-child(3) {
+    flex: 1.5;
+  }
+  thead {
+    flex-shrink: 0;
+  }
+  tbody {
+    height: 100%;
+    overflow-y: scroll;
+  }
+`;

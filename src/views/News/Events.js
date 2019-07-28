@@ -65,7 +65,9 @@ export class Events extends React.Component {
           <EventList>{eventsList && eventsList}</EventList>
         </EventListWrapper>
         <FeedFooter>
-          <Well>{events && `Next event: ${events[0].title}`} </Well>
+          <Well>
+            {events ? `Next event: ${events[0].title}` : "Loading events..."}{" "}
+          </Well>
           <Well>{events && `${events.length} event(s)`} </Well>
         </FeedFooter>
         {openedEventIndex !== null && (

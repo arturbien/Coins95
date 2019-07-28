@@ -17,12 +17,12 @@ const NewsList = ({ news, fetchNews }) => {
   useEffect(() => {
     const lazyImages = Array.from(document.querySelectorAll("[data-src]"));
     console.log("MOUNTED 🔥", lazyImages);
-    var options = {
+    const options = {
       root: null,
       rootMargin: "400px 0px 1600px 0px",
       threshold: 0
     };
-    var callback = function(entries, observer) {
+    const callback = function(entries, observer) {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           let lazyImage = entry.target;
@@ -33,7 +33,7 @@ const NewsList = ({ news, fetchNews }) => {
         }
       });
     };
-    var observer = new IntersectionObserver(callback, options);
+    const observer = new IntersectionObserver(callback, options);
     lazyImages.forEach(lazyImage => {
       lazyImage.style.opacity = 0;
       lazyImage.style.transition = "0.25s all ease-in-out";
@@ -48,11 +48,15 @@ const NewsList = ({ news, fetchNews }) => {
   }, [news]);
 
   if (!news) {
-    return <LastItem onVisible={() => fetchNews()} />;
+    return (
+      <Ul>
+        <LastItem onVisible={() => fetchNews()} />
+      </Ul>
+    );
   }
   news = news.sort((a, b) => b.published_on - a.published_on);
   const lastNewsTimestamp = news[news.length - 1].published_on;
-  // why soring here works but not when sorted in API file or in reducer?
+  // why sorting here works but not when sorted in API file or in reducer?
   const newsItems = news.map(n => {
     const date = timeSince(n.published_on);
     const hashtags = n.categories

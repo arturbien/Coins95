@@ -37,7 +37,7 @@ const ResetStyles = createGlobalStyle`
     
   }
   img {
-        image-rendering: pixelated!important;
+        /* image-rendering: pixelated!important; */
   }
 `;
 
