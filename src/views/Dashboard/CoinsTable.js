@@ -74,7 +74,9 @@ class CoinsTable extends React.Component {
           <TableRow key={i} onClick={() => history.push(`/coins/${symbol}`)}>
             <TableDataCell>
               <SFileIcon height={22} imageURL={imageURL} />
-              {`${coinName.toLowerCase()}.${name.toLowerCase()}`}
+              <CoinName>
+                {`${coinName.toLowerCase()}.${name.toLowerCase()}`}
+              </CoinName>
             </TableDataCell>
             <TableDataCell style={{ textAlign: "right" }}>
               {PRICE.toFixed(2)}
@@ -116,7 +118,11 @@ export default withRouter(CoinsTable);
 const SFileIcon = styled(FileIcon)`
   margin-right: 6px;
 `;
-
+const CoinName = styled.span`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
 const ScrollTable = styled(Table)`
   display: flex;
   flex-direction: column;
@@ -133,9 +139,11 @@ const ScrollTable = styled(Table)`
   th,
   td {
     flex-shrink: 0 !important;
+    box-sizing: border-box;
   }
   tr {
     display: flex;
+    border-bottom: 1px solid ${({ theme }) => theme.borderLight};
   }
   tr:hover th {
     color: ${({ theme }) => theme.text};
@@ -147,11 +155,15 @@ const ScrollTable = styled(Table)`
   td:nth-child(1) {
     display: flex;
     align-items: center;
-    white-space: nowrap;
+    overflow: hidden;
   }
   th:nth-child(2),
   td:nth-child(2) {
     flex: 2;
+  }
+  td:nth-child(2) {
+    border-right: 1px solid ${({ theme }) => theme.borderLight};
+    border-left: 1px solid ${({ theme }) => theme.borderLight};
   }
   th:nth-child(3),
   td:nth-child(3) {

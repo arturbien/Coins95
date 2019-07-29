@@ -7,10 +7,10 @@ import Clippy from "../Clippy/Clippy";
 
 import { AppBar, Button, Toolbar } from "react95";
 
-import ArticleIcon from "../../img/article.png";
-import FolderIcon from "../../img/folder.png";
-import GlobeIcon from "../../img/globe.png";
-import NotepadIcon from "../../img/notepad.png";
+import ArticleIcon from "../../assets/img/article.png";
+import FolderIcon from "../../assets/img/folder.png";
+import GlobeIcon from "../../assets/img/globe.png";
+import NotepadIcon from "../../assets/img/notepad.png";
 
 const SAppBar = styled(AppBar)`
   top: auto;

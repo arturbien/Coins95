@@ -5,8 +5,8 @@ import { Switch, Route, withRouter } from "react-router";
 
 import { Button, Divider, Radio, Checkbox, Fieldset } from "react95";
 
-import ClippyIcon from "../../img/clippy4.png";
-import DeadClippy from "../../img/deadClippy.jpg";
+import ClippyIcon from "../../assets/img/clippy4.png";
+import DeadClippy from "../../assets/img/deadClippy.jpg";
 
 const Clippy = props => {
   const [isOpened, setIsOpened] = useState(false);

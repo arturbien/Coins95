@@ -17,7 +17,7 @@ import {
 } from "react95";
 
 import FileIcon from "../../components/FileIcon/FileIcon";
-import EyeIcon from "../../img/eyeIcon.png";
+import EyeIcon from "../../assets/img/eyeIcon.png";
 import Well from "../../components/Well/Well";
 
 const COIN_LIMIT = 40;
@@ -78,20 +78,23 @@ class CoinsTable extends React.Component {
           <TableRow key={i} onClick={() => history.push(`/coins/${symbol}`)}>
             <TableDataCell>
               <SFileIcon height={22} imageURL={imageURL} />
-              {`${coinName.toLowerCase()}.${name.toLowerCase()}`}
+              <CoinName>{`${coinName.toLowerCase()}.${name.toLowerCase()}`}</CoinName>
             </TableDataCell>
             <TableDataCell style={{ textAlign: "right" }}>
               {sortOrder}
             </TableDataCell>
             <TableDataCell
               style={{ textAlign: "right" }}
-              onClick={e => e.stopPropagation()}
+              onClick={e => {
+                e.stopPropagation();
+                onFollow(symbol, !isFollowed);
+              }}
             >
               <SCheckbox
+                readOnly
                 checked={isFollowed}
                 variant="flat"
                 value={name}
-                onChange={() => onFollow(symbol, !isFollowed)}
               />
             </TableDataCell>
           </TableRow>
@@ -205,6 +208,11 @@ let CoinsTableFooter = styled.footer`
 const SFileIcon = styled(FileIcon)`
   margin-right: 6px;
 `;
+const CoinName = styled.span`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
 let CoinsTableWrapper = styled.div`
   flex: 1;
   margin-top: 0.5rem;
@@ -230,6 +238,9 @@ const ScrollTable = styled(Table)`
   th,
   td {
     flex-shrink: 0 !important;
+    box-sizing: border-box;
+  }
+  th {
   }
   tr {
     display: flex;
@@ -240,16 +251,16 @@ const ScrollTable = styled(Table)`
   }
   th:nth-child(1),
   td:nth-child(1) {
-    flex: 6;
+    flex: 1;
   }
   td:nth-child(1) {
     display: flex;
     align-items: center;
-    white-space: nowrap;
+    overflow: hidden;
   }
   th:nth-child(2),
   td:nth-child(2) {
-    flex: 2;
+    width: 60px;
     text-align: center;
   }
   td:nth-child(2) {
@@ -258,7 +269,8 @@ const ScrollTable = styled(Table)`
   }
   th:nth-child(3),
   td:nth-child(3) {
-    flex: 1.5;
+    width: 60px;
+    /* flex: 1.5; */
   }
   td:nth-child(3) {
     position: relative;
@@ -278,6 +290,7 @@ const ScrollTable = styled(Table)`
 `;
 const SCheckbox = styled(Checkbox)`
   height: 14px;
+  pointer-events: none;
   & > div {
     margin-left: 0.25rem;
   }
