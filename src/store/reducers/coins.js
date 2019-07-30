@@ -30,7 +30,3 @@ const coinsReducer = (state = initialState, action) => {
 };
 
 export default coinsReducer;
-// selectors
-export const selectCoins = (state, ammount) => {
-  return state.splice(0, ammount);
-};
