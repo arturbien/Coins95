@@ -195,7 +195,7 @@ const ChartWrapper = styled(Cutout)`
   padding: 1em;
 `;
 const SFieldset = styled(Fieldset)`
-  margin-top: 1rem;
+  margin: 1rem 0.25rem calc(0.25rem + 4px) calc(0.25rem + 2px);
 `;
 const Row = styled.div`
   display: flex;

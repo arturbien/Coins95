@@ -41,12 +41,12 @@ class API {
     const query = "/data/all/coinlist";
     const response = await this.axios.get(query);
     const data = response.data.Data;
+    console.log(data);
     const formattedData = {};
     const sortedCoins = Object.keys(data).sort(
       (coinA, coinB) =>
         parseInt(data[coinA].sortOrder) - parseInt(data[coinB].sortOrder)
     );
-
     for (let coin of sortedCoins) {
       const coinData = data[coin];
       formattedData[coin] = {

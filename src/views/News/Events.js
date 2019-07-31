@@ -56,14 +56,16 @@ export class Events extends React.Component {
       ));
     }
     return (
-      <section style={{ overflow: "hidden", height: "100%" }}>
-        <EventListWrapper>
-          <PullBars>
-            <SBar />
-            <SBar />
-          </PullBars>
-          <EventList>{eventsList && eventsList}</EventList>
-        </EventListWrapper>
+      <>
+        <EventSlider>
+          <EventListWrapper>
+            <PullBars>
+              <SBar />
+              <SBar />
+            </PullBars>
+            <EventList>{eventsList && eventsList}</EventList>
+          </EventListWrapper>
+        </EventSlider>
         <FeedFooter>
           <Well>
             {events ? `Next event: ${events[0].title}` : "Loading events..."}{" "}
@@ -77,7 +79,7 @@ export class Events extends React.Component {
             openedEventIndex={openedEventIndex}
           />
         )}
-      </section>
+      </>
     );
   }
 }
@@ -103,16 +105,8 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Events);
-
-let EventListWrapper = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  align-items: flex-start;
-  height: 6.25rem;
-  padding: 0.5rem 0;
+let EventSlider = styled.div`
   overflow-x: scroll;
-  flex-wrap: nowrap;
-  background: ${({ theme }) => theme.material};
   -webkit-overflow-scrolling: touch;
   ::-webkit-scrollbar {
     width: 0 !important;
@@ -122,6 +116,19 @@ let EventListWrapper = styled.div`
     width: 0 !important;
     display: none;
   }
+`;
+let EventListWrapper = styled.div`
+  box-sizing: border-box;
+  display: inline-flex;
+  min-width: 100%;
+  align-items: flex-start;
+  height: 6.25rem;
+  padding: 0.5rem 0.5rem 0.5rem;
+  /* overflow-x: scroll; */
+
+  flex-wrap: nowrap;
+  border-left: 2px solid ${({ theme }) => theme.borderLightest};
+  background: ${({ theme }) => theme.material};
 `;
 let PullBars = styled.div`
   margin-left: 0.75rem;

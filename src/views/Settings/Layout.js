@@ -7,11 +7,13 @@ import {
   TabBody,
   Fieldset,
   Radio,
-  NumberField,
-  Checkbox
+  Button,
+  Checkbox,
+  Select
 } from "react95";
 
 import Fullpage from "../../components/Fullpage/Fullpage";
+import Monitor from "./Monitor";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
@@ -22,8 +24,8 @@ const Layout = ({ theme, setTheme, vintageFont, toggleVintageFont }) => {
     <Fullpage>
       <Tabs value={activeTab} onChange={setActiveTab}>
         <Tab value={0}>Appearance</Tab>
-        <Tab value={1}>Account</Tab>
-        <Tab value={2}>Info</Tab>
+        <Tab value={1}>Background</Tab>
+        <Tab value={2}>Settings</Tab>
       </Tabs>
       <div style={{ height: 400 }}>
         {activeTab === 0 && (
@@ -58,15 +60,17 @@ const Layout = ({ theme, setTheme, vintageFont, toggleVintageFont }) => {
         )}
         {activeTab === 1 && (
           <TabBody>
-            {" "}
-            <Fieldset label="Theme:">
-              <div style={{ padding: "0.5em 0 0.5em 0" }}>Amount:</div>
-              <NumberField
-                width={"100%"}
-                min={0}
-                value={0}
-                onChange={() => null}
+            <Monitor />
+            <Fieldset label="Wallpaper:">
+              <Select
+                items={[
+                  { value: "teal", label: "Teal" },
+                  { value: "clouds", label: "Clouds" },
+                  { value: "swaggin", label: "My six pack" }
+                ]}
+                selectedIndex={0}
               />
+              <Button style={{ padding: "0 40px", float:"right", marginTop:"0.5rem" }}>Browse...</Button>
             </Fieldset>
           </TabBody>
         )}

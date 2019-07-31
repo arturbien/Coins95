@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { setTheme, toggleVintageFont } from "../../store/actions/user";
 
 import Layout from "./Layout";
-
 export class Settings extends Component {
   // static propTypes = {
   //   prop: propTypes

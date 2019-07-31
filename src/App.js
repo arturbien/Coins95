@@ -24,6 +24,7 @@ const ResetStyles = createGlobalStyle`
   }
   html, body, #root {
     height: 100%;
+    background: teal;
     font-family: ${({ vintageFont }) =>
       vintageFont ? "MS-Sans-Serif" : "sans-serif"};
   }
