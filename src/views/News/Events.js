@@ -82,9 +82,17 @@ export class Events extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  events: state.events
-});
+const mapStateToProps = state => {
+  let events = state.events;
+  if (events !== null) {
+    events = events.map(event => {
+      return { ...event, seen: state.user.seenEvents.includes(event.id) };
+    });
+  }
+  return {
+    events
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   fetchEvents: () => dispatch(fetchEvents()),

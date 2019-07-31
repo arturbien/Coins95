@@ -29,6 +29,14 @@ class API {
     news = news.data.Data;
     return news.splice(0, limit);
   };
+  fetchCoinsTopList = async (amount = 30, currency = "EUR") => {
+    const query = `/data/top/totalvolfull?limit=${amount}&tsym=${currency}`;
+    const response = await this.axios.get(query);
+    const data = response.data.Data;
+    console.log(data);
+    const coinsTopList = data.map(coinData => coinData.CoinInfo.Name);
+    return coinsTopList;
+  };
   fetchCoinsList = async (amount = 1000) => {
     const query = "/data/all/coinlist";
     const response = await this.axios.get(query);

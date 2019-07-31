@@ -1,4 +1,7 @@
 import {
+  FETCH_COINS_TOP_LIST_REQUEST,
+  FETCH_COINS_TOP_LIST_SUCCESS,
+  FETCH_COINS_TOP_LIST_ERROR,
   FETCH_COINS_LIST_REQUEST,
   FETCH_COINS_LIST_SUCCESS,
   FETCH_COINS_LIST_ERROR,
@@ -8,6 +11,20 @@ import {
 } from "./actionTypes";
 
 import API from "../../API";
+
+export const setCoinsTopList = data => ({
+  type: FETCH_COINS_TOP_LIST_SUCCESS,
+  payload: data
+});
+export const fetchCoinsTopList = () => async dispatch => {
+  dispatch({ type: FETCH_COINS_TOP_LIST_REQUEST });
+  try {
+    const topCoinsList = await API.fetchCoinsTopList();
+    dispatch(setCoinsTopList(topCoinsList));
+  } catch (error) {
+    dispatch({ type: FETCH_COINS_TOP_LIST_ERROR });
+  }
+};
 
 export const setCoinsList = data => ({
   type: FETCH_COINS_LIST_SUCCESS,

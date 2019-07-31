@@ -1,10 +1,12 @@
 import {
+  FETCH_COINS_TOP_LIST_SUCCESS,
   FETCH_COINS_LIST_SUCCESS,
   FETCH_COINS_DATA_SUCCESS,
   FOLLOW_COIN
 } from "../actions/actionTypes";
 
 const initialState = {
+  coinsTopList: null,
   coinsList: null,
   coinsInfo: null,
   coinsData: null,
@@ -12,6 +14,9 @@ const initialState = {
 };
 const coinsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case FETCH_COINS_TOP_LIST_SUCCESS:
+      const coinsTopList = action.payload;
+      return { ...state, coinsTopList };
     case FETCH_COINS_LIST_SUCCESS:
       const coinsInfo = action.payload;
       // sorting by  rank
