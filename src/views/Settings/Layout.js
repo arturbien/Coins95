@@ -12,12 +12,21 @@ import {
   Select
 } from "react95";
 
+import { backgrounds } from "../../store/reducers/user";
+
 import Fullpage from "../../components/Fullpage/Fullpage";
 import Monitor from "./Monitor";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
-const Layout = ({ theme, setTheme, vintageFont, toggleVintageFont }) => {
+const Layout = ({
+  theme,
+  setTheme,
+  background,
+  setBackground,
+  vintageFont,
+  toggleVintageFont
+}) => {
   const [activeTab, setActiveTab] = useState(0);
   useLockBodyScroll();
   return (
@@ -60,17 +69,26 @@ const Layout = ({ theme, setTheme, vintageFont, toggleVintageFont }) => {
         )}
         {activeTab === 1 && (
           <TabBody>
-            <Monitor />
+            <Monitor backgroundColor={backgrounds[background].value} />
             <Fieldset label="Wallpaper:">
               <Select
-                items={[
-                  { value: "teal", label: "Teal" },
-                  { value: "clouds", label: "Clouds" },
-                  { value: "swaggin", label: "My six pack" }
-                ]}
-                selectedIndex={0}
+                onChange={value =>
+                  setBackground(
+                    backgrounds.findIndex(item => item.value === value)
+                  )
+                }
+                items={backgrounds}
+                selectedIndex={background}
               />
-              <Button style={{ padding: "0 40px", float:"right", marginTop:"0.5rem" }}>Browse...</Button>
+              <Button
+                style={{
+                  padding: "0 40px",
+                  float: "right",
+                  marginTop: "0.5rem"
+                }}
+              >
+                Browse...
+              </Button>
             </Fieldset>
           </TabBody>
         )}

@@ -2,6 +2,7 @@ import {
   FOLLOW_COIN,
   UNFOLLOW_COIN,
   SET_THEME,
+  SET_BACKGROUND,
   TOGGLE_VINTAGE_FONT,
   SET_EVENT_SEEN
 } from "../actions/actionTypes";
@@ -10,12 +11,20 @@ import { saveState, loadState } from "../localStorage";
 const LOCAL_STORAGE_KEY = "user";
 
 const persistedState = loadState(LOCAL_STORAGE_KEY) || {};
+
+export const backgrounds = [
+  { value: "teal", label: "Teal" },
+  { value: "black", label: "Black" },
+  { value: "swaggin", label: "My six pack" }
+];
+
 const initialState = {
   coinsList: [],
   seenEvents: [],
   currency: "EUR",
   vintageFont: true,
   theme: "default",
+  background: 1,
   ...persistedState
 };
 
@@ -33,6 +42,8 @@ const userReducer = (state = initialState, action) => {
         return { ...state, coinsList };
       case SET_THEME:
         return { ...state, theme: action.payload };
+      case SET_BACKGROUND:
+        return { ...state, background: action.payload };
       case TOGGLE_VINTAGE_FONT:
         return { ...state, vintageFont: action.payload };
       case SET_EVENT_SEEN:

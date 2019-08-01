@@ -20,7 +20,7 @@ const DashboardLayout = ({
     <Fullpage>
       <Header>
         <h1 style={{ fontSize: "1.5em", fontWeight: "bold" }}>Coins</h1>
-        <Button onClick={() => history.push("/search")}>Search</Button>
+        <Button onClick={() => history.push("/search")}>Search...</Button>
       </Header>
       <CoinsTableWrapper>
         <CoinsTable data={data} />

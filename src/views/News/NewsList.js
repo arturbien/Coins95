@@ -165,7 +165,7 @@ const LastItem = ({ onVisible }) => {
             </div>
           </Row>
         </ArticleSource>
-        <Square style={{ background: "teal" }} />
+        <Square />
         <ArticleHeader>
           <Title />
         </ArticleHeader>
@@ -239,7 +239,6 @@ let ArticleIMG = styled.img`
   object-fit: cover;
   width: 100%;
   height: auto;
-  background: teal;
 `;
 let Title = styled.h2`
   font-size: 0.9rem;
@@ -296,7 +295,6 @@ let ArticleHeader = styled.header`
 let Square = styled.div`
   width: 100%;
   position: relative;
-  background: teal;
   &:before {
     content: "";
     left: 0;

@@ -15,7 +15,7 @@ import News from "./views/News/News";
 import Settings from "./views/Settings/Settings";
 
 import NavBar from "./components/NavBar/NavBar";
-
+import { backgrounds } from "./store/reducers/user";
 const ResetStyles = createGlobalStyle`
   ${reset}
   @font-face {
@@ -24,7 +24,7 @@ const ResetStyles = createGlobalStyle`
   }
   html, body, #root {
     height: 100%;
-    background: teal;
+    background: ${({ background }) => background};
     font-family: ${({ vintageFont }) =>
       vintageFont ? "MS-Sans-Serif" : "sans-serif"};
   }
@@ -44,11 +44,15 @@ const ResetStyles = createGlobalStyle`
 
 class App extends Component {
   render() {
-    const { theme, vintageFont } = this.props;
+    const { theme, background, vintageFont } = this.props;
+    alert(backgrounds[background].value);
     return (
       <ThemeProvider theme={themes[theme]}>
         <>
-          <ResetStyles vintageFont={vintageFont} />
+          <ResetStyles
+            vintageFont={vintageFont}
+            background={backgrounds[background].value}
+          />
           <BrowserRouter>
             <>
               <Switch>
@@ -74,6 +78,7 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   theme: state.user.theme,
+  background: state.user.background,
   vintageFont: state.user.vintageFont
 });
 export default connect(
