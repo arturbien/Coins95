@@ -25,6 +25,8 @@ const ResetStyles = createGlobalStyle`
   html, body, #root {
     height: 100%;
     background: ${({ background }) => background};
+    background-attachment: fixed;
+    background-repeat: repeat;
     font-family: ${({ vintageFont }) =>
       vintageFont ? "MS-Sans-Serif" : "sans-serif"};
   }
@@ -45,7 +47,6 @@ const ResetStyles = createGlobalStyle`
 class App extends Component {
   render() {
     const { theme, background, vintageFont } = this.props;
-    alert(backgrounds[background].value);
     return (
       <ThemeProvider theme={themes[theme]}>
         <>

@@ -8,6 +8,14 @@ import {
 } from "../actions/actionTypes";
 
 import { saveState, loadState } from "../localStorage";
+import CloudsIMG from "../../assets/img/backgrounds/clouds.jpg";
+import BricksIMG from "../../assets/img/backgrounds/bricks.png";
+import MazeIMG from "../../assets/img/backgrounds/maze.png";
+import BluescreenIMG from "../../assets/img/backgrounds/bluescreen.png";
+import WaterIMG from "../../assets/img/backgrounds/water.gif";
+import PoolsideIMG from "../../assets/img/backgrounds/poolside.gif";
+import NoiseIMG from "../../assets/img/backgrounds/noise.gif";
+
 const LOCAL_STORAGE_KEY = "user";
 
 const persistedState = loadState(LOCAL_STORAGE_KEY) || {};
@@ -15,7 +23,13 @@ const persistedState = loadState(LOCAL_STORAGE_KEY) || {};
 export const backgrounds = [
   { value: "teal", label: "Teal" },
   { value: "black", label: "Black" },
-  { value: "swaggin", label: "My six pack" }
+  { value: `url(${CloudsIMG})`, label: "Clouds" },
+  { value: `url(${BricksIMG})`, label: "Bricks" },
+  { value: `url(${BluescreenIMG})`, label: "Bluescreen" },
+  { value: `url(${MazeIMG})`, label: "Maze" },
+  { value: `url(${WaterIMG})`, label: "Water" },
+  { value: `url(${PoolsideIMG})`, label: "Poolside OS" },
+  { value: `url(${NoiseIMG})`, label: "Noise" }
 ];
 
 const initialState = {

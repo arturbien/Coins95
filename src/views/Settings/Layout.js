@@ -72,6 +72,7 @@ const Layout = ({
             <Monitor backgroundColor={backgrounds[background].value} />
             <Fieldset label="Wallpaper:">
               <Select
+                height={145}
                 onChange={value =>
                   setBackground(
                     backgrounds.findIndex(item => item.value === value)
@@ -86,6 +87,7 @@ const Layout = ({
                   float: "right",
                   marginTop: "0.5rem"
                 }}
+                disabled
               >
                 Browse...
               </Button>
