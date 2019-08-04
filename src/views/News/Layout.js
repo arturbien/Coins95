@@ -8,9 +8,9 @@ import { createMaterialStyles } from "../../utils";
 
 const Layout = () => (
   <Wrapper>
-    <Header>
+    {/* <Header>
       <span style={{ opacity: 0 }}>News</span>
-    </Header>
+    </Header> */}
     <Events />
     <NewsList />
   </Wrapper>

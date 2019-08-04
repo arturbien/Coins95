@@ -30,8 +30,8 @@ export const timeSince = date => {
 export const createMaterialStyles = (mode = "top") => css`
   position: relative;
   box-sizing: border-box;
-  width: 100%;
-  padding: 0.5rem;
+  /* width: 100%;
+  padding: 0.5rem; */
   background: ${({ theme }) => theme.material};
   border-top: ${({ theme }) =>
     ["top", "full"].includes(mode)

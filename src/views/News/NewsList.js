@@ -287,10 +287,13 @@ let SourceIMG = styled.img`
 
 let ArticleSource = styled.header`
   ${createMaterialStyles("bottom")}
+
+  padding: 0.5rem;
 `;
 let ArticleHeader = styled.header`
   ${createMaterialStyles("top")}
-  padding-bottom: 1rem;
+
+  padding: 0.5rem 0.5rem 1rem;
 `;
 let Square = styled.div`
   width: 100%;

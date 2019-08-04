@@ -24,11 +24,20 @@ const ResetStyles = createGlobalStyle`
   }
   html, body, #root {
     height: 100%;
+    font-family: ${({ vintageFont }) =>
+      vintageFont ? "MS-Sans-Serif" : "sans-serif"};
+  }
+  #background {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right: 0;
+    height: 100%;
+    width: 100%;
     background: ${({ background }) => background};
     background-attachment: fixed;
     background-repeat: repeat;
-    font-family: ${({ vintageFont }) =>
-      vintageFont ? "MS-Sans-Serif" : "sans-serif"};
   }
   * {
       font-family: ${({ vintageFont }) =>

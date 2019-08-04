@@ -118,16 +118,16 @@ let EventSlider = styled.div`
   }
 `;
 let EventListWrapper = styled.div`
+  ${createMaterialStyles("top")}
+
   box-sizing: border-box;
   display: inline-flex;
-  min-width: 100%;
-  align-items: flex-start;
-  height: 6.25rem;
-  padding: 0.5rem 0.5rem 0.5rem;
-  /* overflow-x: scroll; */
-
   flex-wrap: nowrap;
-  border-left: 2px solid ${({ theme }) => theme.borderLightest};
+  align-items: flex-start;
+  min-width: 100%;
+  height: 6.25rem;
+  padding: 0.5rem;
+
   background: ${({ theme }) => theme.material};
 `;
 let PullBars = styled.div`
@@ -210,7 +210,8 @@ let EventTitle = styled.span`
 let FeedFooter = styled.footer`
   ${createMaterialStyles("top")}
 
-    border-top-color: ${({ theme }) => theme.borderLight};
+  padding: 0.5rem;
+  border-top-color: ${({ theme }) => theme.borderLight};
   &:before {
     border-top-color: ${({ theme }) => theme.borderLightest};
   }
