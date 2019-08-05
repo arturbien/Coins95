@@ -4,6 +4,7 @@ import {
   FETCH_COINS_DATA_SUCCESS,
   FOLLOW_COIN
 } from "../actions/actionTypes";
+import { bindActionCreators } from "../../../../../../AppData/Local/Microsoft/TypeScript/3.5/node_modules/redux";
 
 const initialState = {
   coinsTopList: null,
@@ -26,7 +27,13 @@ const coinsReducer = (state = initialState, action) => {
       );
       return { ...state, coinsList, coinsInfo };
     case FETCH_COINS_DATA_SUCCESS:
-      return { ...state, coinsData: action.payload, needsUpdate: false };
+      let coinsData;
+      if (action.payload.extend) {
+        coinsData = { ...state.coinsData, ...action.payload.data };
+      } else {
+        coinsData = { ...action.payload.data };
+      }
+      return { ...state, coinsData, needsUpdate: false };
     case FOLLOW_COIN:
       return { ...state, needsUpdate: true };
     default:

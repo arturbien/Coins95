@@ -167,7 +167,11 @@ const LastItem = ({ onVisible }) => {
         </ArticleSource>
         <Square />
         <ArticleHeader>
-          <Title />
+          <Title>
+            <SourceName as="span">Placeholder</SourceName>
+            Please be patient. If data won't load in the next few minutes, check
+            your modem and internet connection.
+          </Title>
         </ArticleHeader>
       </article>
     </Li>

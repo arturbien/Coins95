@@ -12,7 +12,7 @@ import FolderIcon from "../../assets/img/folder.png";
 import GlobeIcon from "../../assets/img/globe.png";
 import NotepadIcon from "../../assets/img/notepad.png";
 
-const SAppBar = styled(AppBar)`
+const Nav = styled(AppBar)`
   top: auto;
   bottom: 0;
   z-index: 666;
@@ -33,7 +33,7 @@ const NavBar = props => {
   console.log(props);
   const currentLocation = props.location.pathname;
   return (
-    <SAppBar fixed>
+    <Nav fixed>
       <SToolbar>
         <SwitchButton
           active={currentLocation === "/coins"}
@@ -44,6 +44,18 @@ const NavBar = props => {
           <Icon
             active={currentLocation === "/coins"}
             src={GlobeIcon}
+            alt="icon"
+          />
+        </SwitchButton>
+        <SwitchButton
+          active={currentLocation === "/wallet"}
+          onClick={() => props.history.push("/wallet")}
+          fullWidth
+          size="lg"
+        >
+          <Icon
+            active={currentLocation === "/wallet"}
+            src={NotepadIcon}
             alt="icon"
           />
         </SwitchButton>
@@ -67,12 +79,9 @@ const NavBar = props => {
         >
           <Icon src={FolderIcon} alt="icon" />
         </SwitchButton>
-        <SwitchButton fullWidth size="lg">
-          <Icon src={NotepadIcon} alt="icon" />
-        </SwitchButton>
       </SToolbar>
       <Clippy />
-    </SAppBar>
+    </Nav>
   );
 };
 

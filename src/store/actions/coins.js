@@ -40,15 +40,19 @@ export const fetchCoinsList = () => async dispatch => {
   }
 };
 
-export const setCoinsData = data => ({
+export const setCoinsData = (data, extend) => ({
   type: FETCH_COINS_DATA_SUCCESS,
-  payload: data
+  payload: { data, extend }
 });
-export const fetchCoinsData = (coinsList, currency) => async dispatch => {
+export const fetchCoinsData = (
+  coinsList,
+  currency,
+  extend
+) => async dispatch => {
   dispatch({ type: FETCH_COINS_DATA_REQUEST });
   try {
     const coinsData = await API.fetchCoinsData(coinsList, currency);
-    dispatch(setCoinsData(coinsData));
+    dispatch(setCoinsData(coinsData, extend));
   } catch (error) {
     dispatch({ type: FETCH_COINS_DATA_ERROR });
   }

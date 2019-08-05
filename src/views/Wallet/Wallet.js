@@ -1,25 +1,15 @@
 import React, { Component } from "react";
-import propTypes from "prop-types";
-
+// import propTypes from "prop-types";
 import { connect } from "react-redux";
+
 import { fetchCoinsList, fetchCoinsData } from "../../store/actions/coins";
 
 import Layout from "./Layout";
-export class Dashboard extends Component {
-  static propTypes = {
-    topCoinsList: propTypes.array,
-    userCoinsList: propTypes.array,
-    coinsInfo: propTypes.object,
-    coinsData: propTypes.object,
-    currency: propTypes.string,
-    fetchCoinsList: propTypes.func,
-    fetchCoinsData: propTypes.func
-  };
 
-  state = {
-    showingFollowing: false
-  };
-
+export class Wallet extends Component {
+  // static propTypes = {
+  //   prop: propTypes
+  // }
   componentDidMount = async () => {
     // first fetch coins list and info
     const {
@@ -32,11 +22,9 @@ export class Dashboard extends Component {
       needsUpdate,
       fetchCoinsData
     } = this.props;
-
+    //same logic as in Dashboard. fix it soon 😂
     if (!topCoinsList) {
       fetchCoinsList();
-      // case when user laods app on /coins/BTC and presses X to go to dashboard
-      // or user follows new coins in /search, we have to get data for the new coins
     } else if (!coinsData || needsUpdate) {
       fetchCoinsData(
         [
@@ -76,47 +64,26 @@ export class Dashboard extends Component {
       );
     }
   }
-  switchView = showFollowing => {
-    const { history } = this.props;
-    // keeping view state in URL
-    history.push(
-      `${history.location.pathname}#${showFollowing ? "following" : "top"}`
-    );
-  };
   render() {
-    const {
-      userCoinsList,
-      topCoinsList,
-      coinsData,
-      coinsInfo,
-      history
-    } = this.props;
-    const showingFollowing = history.location.hash === "#following";
+    const { walletCoinsList, wallet, coinsData, coinsInfo } = this.props;
 
     let data;
     if (!coinsInfo || !coinsData) {
       data = null;
     } else {
-      data = (showingFollowing ? userCoinsList : topCoinsList).map(coin => ({
+      data = walletCoinsList.map(coin => ({
         ...coinsInfo[coin],
         ...coinsData[coin]
       }));
     }
-    return (
-      <Layout
-        data={data}
-        showingFollowing={showingFollowing}
-        showFollowing={() => this.switchView(true)}
-        showTop={() => this.switchView(false)}
-      />
-    );
+    return <Layout data={data} wallet={wallet} />;
   }
 }
 
 const mapStateToProps = state => ({
   userCoinsList: state.user.coinsList,
   walletCoinsList: Object.keys(state.user.wallet),
-
+  wallet: state.user.wallet,
   topCoinsList: state.coins.coinsList
     ? [...state.coins.coinsList].splice(0, 30)
     : null,
@@ -128,11 +95,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchCoinsList: () => dispatch(fetchCoinsList()),
-  fetchCoinsData: (coinsList, currency) =>
-    dispatch(fetchCoinsData(coinsList, currency))
+  fetchCoinsData: (coinsList, currency, extend) =>
+    dispatch(fetchCoinsData(coinsList, currency, extend))
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Dashboard);
+)(Wallet);

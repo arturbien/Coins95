@@ -34,6 +34,23 @@ export const backgrounds = [
 
 const initialState = {
   coinsList: [],
+  wallet: {
+    BTC: {
+      amount: 0.45
+    },
+    ETH: {
+      amount: 123
+    },
+    ACOIN: {
+      amount: 2973
+    },
+    XDP: {
+      amount: 2973
+    },
+    XRP: {
+      amount: 2973
+    }
+  },
   seenEvents: [],
   currency: "EUR",
   vintageFont: true,

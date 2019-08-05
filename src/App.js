@@ -11,6 +11,7 @@ import woff2 from "./assets/fonts/MS-Sans-Serif.woff2";
 import Dashboard from "./views/Dashboard/Dashboard";
 import CoinDetails from "./views/CoinDetails/CoinDetails";
 import CoinSearch from "./views/CoinSearch/CoinSearch";
+import Wallet from "./views/Wallet/Wallet";
 import News from "./views/News/News";
 import Settings from "./views/Settings/Settings";
 
@@ -29,6 +30,7 @@ const ResetStyles = createGlobalStyle`
   }
   #background {
     position: fixed;
+    z-index: -1;
     top: 0;
     bottom: 0;
     left:0;
@@ -74,6 +76,7 @@ class App extends Component {
                 <Route exact path={"/coins"} component={Dashboard} />
                 <Route exact path={"/coins/:coin"} component={CoinDetails} />
                 <Route exact path={"/search"} component={CoinSearch} />
+                <Route exact path={"/wallet"} component={Wallet} />
                 <Route exact path={"/news"} component={News} />
                 <Route exact path={"/settings"} component={Settings} />
                 <Redirect exact from={"/"} to={"/coins"} />
