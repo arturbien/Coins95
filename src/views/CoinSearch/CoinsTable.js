@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import {
-  Table,
   TableHead,
   TableBody,
   TableRow,
@@ -15,6 +14,7 @@ import {
   TextField,
   Button
 } from "react95";
+import FlexTable from "../../components/FlexTable/FlexTable";
 
 import FileIcon from "../../components/FileIcon/FileIcon";
 import EyeIcon from "../../assets/img/eyeIcon.png";
@@ -119,8 +119,8 @@ class CoinsTable extends React.Component {
             Clear
           </Button>
         </SearchWrapper>
-        <CoinsTableWrapper>
-          <ScrollTable>
+        <TableWrapper>
+          <Table>
             <TableHead>
               <TableRow>
                 <TableHeadCell onClick={() => this.handleChangeOrder("name")}>
@@ -137,16 +137,16 @@ class CoinsTable extends React.Component {
               </TableRow>
             </TableHead>
             <TableBody>{tableData}</TableBody>
-          </ScrollTable>
-        </CoinsTableWrapper>
-        <CoinsTableFooter>
+          </Table>
+        </TableWrapper>
+        <TableFooter>
           <Well>
             {data
               ? `Showing ${tableData.length} coin(s) of ${data.length} total`
               : "Loading..."}
           </Well>
           <Well />
-        </CoinsTableFooter>
+        </TableFooter>
       </>
     );
   }
@@ -161,7 +161,7 @@ export default withRouter(CoinsTable);
 const SearchWrapper = styled(Toolbar)`
   margin: 0 -4px;
 `;
-let CoinsTableFooter = styled.footer`
+let TableFooter = styled.footer`
   margin-top: 0.5rem;
   margin-bottom: 2px;
   flex-shrink: 0;
@@ -213,7 +213,7 @@ const CoinName = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
-let CoinsTableWrapper = styled.div`
+let TableWrapper = styled.div`
   flex: 1;
   margin-top: 0.5rem;
   overflow: hidden;
@@ -222,33 +222,7 @@ let CoinsTableWrapper = styled.div`
   }
 `;
 
-const ScrollTable = styled(Table)`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  -webkit-overflow-scrolling: touch;
-
-  thead,
-  tbody,
-  tr,
-  th,
-  td {
-    display: block;
-  }
-  th,
-  td {
-    flex-shrink: 0 !important;
-    box-sizing: border-box;
-  }
-  th {
-  }
-  tr {
-    display: flex;
-    border-bottom: 1px solid ${({ theme }) => theme.borderLight};
-  }
-  tr:hover th {
-    color: ${({ theme }) => theme.text};
-  }
+const Table = styled(FlexTable)`
   th:nth-child(1),
   td:nth-child(1) {
     flex: 1;
@@ -263,14 +237,9 @@ const ScrollTable = styled(Table)`
     width: 60px;
     text-align: center;
   }
-  td:nth-child(2) {
-    border-right: 1px solid ${({ theme }) => theme.borderLight};
-    border-left: 1px solid ${({ theme }) => theme.borderLight};
-  }
   th:nth-child(3),
   td:nth-child(3) {
     width: 60px;
-    /* flex: 1.5; */
   }
   td:nth-child(3) {
     position: relative;
@@ -279,13 +248,6 @@ const ScrollTable = styled(Table)`
     display: flex;
     justify-content: space-around;
     align-items: center;
-  }
-  thead {
-    flex-shrink: 0;
-  }
-  tbody {
-    height: 100%;
-    overflow-y: scroll;
   }
 `;
 const SCheckbox = styled(Checkbox)`

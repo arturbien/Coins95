@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import {
-  Table,
   TableHead,
   TableBody,
   TableRow,
@@ -12,6 +11,7 @@ import {
   TableDataCell
 } from "react95";
 import FileIcon from "../../components/FileIcon/FileIcon";
+import FlexTable from "../../components/FlexTable/FlexTable";
 
 class CoinsTable extends React.Component {
   handleChangeOrder = orderBy => {
@@ -89,7 +89,7 @@ class CoinsTable extends React.Component {
       });
     }
     return (
-      <ScrollTable>
+      <Table>
         <TableHead>
           <TableRow>
             <TableHeadCell onClick={() => this.handleChangeOrder("name")}>
@@ -104,7 +104,7 @@ class CoinsTable extends React.Component {
           </TableRow>
         </TableHead>
         <TableBody>{tableData}</TableBody>
-      </ScrollTable>
+      </Table>
     );
   }
 }
@@ -123,31 +123,7 @@ const CoinName = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
-const ScrollTable = styled(Table)`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  -webkit-overflow-scrolling: touch;
-
-  thead,
-  tbody,
-  tr,
-  th,
-  td {
-    display: block;
-  }
-  th,
-  td {
-    flex-shrink: 0 !important;
-    box-sizing: border-box;
-  }
-  tr {
-    display: flex;
-    border-bottom: 1px solid ${({ theme }) => theme.borderLight};
-  }
-  tr:hover th {
-    color: ${({ theme }) => theme.text};
-  }
+const Table = styled(FlexTable)`
   th:nth-child(1),
   td:nth-child(1) {
     flex: 4;
@@ -161,19 +137,9 @@ const ScrollTable = styled(Table)`
   td:nth-child(2) {
     flex: 2;
   }
-  td:nth-child(2) {
-    border-right: 1px solid ${({ theme }) => theme.borderLight};
-    border-left: 1px solid ${({ theme }) => theme.borderLight};
-  }
+
   th:nth-child(3),
   td:nth-child(3) {
     flex: 1.5;
-  }
-  thead {
-    flex-shrink: 0;
-  }
-  tbody {
-    height: 100%;
-    overflow-y: scroll;
   }
 `;
