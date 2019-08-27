@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { createMaterialStyles } from "../../utils";
 
-import { Divider, Avatar, AppBar, Toolbar } from "react95";
+import { Divider, Avatar, AppBar, Toolbar, Button } from "react95";
 
 const Layout = ({ data, wallet }) => {
   console.log(data);
@@ -23,13 +23,17 @@ const Layout = ({ data, wallet }) => {
         <ListWrapper>
           <ul>
             {data.map((coin, i) => (
-              <li key={coin.name}>
+              <li key={coin.symbol}>
                 <CoinDataWrapper>
-                  <div>{coin.name}</div>
+                  <Button variant="menu">{coin.symbol}</Button>
+                  {coin.PRICE * coin._amount}
                 </CoinDataWrapper>
                 {i < data.length - 1 && <Divider />}
               </li>
             ))}
+            <li>
+              <Button fullWidth>+Add coin to wallet</Button>
+            </li>
           </ul>
         </ListWrapper>
       )}
@@ -44,12 +48,13 @@ const Header = styled.header`
 `;
 const ListWrapper = styled.section`
   ${createMaterialStyles("full")}
-  padding: 0.5rem;
+  padding: 0 0.5rem 4px;
 `;
 
 const CoinDataWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 2rem;
+  padding: 0.75rem 0;
+  height: auto;
 `;

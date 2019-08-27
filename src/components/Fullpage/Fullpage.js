@@ -15,6 +15,7 @@ let SWindowContent = styled(WindowContent)`
   flex-direction: column;
   height: 100%;
   width: 100%;
+  padding-top: 4px;
   padding-bottom: 56px;
   padding-left: 0.25rem;
   padding-right: 0.25rem;

@@ -6,7 +6,6 @@ import { Switch, Route, withRouter } from "react-router";
 import { Button, Divider, Radio, Checkbox, Fieldset } from "react95";
 
 import ClippyIcon from "../../assets/img/clippy4.png";
-import DeadClippy from "../../assets/img/deadClippy.jpg";
 
 const Clippy = props => {
   const [isOpened, setIsOpened] = useState(false);
@@ -31,7 +30,6 @@ const Clippy = props => {
                       Old Clippy's DEAD 😥
                     </h3>
                     <br />
-                    <DeadClippyIMG src={DeadClippy} />
                     <br />
                     <p>Whachu gonna do about it?</p>
                     <br />

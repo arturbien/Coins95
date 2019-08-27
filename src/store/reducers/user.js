@@ -36,19 +36,20 @@ const initialState = {
   coinsList: [],
   wallet: {
     BTC: {
-      amount: 0.45
+      amount: 0.45,
+      order: 0
     },
     ETH: {
-      amount: 123
+      amount: 123,
+      order: 1
     },
-    ACOIN: {
-      amount: 2973
-    },
-    XDP: {
-      amount: 2973
+    XPD: {
+      amount: 2973,
+      order: 2
     },
     XRP: {
-      amount: 2973
+      amount: 2973,
+      order: 3
     }
   },
   seenEvents: [],

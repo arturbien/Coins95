@@ -15,7 +15,7 @@ export class Wallet extends Component {
     const {
       topCoinsList,
       userCoinsList,
-      walletCoinsList,
+      wallet,
       coinsData,
       currency,
       fetchCoinsList,
@@ -31,7 +31,8 @@ export class Wallet extends Component {
           ...new Set([
             ...userCoinsList,
             ...(topCoinsList || []),
-            ...(walletCoinsList || [])
+            ...(Object.keys(wallet) || []),
+            "ACOIN"
           ])
         ],
         currency
@@ -65,24 +66,27 @@ export class Wallet extends Component {
     }
   }
   render() {
-    const { walletCoinsList, wallet, coinsData, coinsInfo } = this.props;
+    const { wallet, coinsData, coinsInfo } = this.props;
 
     let data;
     if (!coinsInfo || !coinsData) {
       data = null;
     } else {
-      data = walletCoinsList.map(coin => ({
-        ...coinsInfo[coin],
-        ...coinsData[coin]
-      }));
+      data = Object.keys(wallet)
+        .sort((a, b) => wallet[a].order - wallet[b].order)
+        .map(coin => ({
+          ...coinsInfo[coin],
+          ...coinsData[coin],
+          _amount: wallet[coin].amount,
+          _order: wallet[coin].order
+        }));
     }
-    return <Layout data={data} wallet={wallet} />;
+    return <Layout data={data} />;
   }
 }
 
 const mapStateToProps = state => ({
   userCoinsList: state.user.coinsList,
-  walletCoinsList: Object.keys(state.user.wallet),
   wallet: state.user.wallet,
   topCoinsList: state.coins.coinsList
     ? [...state.coins.coinsList].splice(0, 30)

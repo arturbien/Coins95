@@ -15,11 +15,16 @@ const DashboardLayout = ({
   showTop,
   history
 }) => {
+  console.log(data);
   useLockBodyScroll();
   return (
     <Fullpage>
       <Header>
-        <h1 style={{ fontSize: "1.5em", fontWeight: "bold" }}>Coins</h1>
+        <h1>
+          Coins
+          <span>95</span>
+          <small>v0.0.1</small>
+        </h1>
         <Button onClick={() => history.push("/search")}>Search...</Button>
       </Header>
       <CoinsTableWrapper>
@@ -47,8 +52,28 @@ let Header = styled.header`
   justify-content: space-between;
   align-items: center;
   height: 40px;
+  padding: 0 5px;
   margin-bottom: 1em;
-  /* background: pink; */
+  /* background: rgb(128, 128, 128); */
+
+  h1 {
+    background: -webkit-linear-gradient(#eee, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-family: arial;
+    font-style: italic;
+
+    span {
+      font-weight: 100;
+    }
+    small {
+      font-size: 0.8rem;
+      color: black;
+      font-weight: 100;
+    }
+  }
 `;
 
 let CoinsTableWrapper = styled.div`

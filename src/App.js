@@ -35,8 +35,8 @@ const ResetStyles = createGlobalStyle`
     bottom: 0;
     left:0;
     right: 0;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     background: ${({ background }) => background};
     background-attachment: fixed;
     background-repeat: repeat;
@@ -52,6 +52,11 @@ const ResetStyles = createGlobalStyle`
   }
   img {
         /* image-rendering: pixelated!important; */
+  }
+
+  button:focus {
+  outline: 1px dotted rgb(4,5,6);
+  outline-offset: -8px;
   }
 `;
 

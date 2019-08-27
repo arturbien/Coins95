@@ -30,7 +30,7 @@ const Layout = ({
   const [activeTab, setActiveTab] = useState(0);
   useLockBodyScroll();
   return (
-    <Fullpage>
+    <Fullpage style={{ paddingTop: "0.5rem" }}>
       <Tabs value={activeTab} onChange={setActiveTab}>
         <Tab value={0}>Appearance</Tab>
         <Tab value={1}>Background</Tab>
@@ -41,14 +41,13 @@ const Layout = ({
           <TabBody>
             <Fieldset label="Theme:">
               <Radio
-                style={{ width: "100%" }}
                 value="default"
                 onChange={() => setTheme("default")}
                 checked={theme === "default"}
                 label="default"
               />
+              <br />
               <Radio
-                style={{ width: "100%" }}
                 value="coldGray"
                 onChange={() => setTheme("coldGray")}
                 checked={theme === "coldGray"}
