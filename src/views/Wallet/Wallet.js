@@ -66,7 +66,7 @@ export class Wallet extends Component {
     }
   }
   render() {
-    const { wallet, coinsData, coinsInfo } = this.props;
+    const { wallet, coinsData, currency, coinsInfo } = this.props;
 
     let data;
     if (!coinsInfo || !coinsData) {
@@ -81,7 +81,7 @@ export class Wallet extends Component {
           _order: wallet[coin].order
         }));
     }
-    return <Layout data={data} />;
+    return <Layout data={data} currency={currency} />;
   }
 }
 
