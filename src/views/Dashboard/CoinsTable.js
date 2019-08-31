@@ -37,7 +37,7 @@ class CoinsTable extends React.Component {
   render() {
     let { history, data } = this.props;
     const searchParams = new URLSearchParams(history.location.search);
-    let orderBy = searchParams.get("orderBy") || "PRICE";
+    let orderBy = searchParams.get("orderBy");
     let desc = searchParams.get("desc") === "true" ? 1 : -1;
 
     const orderPairs = {
