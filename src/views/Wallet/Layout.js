@@ -1,12 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+
+import { withRouter, Route } from "react-router";
+
 import { createMaterialStyles } from "../../utils";
 
+import EditCoin from "./EditCoin";
 import { Divider, Avatar, AppBar, Toolbar, Button } from "react95";
 
-const Layout = ({ data, currency }) => {
-  console.log(data);
-
+const Layout = ({ data, currency, match, history }) => {
+  console.log(match, "asdasdasd");
   return (
     <>
       <AppBar fixed={false}>
@@ -20,44 +23,52 @@ const Layout = ({ data, currency }) => {
       </AppBar>
       <Header>swag</Header>
       {data && (
-        <ListWrapper>
-          <ul>
-            {data.map((coin, i) => (
-              <li key={coin.symbol}>
-                <MainRow>
-                  <LeftCol>
-                    <CoinIcon src={coin.imageURL} alt={`${coin.name} logo`} />
-                    <h4>{coin.symbol}</h4>
-                  </LeftCol>
-                  <RightCol>
-                    <Balance>
-                      <data value={coin.PRICE * coin._amount}>
-                        {`${Math.round(coin.PRICE * coin._amount * 100) /
-                          100} ${currency}`}
-                      </data>
-                      <data
-                        value={coin._amount}
-                      >{`${coin._amount} ${coin.symbol}`}</data>
-                    </Balance>
-                    <Button size="md" square variant="menu">
-                      <KebabIcon />
-                    </Button>
-                  </RightCol>
-                </MainRow>
-                {i < data.length - 1 && <Divider />}
-              </li>
-            ))}
-            {/* <li>
+        <>
+          <ListWrapper>
+            <ul>
+              {data.map((coin, i) => (
+                <li key={coin.symbol}>
+                  <MainRow>
+                    <LeftCol>
+                      <CoinIcon src={coin.imageURL} alt={`${coin.name} logo`} />
+                      <h4>{coin.symbol}</h4>
+                    </LeftCol>
+                    <RightCol>
+                      <Balance>
+                        <data value={coin.PRICE * coin._amount}>
+                          {`${Math.round(coin.PRICE * coin._amount * 100) /
+                            100} ${currency}`}
+                        </data>
+                        <data
+                          value={coin._amount}
+                        >{`${coin._amount} ${coin.symbol}`}</data>
+                      </Balance>
+                      <Button
+                        size="md"
+                        square
+                        variant="menu"
+                        onClick={() => history.push(`/wallet/${coin.symbol}`)}
+                      >
+                        <KebabIcon />
+                      </Button>
+                    </RightCol>
+                  </MainRow>
+                  {i < data.length - 1 && <Divider />}
+                </li>
+              ))}
+              {/* <li>
               <Button fullWidth>+Add coin to wallet</Button>
             </li> */}
-          </ul>
-        </ListWrapper>
+            </ul>
+          </ListWrapper>
+          <Route path={`${match.url}/:coin`} component={EditCoin} />
+        </>
       )}
     </>
   );
 };
 
-export default Layout;
+export default withRouter(Layout);
 
 const Header = styled.header`
   height: 30%;

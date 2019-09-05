@@ -33,7 +33,6 @@ class API {
     const query = `/data/top/totalvolfull?limit=${amount}&tsym=${currency}`;
     const response = await this.axios.get(query);
     const data = response.data.Data;
-    console.log(data);
     const coinsTopList = data.map(coinData => coinData.CoinInfo.Name);
     return coinsTopList;
   };
@@ -41,7 +40,6 @@ class API {
     const query = "/data/all/coinlist";
     const response = await this.axios.get(query);
     const data = response.data.Data;
-    console.log(data);
     const formattedData = {};
     const sortedCoins = Object.keys(data).sort(
       (coinA, coinB) =>

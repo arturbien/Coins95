@@ -30,7 +30,6 @@ const SToolbar = styled(Toolbar)`
 `;
 
 const NavBar = props => {
-  console.log(props);
   const currentLocation = props.location.pathname;
   return (
     <Nav fixed>
@@ -48,7 +47,7 @@ const NavBar = props => {
           />
         </SwitchButton>
         <SwitchButton
-          active={currentLocation === "/wallet"}
+          active={currentLocation.startsWith("/wallet")}
           onClick={() => props.history.push("/wallet")}
           fullWidth
           size="lg"

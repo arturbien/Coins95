@@ -81,7 +81,7 @@ class App extends Component {
                 <Route exact path={"/coins"} component={Dashboard} />
                 <Route exact path={"/coins/:coin"} component={CoinDetails} />
                 <Route exact path={"/search"} component={CoinSearch} />
-                <Route exact path={"/wallet"} component={Wallet} />
+                <Route path={"/wallet/"} component={Wallet} />
                 <Route exact path={"/news"} component={News} />
                 <Route exact path={"/settings"} component={Settings} />
                 <Redirect exact from={"/"} to={"/coins"} />

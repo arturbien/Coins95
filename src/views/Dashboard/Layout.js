@@ -15,7 +15,6 @@ const DashboardLayout = ({
   showTop,
   history
 }) => {
-  console.log(data);
   useLockBodyScroll();
   return (
     <Fullpage>

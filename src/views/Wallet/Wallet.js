@@ -81,6 +81,7 @@ export class Wallet extends Component {
           _order: wallet[coin].order
         }));
     }
+
     return <Layout data={data} currency={currency} />;
   }
 }

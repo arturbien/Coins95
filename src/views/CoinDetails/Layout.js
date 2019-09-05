@@ -47,7 +47,7 @@ const CoinDetailsLayout = ({
     MKTCAP = data.MKTCAP;
     imageURL = coinInfo.imageURL;
   }
-
+  console.log(otherProps);
   return (
     <SWindow>
       <SWindowHeader>
@@ -76,11 +76,14 @@ const CoinDetailsLayout = ({
             checked={following}
             onChange={onFollow}
           />
+          <Button onClick={() => otherProps.history.push(`/wallet/${symbol}`)}>
+            Add to wallet
+          </Button>
 
-          <CurrencySelect
-            selectedCurrency={currency}
-            onChange={onCurrencyChange}
-          />
+          {/* <CurrencySelect
+              selectedCurrency={currency}
+              onChange={onCurrencyChange}
+            /> */}
         </TopToolbar>
         <ChartWrapper>
           {historicalData && (
