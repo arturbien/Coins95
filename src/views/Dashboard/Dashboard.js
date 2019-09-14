@@ -16,7 +16,7 @@ const Dashboard = ({
 }) => {
   const [showFollowing, setShowFollowing] = useState(false);
 
-  const coinsList = useEffect(() => {
+  useEffect(() => {
     if (!topCoinsList) {
       fetchCoinsList();
     } else if (!coinsData || needsUpdate) {
