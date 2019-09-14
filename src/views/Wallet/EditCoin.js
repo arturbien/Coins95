@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
 
 import { withRouter } from "react-router";
+
+import { setUserHoldings, deleteUserHoldings } from "../../store/actions/user";
+
 import API from "../../API";
 
 import {
@@ -14,14 +18,21 @@ import {
   WindowContent
 } from "react95";
 
-const Layout = ({ currency, match, history }) => {
-  const [data, setData] = useState(null);
-  const [amount, setAmount] = useState("");
+import CoinIcon from "../../components/CoinIcon/CoinIcon";
 
+const Layout = ({
+  coin,
+  currency,
+  holdings,
+  match,
+  history,
+  setUserHoldings,
+  deleteUserHoldings
+}) => {
+  const [data, setData] = useState(null);
+  const [amount, setAmount] = useState(holdings || 0);
   useEffect(() => {
     async function fetchData() {
-      const coin = match.params.coin;
-      console.log("coin, ", match);
       let data = await API.fetchCoinsData([coin], currency, false);
       data = data[coin];
       console.log("😂", data);
@@ -36,11 +47,22 @@ const Layout = ({ currency, match, history }) => {
       setAmount(value);
     }
   };
+  const goBack = () => history.push(`/wallet`);
+  const handleAccept = () => {
+    setUserHoldings({ coin, amount: parseFloat(amount) });
+    goBack();
+  };
+  const handleDelete = () => {
+    deleteUserHoldings(coin);
+    goBack();
+  };
   return (
-    <EditWindowWrapper onClick={() => history.push(`/wallet`)}>
+    <EditWindowWrapper onClick={goBack}>
       <EditWindow onClick={e => e.stopPropagation()}>
-        {/* <WindowHeader>{"🚀 coin here"}</WindowHeader> */}
-        <h3>Bitcoin holdings:</h3>
+        <WindowHeader>
+          <CoinIcon src={data && data.imageURL} />
+          {" "+coin}
+        </WindowHeader>
         <WindowContent>
           <Field>
             <Label>{data && data.TOSYMBOL}</Label>
@@ -59,9 +81,19 @@ const Layout = ({ currency, match, history }) => {
               width={"100%"}
             />
           </Field>
-          <Toolbar>
-            <Button fullWidth>Cancel</Button>
-            <Button fullWidth>OK</Button>
+          <Toolbar style={{ justifyContent: "flex-end" }}>
+            {holdings !== null && (
+              <Button style={{ width: "50%" }} onClick={handleDelete}>
+                Delete
+              </Button>
+            )}
+            <Button
+              style={{ width: "50%" }}
+              onClick={handleAccept}
+              disabled={!data}
+            >
+              OK
+            </Button>
           </Toolbar>
         </WindowContent>
       </EditWindow>
@@ -69,7 +101,26 @@ const Layout = ({ currency, match, history }) => {
   );
 };
 
-export default withRouter(Layout);
+const mapStateToProps = (state, ownProps) => {
+  const coin = ownProps.match.params.coin;
+  const holdings = state.user.wallet[coin]
+    ? state.user.wallet[coin].amount
+    : null;
+  return {
+    coin,
+    holdings,
+    currency: state.user.currency
+  };
+};
+const mapDispatchToProps = dispatch => ({
+  setUserHoldings: ({ amount, coin }) =>
+    dispatch(setUserHoldings({ amount, coin })),
+  deleteUserHoldings: coin => dispatch(deleteUserHoldings(coin))
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Layout));
 
 const EditWindowWrapper = styled.div`
   box-sizing: border-box;

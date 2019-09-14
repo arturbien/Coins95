@@ -95,6 +95,7 @@ class API {
     const data = response.data[display ? "DISPLAY" : "RAW"];
     for (let coin in data) {
       formattedData[coin] = data[coin][currency];
+      formattedData[coin].imageURL = cryptoURL + formattedData[coin].IMAGEURL;
     }
     return formattedData;
   };

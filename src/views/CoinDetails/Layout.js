@@ -18,7 +18,8 @@ import {
 import SimpleLineChart from "./SimpleLineChart";
 import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
 import CenteredHourglass from "../../components/CenteredHourglass/CenteredHourglass";
-import CurrencySelect from "../../components/CurrencySelect/CurrencySelect";
+// import CurrencySelect from "../../components/CurrencySelect/CurrencySelect";
+import CoinIcon from "../../components/CoinIcon/CoinIcon";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
@@ -51,7 +52,7 @@ const CoinDetailsLayout = ({
   return (
     <SWindow>
       <SWindowHeader>
-        <SourceIMG src={imageURL} />
+        <CoinIcon src={imageURL} />
         {`${coinName}.${symbol.toLocaleLowerCase()}`}
         <Button
           square
@@ -161,18 +162,6 @@ const SWindow = styled(Window)`
 `;
 const SWindowHeader = styled(WindowHeader)`
   flex-shrink: 0;
-`;
-
-const SourceIMG = styled.img`
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  display: inline-block;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: white;
-  margin-right: 0.5rem;
 `;
 
 const SWindowContent = styled(WindowContent)`

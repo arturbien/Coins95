@@ -4,7 +4,10 @@ import {
   SET_THEME,
   SET_BACKGROUND,
   TOGGLE_VINTAGE_FONT,
-  SET_EVENT_SEEN
+  SET_EVENT_SEEN,
+  SET_USER_HOLDINGS,
+  DELETE_USER_HOLDINGS,
+  SORT_USER_HOLDINGS
 } from "../actions/actionTypes";
 
 import { saveState, loadState } from "../localStorage";
@@ -34,24 +37,7 @@ export const backgrounds = [
 
 const initialState = {
   coinsList: [],
-  wallet: {
-    BTC: {
-      amount: 0.45,
-      order: 0
-    },
-    ETH: {
-      amount: 123,
-      order: 1
-    },
-    XPD: {
-      amount: 2973,
-      order: 2
-    },
-    XRP: {
-      amount: 2973,
-      order: 3
-    }
-  },
+  wallet: {},
   seenEvents: [],
   currency: "EUR",
   vintageFont: true,
@@ -82,6 +68,22 @@ const userReducer = (state = initialState, action) => {
         const eventId = action.payload;
         const seenEvents = [...state.seenEvents, eventId];
         return { ...state, seenEvents };
+      case SET_USER_HOLDINGS:
+        const { amount, coin } = action.payload;
+        const wallet = { ...state.wallet };
+        const order = wallet[coin] ? wallet[coin].order : wallet.length;
+        wallet[coin] = { coin, amount, order };
+        return { ...state, wallet };
+      case DELETE_USER_HOLDINGS: {
+        const wallet = { ...state.wallet };
+        wallet[action.payload] && delete wallet[action.payload];
+        return { ...state, wallet };
+      }
+      case SORT_USER_HOLDINGS: {
+        const wallet = {};
+        action.payload.forEach(coin => (wallet[coin] = state.wallet[coin]));
+        return { ...state, wallet };
+      }
       default:
         return state;
     }
