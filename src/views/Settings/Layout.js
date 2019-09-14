@@ -90,6 +90,7 @@ const Layout = ({
               >
                 Browse...
               </Button>
+              {/* <input type="color" /> */}
             </Fieldset>
           </TabBody>
         )}

@@ -12,23 +12,6 @@ import FolderIcon from "../../assets/img/folder.png";
 import GlobeIcon from "../../assets/img/globe.png";
 import NotepadIcon from "../../assets/img/notepad.png";
 
-const Nav = styled(AppBar)`
-  top: auto;
-  bottom: 0;
-  z-index: 666;
-`;
-const Icon = styled.img`
-  height: 25px;
-  filter: ${({ active }) => (active ? "none" : "grayscale(1)")};
-`;
-
-const SwitchButton = styled(Button)`
-  margin: 0 1px;
-`;
-const SToolbar = styled(Toolbar)`
-  margin: 0 -1px;
-`;
-
 const NavBar = props => {
   const currentLocation = props.location.pathname;
   return (
@@ -85,3 +68,20 @@ const NavBar = props => {
 };
 
 export default withRouter(NavBar);
+
+const Nav = styled(AppBar)`
+  top: auto;
+  bottom: 0;
+  z-index: 666;
+`;
+const Icon = styled.img`
+  height: 25px;
+  filter: ${({ active }) => (active ? "none" : "grayscale(1)")};
+`;
+
+const SwitchButton = styled(Button)`
+  margin: 0 1px;
+`;
+const SToolbar = styled(Toolbar)`
+  margin: 0 -1px;
+`;

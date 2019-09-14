@@ -16,12 +16,14 @@ import FlexTable from "../../components/FlexTable/FlexTable";
 class CoinsTable extends React.Component {
   handleChangeOrder = orderBy => {
     const { history } = this.props;
-
     const currentSearchParams = new URLSearchParams(history.location.search);
     const currentOrderBy = currentSearchParams.get("orderBy");
     let desc;
+
     if (currentOrderBy === orderBy) {
       desc = !(currentSearchParams.get("desc") === "true" ? true : false);
+    } else if (!currentOrderBy && orderBy === "price") {
+      desc = false;
     } else {
       desc = orderBy === "name" ? false : true;
     }
@@ -38,7 +40,17 @@ class CoinsTable extends React.Component {
     let { history, data } = this.props;
     const searchParams = new URLSearchParams(history.location.search);
     let orderBy = searchParams.get("orderBy");
-    let desc = searchParams.get("desc") === "true" ? 1 : -1;
+    // by default sort by price descending
+    if (!orderBy) {
+      const location = {
+        pathname: history.location.pathname,
+        search: `?orderBy=price&desc=true`,
+        hash: history.location.hash
+      };
+      history.push(location);
+    }
+
+    let desc = searchParams.get("desc") === "false" ? -1 : 1;
 
     const orderPairs = {
       price: "PRICE",
@@ -56,10 +68,10 @@ class CoinsTable extends React.Component {
         PRICE: dataPoint.PRICE || 0,
         CHANGEPCT24HOUR: dataPoint.CHANGEPCT24HOUR || 0
       }));
-      orderBy = orderPairs[orderBy];
-      desc = orderBy === "name" ? -desc : desc;
+      let order = orderPairs[orderBy];
+      desc = order === orderPairs.name ? -desc : desc;
       const orderedData = data.sort((a, b) => {
-        return (b[orderBy] > a[orderBy] ? 1 : -1) * desc;
+        return (b[order] > a[order] ? 1 : -1) * desc;
       });
       tableData = orderedData.map((coinData, i) => {
         const {
