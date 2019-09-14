@@ -8,6 +8,7 @@ import CoinsTable from "./CoinsTable";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import { Button } from "react95";
+
 const DashboardLayout = ({
   data,
   showingFollowing,
@@ -56,7 +57,7 @@ let Header = styled.header`
   /* background: rgb(128, 128, 128); */
 
   h1 {
-    background: -webkit-linear-gradient(#eee, #333);
+    background: -webkit-linear-gradient(transparent, transparent);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 1.6rem;

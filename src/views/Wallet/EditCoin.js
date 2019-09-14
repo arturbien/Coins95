@@ -5,8 +5,6 @@ import { withRouter } from "react-router";
 
 import {
   Divider,
-  Avatar,
-  AppBar,
   Toolbar,
   Button,
   Window,

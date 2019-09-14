@@ -1,5 +1,4 @@
-import React from "react";
-// import propTypes from "prop-types";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled, { css } from "styled-components";
 
@@ -12,77 +11,66 @@ import EventDetails from "./EventDetails";
 import Well from "../../components/Well/Well";
 import { Bar } from "react95";
 
-export class Events extends React.Component {
-  // static propTypes = {};
+const Events = ({ events, fetchEvents, setEventSeen }) => {
+  const [openedEventIndex, setOpenedEventIndex] = useState(null);
 
-  state = {
-    openedEventIndex: null
-  };
-  componentDidMount() {
-    const { events, fetchEvents } = this.props;
-
+  useEffect(() => {
     if (!events) {
       fetchEvents();
     }
-  }
-  setOpenedEvent = index => {
-    const { events, setEventSeen } = this.props;
+  }, []);
+  const setOpenedEvent = index => {
     if (index === null) {
-      this.setState({ openedEventIndex: null });
+      setOpenedEventIndex(null);
     } else if (index >= 0 && index < events.length) {
       const { id, seen } = events[index];
       if (!seen) {
         setEventSeen(id);
       }
-      this.setState({ openedEventIndex: index });
+      setOpenedEventIndex(index);
     }
   };
 
-  render() {
-    const { events } = this.props;
-    const { openedEventIndex } = this.state;
-
-    let eventsList;
-    if (events) {
-      eventsList = events.map((e, i) => (
-        <li key={e.id}>
-          <Event onClick={() => this.setOpenedEvent(i)}>
-            <EventImageWrapper seen={e.seen}>
-              <EventIMG src={e.screenshot} />
-            </EventImageWrapper>
-            <EventTitle>{e.city}</EventTitle>
-          </Event>
-        </li>
-      ));
-    }
-    return (
-      <>
-        <EventSlider>
-          <EventListWrapper>
-            <PullBars>
-              <SBar />
-              <SBar />
-            </PullBars>
-            <EventList>{eventsList && eventsList}</EventList>
-          </EventListWrapper>
-        </EventSlider>
-        <FeedFooter>
-          <Well>
-            {events ? `Next event: ${events[0].title}` : "Loading events..."}{" "}
-          </Well>
-          <Well>{events && `${events.length} event(s)`} </Well>
-        </FeedFooter>
-        {openedEventIndex !== null && (
-          <EventDetails
-            setOpenedEvent={this.setOpenedEvent}
-            events={events}
-            openedEventIndex={openedEventIndex}
-          />
-        )}
-      </>
-    );
+  let eventsList;
+  if (events) {
+    eventsList = events.map((e, i) => (
+      <li key={e.id}>
+        <Event onClick={() => setOpenedEvent(i)}>
+          <EventImageWrapper seen={e.seen}>
+            <EventIMG src={e.screenshot} />
+          </EventImageWrapper>
+          <EventTitle>{e.city}</EventTitle>
+        </Event>
+      </li>
+    ));
   }
-}
+  return (
+    <>
+      <EventSlider>
+        <EventListWrapper>
+          <PullBars>
+            <SBar />
+            <SBar />
+          </PullBars>
+          <EventList>{eventsList && eventsList}</EventList>
+        </EventListWrapper>
+      </EventSlider>
+      <FeedFooter>
+        <Well>
+          {events ? `Next event: ${events[0].title}` : "Loading events..."}{" "}
+        </Well>
+        <Well>{events && `${events.length} event(s)`} </Well>
+      </FeedFooter>
+      {openedEventIndex !== null && (
+        <EventDetails
+          setOpenedEvent={setOpenedEvent}
+          events={events}
+          openedEventIndex={openedEventIndex}
+        />
+      )}
+    </>
+  );
+};
 
 const mapStateToProps = state => {
   let events = state.events;

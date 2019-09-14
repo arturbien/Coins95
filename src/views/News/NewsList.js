@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useLayoutEffect, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import { connect } from "react-redux";
@@ -14,7 +14,7 @@ const NewsList = ({ news, fetchNews }) => {
   // useEffect(() => {
   //   fetchNews();
   // }, []);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const lazyImages = Array.from(document.querySelectorAll("[data-src]"));
     console.log("MOUNTED 🔥", lazyImages);
     const options = {
@@ -124,7 +124,7 @@ export default connect(
 
 const LastItem = ({ onVisible }) => {
   const loader = useRef(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     var options = {
       root: null,
       rootMargin: "400px 0px 3200px 0px",

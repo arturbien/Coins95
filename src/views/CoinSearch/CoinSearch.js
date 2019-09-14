@@ -1,28 +1,19 @@
-import React, { Component } from "react";
-import propTypes from "prop-types";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchCoinsList } from "../../store/actions/coins";
 import { setUserCoin } from "../../store/actions/user";
 
 import Layout from "./Layout";
 
-export class CoinSearch extends Component {
-  static propTypes = {
-    data: propTypes.array,
-    fetchCoinsList: propTypes.func
-  };
-  componentDidMount = async () => {
-    // first fetch coins list and info
-    const { data, fetchCoinsList } = this.props;
+const CoinSearch = ({ data, fetchCoinsList, setUserCoin }) => {
+  useEffect(() => {
     if (!data) {
       fetchCoinsList();
     }
-  };
-  render() {
-    const { data, setUserCoin } = this.props;
-    return <Layout data={data} onFollow={setUserCoin} />;
-  }
-}
+  }, []);
+  console.log("RERENDER +_++++++++");
+  return <Layout data={data} onFollow={setUserCoin} />;
+};
 
 const mapStateToProps = state => ({
   data: state.coins.coinsList
@@ -33,7 +24,6 @@ const mapStateToProps = state => ({
       })
     : null
 });
-
 const mapDispatchToProps = dispatch => ({
   fetchCoinsList: () => dispatch(fetchCoinsList()),
   setUserCoin: (coin, follow) => dispatch(setUserCoin(coin, follow))

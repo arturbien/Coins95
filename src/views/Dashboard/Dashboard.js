@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { fetchCoinsList, fetchCoinsData } from "../../store/actions/coins";
 
@@ -13,18 +12,14 @@ const Dashboard = ({
   currency,
   fetchCoinsList,
   needsUpdate,
-  fetchCoinsData,
-  history
+  fetchCoinsData
 }) => {
   const [showFollowing, setShowFollowing] = useState(false);
 
   useEffect(() => {
     if (!topCoinsList) {
-      console.log("💩💩💩💩 fetch coins list");
       fetchCoinsList();
-    }
-    if (topCoinsList && (!coinsData || needsUpdate)) {
-      console.log("💩💩💩💩 fetch coins data");
+    } else if (!coinsData || needsUpdate) {
       fetchCoinsData(
         [
           ...new Set([
@@ -78,4 +73,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(Dashboard));
+)(Dashboard);

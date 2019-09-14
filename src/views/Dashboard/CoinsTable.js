@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import {
   TableHead,
@@ -22,8 +22,6 @@ class CoinsTable extends React.Component {
 
     if (currentOrderBy === orderBy) {
       desc = !(currentSearchParams.get("desc") === "true" ? true : false);
-    } else if (!currentOrderBy && orderBy === "price") {
-      desc = false;
     } else {
       desc = orderBy === "name" ? false : true;
     }
@@ -42,12 +40,7 @@ class CoinsTable extends React.Component {
     let orderBy = searchParams.get("orderBy");
     // by default sort by price descending
     if (!orderBy) {
-      const location = {
-        pathname: history.location.pathname,
-        search: `?orderBy=price&desc=true`,
-        hash: history.location.hash
-      };
-      history.push(location);
+      return <Redirect to="?orderBy=price&desc=true" />;
     }
 
     let desc = searchParams.get("desc") === "false" ? -1 : 1;
