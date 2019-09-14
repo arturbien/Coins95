@@ -8,8 +8,9 @@ import { createMaterialStyles } from "../../utils";
 import EditCoin from "./EditCoin";
 import { Divider, Avatar, AppBar, Toolbar, Button } from "react95";
 
-const Layout = ({ data, currency, match, history }) => {
-  console.log(match, "asdasdasd");
+const Layout = ({ data, currency, history, match }) => {
+  console.log(history, match, "asdasdasd");
+
   return (
     <>
       <AppBar fixed={false}>
@@ -61,7 +62,10 @@ const Layout = ({ data, currency, match, history }) => {
             </li> */}
             </ul>
           </ListWrapper>
-          <Route path={`${match.url}/:coin`} component={EditCoin} />
+          <Route
+            path={`${match.url}/:coin`}
+            component={() => <EditCoin currencty={currency} />}
+          />
         </>
       )}
     </>
