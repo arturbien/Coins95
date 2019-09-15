@@ -58,6 +58,12 @@ const ResetStyles = createGlobalStyle`
   outline: 1px dotted rgb(4,5,6);
   outline-offset: -8px;
   }
+  input[disabled],
+  fieldset[disabled]  {
+
+ -webkit-text-fill-color: unset;
+  opacity: 1;
+  }
 `;
 
 class App extends Component {

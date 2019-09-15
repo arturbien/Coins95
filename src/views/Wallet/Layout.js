@@ -2,15 +2,37 @@ import React from "react";
 import styled from "styled-components";
 
 import { withRouter, Route } from "react-router";
+import arrayMove from "array-move";
+import { Divider, Avatar, AppBar, Toolbar, Button } from "react95";
+import {
+  sortableContainer,
+  sortableElement,
+  sortableHandle
+} from "react-sortable-hoc";
 
 import { createMaterialStyles } from "../../utils";
-
 import EditCoin from "./EditCoin";
-import { Divider, Avatar, AppBar, Toolbar, Button } from "react95";
+import Handle from "../../components/Handle/Handle";
 
-const Layout = ({ data, currency, history, match }) => {
-  console.log(history, match, "asdasdasd");
+const DragHandle = sortableHandle(Handle);
+const SortableItem = sortableElement(({ value, children }) => (
+  <li>{children}</li>
+));
 
+const SortableContainer = sortableContainer(({ children }) => {
+  return <ul>{children}</ul>;
+});
+
+const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
+  const handleSortEnd = ({ oldIndex, newIndex }) => {
+    const coinsList = arrayMove(
+      data.map(coinData => coinData.symbol),
+      oldIndex,
+      newIndex
+    );
+    console.log(coinsList);
+    sortUserHoldings(coinsList);
+  };
   return (
     <>
       <AppBar fixed={false}>
@@ -26,11 +48,16 @@ const Layout = ({ data, currency, history, match }) => {
       {data && (
         <>
           <ListWrapper>
-            <ul>
+            <SortableContainer
+              useDragHandle
+              lockAxis="y"
+              onSortEnd={handleSortEnd}
+            >
               {data.map((coin, i) => (
-                <li key={coin.symbol}>
+                <SortableItem key={coin.symbol} index={i} value={coin.symbol}>
                   <MainRow>
                     <LeftCol>
+                      <DragHandle />
                       <CoinIcon src={coin.imageURL} alt={`${coin.name} logo`} />
                       <h4>{coin.symbol}</h4>
                     </LeftCol>
@@ -54,18 +81,11 @@ const Layout = ({ data, currency, history, match }) => {
                       </Button>
                     </RightCol>
                   </MainRow>
-                  {i < data.length - 1 && <Divider />}
-                </li>
+                </SortableItem>
               ))}
-              {/* <li>
-              <Button fullWidth>+Add coin to wallet</Button>
-            </li> */}
-            </ul>
+            </SortableContainer>
           </ListWrapper>
-          <Route
-            path={`${match.url}/:coin`}
-            component={() => <EditCoin currencty={currency} />}
-          />
+          <Route path={`${match.url}/:coin`} component={EditCoin} />
         </>
       )}
     </>
@@ -78,8 +98,7 @@ const Header = styled.header`
   height: 30%;
 `;
 const ListWrapper = styled.section`
-  ${createMaterialStyles("full")}
-  padding: 0 0.5rem 4px;
+  background: rgba(0, 0, 0, 0.2);
 `;
 const CoinIcon = styled.img`
   display: inline-block;
@@ -92,8 +111,9 @@ const MainRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 0;
+  padding: 0.75rem 0.5rem;
   height: auto;
+  ${createMaterialStyles("full")}
 `;
 
 const LeftCol = styled.header`
@@ -102,7 +122,7 @@ const LeftCol = styled.header`
 
   h4 {
     margin-left: 10px;
-    margin-top: 5px;
+    margin-top: 2px;
   }
 `;
 const RightCol = styled.div`
