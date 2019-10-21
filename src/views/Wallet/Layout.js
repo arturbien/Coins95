@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { withRouter, Route } from "react-router";
 import arrayMove from "array-move";
-import { Divider, Avatar, AppBar, Toolbar, Button } from "react95";
+import { Divider, Button } from "react95";
 import {
   sortableContainer,
   sortableElement,
@@ -13,7 +13,7 @@ import {
 import { createMaterialStyles } from "../../utils";
 import EditCoin from "./EditCoin";
 import Handle from "../../components/Handle/Handle";
-
+import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch.js";
 const DragHandle = sortableHandle(Handle);
 const SortableItem = sortableElement(({ value, children }) => (
   <li>{children}</li>
@@ -35,16 +35,35 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
   };
   return (
     <>
-      <AppBar fixed={false}>
-        <Toolbar>
-          <Avatar
-            style={{ background: "teal" }}
-            src={"https://rolandgroza.com/images/doom-guy-face-5.png"}
-            noBorder
+      <Top>
+        <div>
+          <header>@zlotousty</header>
+          <Divider />
+          <section>
+            <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5aQ9Atw03VBh1p5nYEw0Xnzu5pZUXzLVmJ2Dd_LNAYyIXIF8SpQ" />
+          </section>
+        </div>
+        <div>
+          {/* <Divider /> */}
+          <ButtonSwitch
+            buttons={[
+              {
+                label: "A-Z",
+                active: true
+              },
+              {
+                label: "Z-A"
+              },
+              {
+                label: "1M"
+              },
+              {
+                label: "3M"
+              }
+            ]}
           />
-        </Toolbar>
-      </AppBar>
-      <Header>swag</Header>
+        </div>
+      </Top>
       {data && (
         <>
           <ListWrapper>
@@ -93,9 +112,35 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
 };
 
 export default withRouter(Layout);
-
-const Header = styled.header`
-  height: 30%;
+const Top = styled.div`
+  ${createMaterialStyles("full")}
+  box-shadow: rgba(0, 0, 0, 0.35) 4px 4px 10px 0px;
+  margin-bottom: 4rem;
+  padding-right: 2px;
+  & > div {
+    padding: 0.125rem 0.25rem;
+  }
+  & > div:first-child {
+    margin-bottom: 2rem;
+  }
+  & > div:last-child {
+  }
+  header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 1rem;
+  }
+  section {
+    padding: 0.625rem 0;
+  }
+`;
+const Avatar = styled.img`
+  display: inline-block;
+  object-fit: cover;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
 `;
 const ListWrapper = styled.section`
   background: rgba(0, 0, 0, 0.2);
@@ -111,9 +156,9 @@ const MainRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 0.5rem;
   height: auto;
   ${createMaterialStyles("full")}
+  padding: 0.75rem 0.5rem;
 `;
 
 const LeftCol = styled.header`

@@ -37,6 +37,7 @@ export const createMaterialStyles = (mode = "top") => css`
     ["top", "full"].includes(mode)
       ? `2px solid ${theme.borderLightest}`
       : "none"};
+  padding: 2px;
   border-bottom: ${({ theme }) =>
     mode === "top" ? "none" : `2px solid ${theme.borderDarkest}`};
   border-left: 2px solid ${({ theme }) => theme.borderLightest};

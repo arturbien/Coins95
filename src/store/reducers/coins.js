@@ -4,7 +4,6 @@ import {
   FETCH_COINS_DATA_SUCCESS,
   FOLLOW_COIN
 } from "../actions/actionTypes";
-import { bindActionCreators } from "../../../../../../AppData/Local/Microsoft/TypeScript/3.5/node_modules/redux";
 
 const initialState = {
   coinsTopList: null,
