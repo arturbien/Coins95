@@ -41,7 +41,7 @@ const NavBar = props => {
           size="lg"
         >
           <Icon
-            style={{ height: 20 }}
+            style={{ height: 21 }}
             active={currentLocation === "/wallet"}
             src={UserIcon}
             alt="icon"
@@ -83,7 +83,7 @@ const Nav = styled(AppBar)`
 const Icon = styled.img`
   image-rendering: pixelated;
 
-  height: 25px;
+  height: 24px;
   filter: ${({ active }) => (active ? "none" : "grayscale(1)")};
 `;
 

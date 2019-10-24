@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { withRouter, Route } from "react-router";
 import arrayMove from "array-move";
-import { Divider, Button } from "react95";
+import { Divider, Button, Toolbar, Anchor } from "react95";
 import {
   sortableContainer,
   sortableElement,
@@ -14,6 +14,8 @@ import { createMaterialStyles } from "../../utils";
 import EditCoin from "./EditCoin";
 import Handle from "../../components/Handle/Handle";
 import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch.js";
+import CurrencySelect from "../../components/CurrencySelect/CurrencySelect";
+
 const DragHandle = sortableHandle(Handle);
 const SortableItem = sortableElement(({ value, children }) => (
   <li>{children}</li>
@@ -47,15 +49,39 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
           <Divider />
           <section>
             <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5aQ9Atw03VBh1p5nYEw0Xnzu5pZUXzLVmJ2Dd_LNAYyIXIF8SpQ" />
-            {balance && (
+
+            <div>
               <TotalBalance>
-                {balance.toLocaleString("en-US", {
-                  style: "currency",
-                  currency
-                })}
+                {balance
+                  ? balance.toLocaleString("en-US", {
+                      style: "currency",
+                      currency
+                    })
+                  : null}
               </TotalBalance>
-            )}
+              <div>
+                <Toolbar>
+                  <Button fullWidth style={{ marginRight: 8 }}>
+                    + Add
+                  </Button>
+                  <CurrencySelect selectedCurrency={currency} />
+                </Toolbar>
+              </div>
+            </div>
           </section>
+          <div style={{ paddingLeft: "0.5rem", fontSize: "0.9rem" }}>
+            <p style={{ lineHeight: 1.5 }}>
+              <b style={{ fontWeight: "bold" }}>Artur Bień</b>
+            </p>
+            <p style={{ lineHeight: 1.5 }}>@zlotousty</p>
+            <p style={{ lineHeight: 1.5 }}>artur.bien@gmail.com</p>
+            <Anchor
+              href="https://www.expensive.toys"
+              style={{ lineHeight: 1.5, textDecoration: "none" }}
+            >
+              www.expensive.toys
+            </Anchor>
+          </div>
         </div>
         <div>
           <Divider />
@@ -136,33 +162,43 @@ const Top = styled.div`
     padding: 0.125rem 0.25rem;
   }
   & > div:first-child {
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
   }
   & > div:last-child {
   }
   header {
     text-align: center;
     font-weight: bold;
-    font-size: 1.1rem;
-    padding: 1rem;
+    /* font-size: 1.1rem; */
+    padding: 0.75rem;
   }
   section {
     padding: 0.625rem 0;
     display: flex;
     justify-content: space-between;
+    & > div {
+      width: 100%;
+      padding-left: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
   }
 `;
 const Avatar = styled.img`
+  margin-left: 0.25rem;
   display: inline-block;
   object-fit: cover;
-  height: 5rem;
-  width: 5rem;
+  height: 5.25rem;
+  width: 5.25rem;
   border-radius: 50%;
 `;
 const TotalBalance = styled.h4`
   font-size: 2rem;
-  /* font-weight: bold; */
-  margin-right: 1rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.75rem;
+  /* color: ${({ theme }) => theme.textDisabled}; */
+  text-align: right;
 `;
 const ListWrapper = styled.section`
   background: rgba(0, 0, 0, 0.2);

@@ -12,6 +12,7 @@ const CurrencySelect = ({ selectedCurrency, onChange }) => {
   );
   return (
     <Select
+      style={{ flexShrink: 0 }}
       width={85}
       onChange={value => onChange(value)}
       selectedIndex={selectedIndex}
