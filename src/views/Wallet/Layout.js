@@ -33,6 +33,12 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
     console.log(coinsList);
     sortUserHoldings(coinsList);
   };
+  const balance =
+    data &&
+    Math.round(
+      data.map(coin => coin.PRICE * coin._amount).reduce((a, b) => a + b, 0) *
+        100
+    ) / 100;
   return (
     <>
       <Top>
@@ -41,11 +47,20 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
           <Divider />
           <section>
             <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5aQ9Atw03VBh1p5nYEw0Xnzu5pZUXzLVmJ2Dd_LNAYyIXIF8SpQ" />
+            {balance && (
+              <TotalBalance>
+                {balance.toLocaleString("en-US", {
+                  style: "currency",
+                  currency
+                })}
+              </TotalBalance>
+            )}
           </section>
         </div>
         <div>
-          {/* <Divider /> */}
+          <Divider />
           <ButtonSwitch
+            style={{ marginBottom: 2, marginTop: 4 }}
             buttons={[
               {
                 label: "A-Z",
@@ -133,6 +148,8 @@ const Top = styled.div`
   }
   section {
     padding: 0.625rem 0;
+    display: flex;
+    justify-content: space-between;
   }
 `;
 const Avatar = styled.img`
@@ -141,6 +158,11 @@ const Avatar = styled.img`
   height: 5rem;
   width: 5rem;
   border-radius: 50%;
+`;
+const TotalBalance = styled.h4`
+  font-size: 2rem;
+  /* font-weight: bold; */
+  margin-right: 1rem;
 `;
 const ListWrapper = styled.section`
   background: rgba(0, 0, 0, 0.2);

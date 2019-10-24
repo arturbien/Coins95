@@ -61,7 +61,7 @@ const Layout = ({
       <EditWindow onClick={e => e.stopPropagation()}>
         <WindowHeader>
           <CoinIcon src={data && data.imageURL} />
-          {" "+coin}
+          {" " + coin}
         </WindowHeader>
         <WindowContent>
           <Field>
@@ -134,6 +134,7 @@ const EditWindowWrapper = styled.div`
   display: flex;
   align-items: center;
   background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
 `;
 const EditWindow = styled(Window)`
   flex: 1;

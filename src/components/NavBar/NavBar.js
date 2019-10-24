@@ -12,6 +12,11 @@ import FolderIcon from "../../assets/img/folder.png";
 import GlobeIcon from "../../assets/img/globe.png";
 import NotepadIcon from "../../assets/img/notepad.png";
 
+import WorldIcon from "../../assets/img/worldIcon.png";
+import UserIcon from "../../assets/img/userIcon.png";
+// import UserIcon from "../../assets/img/userIcon.png";
+import HomeIcon from "../../assets/img/homeIcon.png";
+
 const NavBar = props => {
   const currentLocation = props.location.pathname;
   return (
@@ -25,7 +30,7 @@ const NavBar = props => {
         >
           <Icon
             active={currentLocation === "/coins"}
-            src={GlobeIcon}
+            src={HomeIcon}
             alt="icon"
           />
         </SwitchButton>
@@ -36,8 +41,9 @@ const NavBar = props => {
           size="lg"
         >
           <Icon
+            style={{ height: 20 }}
             active={currentLocation === "/wallet"}
-            src={NotepadIcon}
+            src={UserIcon}
             alt="icon"
           />
         </SwitchButton>
@@ -49,7 +55,7 @@ const NavBar = props => {
         >
           <Icon
             active={currentLocation === "/news"}
-            src={ArticleIcon}
+            src={WorldIcon}
             alt="icon"
           />
         </SwitchButton>
@@ -75,6 +81,8 @@ const Nav = styled(AppBar)`
   z-index: 666;
 `;
 const Icon = styled.img`
+  image-rendering: pixelated;
+
   height: 25px;
   filter: ${({ active }) => (active ? "none" : "grayscale(1)")};
 `;
