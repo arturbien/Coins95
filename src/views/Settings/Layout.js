@@ -34,7 +34,7 @@ const Layout = ({
       <Tabs value={activeTab} onChange={setActiveTab}>
         <Tab value={0}>Appearance</Tab>
         <Tab value={1}>Background</Tab>
-        <Tab value={2}>Settings</Tab>
+        <Tab value={2}>Account</Tab>
       </Tabs>
       <div style={{ height: 400 }}>
         {activeTab === 0 && (
