@@ -1,20 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { withRouter } from "react-router";
 import Fullpage from "../../components/Fullpage/Fullpage";
 
 import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
 import CoinsTable from "./CoinsTable";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
-import { Button } from "react95";
+import LinkButton from "../../components/LinkButton/LinkButton";
 
 const DashboardLayout = ({
   data,
   showingFollowing,
   showFollowing,
-  showTop,
-  history
+  showTop
 }) => {
   useLockBodyScroll();
   return (
@@ -25,7 +23,7 @@ const DashboardLayout = ({
           <span>95</span>
           <small>v0.0.1</small>
         </h1>
-        <Button onClick={() => history.push("/search")}>Search...</Button>
+        <LinkButton to="/search">Search...</LinkButton>
       </Header>
       <CoinsTableWrapper>
         <CoinsTable data={data} />
@@ -45,7 +43,7 @@ const DashboardLayout = ({
   );
 };
 
-export default withRouter(DashboardLayout);
+export default DashboardLayout;
 
 let Header = styled.header`
   display: flex;

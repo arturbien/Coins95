@@ -1,14 +1,11 @@
 import React from "react";
 // import propTypes from "prop-types";
 
-import { withRouter } from "react-router-dom";
-
 import styled from "styled-components";
 import {
   Cutout,
   Fieldset,
   Toolbar,
-  Button,
   WindowHeader,
   Window,
   WindowContent,
@@ -20,6 +17,7 @@ import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
 import CenteredHourglass from "../../components/CenteredHourglass/CenteredHourglass";
 // import CurrencySelect from "../../components/CurrencySelect/CurrencySelect";
 import CoinIcon from "../../components/CoinIcon/CoinIcon";
+import LinkButton from "../../components/LinkButton/LinkButton";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
@@ -54,7 +52,7 @@ const CoinDetailsLayout = ({
       <SWindowHeader>
         <CoinIcon src={imageURL} />
         {`${coinName}.${symbol.toLocaleLowerCase()}`}
-        <Button
+        <LinkButton
           square
           size="sm"
           style={{
@@ -63,10 +61,10 @@ const CoinDetailsLayout = ({
             top: "5px",
             fontWeight: "bold"
           }}
-          onClick={() => otherProps.history.goBack()}
+          goBack
         >
           X
-        </Button>
+        </LinkButton>
       </SWindowHeader>
       <SWindowContent>
         <TopToolbar>
@@ -77,9 +75,7 @@ const CoinDetailsLayout = ({
             checked={following}
             onChange={onFollow}
           />
-          <Button onClick={() => otherProps.history.push(`/wallet/${symbol}`)}>
-            Add to wallet
-          </Button>
+          <LinkButton to={`/wallet/${symbol}`}>Add to wallet</LinkButton>
 
           {/* <CurrencySelect
               selectedCurrency={currency}
@@ -152,7 +148,7 @@ const CoinDetailsLayout = ({
   );
 };
 
-export default withRouter(CoinDetailsLayout);
+export default CoinDetailsLayout;
 
 const SWindow = styled(Window)`
   width: 100%;

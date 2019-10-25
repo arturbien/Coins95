@@ -13,8 +13,10 @@ import {
 import { createMaterialStyles, formatCurrency } from "../../utils";
 import EditCoin from "./EditCoin";
 import Handle from "../../components/Handle/Handle";
-import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch.js";
 import CurrencySelect from "../../components/CurrencySelect/CurrencySelect";
+import Well from "../../components/Well/Well";
+import WellContainer from "../../components/WellContainer/WellContainer";
+import LinkButton from "../../components/LinkButton/LinkButton";
 
 const DragHandle = sortableHandle(Handle);
 const SortableItem = sortableElement(({ value, children }) => (
@@ -42,7 +44,7 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
         100
     ) / 100;
   return (
-    <>
+    <Wrapper>
       <Top>
         <div>
           <header>@zlotousty</header>
@@ -56,9 +58,9 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
               </TotalBalance>
               <div>
                 <Toolbar>
-                  <Button fullWidth style={{ marginRight: 8 }}>
+                  <LinkButton fullWidth style={{ marginRight: 8 }} to="/search">
                     + Add
-                  </Button>
+                  </LinkButton>
                   <CurrencySelect selectedCurrency={currency} />
                 </Toolbar>
               </div>
@@ -68,7 +70,7 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
             <p style={{ lineHeight: 1.5 }}>
               <b style={{ fontWeight: "bold" }}>Artur Bien</b>
             </p>
-            <p style={{ lineHeight: 1.5 }}>@zlotousty</p>
+            {/* <p style={{ lineHeight: 1.5 }}>@zlotousty</p> */}
             <p style={{ lineHeight: 1.5 }}>artur.bien@gmail.com</p>
             <Anchor
               href="https://www.expensive.toys"
@@ -79,25 +81,13 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
           </div>
         </div>
         <div>
-          <Divider />
-          <ButtonSwitch
-            style={{ marginBottom: 2, marginTop: 4 }}
-            buttons={[
-              {
-                label: "A-Z",
-                active: true
-              },
-              {
-                label: "Z-A"
-              },
-              {
-                label: "HIGH"
-              },
-              {
-                label: "LOW"
-              }
-            ]}
-          />
+          {/* <Divider /> */}
+          <WellContainer>
+            <Well>{new Date().toLocaleDateString()}</Well>
+            <Well style={{ flexShrink: 0, minWidth: 65, textAlign: "center" }}>
+              {data && `${data.length} coin(s)`}
+            </Well>
+          </WellContainer>
         </div>
       </Top>
       {data && (
@@ -144,11 +134,14 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
           <Route path={`${match.url}/:coin`} component={EditCoin} />
         </>
       )}
-    </>
+    </Wrapper>
   );
 };
 
 export default withRouter(Layout);
+const Wrapper = styled.div`
+  padding-bottom: 100px;
+`;
 const Top = styled.div`
   ${createMaterialStyles("full")}
   box-shadow: rgba(0, 0, 0, 0.35) 4px 4px 10px 0px;
@@ -161,6 +154,7 @@ const Top = styled.div`
     margin-bottom: 0.5rem;
   }
   & > div:last-child {
+    padding-bottom: 6px;
   }
   header {
     text-align: center;
