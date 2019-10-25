@@ -19,6 +19,7 @@ import FlexTable from "../../components/FlexTable/FlexTable";
 import FileIcon from "../../components/FileIcon/FileIcon";
 import EyeIcon from "../../assets/img/eyeIcon.png";
 import Well from "../../components/Well/Well";
+import WellContainer from "../../components/WellContainer/WellContainer";
 
 const COIN_LIMIT = 40;
 
@@ -140,12 +141,14 @@ class CoinsTable extends React.Component {
           </Table>
         </TableWrapper>
         <TableFooter>
-          <Well>
-            {data
-              ? `Showing ${tableData.length} coin(s) of ${data.length} total`
-              : "Loading..."}
-          </Well>
-          <Well />
+          <WellContainer>
+            <Well>
+              {data
+                ? `Showing ${tableData.length} coin(s) of ${data.length} total`
+                : "Loading..."}
+            </Well>
+            <Well draggable />
+          </WellContainer>
         </TableFooter>
       </>
     );
@@ -165,45 +168,6 @@ let TableFooter = styled.footer`
   margin-top: 0.5rem;
   margin-bottom: 2px;
   flex-shrink: 0;
-  display: flex;
-  flex-wrap: no-wrap;
-  ${Well}:first-child {
-    width: 100%;
-    margin-right: 2px;
-    white-space: nowrap;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-  }
-  ${Well}:last-child {
-    flex-shrink: 0;
-    min-width: 4.75rem;
-    position: relative;
-    &:after {
-      content: "";
-      position: absolute;
-      bottom: -2px;
-      right: -2px;
-      width: 25px;
-      height: 25px;
-      border: 2px solid ${({ theme }) => theme.material};
-      background-image: linear-gradient(
-        135deg,
-        ${({ theme }) => theme.borderLightest} 16.67%,
-        ${({ theme }) => theme.material} 16.67%,
-        ${({ theme }) => theme.material} 33.33%,
-        ${({ theme }) => theme.borderDark} 33.33%,
-        ${({ theme }) => theme.borderDark} 50%,
-        ${({ theme }) => theme.borderLightest} 50%,
-        ${({ theme }) => theme.borderLightest} 66.67%,
-        ${({ theme }) => theme.material} 66.67%,
-        ${({ theme }) => theme.material} 83.33%,
-        ${({ theme }) => theme.borderDark} 83.33%,
-        ${({ theme }) => theme.borderDark} 100%
-      );
-      background-size: 8.49px 8.49px;
-      clip-path: polygon(100% 0, 0 100%, 100% 100%);
-    }
-  }
 `;
 const SFileIcon = styled(FileIcon)`
   margin-right: 6px;

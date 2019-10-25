@@ -1,5 +1,14 @@
 //returns how much time passed since date/timestamp
 import { css } from "styled-components";
+
+export const formatCurrency = (amount, currency) =>
+  amount.toLocaleString(
+    "en-US",
+    currency && {
+      style: "currency",
+      currency
+    }
+  );
 export const timeSince = date => {
   var seconds = Math.floor(new Date().getTime() / 1000 - date);
   var interval = Math.floor(seconds / 31536000);

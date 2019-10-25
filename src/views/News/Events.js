@@ -9,6 +9,8 @@ import { createMaterialStyles } from "../../utils";
 import EventDetails from "./EventDetails";
 
 import Well from "../../components/Well/Well";
+import WellContainer from "../../components/WellContainer/WellContainer";
+
 import { Bar } from "react95";
 
 const Events = ({ events, fetchEvents, setEventSeen }) => {
@@ -56,10 +58,12 @@ const Events = ({ events, fetchEvents, setEventSeen }) => {
         </EventListWrapper>
       </EventSlider>
       <FeedFooter>
-        <Well>
-          {events ? `Next event: ${events[0].title}` : "Loading events..."}{" "}
-        </Well>
-        <Well>{events && `${events.length} event(s)`} </Well>
+        <WellContainer>
+          <Well>
+            {events ? `Next event: ${events[0].title}` : "Loading events..."}{" "}
+          </Well>
+          <Well>{events && `${events.length} event(s)`} </Well>
+        </WellContainer>
       </FeedFooter>
       {openedEventIndex !== null && (
         <EventDetails
@@ -204,14 +208,9 @@ let FeedFooter = styled.footer`
     border-top-color: ${({ theme }) => theme.borderLightest};
   }
   padding-bottom: 1rem;
-  display: flex;
-  flex-wrap: no-wrap;
   ${Well}:first-child {
     width: 100%;
     margin-right: 2px;
-    white-space: nowrap;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
   }
   ${Well}:last-child {
     flex-shrink: 0;

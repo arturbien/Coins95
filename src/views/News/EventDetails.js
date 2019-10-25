@@ -70,13 +70,24 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
         <SCutout>
           <Description>
             <EventImage src={screenshot} />
+            <br />
             <div>
               Date:{start_date}-{end_date}
             </div>
+            <br />
+
             <div>Organizer: {organizer}</div>
+            <br />
+
             <div>Email: {email}</div>
+            <br />
+
             <div>Website: {new URL(website).hostname}</div>
+            <br />
+
             <h1>{title}</h1>
+            <br />
+
             <p>{description}</p>
           </Description>
         </SCutout>

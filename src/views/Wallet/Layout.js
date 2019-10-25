@@ -10,7 +10,7 @@ import {
   sortableHandle
 } from "react-sortable-hoc";
 
-import { createMaterialStyles } from "../../utils";
+import { createMaterialStyles, formatCurrency } from "../../utils";
 import EditCoin from "./EditCoin";
 import Handle from "../../components/Handle/Handle";
 import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch.js";
@@ -52,12 +52,7 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
 
             <div>
               <TotalBalance>
-                {balance
-                  ? balance.toLocaleString("en-US", {
-                      style: "currency",
-                      currency
-                    })
-                  : null}
+                {balance ? formatCurrency(balance, currency) : null}
               </TotalBalance>
               <div>
                 <Toolbar>
@@ -71,7 +66,7 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
           </section>
           <div style={{ paddingLeft: "0.5rem", fontSize: "0.9rem" }}>
             <p style={{ lineHeight: 1.5 }}>
-              <b style={{ fontWeight: "bold" }}>Artur Bień</b>
+              <b style={{ fontWeight: "bold" }}>Artur Bien</b>
             </p>
             <p style={{ lineHeight: 1.5 }}>@zlotousty</p>
             <p style={{ lineHeight: 1.5 }}>artur.bien@gmail.com</p>
@@ -96,10 +91,10 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
                 label: "Z-A"
               },
               {
-                label: "1M"
+                label: "HIGH"
               },
               {
-                label: "3M"
+                label: "LOW"
               }
             ]}
           />
@@ -124,8 +119,9 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
                     <RightCol>
                       <Balance>
                         <data value={coin.PRICE * coin._amount}>
-                          {`${Math.round(coin.PRICE * coin._amount * 100) /
-                            100} ${currency}`}
+                          {`${formatCurrency(
+                            Math.round(coin.PRICE * coin._amount * 100) / 100
+                          )} ${currency}`}
                         </data>
                         <data
                           value={coin._amount}
@@ -193,7 +189,8 @@ const Avatar = styled.img`
   width: 5.25rem;
   border-radius: 50%;
 `;
-const TotalBalance = styled.h4`
+const TotalBalance = styled.div`
+  height: 32px;
   font-size: 2rem;
   margin-right: 0.5rem;
   margin-bottom: 0.75rem;

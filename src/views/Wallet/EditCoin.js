@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 
 import { setUserHoldings, deleteUserHoldings } from "../../store/actions/user";
+import { formatCurrency } from "../../utils";
 
 import API from "../../API";
 
@@ -66,11 +67,7 @@ const Layout = ({
         <WindowContent>
           <Field>
             <Label>{data && data.TOSYMBOL}</Label>
-            <TextField
-              disabled
-              value={data ? data.PRICE * amount : 0}
-              width={"100%"}
-            />
+            <data>{data ? formatCurrency(data.PRICE * amount) : 0}</data>
           </Field>
           <Field>
             <Label>{data && data.FROMSYMBOL}</Label>
@@ -143,6 +140,10 @@ const Field = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 0.5rem;
+
+  data {
+    margin-left: 12px;
+  }
 `;
 const Label = styled.label`
   width: 55px;
