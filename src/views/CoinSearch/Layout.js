@@ -41,21 +41,24 @@ const Layout = ({ data, onFollow, ...otherProps }) => {
 
 export default withRouter(Layout);
 
+//TODO use Fullpage component ?
 let SWindow = styled(Window)`
-  width: 100%;
+  box-sizing: border-box;
+  position: relative;
   height: 100%;
-  display: flex !important;
+  width: 100%;
+`;
+let SWindowContent = styled(WindowContent)`
+  box-sizing: border-box;
+  display: flex;
   flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding-top: 4px;
+  padding-bottom: 42px;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
 `;
 let SWindowHeader = styled(WindowHeader)`
   flex-shrink: 0;
-`;
-let SWindowContent = styled(WindowContent)`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  padding: 0.25rem;
-  padding-top: 0.5rem;
 `;
