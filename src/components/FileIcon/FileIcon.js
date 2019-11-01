@@ -14,6 +14,7 @@ const Icon = styled.span`
   border-left: 2px solid #ced0cf;
   border-top: 2px solid #ced0cf;
   flex-shrink: 0;
+  clip-path: polygon(17px 0, 100% 6px, 100% 100%, 0 100%, 0 0);
   background: #fff;
   :before,
   :after {
