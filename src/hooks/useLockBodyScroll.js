@@ -27,5 +27,5 @@ export default function() {
       root.scrollTo(0, 0);
       window.scrollTo(0, scrollY);
     };
-  }, []); // Empty array ensures effect is only run on mount and unmount
+  }, [root]); // Empty array ensures effect is only run on mount and unmount
 }

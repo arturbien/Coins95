@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 
 import { connect } from "react-redux";

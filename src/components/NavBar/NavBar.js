@@ -7,10 +7,10 @@ import Clippy from "../Clippy/Clippy";
 
 import { AppBar, Button, Toolbar } from "react95";
 
-import ArticleIcon from "../../assets/img/article.png";
+// import ArticleIcon from "../../assets/img/article.png";
+// import GlobeIcon from "../../assets/img/globe.png";
+// import NotepadIcon from "../../assets/img/notepad.png";
 import FolderIcon from "../../assets/img/folder.png";
-import GlobeIcon from "../../assets/img/globe.png";
-import NotepadIcon from "../../assets/img/notepad.png";
 
 import WorldIcon from "../../assets/img/worldIcon.png";
 import UserIcon from "../../assets/img/userIcon.png";

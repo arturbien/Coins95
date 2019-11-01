@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { Switch, Route, withRouter } from "react-router";
 
-import { Button, Divider, Radio, Checkbox, Fieldset } from "react95";
+import { Button, Radio, Fieldset } from "react95";
 
 import ClippyIcon from "../../assets/img/clippy4.png";
 
@@ -27,7 +27,10 @@ const Clippy = props => {
                         fontSize: "1.1em"
                       }}
                     >
-                      Old Clippy's DEAD 😥
+                      Old Clippy's DEAD{" "}
+                      <span role="img" aria-label="sad emoji">
+                        😥
+                      </span>
                     </h3>
                     <br />
                     <br />
@@ -155,12 +158,4 @@ const Fab = styled.button`
       background-position: 50% calc(50% + 2px);
     }
   }
-`;
-const DeadClippyIMG = styled.img`
-  display: block;
-  width: 140px;
-  height: auto;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
 `;

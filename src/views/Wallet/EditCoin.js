@@ -10,7 +10,6 @@ import { formatCurrency } from "../../utils";
 import API from "../../API";
 
 import {
-  Divider,
   Toolbar,
   Button,
   TextField,
@@ -25,7 +24,6 @@ const Layout = ({
   coin,
   currency,
   holdings,
-  match,
   history,
   setUserHoldings,
   deleteUserHoldings
@@ -36,11 +34,10 @@ const Layout = ({
     async function fetchData() {
       let data = await API.fetchCoinsData([coin], currency, false);
       data = data[coin];
-      console.log("😂", data);
       setData(data);
     }
     fetchData();
-  }, []);
+  }, [coin, currency]);
 
   const handleAmountChange = e => {
     const value = e.target.value;
@@ -57,6 +54,7 @@ const Layout = ({
     deleteUserHoldings(coin);
     goBack();
   };
+
   return (
     <EditWindowWrapper onClick={goBack}>
       <EditWindow onClick={e => e.stopPropagation()}>

@@ -45,7 +45,7 @@ class API {
       (coinA, coinB) =>
         parseInt(data[coinA].sortOrder) - parseInt(data[coinB].sortOrder)
     );
-    for (let coin of sortedCoins) {
+    sortedCoins.forEach(coin => {
       const coinData = data[coin];
       formattedData[coin] = {
         name: coinData.Name,
@@ -57,7 +57,8 @@ class API {
         totalCoinsMined: coinData.TotalCoinsMined,
         sortOrder: parseInt(coinData.SortOrder)
       };
-    }
+    });
+
     return formattedData;
   };
   // fetchCoinsListCoinGecko = async () => {
@@ -93,10 +94,11 @@ class API {
     const response = await this.axios.get(query);
     const formattedData = {};
     const data = response.data[display ? "DISPLAY" : "RAW"];
-    for (let coin in data) {
+
+    Object.keys(data).forEach(coin => {
       formattedData[coin] = data[coin][currency];
       formattedData[coin].imageURL = cryptoURL + formattedData[coin].IMAGEURL;
-    }
+    });
     return formattedData;
   };
 
