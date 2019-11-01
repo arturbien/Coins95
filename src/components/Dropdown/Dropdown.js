@@ -28,7 +28,7 @@ const Menu = ({ horizontalAlign, verticalAlign, trigger, items }) => {
           verticalAlign={verticalAlign}
           open={open}
           onClick={handleClose}
-          style={{ zIndex: 999 }}
+          style={{ zIndex: 1 }}
         >
           {listItems}
         </List>

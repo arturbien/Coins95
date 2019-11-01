@@ -40,6 +40,7 @@ class API {
     const query = "/data/all/coinlist";
     const response = await this.axios.get(query);
     const data = response.data.Data;
+    console.log(data);
     const formattedData = {};
     const sortedCoins = Object.keys(data).sort(
       (coinA, coinB) =>

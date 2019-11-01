@@ -9,6 +9,7 @@ import Dropdown from "../../components/Dropdown/Dropdown";
 import { Divider, Button, Hourglass } from "react95";
 
 import { timeSince, createMaterialStyles } from "../../utils";
+import { copyToClipboard } from "../../utils";
 
 const NewsList = ({ news, fetchNews }) => {
   // useEffect(() => {
@@ -83,7 +84,7 @@ const NewsList = ({ news, fetchNews }) => {
                 </Row>
               </div>
               <div>
-                <ArticleMenu link={n.url} />
+                <ArticleMenu text={n.title} url={n.url} />
               </div>
             </Row>
           </ArticleSource>
@@ -176,13 +177,13 @@ const LastItem = ({ onVisible }) => {
     </Li>
   );
 };
-let ArticleMenu = ({ link }) => (
+let ArticleMenu = ({ url, text }) => (
   <Dropdown
     verticalAlign="bottom"
     horizontalAlign="right"
     trigger={({ ...props }) => (
       <Button
-        disabled={link === null}
+        disabled={url === null}
         style={{ fontWeight: "bold" }}
         {...props}
         square
@@ -191,39 +192,29 @@ let ArticleMenu = ({ link }) => (
       </Button>
     )}
     items={[
-      {
-        label: "Share",
-        onClick: () => {
-          if (navigator.share) {
-            navigator
-              .share({
-                title: "Web Fundamentals",
-                text: "Check out Web Fundamentals — it rocks!",
-                url: "https://developers.google.com/web"
-              })
-              .then(() => console.log("Successful share"))
-              .catch(error => console.log("Error sharing", error));
+      navigator.share
+        ? {
+            label: "Share",
+            onClick: () => {
+              navigator
+                .share({
+                  url,
+                  text,
+                  title: document.title
+                })
+                .then(() => console.log("Successful share"))
+                .catch(error => console.log("Error sharing", error));
+            }
           }
-        }
-      },
+        : null,
       {
         label: "Copy link",
         onClick: () => {
-          navigator.clipboard.writeText(link).then(
-            function() {
-              alert(`you just copied link: ${link}`);
-            },
-            function() {
-              alert(`cant copy :(`);
-            }
-          );
+          copyToClipboard(url);
         }
-      },
-      { label: "Swag", onClick: () => undefined }
-    ]}
-  >
-    asdasd
-  </Dropdown>
+      }
+    ].filter(option => option !== null)}
+  />
 );
 
 let Ul = styled.ul`

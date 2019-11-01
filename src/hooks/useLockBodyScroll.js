@@ -5,6 +5,7 @@ export default function() {
   useLayoutEffect(() => {
     // Get current scroll  Y value
     const scrollY = window.pageYOffset;
+    window.scrollTo(0, 0);
 
     const { position: originalRootPosition } = window.getComputedStyle(root);
     // Prevent scrolling on mount
@@ -14,8 +15,6 @@ export default function() {
     root.style.width = "100%";
     root.style.height = "100%";
 
-    // scroll root to the saved position
-    root.scrollTo(0, scrollY);
     // Re-enable scrolling when component unmounts
     return () => {
       document.body.style.overflow = "";
