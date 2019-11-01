@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-
 import { connect } from "react-redux";
 
 import { createGlobalStyle, ThemeProvider } from "styled-components";
@@ -16,6 +15,8 @@ import News from "./views/News/News";
 import Settings from "./views/Settings/Settings";
 
 import NavBar from "./components/NavBar/NavBar";
+import Phone from "./components/Phone/Phone";
+
 import { backgrounds } from "./store/reducers/user";
 const ResetStyles = createGlobalStyle`
   ${reset}
@@ -25,21 +26,9 @@ const ResetStyles = createGlobalStyle`
   }
   html, body, #root {
     height: 100%;
+    background: teal;
     font-family: ${({ vintageFont }) =>
       vintageFont ? "MS-Sans-Serif" : "sans-serif"};
-  }
-  #background {
-    position: fixed;
-    z-index: -1;
-    top: 0;
-    bottom: 0;
-    left:0;
-    right: 0;
-    height: 100vh;
-    width: 100vw;
-    background: ${({ background }) => background};
-    background-attachment: fixed;
-    background-repeat: repeat;
   }
   * {
       font-family: ${({ vintageFont }) =>
@@ -51,12 +40,7 @@ const ResetStyles = createGlobalStyle`
     
   }
   img {
-        /* image-rendering: pixelated!important; */
-  }
-
-  button:focus {
-  outline: 1px dotted rgb(4,5,6);
-  outline-offset: -8px;
+        image-rendering: pixelated!important;
   }
   input[disabled],
   fieldset[disabled]  {
@@ -71,10 +55,15 @@ class App extends Component {
     const { theme, background, vintageFont } = this.props;
     return (
       <ThemeProvider theme={themes[theme]}>
-        <>
+        <Phone
+          style={{
+            background: backgrounds[background].value,
+            backgroundRepeat: "repeat"
+          }}
+        >
           <ResetStyles
             vintageFont={vintageFont}
-            background={backgrounds[background].value}
+            // background={backgrounds[background].value}
           />
           <BrowserRouter>
             <>
@@ -94,7 +83,7 @@ class App extends Component {
               </Switch>
             </>
           </BrowserRouter>
-        </>
+        </Phone>
       </ThemeProvider>
     );
   }

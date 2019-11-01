@@ -36,12 +36,12 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
     );
     sortUserHoldings(coinsList);
   };
-  const balance =
-    data &&
-    Math.round(
-      data.map(coin => coin.PRICE * coin._amount).reduce((a, b) => a + b, 0) *
-        100
-    ) / 100;
+  const balance = data
+    ? Math.round(
+        data.map(coin => coin.PRICE * coin._amount).reduce((a, b) => a + b, 0) *
+          100
+      ) / 100
+    : null;
   return (
     <Wrapper>
       <Top>
@@ -53,7 +53,7 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
 
             <div>
               <TotalBalance>
-                {balance ? formatCurrency(balance, currency) : null}
+                {balance !== null && formatCurrency(balance, currency)}
               </TotalBalance>
               <div>
                 <Toolbar>
