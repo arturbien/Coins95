@@ -16,7 +16,6 @@ const NewsList = ({ news, fetchNews }) => {
   // }, []);
   useLayoutEffect(() => {
     const lazyImages = Array.from(document.querySelectorAll("[data-src]"));
-    console.log("MOUNTED 🔥", lazyImages);
     const options = {
       root: null,
       rootMargin: "400px 0px 1600px 0px",

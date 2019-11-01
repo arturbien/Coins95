@@ -16,7 +16,6 @@ const Wallet = ({
   coinsInfo,
   currency,
   fetchCoinsList,
-  needsUpdate,
   fetchCoinsData,
   sortUserHoldings
 }) => {

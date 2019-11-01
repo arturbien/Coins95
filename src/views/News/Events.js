@@ -20,7 +20,7 @@ const Events = ({ events, fetchEvents, setEventSeen }) => {
     if (!events) {
       fetchEvents();
     }
-  }, []);
+  }, [events, fetchEvents]);
   const setOpenedEvent = index => {
     if (index === null) {
       setOpenedEventIndex(null);

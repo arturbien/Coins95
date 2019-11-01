@@ -10,8 +10,7 @@ const CoinSearch = ({ data, fetchCoinsList, setUserCoin }) => {
     if (!data) {
       fetchCoinsList();
     }
-  }, []);
-  console.log("RERENDER +_++++++++");
+  }, [data, fetchCoinsList]);
   return <Layout data={data} onFollow={setUserCoin} />;
 };
 

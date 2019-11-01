@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-
-import { withRouter, Route } from "react-router";
+import { Link, Route } from "react-router-dom";
+import { withRouter } from "react-router";
 import arrayMove from "array-move";
 import { Divider, Button, Toolbar, Anchor } from "react95";
 import {
@@ -34,7 +34,6 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
       oldIndex,
       newIndex
     );
-    console.log(coinsList);
     sortUserHoldings(coinsList);
   };
   const balance =
@@ -103,8 +102,15 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
                   <MainRow>
                     <LeftCol>
                       <DragHandle />
-                      <CoinIcon src={coin.imageURL} alt={`${coin.name} logo`} />
-                      <h4>{coin.symbol}</h4>
+                      <Link to={`/coins/${coin.symbol}`}>
+                        <CoinLinkContent>
+                          <CoinIcon
+                            src={coin.imageURL}
+                            alt={`${coin.name} logo`}
+                          />
+                          <h4>{coin.symbol}</h4>
+                        </CoinLinkContent>
+                      </Link>
                     </LeftCol>
                     <RightCol>
                       <Balance>
@@ -258,4 +264,8 @@ const KebabIcon = styled.span`
   &:before {
     top: 6px;
   }
+`;
+const CoinLinkContent = styled.div`
+  display: flex;
+  align-items: center;
 `;
