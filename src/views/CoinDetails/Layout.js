@@ -76,11 +76,6 @@ const CoinDetailsLayout = ({
             onChange={onFollow}
           />
           <LinkButton to={`/wallet/${symbol}`}>Add to wallet</LinkButton>
-
-          {/* <CurrencySelect
-              selectedCurrency={currency}
-              onChange={onCurrencyChange}
-            /> */}
         </TopToolbar>
         <ChartWrapper>
           {historicalData && (
@@ -178,8 +173,8 @@ const ChartWrapper = styled(Cutout)`
   position: relative;
   width: 100%;
   flex: 1;
-  background: teal;
-  background: radial-gradient(#1d8a99, teal);
+  background: black;
+  /* background: radial-gradient(#1d8a99, teal); */
   padding: 1em;
 `;
 const SFieldset = styled(Fieldset)`

@@ -1,19 +1,33 @@
 import React from "react";
-import { ResponsiveContainer, LineChart, Line, CartesianGrid } from "recharts";
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  CartesianGrid,
+  YAxis,
+  XAxis
+} from "recharts";
 
 const SimpleLineChart = ({ data }) => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
+        <YAxis
+          type="number"
+          domain={["auto", "auto"]}
+          mirror
+          tick={{ stroke: "#ffffff" }}
+        />
+
+        <CartesianGrid strokeDasharray="3 3" stroke="#ffffff" />
         <Line
           type="monotone"
           dataKey="AVG"
-          stroke="#e980fc"
-          strokeWidth={4}
+          stroke="#ff0000"
+          strokeWidth={2}
           dot={false}
         />
-        <Line
+        {/* <Line
           type="monotone"
           dataKey="LOW"
           stroke="#000000"
@@ -26,7 +40,7 @@ const SimpleLineChart = ({ data }) => {
           stroke="#ffffff"
           strokeWidth={1}
           dot={false}
-        />
+        /> */}
       </LineChart>
     </ResponsiveContainer>
   );
