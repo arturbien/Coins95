@@ -127,14 +127,12 @@ const EditWindowWrapper = styled.div`
   left: 0;
   padding: 1rem;
   display: flex;
-  justify-content: space-around;
   align-items: center;
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(4px);
 `;
 const EditWindow = styled(Window)`
   flex: 1;
-  max-width: 350px;
 `;
 const Field = styled.div`
   display: flex;
