@@ -15,8 +15,10 @@ import Wallet from "./views/Wallet/Wallet";
 import News from "./views/News/News";
 import Settings from "./views/Settings/Settings";
 
+import Viewport from "./components/Viewport/Viewport";
 import NavBar from "./components/NavBar/NavBar";
 import { backgrounds } from "./store/reducers/user";
+
 const ResetStyles = createGlobalStyle`
   ${reset}
   @font-face {
@@ -50,14 +52,6 @@ const ResetStyles = createGlobalStyle`
         vintageFont ? "MS-Sans-Serif" : "sans-serif"};
     
   }
-  img {
-        /* image-rendering: pixelated!important; */
-  }
-
-  button:focus {
-  outline: 1px dotted rgb(4,5,6);
-  outline-offset: -8px;
-  }
   input[disabled],
   fieldset[disabled]  {
 
@@ -70,32 +64,34 @@ class App extends Component {
   render() {
     const { theme, background, vintageFont } = this.props;
     return (
-      <ThemeProvider theme={themes[theme]}>
-        <>
-          <ResetStyles
-            vintageFont={vintageFont}
-            background={backgrounds[background].value}
-          />
-          <BrowserRouter>
-            <>
-              <Switch>
-                <Route exact path={"/coins/:coin"} component={null} />
-                <Route exact path={"/search"} component={null} />
-                <NavBar />
-              </Switch>
-              <Switch>
-                <Route exact path={"/coins"} component={Dashboard} />
-                <Route exact path={"/coins/:coin"} component={CoinDetails} />
-                <Route exact path={"/search"} component={CoinSearch} />
-                <Route path={"/wallet/"} component={Wallet} />
-                <Route exact path={"/news"} component={News} />
-                <Route exact path={"/settings"} component={Settings} />
-                <Redirect exact from={"/"} to={"/coins"} />
-              </Switch>
-            </>
-          </BrowserRouter>
-        </>
-      </ThemeProvider>
+      <Viewport>
+        <ThemeProvider theme={themes[theme]}>
+          <>
+            <ResetStyles
+              vintageFont={vintageFont}
+              background={backgrounds[background].value}
+            />
+            <BrowserRouter>
+              <>
+                <Switch>
+                  <Route exact path={"/coins/:coin"} component={null} />
+                  <Route exact path={"/search"} component={null} />
+                  <NavBar />
+                </Switch>
+                <Switch>
+                  <Route exact path={"/coins"} component={Dashboard} />
+                  <Route exact path={"/coins/:coin"} component={CoinDetails} />
+                  <Route exact path={"/search"} component={CoinSearch} />
+                  <Route path={"/wallet/"} component={Wallet} />
+                  <Route exact path={"/news"} component={News} />
+                  <Route exact path={"/settings"} component={Settings} />
+                  <Redirect exact from={"/"} to={"/coins"} />
+                </Switch>
+              </>
+            </BrowserRouter>
+          </>
+        </ThemeProvider>
+      </Viewport>
     );
   }
 }
