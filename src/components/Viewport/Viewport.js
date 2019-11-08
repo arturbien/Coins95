@@ -9,6 +9,8 @@ const Viewport = styled.div`
   transform: translate(-50%, -50%);
   height: 100%;
   width: 100%;
+  overflow: hidden;
+  box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.35);
 `;
 const ViewportContent = styled.div`
   height: 100%;

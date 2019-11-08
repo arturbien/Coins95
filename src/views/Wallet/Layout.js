@@ -13,6 +13,8 @@ import {
 import { createMaterialStyles, formatCurrency } from "../../utils";
 import EditCoin from "./EditCoin";
 import Handle from "../../components/Handle/Handle";
+import MenuIcon from "../../components/MenuIcon/MenuIcon";
+
 import CurrencySelect from "../../components/CurrencySelect/CurrencySelect";
 import Well from "../../components/Well/Well";
 import WellContainer from "../../components/WellContainer/WellContainer";
@@ -129,7 +131,7 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
                         variant="menu"
                         onClick={() => history.push(`/wallet/${coin.symbol}`)}
                       >
-                        <KebabIcon />
+                        <MenuIcon />
                       </Button>
                     </RightCol>
                   </MainRow>
@@ -239,32 +241,7 @@ const Balance = styled.div`
     margin-top: 4px;
   }
 `;
-const KebabIcon = styled.span`
-  position: relative;
-  top: 50%;
-  display: inline-block;
-  width: 3px;
-  height: 3px;
 
-  background: ${({ theme }) => theme.borderDarkest};
-  &:after,
-  &:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    display: inline-block;
-    width: 3px;
-    height: 3px;
-
-    background: ${({ theme }) => theme.borderDarkest};
-  }
-  &:after {
-    top: -6px;
-  }
-  &:before {
-    top: 6px;
-  }
-`;
 const CoinLinkContent = styled.div`
   display: flex;
   align-items: center;

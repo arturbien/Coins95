@@ -2,14 +2,14 @@ import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 
 import { connect } from "react-redux";
-
 import { fetchNews } from "../../store/actions/news";
 
-import Dropdown from "../../components/Dropdown/Dropdown";
+import { timeSince, createMaterialStyles, copyToClipboard } from "../../utils";
+
 import { Divider, Button, Hourglass } from "react95";
 
-import { timeSince, createMaterialStyles } from "../../utils";
-import { copyToClipboard } from "../../utils";
+import Dropdown from "../../components/Dropdown/Dropdown";
+import MenuIcon from "../../components/MenuIcon/MenuIcon";
 
 const NewsList = ({ news, fetchNews }) => {
   // useEffect(() => {
@@ -188,7 +188,7 @@ let ArticleMenu = ({ url, text }) => (
         {...props}
         square
       >
-        ...
+        <MenuIcon horizontal />
       </Button>
     )}
     items={[

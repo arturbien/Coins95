@@ -73,9 +73,12 @@ const CoinDetailsLayout = ({
             label="Follow"
             value={true}
             checked={following}
+            disabled={!coinInfo}
             onChange={onFollow}
           />
-          <LinkButton to={`/wallet/${symbol}`}>Add to wallet</LinkButton>
+          <LinkButton to={`/wallet/${symbol}`} disabled={!coinInfo}>
+            Add to wallet
+          </LinkButton>
         </TopToolbar>
         <ChartWrapper>
           {historicalData && (
