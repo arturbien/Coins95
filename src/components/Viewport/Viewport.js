@@ -9,6 +9,9 @@ const Viewport = styled.div`
   transform: translate(-50%, -50%);
   height: 100%;
   width: 100%;
+  max-height: 100%;
+  max-width: 100%;
+
   overflow: hidden;
   box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.35);
 `;
@@ -20,9 +23,13 @@ const ViewportContent = styled.div`
 
 export default ({ children, maxWidth = 450, maxHeight = 896 }) => {
   const [width, height] = useWindowSize();
-
-  return width > maxWidth && height > maxHeight ? (
-    <Viewport style={{ width: maxWidth, height: maxHeight }}>
+  console.log(width, height);
+  return (width > maxWidth && height > maxHeight) ||
+    (width > maxWidth && width > height) ? (
+    <Viewport
+      style={{ width: maxWidth + "px", height: maxHeight + "px" }}
+      id="swag"
+    >
       <ViewportContent>{children}</ViewportContent>
     </Viewport>
   ) : (
