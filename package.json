@@ -1,7 +1,17 @@
 {
   "name": "coins95",
   "version": "0.1.0",
-  "private": true,
+  "authors": [
+    "Artur Bień"
+  ],
+  "description": "Refreshed Windows95 UI components for modern web apps - React95",
+  "keywords": [
+    "react",
+    "styled-components",
+    "windows95",
+    "component",
+    "vaporwave"
+  ],
   "dependencies": {
     "array-move": "^2.1.0",
     "axios": "^0.18.1",
