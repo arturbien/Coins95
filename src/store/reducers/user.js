@@ -42,7 +42,7 @@ const initialState = {
   currency: "EUR",
   vintageFont: true,
   theme: "default",
-  background: 1,
+  background: 6,
   ...persistedState
 };
 
