@@ -187,9 +187,10 @@ const Avatar = styled.img`
   margin-left: 0.25rem;
   display: inline-block;
   object-fit: cover;
-  height: 5.25rem;
-  width: 5.25rem;
+  height: 85px;
+  width: 85px;
   border-radius: 50%;
+  flex-shrink: 0;
 `;
 const TotalBalance = styled.div`
   height: 32px;

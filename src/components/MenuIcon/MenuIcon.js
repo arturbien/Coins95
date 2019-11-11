@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export default styled.span`
   position: relative;
-  top: 50%;
   display: inline-block;
   width: 3px;
   height: 3px;

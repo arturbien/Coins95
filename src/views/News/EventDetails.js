@@ -8,6 +8,7 @@ import {
   Select,
   Cutout,
   Toolbar,
+  Anchor,
   Button,
   Bar
 } from "react95";
@@ -70,24 +71,22 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
         <SCutout>
           <Description>
             <EventImage src={screenshot} />
+
+            <Row>
+              <Col>{organizer}</Col>
+              <Col style={{ textAlign: "right" }}>
+                {start_date}-{end_date}
+              </Col>
+            </Row>
+            {/* <div>Email: {email}</div>
             <br />
             <div>
-              Date:{start_date}-{end_date}
+              Website:{" "}
+              <Anchor href={website}>{new URL(website).hostname}</Anchor>
             </div>
-            <br />
-
-            <div>Organizer: {organizer}</div>
-            <br />
-
-            <div>Email: {email}</div>
-            <br />
-
-            <div>Website: {new URL(website).hostname}</div>
-            <br />
-
+            <br /> */}
             <h1>{title}</h1>
             <br />
-
             <p>{description}</p>
           </Description>
         </SCutout>
@@ -145,6 +144,13 @@ const Description = styled.div`
   height: 100%;
   padding: 0.5rem 0.5rem 1rem 0.5rem;
   overflow-y: scroll;
+  line-height: 1.5;
+
+  > h1 {
+    margin-top: 1rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
 `;
 const SToolbar = styled(Toolbar)`
   flex-shrink: 0;
@@ -175,5 +181,15 @@ const EventSelectWrapper = styled.div`
 `;
 const EventImage = styled.img`
   width: 100%;
+  margin-bottom: 1rem;
   height: auto;
+`;
+
+const Row = styled.div`
+  display: flex;
+  flex-wrap: no-wrap;
+  line-height: 1.8;
+`;
+const Col = styled.div`
+  width: 50%;
 `;
