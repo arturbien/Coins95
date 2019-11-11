@@ -7,7 +7,8 @@ import {
   SET_EVENT_SEEN,
   SET_USER_HOLDINGS,
   DELETE_USER_HOLDINGS,
-  SORT_USER_HOLDINGS
+  SORT_USER_HOLDINGS,
+  SET_USER_CURRENCY
 } from "../actions/actionTypes";
 
 import { saveState, loadState } from "../localStorage";
@@ -84,6 +85,8 @@ const userReducer = (state = initialState, action) => {
         action.payload.forEach(coin => (wallet[coin] = state.wallet[coin]));
         return { ...state, wallet };
       }
+      case SET_USER_CURRENCY:
+        return { ...state, currency: action.payload };
       default:
         return state;
     }

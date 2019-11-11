@@ -19,7 +19,7 @@ const Dashboard = ({
   useEffect(() => {
     if (!topCoinsList) {
       fetchCoinsList();
-    } else if (!coinsData || needsUpdate) {
+    } else {
       fetchCoinsData(
         [
           ...new Set([
@@ -70,7 +70,4 @@ const mapDispatchToProps = dispatch => ({
     dispatch(fetchCoinsData(coinsList, currency))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

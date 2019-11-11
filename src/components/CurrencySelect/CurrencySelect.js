@@ -1,8 +1,9 @@
 import React from "react";
-
+import { connect } from "react-redux";
+import { setCurrency } from "../../store/actions/user";
 import { Select } from "react95";
 
-const CurrencySelect = ({ selectedCurrency, onChange }) => {
+const CurrencySelect = ({ selectedCurrency, setCurrency }) => {
   const currencies = ["EUR", "USD", "PLN"].map(currency => ({
     value: currency,
     label: currency
@@ -14,11 +15,16 @@ const CurrencySelect = ({ selectedCurrency, onChange }) => {
     <Select
       style={{ flexShrink: 0 }}
       width={85}
-      onChange={value => onChange(value)}
+      onChange={value => setCurrency(value)}
       selectedIndex={selectedIndex}
       items={currencies}
     />
   );
 };
-
-export default CurrencySelect;
+const mapStateToProps = state => ({
+  selectedCurrency: state.user.currency
+});
+const mapDispatchToProps = dispatch => ({
+  setCurrency: currency => dispatch(setCurrency(currency))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencySelect);

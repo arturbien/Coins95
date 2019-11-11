@@ -6,9 +6,14 @@ import {
   TOGGLE_VINTAGE_FONT,
   SET_USER_HOLDINGS,
   DELETE_USER_HOLDINGS,
-  SORT_USER_HOLDINGS
+  SORT_USER_HOLDINGS,
+  SET_USER_CURRENCY
 } from "./actionTypes";
 
+export const setCurrency = currency => ({
+  type: SET_USER_CURRENCY,
+  payload: currency
+});
 export const setUserCoin = (coin, follow) => ({
   type: follow ? FOLLOW_COIN : UNFOLLOW_COIN,
   payload: coin

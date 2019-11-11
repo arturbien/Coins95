@@ -34,7 +34,7 @@ const Wallet = ({
         currency
       );
     }
-  }, [coinsInfo, wallet]);
+  }, [coinsInfo, wallet, currency]);
 
   let data;
   if (!coinsInfo || !coinsData) {
@@ -79,7 +79,4 @@ const mapDispatchToProps = dispatch => ({
   sortUserHoldings: coinsList => dispatch(sortUserHoldings(coinsList))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
