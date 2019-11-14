@@ -8,6 +8,7 @@ import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import { Button, WindowHeader, Window, WindowContent } from "react95";
 
 import CoinsTable from "./CoinsTable";
+import CloseIcon from "../../components/CloseIcon/CloseIcon";
 
 const Layout = ({ data, onFollow, ...otherProps }) => {
   useLockBodyScroll();
@@ -29,7 +30,7 @@ const Layout = ({ data, onFollow, ...otherProps }) => {
           }}
           onClick={() => otherProps.history.goBack()}
         >
-          X
+          <CloseIcon />
         </Button>
       </SWindowHeader>
       <SWindowContent>

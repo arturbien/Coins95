@@ -13,6 +13,8 @@ import {
   Bar
 } from "react95";
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
+import EventExplorerIcon from "../../assets/img/eventExplorer.png";
+import CloseIcon from "../../components/CloseIcon/CloseIcon";
 
 const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
   useLockBodyScroll();
@@ -35,11 +37,13 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
   console.log(openedEventIndex);
   return (
     <SWindow>
-      <WindowHeader>
-        <span role="img" aria-label="Event explorer logo">
-          🌉
-        </span>
-        Event explorer
+      <SWindowHeader>
+        <img
+          alt="Planet Earth icon"
+          src={EventExplorerIcon}
+          style={{ height: 24, marginLeft: -2, marginRight: "0.5rem" }}
+        />
+        <span>Event explorer</span>
         <Button
           square
           size="sm"
@@ -51,9 +55,9 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
           }}
           onClick={() => setOpenedEvent(null)}
         >
-          X
+          <CloseIcon />
         </Button>
-      </WindowHeader>
+      </SWindowHeader>
       <SWindowContent>
         <EventSelectWrapper>
           <div style={{ flexShrink: 0, margin: "0 0.5rem 0 0.125rem" }}>
@@ -124,6 +128,10 @@ const SWindow = styled(Window)`
 
   display: flex;
   flex-direction: column;
+`;
+const SWindowHeader = styled(WindowHeader)`
+  display: flex;
+  align-items: center;
 `;
 const SWindowContent = styled(WindowContent)`
   box-sizing: border-box;

@@ -7,14 +7,9 @@ import Clippy from "../Clippy/Clippy";
 
 import { AppBar, Button, Toolbar } from "react95";
 
-// import ArticleIcon from "../../assets/img/article.png";
-// import GlobeIcon from "../../assets/img/globe.png";
-// import NotepadIcon from "../../assets/img/notepad.png";
-import FolderIcon from "../../assets/img/folder.png";
-
+import GearsIcon from "../../assets/img/gears.png";
 import WorldIcon from "../../assets/img/worldIcon.png";
 import UserIcon from "../../assets/img/userIcon.png";
-// import UserIcon from "../../assets/img/userIcon.png";
 import HomeIcon from "../../assets/img/homeIcon.png";
 
 const NavBar = props => {
@@ -65,7 +60,7 @@ const NavBar = props => {
           fullWidth
           size="lg"
         >
-          <Icon src={FolderIcon} alt="icon" />
+          <Icon src={GearsIcon} alt="icon" style={{ height: 30 }} />
         </SwitchButton>
       </SToolbar>
       <Clippy />
@@ -81,7 +76,7 @@ const Nav = styled(AppBar)`
   z-index: 666;
 `;
 const Icon = styled.img`
-  image-rendering: pixelated;
+  /* image-rendering: pixelated; */
 
   height: 24px;
   filter: ${({ active }) => (active ? "none" : "grayscale(1)")};

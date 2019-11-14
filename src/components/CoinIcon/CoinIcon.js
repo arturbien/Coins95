@@ -5,8 +5,9 @@ export default styled.img`
   top: 50%;
   transform: translateY(-50%);
   display: inline-block;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
+  margin-left: -2px;
   border-radius: 50%;
   background: white;
   margin-right: 0.5rem;

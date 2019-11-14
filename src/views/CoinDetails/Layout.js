@@ -17,6 +17,8 @@ import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
 import CenteredHourglass from "../../components/CenteredHourglass/CenteredHourglass";
 // import CurrencySelect from "../../components/CurrencySelect/CurrencySelect";
 import CoinIcon from "../../components/CoinIcon/CoinIcon";
+import CloseIcon from "../../components/CloseIcon/CloseIcon";
+
 import LinkButton from "../../components/LinkButton/LinkButton";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
@@ -63,7 +65,7 @@ const CoinDetailsLayout = ({
           }}
           goBack
         >
-          X
+          <CloseIcon />
         </LinkButton>
       </SWindowHeader>
       <SWindowContent>
