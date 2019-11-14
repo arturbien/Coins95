@@ -58,6 +58,17 @@ const ResetStyles = createGlobalStyle`
  -webkit-text-fill-color: unset;
   opacity: 1;
   }
+  * {
+    scrollbar-width: none
+  }
+  ::-webkit-scrollbar {
+    width: 0px; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
+  /* Optional: show position indicator in red */
+  ::-webkit-scrollbar-thumb {
+    background: #ff0000;
+  }
 `;
 
 class App extends Component {
@@ -101,7 +112,4 @@ const mapStateToProps = state => ({
   background: state.user.background,
   vintageFont: state.user.vintageFont
 });
-export default connect(
-  mapStateToProps,
-  null
-)(App);
+export default connect(mapStateToProps, null)(App);

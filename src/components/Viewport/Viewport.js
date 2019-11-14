@@ -18,7 +18,7 @@ const Viewport = styled.div`
 const ViewportContent = styled.div`
   height: 100%;
   width: 100%;
-  overflow: scroll;
+  overflow: auto;
 `;
 
 export default ({ children, maxWidth = 450, maxHeight = 896 }) => {
