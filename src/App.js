@@ -67,7 +67,7 @@ const ResetStyles = createGlobalStyle`
   }
   /* Optional: show position indicator in red */
   ::-webkit-scrollbar-thumb {
-    background: #ff0000;
+    background: transparent;
   }
 `;
 
