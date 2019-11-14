@@ -202,6 +202,7 @@ const TotalBalance = styled.div`
 `;
 const ListWrapper = styled.section`
   background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
 `;
 const CoinIcon = styled.img`
   display: inline-block;
