@@ -7,8 +7,13 @@ const Viewport = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 100%;
-  width: 100%;
+  height: ${({ maxHeight }) => maxHeight}px;
+  width: ${({ maxWidth }) => maxWidth}px;
+
+  @media only screen and (min-width: 450px) and (min-height: 600px) {
+    height: 680px;
+    width: 400px;
+  }
   max-height: 100%;
   max-width: 100%;
 
@@ -23,13 +28,8 @@ const ViewportContent = styled.div`
 
 export default ({ children, maxWidth = 450, maxHeight = 896 }) => {
   const [width, height] = useWindowSize();
-  console.log(width, height);
-  return (width > maxWidth && height > maxHeight) ||
-    (width > maxWidth && width > height) ? (
-    <Viewport
-      style={{ width: maxWidth + "px", height: maxHeight + "px" }}
-      id="swag"
-    >
+  return width > maxWidth || height > maxHeight ? (
+    <Viewport maxWidth={maxWidth} maxHeight={maxHeight} id="swag">
       <ViewportContent>{children}</ViewportContent>
     </Viewport>
   ) : (
