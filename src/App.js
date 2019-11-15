@@ -12,6 +12,8 @@ import Dashboard from "./views/Dashboard/Dashboard";
 import CoinDetails from "./views/CoinDetails/CoinDetails";
 import CoinSearch from "./views/CoinSearch/CoinSearch";
 import Wallet from "./views/Wallet/Wallet";
+import Login from "./views/Login/Login";
+
 import News from "./views/News/News";
 import Settings from "./views/Settings/Settings";
 
@@ -87,9 +89,12 @@ class App extends Component {
                 <Switch>
                   <Route exact path={"/coins/:coin"} component={null} />
                   <Route exact path={"/search"} component={null} />
+                  <Route exact path={"/login"} component={null} />
                   <NavBar />
                 </Switch>
                 <Switch>
+                  <Route exact path={"/login"} component={Login} />
+
                   <Route exact path={"/coins"} component={Dashboard} />
                   <Route exact path={"/coins/:coin"} component={CoinDetails} />
                   <Route exact path={"/search"} component={CoinSearch} />
