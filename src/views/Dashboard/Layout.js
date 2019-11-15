@@ -1,12 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import Fullpage from "../../components/Fullpage/Fullpage";
 
-import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
+import packageJSON from "../../../package.json";
+
 import CoinsTable from "./CoinsTable";
 
-import useLockBodyScroll from "../../hooks/useLockBodyScroll";
+import Fullpage from "../../components/Fullpage/Fullpage";
+import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
 import LinkButton from "../../components/LinkButton/LinkButton";
+
+import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
 const DashboardLayout = ({
   data,
@@ -21,7 +24,7 @@ const DashboardLayout = ({
         <h1>
           Coins
           <span>95</span>
-          <small>v0.0.1</small>
+          <small>v{packageJSON.version}</small>
         </h1>
         <LinkButton to="/search">Search...</LinkButton>
       </Header>
@@ -55,21 +58,28 @@ let Header = styled.header`
   /* background: rgb(128, 128, 128); */
 
   h1 {
-    background: -webkit-linear-gradient(transparent, transparent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 1.6rem;
+    /* background: -webkit-linear-gradient(transparent, black); */
+    /* -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+    font-size: 1.8rem;
     font-weight: bold;
-    font-family: arial;
+    /* font-family: arial; */
     font-style: italic;
-
+    color: ${({ theme }) => theme.borderDark};
+    text-shadow: 2px 2px white;
     span {
-      font-weight: 100;
+      /* font-weight: 100; */
     }
     small {
-      font-size: 0.8rem;
+      font-size: 0.6em;
       color: black;
       font-weight: 100;
+      text-shadow: 1px 1px white;
+
+      color: ${({ theme }) => theme.borderDark};
+      text-decoration: none;
+      /* font-style: normal; */
+      margin-left: 0.5rem;
     }
   }
 `;
