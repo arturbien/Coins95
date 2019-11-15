@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import {
   Window,
-  WindowHeader,
   WindowContent,
   Select,
   Cutout,
@@ -12,6 +11,8 @@ import {
   Button,
   Bar
 } from "react95";
+
+import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import EventExplorerIcon from "../../assets/img/eventExplorer.png";
 import CloseIcon from "../../components/CloseIcon/CloseIcon";
@@ -37,13 +38,13 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
   console.log(openedEventIndex);
   return (
     <SWindow>
-      <SWindowHeader>
+      <WindowHeader>
         <img
           alt="Planet Earth icon"
           src={EventExplorerIcon}
-          style={{ height: 24, marginLeft: -2, marginRight: "0.5rem" }}
+          style={{ height: 24, marginTop: -1, marginRight: "0.5rem" }}
         />
-        <span>Event explorer</span>
+        Event explorer
         <Button
           square
           size="sm"
@@ -57,7 +58,7 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
         >
           <CloseIcon />
         </Button>
-      </SWindowHeader>
+      </WindowHeader>
       <SWindowContent>
         <EventSelectWrapper>
           <div style={{ flexShrink: 0, margin: "0 0.5rem 0 0.125rem" }}>
@@ -125,14 +126,10 @@ const SWindow = styled(Window)`
   height: 100%;
   width: 100%;
   z-index: 9999;
-
   display: flex;
   flex-direction: column;
 `;
-const SWindowHeader = styled(WindowHeader)`
-  display: flex;
-  align-items: center;
-`;
+
 const SWindowContent = styled(WindowContent)`
   box-sizing: border-box;
   display: flex;
