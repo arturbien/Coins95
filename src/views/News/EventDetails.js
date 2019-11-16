@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import {
   Window,
-  WindowHeader,
   WindowContent,
   Select,
   Cutout,
@@ -12,7 +11,11 @@ import {
   Button,
   Bar
 } from "react95";
+
+import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
+import EventExplorerIcon from "../../assets/img/eventExplorer.png";
+import CloseIcon from "../../components/CloseIcon/CloseIcon";
 
 const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
   useLockBodyScroll();
@@ -36,9 +39,11 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
   return (
     <SWindow>
       <WindowHeader>
-        <span role="img" aria-label="Event explorer logo">
-          🌉
-        </span>
+        <img
+          alt="Planet Earth icon"
+          src={EventExplorerIcon}
+          style={{ height: 24, marginTop: -1, marginRight: "0.5rem" }}
+        />
         Event explorer
         <Button
           square
@@ -51,7 +56,7 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
           }}
           onClick={() => setOpenedEvent(null)}
         >
-          X
+          <CloseIcon />
         </Button>
       </WindowHeader>
       <SWindowContent>
@@ -121,10 +126,10 @@ const SWindow = styled(Window)`
   height: 100%;
   width: 100%;
   z-index: 9999;
-
   display: flex;
   flex-direction: column;
 `;
+
 const SWindowContent = styled(WindowContent)`
   box-sizing: border-box;
   display: flex;

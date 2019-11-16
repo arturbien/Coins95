@@ -6,22 +6,24 @@ import {
   Cutout,
   Fieldset,
   Toolbar,
-  WindowHeader,
   Window,
   WindowContent,
   Checkbox
 } from "react95";
 
 import SimpleLineChart from "./SimpleLineChart";
+import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
 import CenteredHourglass from "../../components/CenteredHourglass/CenteredHourglass";
 // import CurrencySelect from "../../components/CurrencySelect/CurrencySelect";
 import CoinIcon from "../../components/CoinIcon/CoinIcon";
+import CloseIcon from "../../components/CloseIcon/CloseIcon";
+
 import LinkButton from "../../components/LinkButton/LinkButton";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
-const CoinDetailsLayout = ({
+const Layout = ({
   coinInfo,
   data,
   currency,
@@ -49,7 +51,7 @@ const CoinDetailsLayout = ({
   console.log(otherProps);
   return (
     <SWindow>
-      <SWindowHeader>
+      <WindowHeader>
         <CoinIcon src={imageURL} />
         {`${coinName}.${symbol.toLocaleLowerCase()}`}
         <LinkButton
@@ -63,9 +65,9 @@ const CoinDetailsLayout = ({
           }}
           goBack
         >
-          X
+          <CloseIcon />
         </LinkButton>
-      </SWindowHeader>
+      </WindowHeader>
       <SWindowContent>
         <TopToolbar>
           <Checkbox
@@ -146,7 +148,7 @@ const CoinDetailsLayout = ({
   );
 };
 
-export default CoinDetailsLayout;
+export default Layout;
 
 const SWindow = styled(Window)`
   width: 100%;
@@ -154,10 +156,6 @@ const SWindow = styled(Window)`
   display: flex !important;
   flex-direction: column;
 `;
-const SWindowHeader = styled(WindowHeader)`
-  flex-shrink: 0;
-`;
-
 const SWindowContent = styled(WindowContent)`
   flex: 1;
   display: flex;

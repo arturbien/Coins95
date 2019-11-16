@@ -5,18 +5,28 @@ import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
-import { Button, WindowHeader, Window, WindowContent } from "react95";
+import { Button, Window, WindowContent } from "react95";
 
+import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import CoinsTable from "./CoinsTable";
+import CloseIcon from "../../components/CloseIcon/CloseIcon";
+import SearchIcon from "../../assets/img/system-search.png";
 
 const Layout = ({ data, onFollow, ...otherProps }) => {
   useLockBodyScroll();
   return (
     <SWindow>
-      <SWindowHeader>
-        <span role="img" aria-label="Magnifying glass">
-          🔎
-        </span>{" "}
+      <WindowHeader>
+        <img
+          alt="Search icon"
+          src={SearchIcon}
+          style={{
+            height: 27,
+            marginTop: 2,
+            marginRight: "0.5rem",
+            imageRendering: "pixelated"
+          }}
+        />
         Search
         <Button
           square
@@ -29,9 +39,9 @@ const Layout = ({ data, onFollow, ...otherProps }) => {
           }}
           onClick={() => otherProps.history.goBack()}
         >
-          X
+          <CloseIcon />
         </Button>
-      </SWindowHeader>
+      </WindowHeader>
       <SWindowContent>
         <CoinsTable data={data} onFollow={onFollow} />
       </SWindowContent>
@@ -58,7 +68,4 @@ let SWindowContent = styled(WindowContent)`
   padding-bottom: 42px;
   padding-left: 0.25rem;
   padding-right: 0.25rem;
-`;
-let SWindowHeader = styled(WindowHeader)`
-  flex-shrink: 0;
 `;

@@ -29,7 +29,16 @@ const SortableContainer = sortableContainer(({ children }) => {
   return <ul>{children}</ul>;
 });
 
-const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
+const Layout = ({
+  user,
+  login,
+  signOut,
+  data,
+  currency,
+  sortUserHoldings,
+  history,
+  match
+}) => {
   const handleSortEnd = ({ oldIndex, newIndex }) => {
     const coinsList = arrayMove(
       data.map(coinData => coinData.symbol),
@@ -44,14 +53,29 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
           100
       ) / 100
     : null;
+
+  console.log(user);
   return (
     <Wrapper>
       <Top>
         <div>
-          <header>@zlotousty</header>
+          <header>
+            @zlotousty{" "}
+            {/* {user ? (
+              <AuthButton onClick={signOut}>Log out</AuthButton>
+            ) : (
+              <AuthButton onClick={login}>Login</AuthButton>
+            )} */}
+          </header>
           <Divider />
           <section>
-            <Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5aQ9Atw03VBh1p5nYEw0Xnzu5pZUXzLVmJ2Dd_LNAYyIXIF8SpQ" />
+            <Avatar
+              src={
+                user
+                  ? user.photoURL
+                  : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5aQ9Atw03VBh1p5nYEw0Xnzu5pZUXzLVmJ2Dd_LNAYyIXIF8SpQ"
+              }
+            />
 
             <div>
               <TotalBalance>
@@ -69,10 +93,20 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
           </section>
           <div style={{ paddingLeft: "0.5rem", fontSize: "0.9rem" }}>
             <p style={{ lineHeight: 1.5 }}>
-              <b style={{ fontWeight: "bold" }}>Artur Bien</b>
+              <b style={{ fontWeight: "bold" }}>
+                {user
+                  ? user.displayName
+                      .normalize("NFD")
+                      .replace(/[\u0300-\u036f]/g, "")
+                  : "Artur Bien"}
+              </b>
             </p>
-            {/* <p style={{ lineHeight: 1.5 }}>@zlotousty</p> */}
-            <p style={{ lineHeight: 1.5 }}>artur.bien@gmail.com</p>
+
+            <p>
+              <a href={`mailto:${user ? user.email : "artur.bien@gmail.com"}}`}>
+                {user ? user.email : "artur.bien@gmail.com"}
+              </a>
+            </p>
             <Anchor
               href="https://www.expensive.toys"
               style={{ lineHeight: 1.5, textDecoration: "none" }}
@@ -168,7 +202,7 @@ const Top = styled.div`
     text-align: center;
     font-weight: bold;
     /* font-size: 1.1rem; */
-    padding: 0.75rem;
+    padding: 16px;
   }
   section {
     padding: 0.625rem 0;
@@ -247,4 +281,9 @@ const Balance = styled.div`
 const CoinLinkContent = styled.div`
   display: flex;
   align-items: center;
+`;
+const AuthButton = styled(Button)`
+  position: absolute;
+  right: 8px;
+  top: 8px;
 `;

@@ -7,14 +7,11 @@ import Clippy from "../Clippy/Clippy";
 
 import { AppBar, Button, Toolbar } from "react95";
 
-// import ArticleIcon from "../../assets/img/article.png";
-// import GlobeIcon from "../../assets/img/globe.png";
-// import NotepadIcon from "../../assets/img/notepad.png";
-import FolderIcon from "../../assets/img/folder.png";
+// import GearsIcon from "../../assets/img/gears.png";
+import GearsIcon from "../../assets/img/emblem-system.png";
 
 import WorldIcon from "../../assets/img/worldIcon.png";
-import UserIcon from "../../assets/img/userIcon.png";
-// import UserIcon from "../../assets/img/userIcon.png";
+import UserIcon from "../../assets/img/avatar-default.png";
 import HomeIcon from "../../assets/img/homeIcon.png";
 
 const NavBar = props => {
@@ -41,7 +38,7 @@ const NavBar = props => {
           size="lg"
         >
           <Icon
-            style={{ height: 21 }}
+            style={{ height: 21, opacity: 0.9 }}
             active={currentLocation === "/wallet"}
             src={UserIcon}
             alt="icon"
@@ -65,7 +62,7 @@ const NavBar = props => {
           fullWidth
           size="lg"
         >
-          <Icon src={FolderIcon} alt="icon" />
+          <Icon src={GearsIcon} alt="icon" style={{ height: 30 }} />
         </SwitchButton>
       </SToolbar>
       <Clippy />
@@ -81,10 +78,9 @@ const Nav = styled(AppBar)`
   z-index: 666;
 `;
 const Icon = styled.img`
-  image-rendering: pixelated;
-
+  /* image-rendering: pixelated; */
+  filter: grayscale(1);
   height: 24px;
-  filter: ${({ active }) => (active ? "none" : "grayscale(1)")};
 `;
 
 const SwitchButton = styled(Button)`
