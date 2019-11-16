@@ -89,7 +89,7 @@ class App extends Component {
                 <Switch>
                   <Route exact path={"/coins/:coin"} component={null} />
                   <Route exact path={"/search"} component={null} />
-                  <Route exact path={"/login"} component={null} />
+                  {/* <Route exact path={"/login"} component={null} /> */}
                   <NavBar />
                 </Switch>
                 <Switch>

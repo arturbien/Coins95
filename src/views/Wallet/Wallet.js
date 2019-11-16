@@ -1,11 +1,21 @@
 import React, { useEffect } from "react";
-// import propTypes from "prop-types";
 import { connect } from "react-redux";
+
+import withFirebaseAuth from "react-with-firebase-auth";
+import * as firebase from "firebase/app";
+import "firebase/auth";
+import firebaseConfig from "../../firebaseConfig";
 
 import { fetchCoinsList, fetchCoinsData } from "../../store/actions/coins";
 import { sortUserHoldings } from "../../store/actions/user";
 
 import Layout from "./Layout";
+
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const firebaseAppAuth = firebaseApp.auth();
+const providers = {
+  googleProvider: new firebase.auth.GoogleAuthProvider()
+};
 
 const Wallet = ({
   topCoinsList,
@@ -17,7 +27,10 @@ const Wallet = ({
   currency,
   fetchCoinsList,
   fetchCoinsData,
-  sortUserHoldings
+  sortUserHoldings,
+  user,
+  signOut,
+  signInWithGoogle
 }) => {
   useEffect(() => {
     if (!topCoinsList) {
@@ -52,6 +65,9 @@ const Wallet = ({
 
   return (
     <Layout
+      user={user}
+      login={signInWithGoogle}
+      signOut={signOut}
       data={data}
       currency={currency}
       sortUserHoldings={sortUserHoldings}
@@ -79,4 +95,12 @@ const mapDispatchToProps = dispatch => ({
   sortUserHoldings: coinsList => dispatch(sortUserHoldings(coinsList))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  withFirebaseAuth({
+    providers,
+    firebaseAppAuth
+  })(Wallet)
+);

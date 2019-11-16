@@ -6,19 +6,27 @@ import styled from "styled-components";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import { Button, Window, WindowContent } from "react95";
-import WindowHeader from "../../components/WindowHeader/WindowHeader";
 
+import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import CoinsTable from "./CoinsTable";
 import CloseIcon from "../../components/CloseIcon/CloseIcon";
+import SearchIcon from "../../assets/img/system-search.png";
 
 const Layout = ({ data, onFollow, ...otherProps }) => {
   useLockBodyScroll();
   return (
     <SWindow>
       <WindowHeader>
-        <span role="img" aria-label="Magnifying glass">
-          🔎
-        </span>{" "}
+        <img
+          alt="Search icon"
+          src={SearchIcon}
+          style={{
+            height: 27,
+            marginTop: 2,
+            marginRight: "0.5rem",
+            imageRendering: "pixelated"
+          }}
+        />
         Search
         <Button
           square
