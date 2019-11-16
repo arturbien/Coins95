@@ -1,15 +1,10 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    }
-  ],
-  "start_url": ".",
+  "name": "coins_95.exe",
+  "short_name": "coins_95.exe",
+  "theme_color": "#008080",
+  "background_color": "#008080",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/?utm_source=homescreen"
 }

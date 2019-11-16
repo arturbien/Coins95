@@ -13,6 +13,7 @@ import { Toolbar, Button, TextField, Window, WindowContent } from "react95";
 
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import CoinIcon from "../../components/CoinIcon/CoinIcon";
+import CloseIcon from "../../components/CloseIcon/CloseIcon";
 
 const Layout = ({
   coin,
@@ -55,6 +56,19 @@ const Layout = ({
         <WindowHeader>
           <CoinIcon src={data && data.imageURL} />
           {" " + coin}
+          <Button
+            square
+            size="sm"
+            style={{
+              position: "absolute",
+              right: "6px",
+              top: "5px",
+              fontWeight: "bold"
+            }}
+            onClick={goBack}
+          >
+            <CloseIcon />
+          </Button>
         </WindowHeader>
         <WindowContent>
           <Field>
