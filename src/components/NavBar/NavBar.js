@@ -7,9 +7,11 @@ import Clippy from "../Clippy/Clippy";
 
 import { AppBar, Button, Toolbar } from "react95";
 
-import GearsIcon from "../../assets/img/gears.png";
+// import GearsIcon from "../../assets/img/gears.png";
+import GearsIcon from "../../assets/img/emblem-system.png";
+
 import WorldIcon from "../../assets/img/worldIcon.png";
-import UserIcon from "../../assets/img/userIcon.png";
+import UserIcon from "../../assets/img/avatar-default.png";
 import HomeIcon from "../../assets/img/homeIcon.png";
 
 const NavBar = props => {
@@ -36,7 +38,7 @@ const NavBar = props => {
           size="lg"
         >
           <Icon
-            style={{ height: 21 }}
+            style={{ height: 21, opacity: 0.9 }}
             active={currentLocation === "/wallet"}
             src={UserIcon}
             alt="icon"
@@ -77,9 +79,8 @@ const Nav = styled(AppBar)`
 `;
 const Icon = styled.img`
   /* image-rendering: pixelated; */
-
+  filter: grayscale(1);
   height: 24px;
-  filter: ${({ active }) => (active ? "none" : "grayscale(1)")};
 `;
 
 const SwitchButton = styled(Button)`
