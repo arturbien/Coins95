@@ -1,11 +1,10 @@
 {
-  "name": "coins_95.exe",
-  "short_name": "coins_95.exe",
+  "name": "coins95.exe",
+  "short_name": "coins95.exe",
   "theme_color": "#008080",
   "background_color": "#008080",
   "display": "standalone",
   "orientation": "portrait",
-  "Scope": "/",
   "start_url": "/?utm_source=homescreen",
   "icons": [
     {
