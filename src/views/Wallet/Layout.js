@@ -61,11 +61,11 @@ const Layout = ({
         <div>
           <header>
             @zlotousty{" "}
-            {user ? (
+            {/* {user ? (
               <AuthButton onClick={signOut}>Log out</AuthButton>
             ) : (
               <AuthButton onClick={login}>Login</AuthButton>
-            )}
+            )} */}
           </header>
           <Divider />
           <section>
