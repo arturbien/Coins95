@@ -4,8 +4,8 @@ import {
   LineChart,
   Line,
   CartesianGrid,
-  YAxis,
-  XAxis
+  YAxis
+  // XAxis
 } from "recharts";
 
 const SimpleLineChart = ({ data }) => {

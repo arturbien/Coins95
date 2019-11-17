@@ -49,7 +49,6 @@ const Layout = ({
     MKTCAP = data.MKTCAP;
     imageURL = coinInfo.imageURL;
   }
-  console.log(otherProps);
   return (
     <SWindow>
       <WindowHeader>

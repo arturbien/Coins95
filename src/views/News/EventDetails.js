@@ -7,7 +7,6 @@ import {
   Select,
   Cutout,
   Toolbar,
-  Anchor,
   Button,
   Bar
 } from "react95";
@@ -26,16 +25,15 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
     screenshot,
     start_date,
     end_date,
-    organizer,
-    website,
-    email
+    organizer
+    // website,
+    // email
   } = events[openedEventIndex];
 
   const eventSelectItems = events.map((e, i) => ({
     label: `${e.title}`,
     value: i
   }));
-  console.log(openedEventIndex);
   return (
     <SWindow>
       <WindowHeader>
