@@ -29,6 +29,7 @@ const Layout = ({
   currency,
   historicalData,
   following,
+  inWallet,
   timeSpan,
   onFollow,
   onTimeSpanChange,
@@ -79,7 +80,7 @@ const Layout = ({
             onChange={onFollow}
           />
           <LinkButton to={`/wallet/${symbol}`} disabled={!coinInfo}>
-            Add to wallet
+            {inWallet ? "Edit in wallet" : "Add to wallet"}
           </LinkButton>
         </TopToolbar>
         <ChartWrapper>

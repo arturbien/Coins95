@@ -87,7 +87,7 @@ export class CoinDetails extends Component {
   };
   render() {
     const { data, currency, historicalData, timeSpan } = this.state;
-    const { following, coinInfo, setUserCoin } = this.props;
+    const { following, coinInfo, setUserCoin, inWallet } = this.props;
     return (
       <Layout
         coinInfo={coinInfo}
@@ -95,6 +95,7 @@ export class CoinDetails extends Component {
         currency={currency}
         historicalData={historicalData}
         following={following}
+        inWallet={inWallet}
         timeSpan={timeSpan}
         onTimeSpanChange={this.handleFetchHistoricalData}
         onCurrencyChange={this.onCurrencyChange}
@@ -107,10 +108,12 @@ export class CoinDetails extends Component {
 const mapStateToProps = (state, ownProps) => {
   const coin = ownProps.match.params.coin;
   const following = state.user.coinsList.includes(coin);
+  const inWallet = state.user.wallet[coin] ? true : false;
   const coinInfo = state.coins.coinsInfo ? state.coins.coinsInfo[coin] : null;
   return {
     coin,
     following,
+    inWallet,
     userCoinsList: state.user.coinsList,
     currency: state.user.currency,
     coinInfo
@@ -122,7 +125,4 @@ const mapDispatchToProps = dispatch => ({
   setUserCoin: (coin, follow) => dispatch(setUserCoin(coin, follow))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CoinDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(CoinDetails);

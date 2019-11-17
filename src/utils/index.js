@@ -6,6 +6,7 @@ export const formatCurrency = (amount, currency) =>
     "en-US",
     currency && {
       style: "currency",
+      // currencyDisplay: "code",
       currency
     }
   );
