@@ -29,16 +29,7 @@ const SortableContainer = sortableContainer(({ children }) => {
   return <ul>{children}</ul>;
 });
 
-const Layout = ({
-  user,
-  login,
-  signOut,
-  data,
-  currency,
-  sortUserHoldings,
-  history,
-  match
-}) => {
+const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
   const handleSortEnd = ({ oldIndex, newIndex }) => {
     const coinsList = arrayMove(
       data.map(coinData => coinData.symbol),
@@ -54,26 +45,16 @@ const Layout = ({
       ) / 100
     : null;
 
-  console.log(user);
   return (
     <Wrapper>
       <Top>
         <div>
-          <header>
-            @zlotousty{" "}
-            {/* {user ? (
-              <AuthButton onClick={signOut}>Log out</AuthButton>
-            ) : (
-              <AuthButton onClick={login}>Login</AuthButton>
-            )} */}
-          </header>
+          <header>@zlotousty </header>
           <Divider />
           <section>
             <Avatar
               src={
-                user
-                  ? user.photoURL
-                  : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5aQ9Atw03VBh1p5nYEw0Xnzu5pZUXzLVmJ2Dd_LNAYyIXIF8SpQ"
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5aQ9Atw03VBh1p5nYEw0Xnzu5pZUXzLVmJ2Dd_LNAYyIXIF8SpQ"
               }
             />
 
@@ -93,18 +74,12 @@ const Layout = ({
           </section>
           <div style={{ paddingLeft: "0.5rem", fontSize: "0.9rem" }}>
             <p style={{ lineHeight: 1.5 }}>
-              <b style={{ fontWeight: "bold" }}>
-                {user
-                  ? user.displayName
-                      .normalize("NFD")
-                      .replace(/[\u0300-\u036f]/g, "")
-                  : "Artur Bien"}
-              </b>
+              <b style={{ fontWeight: "bold" }}>{"Artur Bien"}</b>
             </p>
 
             <p>
-              <a href={`mailto:${user ? user.email : "artur.bien@gmail.com"}}`}>
-                {user ? user.email : "artur.bien@gmail.com"}
+              <a href={`mailto:artur.bien@gmail.com`}>
+                {"artur.bien@gmail.com"}
               </a>
             </p>
             <Anchor
@@ -281,9 +256,4 @@ const Balance = styled.div`
 const CoinLinkContent = styled.div`
   display: flex;
   align-items: center;
-`;
-const AuthButton = styled(Button)`
-  position: absolute;
-  right: 8px;
-  top: 8px;
 `;

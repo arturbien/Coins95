@@ -92,7 +92,7 @@ const Modal = styled.div`
   right: 0;
   padding: 2rem 2rem 113px 2rem;
   background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(5px);
 `;
 const ModalBody = styled.div`
   position: relative;
