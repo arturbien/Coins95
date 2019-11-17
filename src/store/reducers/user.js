@@ -12,10 +12,18 @@ import {
 } from "../actions/actionTypes";
 
 import { saveState, loadState } from "../localStorage";
-import CloudsIMG from "../../assets/img/backgrounds/clouds.jpg";
+
 import BricksIMG from "../../assets/img/backgrounds/bricks.png";
-import MazeIMG from "../../assets/img/backgrounds/maze.png";
-import BluescreenIMG from "../../assets/img/backgrounds/bluescreen.png";
+
+import MazeIMG from "../../assets/img/backgrounds/egypt.png";
+
+import Rivets from "../../assets/img/backgrounds/rivets.png";
+import Zigzag from "../../assets/img/backgrounds/zigzag.png";
+import PurpleSquares from "../../assets/img/backgrounds/purpleSquares.png";
+import Marble from "../../assets/img/backgrounds/marble.png";
+import Honey from "../../assets/img/backgrounds/honey.png";
+// import Arches from "../../assets/img/backgrounds/arches.png";
+
 import WaterIMG from "../../assets/img/backgrounds/water.gif";
 import PoolsideIMG from "../../assets/img/backgrounds/poolside.gif";
 import NoiseIMG from "../../assets/img/backgrounds/noise.gif";
@@ -26,11 +34,16 @@ const persistedState = loadState(LOCAL_STORAGE_KEY) || {};
 
 export const backgrounds = [
   { value: "teal", label: "Teal" },
-  { value: "black", label: "Black" },
-  { value: `url(${CloudsIMG})`, label: "Clouds" },
   { value: `url(${BricksIMG})`, label: "Bricks" },
-  { value: `url(${BluescreenIMG})`, label: "Bluescreen" },
   { value: `url(${MazeIMG})`, label: "Maze" },
+
+  { value: `url(${Rivets})`, label: "Rivets" },
+  { value: `url(${Zigzag})`, label: "Zig-zag" },
+  { value: `url(${PurpleSquares})`, label: "Purple squares" },
+  { value: `url(${Marble})`, label: "Marble" },
+  { value: `url(${Honey})`, label: "Honey" },
+  // { value: `url(${Arches})`, label: "Arches" },
+
   { value: `url(${WaterIMG})`, label: "Water" },
   { value: `url(${PoolsideIMG})`, label: "Poolside OS" },
   { value: `url(${NoiseIMG})`, label: "Noise" }

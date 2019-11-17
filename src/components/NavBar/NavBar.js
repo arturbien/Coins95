@@ -7,9 +7,7 @@ import Clippy from "../Clippy/Clippy";
 
 import { AppBar, Button, Toolbar } from "react95";
 
-// import GearsIcon from "../../assets/img/gears.png";
 import GearsIcon from "../../assets/img/emblem-system.png";
-
 import WorldIcon from "../../assets/img/worldIcon.png";
 import UserIcon from "../../assets/img/avatar-default.png";
 import HomeIcon from "../../assets/img/homeIcon.png";

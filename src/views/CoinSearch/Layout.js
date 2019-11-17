@@ -10,7 +10,7 @@ import { Button, Window, WindowContent } from "react95";
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import CoinsTable from "./CoinsTable";
 import CloseIcon from "../../components/CloseIcon/CloseIcon";
-import SearchIcon from "../../assets/img/system-search.png";
+import SearchIcon from "../../assets/img/search.png";
 
 const Layout = ({ data, onFollow, ...otherProps }) => {
   useLockBodyScroll();

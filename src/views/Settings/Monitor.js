@@ -22,7 +22,6 @@ const MonitorContent = styled.div`
   height: 85%;
   background: ${({ backgroundColor, imageSrc }) =>
     imageSrc ? `url(${imageSrc})` : backgroundColor || "transparent"};
-  background-size: cover;
 `;
 const Monitor = ({ backgroundColor, imageSrc }) => (
   <Wrapper>
