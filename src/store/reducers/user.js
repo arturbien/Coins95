@@ -20,13 +20,13 @@ import MazeIMG from "../../assets/img/backgrounds/egypt.png";
 import Rivets from "../../assets/img/backgrounds/rivets.png";
 import Zigzag from "../../assets/img/backgrounds/zigzag.png";
 import PurpleSquares from "../../assets/img/backgrounds/purpleSquares.png";
-import Marble from "../../assets/img/backgrounds/marble.png";
 import Honey from "../../assets/img/backgrounds/honey.png";
-// import Arches from "../../assets/img/backgrounds/arches.png";
 
 import WaterIMG from "../../assets/img/backgrounds/water.gif";
 import PoolsideIMG from "../../assets/img/backgrounds/poolside.gif";
 import NoiseIMG from "../../assets/img/backgrounds/noise.gif";
+// import Marble from "../../assets/img/backgrounds/marble.png";
+// import Arches from "../../assets/img/backgrounds/arches.png";
 
 const LOCAL_STORAGE_KEY = "user";
 
@@ -40,13 +40,14 @@ export const backgrounds = [
   { value: `url(${Rivets})`, label: "Rivets" },
   { value: `url(${Zigzag})`, label: "Zig-zag" },
   { value: `url(${PurpleSquares})`, label: "Purple squares" },
-  { value: `url(${Marble})`, label: "Marble" },
   { value: `url(${Honey})`, label: "Honey" },
-  // { value: `url(${Arches})`, label: "Arches" },
 
   { value: `url(${WaterIMG})`, label: "Water" },
   { value: `url(${PoolsideIMG})`, label: "Poolside OS" },
   { value: `url(${NoiseIMG})`, label: "Noise" }
+
+  // { value: `url(${Marble})`, label: "Marble" },
+  // { value: `url(${Arches})`, label: "Arches" },
 ];
 
 const initialState = {
@@ -56,7 +57,7 @@ const initialState = {
   currency: "EUR",
   vintageFont: true,
   theme: "default",
-  background: 6,
+  background: 7,
   ...persistedState
 };
 
