@@ -42,7 +42,7 @@ const Layout = ({
   };
   const goBack = () => history.push(`/wallet`);
   const handleAccept = () => {
-    setUserHoldings({ coin, amount: parseFloat(amount) });
+    setUserHoldings({ coin, amount: parseFloat(amount) || 0 });
     goBack();
   };
   const handleDelete = () => {
@@ -151,6 +151,6 @@ const Field = styled.div`
   }
 `;
 const Label = styled.label`
-  width: 55px;
+  width: 62px;
   flex-shrink: 0;
 `;
