@@ -21,6 +21,7 @@ const Events = ({ events, fetchEvents, setEventSeen }) => {
       fetchEvents();
     }
   }, [events, fetchEvents]);
+
   const setOpenedEvent = index => {
     if (index === null) {
       setOpenedEventIndex(null);
@@ -54,7 +55,7 @@ const Events = ({ events, fetchEvents, setEventSeen }) => {
             <SBar />
             <SBar />
           </PullBars>
-          <EventList>{eventsList && eventsList}</EventList>
+          <EventList>{eventsList}</EventList>
         </EventListWrapper>
       </EventSlider>
       <FeedFooter>
@@ -93,10 +94,7 @@ const mapDispatchToProps = dispatch => ({
   setEventSeen: eventID => dispatch(setEventSeen(eventID))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Events);
+export default connect(mapStateToProps, mapDispatchToProps)(Events);
 let EventSlider = styled.div`
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
@@ -116,7 +114,7 @@ let EventListWrapper = styled.div`
   display: inline-flex;
   flex-wrap: nowrap;
   align-items: flex-start;
-  min-width: 100%;
+  min-width: 101%;
   height: 6.25rem;
   padding: 0.5rem;
 
