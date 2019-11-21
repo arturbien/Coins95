@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import styled from "styled-components";
+import styled from "styled-components";
 
 import {
   Tab,
@@ -34,7 +34,7 @@ const Layout = ({
       <Tabs value={activeTab} onChange={setActiveTab}>
         <Tab value={0}>Appearance</Tab>
         <Tab value={1}>Background</Tab>
-        <Tab value={2}>Account</Tab>
+        {/* <Tab value={2}>About</Tab> */}
       </Tabs>
       <div style={{ height: 400 }}>
         {activeTab === 0 && (
@@ -94,10 +94,19 @@ const Layout = ({
             </Fieldset>
           </TabBody>
         )}
-        {activeTab === 2 && <TabBody>Clothing stuff here</TabBody>}
+        {/* {activeTab === 2 && (
+          <TabBody>
+            <Text>
+              The project was started by Artur Bien, an eastern european UI artist </Text>
+          </TabBody>
+        )} */}
       </div>
     </Fullpage>
   );
 };
 
 export default Layout;
+
+const Text = styled.div`
+  line-height: 1.5;
+`;
