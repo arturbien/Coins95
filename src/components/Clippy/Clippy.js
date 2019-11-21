@@ -17,8 +17,7 @@ const Clippy = props => {
           <ModalBody onClick={e => e.stopPropagation()}>
             <Switch>
               <Route
-                exact
-                path={"/coins"}
+                path={"/"}
                 component={() => (
                   <>
                     <h3
@@ -34,7 +33,7 @@ const Clippy = props => {
                     </h3>
                     <br />
                     <br />
-                    <p>Whachu gonna do about it?</p>
+                    <p>And now what?</p>
                     <br />
                     <Fieldset label="Options" variant="flat">
                       <Radio
@@ -45,6 +44,7 @@ const Clippy = props => {
                       />
                       <br />
                       <Radio
+                        disabled
                         value="2"
                         label="cry about it"
                         checked={false}
@@ -52,6 +52,7 @@ const Clippy = props => {
                       />
                       <br />
                       <Radio
+                        disabled
                         value="3"
                         label="install Windows 95"
                         checked={false}
