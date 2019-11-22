@@ -22,7 +22,7 @@ const Events = ({ events, fetchEvents, setEventSeen }) => {
     }
   }, [events, fetchEvents]);
 
-  const setOpenedEvent = index => {
+  const onOpenEvent = index => {
     if (index === null) {
       setOpenedEventIndex(null);
     } else if (index >= 0 && index < events.length) {
@@ -38,7 +38,7 @@ const Events = ({ events, fetchEvents, setEventSeen }) => {
   if (events) {
     eventsList = events.map((e, i) => (
       <li key={e.id}>
-        <Event onClick={() => setOpenedEvent(i)}>
+        <Event onClick={() => onOpenEvent(i)}>
           <EventImageWrapper seen={e.seen}>
             <EventIMG src={e.screenshot} />
           </EventImageWrapper>
@@ -68,7 +68,7 @@ const Events = ({ events, fetchEvents, setEventSeen }) => {
       </FeedFooter>
       {openedEventIndex !== null && (
         <EventDetails
-          setOpenedEvent={setOpenedEvent}
+          setOpenedEvent={onOpenEvent}
           events={events}
           openedEventIndex={openedEventIndex}
         />
@@ -78,14 +78,15 @@ const Events = ({ events, fetchEvents, setEventSeen }) => {
 };
 
 const mapStateToProps = state => {
-  let events = state.events;
-  if (events !== null) {
-    events = events.map(event => {
-      return { ...event, seen: state.user.seenEvents.includes(event.id) };
-    });
-  }
+  const events = state.events;
+  const seenEvents = state.user.seenEvents;
   return {
-    events
+    events: events
+      ? events.map(event => ({
+          ...event,
+          seen: seenEvents.includes(event.id)
+        }))
+      : null
   };
 };
 
@@ -95,6 +96,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Events);
+
 let EventSlider = styled.div`
   overflow-x: scroll;
   -webkit-overflow-scrolling: touch;

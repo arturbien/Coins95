@@ -67,7 +67,7 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
                   <LinkButton fullWidth style={{ marginRight: 8 }} to="/search">
                     + Add
                   </LinkButton>
-                  <CurrencySelect selectedCurrency={currency} />
+                  <CurrencySelect />
                 </Toolbar>
               </div>
             </div>

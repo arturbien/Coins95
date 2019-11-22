@@ -7,42 +7,31 @@ import { sortUserHoldings } from "../../store/actions/user";
 import Layout from "./Layout";
 
 const Wallet = ({
-  topCoinsList,
-  userCoinsList,
-  walletCoinsList,
   wallet,
   coinsData,
-  coinsInfo,
+  info,
   currency,
   fetchCoinsInfo,
   fetchCoinsData,
   sortUserHoldings
 }) => {
+  // TODO fix missing dependencies issue
   useEffect(() => {
-    if (!topCoinsList) {
+    if (!info) {
       fetchCoinsInfo();
     } else {
-      fetchCoinsData(
-        [
-          ...new Set([
-            ...userCoinsList,
-            ...(topCoinsList || []),
-            ...(walletCoinsList || [])
-          ])
-        ],
-        currency
-      );
+      fetchCoinsData();
     }
-  }, [coinsInfo, wallet, currency]);
+  }, [info, wallet, currency]);
 
   let data;
-  if (!coinsInfo || !coinsData) {
+  if (!info || !coinsData) {
     data = null;
   } else {
-    data = walletCoinsList
+    data = Object.keys(wallet)
       .sort((a, b) => wallet[a].order - wallet[b].order)
       .map(coin => ({
-        ...coinsInfo[coin],
+        ...info[coin],
         ...coinsData[coin],
         _amount: wallet[coin].amount,
         _order: wallet[coin].order
@@ -59,22 +48,15 @@ const Wallet = ({
 };
 
 const mapStateToProps = state => ({
-  userCoinsList: state.user.coinsList,
   wallet: state.user.wallet,
-  walletCoinsList: Object.keys(state.user.wallet),
-  topCoinsList: state.coins.coinsList
-    ? [...state.coins.coinsList].splice(0, 30)
-    : null,
   currency: state.user.currency,
-  coinsInfo: state.coins.coinsInfo,
-  coinsData: state.coins.coinsData,
-  needsUpdate: state.coins.needsUpdate
+  info: state.coins.info,
+  coinsData: state.coins.coinsData
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchCoinsInfo: () => dispatch(fetchCoinsInfo()),
-  fetchCoinsData: (coinsList, currency, extend) =>
-    dispatch(fetchCoinsData(coinsList, currency, extend)),
+  fetchCoinsData: () => dispatch(fetchCoinsData()),
   sortUserHoldings: coinsList => dispatch(sortUserHoldings(coinsList))
 });
 

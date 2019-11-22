@@ -6,7 +6,7 @@ import Layout from "./Layout";
 
 const Dashboard = ({
   topList,
-  userCoinsList,
+  followed,
   coinsData,
   info,
   fetchCoinsInfo,
@@ -15,7 +15,7 @@ const Dashboard = ({
   const [showFollowing, setShowFollowing] = useState(false);
 
   useEffect(() => {
-    if (!topList) {
+    if (!info) {
       fetchCoinsInfo();
     } else {
       fetchCoinsData();
@@ -26,7 +26,7 @@ const Dashboard = ({
   if (!info || !coinsData) {
     data = null;
   } else {
-    data = (showFollowing ? userCoinsList : topList).map(coin => ({
+    data = (showFollowing ? followed : topList).map(coin => ({
       ...info[coin],
       ...coinsData[coin]
     }));
@@ -42,13 +42,12 @@ const Dashboard = ({
 };
 
 const mapStateToProps = state => ({
-  userCoinsList: state.user.coinsList,
+  followed: state.user.followed,
   walletCoinsList: Object.keys(state.user.wallet),
   topList: state.coins.top,
   currency: state.user.currency,
   info: state.coins.info,
-  coinsData: state.coins.coinsData,
-  needsUpdate: state.coins.needsUpdate
+  coinsData: state.coins.coinsData
 });
 
 const mapDispatchToProps = dispatch => ({
