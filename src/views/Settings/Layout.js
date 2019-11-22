@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 
 import {
   Tab,
@@ -107,6 +107,6 @@ const Layout = ({
 
 export default Layout;
 
-const Text = styled.div`
-  line-height: 1.5;
-`;
+// const Text = styled.div`
+//   line-height: 1.5;
+// `;
