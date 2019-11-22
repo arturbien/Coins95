@@ -38,11 +38,8 @@ const Layout = ({
   let coinName, symbol, sortOrder, HIGH24HOUR, LOW24HOUR, MKTCAP, imageURL;
   coinName = symbol = sortOrder = HIGH24HOUR = LOW24HOUR = MKTCAP = "-";
   if (info && data) {
-    coinName = info.coinName
-      .split(" ")
-      .join("_")
-      .toLowerCase();
-    symbol = info.symbol.toLowerCase();
+    coinName = info.coinName;
+    symbol = info.symbol;
     sortOrder = info.sortOrder;
     HIGH24HOUR = data.HIGH24HOUR;
     LOW24HOUR = data.LOW24HOUR;
@@ -53,7 +50,10 @@ const Layout = ({
     <SWindow>
       <WindowHeader>
         <CoinIcon src={imageURL} />
-        {`${coinName}.${symbol}`}
+        {`${coinName}.${symbol}`
+          .split(" ")
+          .join("_")
+          .toLowerCase()}
         <LinkButton
           square
           size="sm"

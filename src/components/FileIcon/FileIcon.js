@@ -49,20 +49,11 @@ const IconIMG = styled.img`
   object-fit: contain;
   position: absolute;
   transition: 0.2s all ease-out;
-  opacity: ${({ isLoaded }) => (isLoaded ? "1" : "0")};
 `;
 const FileIcon = ({ imageURL, height, ...otherProps }) => {
-  const [isLoaded, setIsLoaded] = useState(false);
   return (
     <Icon {...otherProps} height={height}>
-      {imageURL && (
-        <IconIMG
-          isLoaded={isLoaded}
-          src={imageURL}
-          alt={`icon`}
-          onLoad={() => setIsLoaded(true)}
-        />
-      )}
+      {imageURL && <IconIMG src={imageURL} alt={`icon`} />}
     </Icon>
   );
 };

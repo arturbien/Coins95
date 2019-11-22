@@ -7,9 +7,8 @@ import { sortUserHoldings } from "../../store/actions/user";
 import Layout from "./Layout";
 
 const Wallet = ({
-  wallet,
-  coinsData,
   info,
+  data,
   currency,
   fetchCoinsInfo,
   fetchCoinsData,
@@ -22,21 +21,7 @@ const Wallet = ({
     } else {
       fetchCoinsData();
     }
-  }, [info, wallet, currency]);
-
-  let data;
-  if (!info || !coinsData) {
-    data = null;
-  } else {
-    data = Object.keys(wallet)
-      .sort((a, b) => wallet[a].order - wallet[b].order)
-      .map(coin => ({
-        ...info[coin],
-        ...coinsData[coin],
-        _amount: wallet[coin].amount,
-        _order: wallet[coin].order
-      }));
-  }
+  }, [info, currency, fetchCoinsInfo, fetchCoinsData]);
 
   return (
     <Layout
@@ -47,12 +32,26 @@ const Wallet = ({
   );
 };
 
-const mapStateToProps = state => ({
-  wallet: state.user.wallet,
-  currency: state.user.currency,
-  info: state.coins.info,
-  coinsData: state.coins.coinsData
-});
+const mapStateToProps = state => {
+  const wallet = state.user.wallet;
+  const info = state.coins.info;
+  const coinsData = state.coins.coinsData;
+  const currency = state.user.currency;
+
+  const data =
+    info && coinsData
+      ? Object.values(wallet).map(coin => ({
+          ...info[coin.symbol],
+          ...coinsData[coin.symbol],
+          _amount: coin.amount
+        }))
+      : null;
+  return {
+    info,
+    data,
+    currency
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   fetchCoinsInfo: () => dispatch(fetchCoinsInfo()),

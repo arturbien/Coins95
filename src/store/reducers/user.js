@@ -87,7 +87,7 @@ const userReducer = (state = initialState, action) => {
         const { amount, coin } = action.payload;
         const wallet = { ...state.wallet };
         const order = wallet[coin] ? wallet[coin].order : wallet.length;
-        wallet[coin] = { coin, amount, order };
+        wallet[coin] = { symbol: coin, amount, order };
         return { ...state, wallet };
       case DELETE_USER_HOLDINGS: {
         const wallet = { ...state.wallet };
