@@ -1,16 +1,16 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchCoinsList } from "../../store/actions/coins";
+import { fetchCoinsInfo } from "../../store/actions/coins";
 import { setUserCoin } from "../../store/actions/user";
 
 import Layout from "./Layout";
 
-const CoinSearch = ({ data, fetchCoinsList, setUserCoin }) => {
+const CoinSearch = ({ data, fetchCoinsInfo, setUserCoin }) => {
   useEffect(() => {
     if (!data) {
-      fetchCoinsList();
+      fetchCoinsInfo();
     }
-  }, [data, fetchCoinsList]);
+  }, [data, fetchCoinsInfo]);
   return <Layout data={data} onFollow={setUserCoin} />;
 };
 
@@ -24,11 +24,8 @@ const mapStateToProps = state => ({
     : null
 });
 const mapDispatchToProps = dispatch => ({
-  fetchCoinsList: () => dispatch(fetchCoinsList()),
+  fetchCoinsInfo: () => dispatch(fetchCoinsInfo()),
   setUserCoin: (coin, follow) => dispatch(setUserCoin(coin, follow))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CoinSearch);
+export default connect(mapStateToProps, mapDispatchToProps)(CoinSearch);

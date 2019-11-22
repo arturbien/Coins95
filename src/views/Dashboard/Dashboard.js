@@ -1,44 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchCoinsList, fetchCoinsData } from "../../store/actions/coins";
+import { fetchCoinsInfo, fetchCoinsData } from "../../store/actions/coins";
 
 import Layout from "./Layout";
+
 const Dashboard = ({
-  topCoinsList,
+  topList,
   userCoinsList,
-  walletCoinsList,
   coinsData,
-  coinsInfo,
-  currency,
-  fetchCoinsList,
-  needsUpdate,
+  info,
+  fetchCoinsInfo,
   fetchCoinsData
 }) => {
   const [showFollowing, setShowFollowing] = useState(false);
 
   useEffect(() => {
-    if (!topCoinsList) {
-      fetchCoinsList();
+    if (!topList) {
+      fetchCoinsInfo();
     } else {
-      fetchCoinsData(
-        [
-          ...new Set([
-            ...userCoinsList,
-            ...(topCoinsList || []),
-            ...(walletCoinsList || [])
-          ])
-        ],
-        currency
-      );
+      fetchCoinsData();
     }
-  }, [coinsInfo]);
+  }, [info, fetchCoinsInfo, topList, fetchCoinsData]);
 
   let data;
-  if (!coinsInfo || !coinsData) {
+  if (!info || !coinsData) {
     data = null;
   } else {
-    data = (showFollowing ? userCoinsList : topCoinsList).map(coin => ({
-      ...coinsInfo[coin],
+    data = (showFollowing ? userCoinsList : topList).map(coin => ({
+      ...info[coin],
       ...coinsData[coin]
     }));
   }
@@ -55,19 +44,16 @@ const Dashboard = ({
 const mapStateToProps = state => ({
   userCoinsList: state.user.coinsList,
   walletCoinsList: Object.keys(state.user.wallet),
-  topCoinsList: state.coins.coinsList
-    ? [...state.coins.coinsList].splice(0, 30)
-    : null,
+  topList: state.coins.top,
   currency: state.user.currency,
-  coinsInfo: state.coins.coinsInfo,
+  info: state.coins.info,
   coinsData: state.coins.coinsData,
   needsUpdate: state.coins.needsUpdate
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchCoinsList: () => dispatch(fetchCoinsList()),
-  fetchCoinsData: (coinsList, currency) =>
-    dispatch(fetchCoinsData(coinsList, currency))
+  fetchCoinsInfo: () => dispatch(fetchCoinsInfo()),
+  fetchCoinsData: () => dispatch(fetchCoinsData())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

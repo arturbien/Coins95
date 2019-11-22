@@ -29,14 +29,14 @@ class API {
     news = news.data.Data;
     return news.splice(0, limit);
   };
-  fetchCoinsTopList = async (amount = 30, currency = "EUR") => {
+  fetchTopList = async (amount = 30, currency = "EUR") => {
     const query = `/data/top/totalvolfull?limit=${amount}&tsym=${currency}`;
     const response = await this.axios.get(query);
     const data = response.data.Data;
     const coinsTopList = data.map(coinData => coinData.CoinInfo.Name);
     return coinsTopList;
   };
-  fetchCoinsList = async (amount = 1000) => {
+  fetchCoinsInfo = async (amount = 1000) => {
     const query = "/data/all/coinlist";
     const response = await this.axios.get(query);
     const data = response.data.Data;
@@ -61,31 +61,7 @@ class API {
 
     return formattedData;
   };
-  // fetchCoinsListCoinGecko = async () => {
-  //   const query = `https://api.coingecko.com/api/v3/search?locale=en&img_path_only=0`;
-  //   const response = await axios.get(query);
-  //   let { coins, exchanges, icos } = response.data;
 
-  //   coins = coins
-  //     .filter(coin => coin.market_cap_rank !== null)
-  //     .sort((coinA, coinB) => coinA.market_cap_rank - coinB.market_cap_rank);
-
-  //   const formattedData = {};
-  //   coins.forEach(coin => {
-  //     formattedData[coin.symbol] = {
-  //       ...coin,
-  //       name: coin.symbol,
-  //       symbol: coin.symbol,
-  //       fullName: coin.id,
-  //       coinName: coin.id,
-  //       imageURL: coin.thumb,
-  //       totalCoinSupply: 0,
-  //       totalCoinsMined: 0,
-  //       sortOrder: coin.market_cap_rank
-  //     };
-  //   });
-  //   return formattedData;
-  // };
   fetchCoinsData = async (coinsList, currency = "EUR", display = false) => {
     const query = `data/pricemultifull?fsyms=${coinsList.join(
       ","

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import API from "../../API";
-import { fetchCoinsList } from "../../store/actions/coins";
+import { fetchCoinsInfo } from "../../store/actions/coins";
 import { setUserCoin } from "../../store/actions/user";
 import Layout from "./Layout";
 
@@ -25,11 +25,11 @@ export class CoinDetails extends Component {
   };
   componentDidMount = async () => {
     let { timeSpan, currency } = this.state;
-    const { coinInfo, fetchCoinsList } = this.props;
+    const { coinInfo, fetchCoinsInfo } = this.props;
 
     this._isMounted = true;
     if (!coinInfo) {
-      await fetchCoinsList();
+      await fetchCoinsInfo();
     }
 
     // let data = await API.fetchCoinsData([coin], currency);
@@ -121,7 +121,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchCoinsList: () => dispatch(fetchCoinsList()),
+  fetchCoinsInfo: () => dispatch(fetchCoinsInfo()),
   setUserCoin: (coin, follow) => dispatch(setUserCoin(coin, follow))
 });
 

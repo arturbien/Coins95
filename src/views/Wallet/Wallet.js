@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
-import { fetchCoinsList, fetchCoinsData } from "../../store/actions/coins";
+import { fetchCoinsInfo, fetchCoinsData } from "../../store/actions/coins";
 import { sortUserHoldings } from "../../store/actions/user";
 
 import Layout from "./Layout";
@@ -14,13 +14,13 @@ const Wallet = ({
   coinsData,
   coinsInfo,
   currency,
-  fetchCoinsList,
+  fetchCoinsInfo,
   fetchCoinsData,
   sortUserHoldings
 }) => {
   useEffect(() => {
     if (!topCoinsList) {
-      fetchCoinsList();
+      fetchCoinsInfo();
     } else {
       fetchCoinsData(
         [
@@ -72,7 +72,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchCoinsList: () => dispatch(fetchCoinsList()),
+  fetchCoinsInfo: () => dispatch(fetchCoinsInfo()),
   fetchCoinsData: (coinsList, currency, extend) =>
     dispatch(fetchCoinsData(coinsList, currency, extend)),
   sortUserHoldings: coinsList => dispatch(sortUserHoldings(coinsList))
