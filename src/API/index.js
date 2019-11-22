@@ -50,8 +50,8 @@ class API {
       formattedData[coin] = {
         name: coinData.Name,
         symbol: coinData.Symbol,
-        fullName: coinData.FullName,
-        coinName: coinData.CoinName,
+        fullName: coinData.FullName.split(" ").join("_"),
+        coinName: coinData.CoinName.split(" ").join("_"),
         imageURL: cryptoURL + coinData.ImageUrl,
         totalCoinSupply: coinData.TotalCoinSupply,
         totalCoinsMined: coinData.TotalCoinsMined,
