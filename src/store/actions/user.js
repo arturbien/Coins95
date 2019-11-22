@@ -14,7 +14,7 @@ export const setCurrency = currency => ({
   type: SET_USER_CURRENCY,
   payload: currency
 });
-export const setUserCoin = (coin, follow) => ({
+export const setFollowedCoin = (coin, follow) => ({
   type: follow ? FOLLOW_COIN : UNFOLLOW_COIN,
   payload: coin
 });

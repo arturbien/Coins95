@@ -1,5 +1,5 @@
 import {
-  FETCH_COINS_LIST_SUCCESS,
+  FETCH_COINS_INFO_SUCCESS,
   FETCH_COINS_DATA_SUCCESS
 } from "../actions/actionTypes";
 
@@ -10,7 +10,7 @@ const initialState = {
 };
 const coinsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_COINS_LIST_SUCCESS:
+    case FETCH_COINS_INFO_SUCCESS:
       const { top, info } = action.payload;
       return { ...state, top, info };
     case FETCH_COINS_DATA_SUCCESS:

@@ -1,7 +1,7 @@
 import {
-  FETCH_COINS_LIST_REQUEST,
-  FETCH_COINS_LIST_SUCCESS,
-  FETCH_COINS_LIST_ERROR,
+  FETCH_COINS_INFO_REQUEST,
+  FETCH_COINS_INFO_SUCCESS,
+  FETCH_COINS_INFO_ERROR,
   FETCH_COINS_DATA_REQUEST,
   FETCH_COINS_DATA_SUCCESS,
   FETCH_COINS_DATA_ERROR
@@ -9,18 +9,18 @@ import {
 
 import API from "../../API";
 
-export const setCoinsList = data => ({
-  type: FETCH_COINS_LIST_SUCCESS,
+export const setCoinsInfo = data => ({
+  type: FETCH_COINS_INFO_SUCCESS,
   payload: data
 });
 export const fetchCoinsInfo = () => async dispatch => {
-  dispatch({ type: FETCH_COINS_LIST_REQUEST });
+  dispatch({ type: FETCH_COINS_INFO_REQUEST });
   try {
     const info = await API.fetchCoinsInfo();
     const top = await API.fetchTopList();
-    dispatch(setCoinsList({ top, info }));
+    dispatch(setCoinsInfo({ top, info }));
   } catch (error) {
-    dispatch({ type: FETCH_COINS_LIST_ERROR });
+    dispatch({ type: FETCH_COINS_INFO_ERROR });
   }
 };
 
@@ -34,7 +34,7 @@ export const fetchCoinsData = () => async (dispatch, getState) => {
     const state = getState();
     const currency = state.user.currency;
     const wallet = Object.keys(state.user.wallet);
-    const followed = state.user.coinsList;
+    const followed = state.user.followed;
     const top = state.coins.top;
     const allCoins = [
       ...new Set([...followed, ...(top || []), ...(wallet || [])])

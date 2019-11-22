@@ -4,31 +4,27 @@ import { connect } from "react-redux";
 
 import API from "../../API";
 import { fetchCoinsInfo } from "../../store/actions/coins";
-import { setUserCoin } from "../../store/actions/user";
+import { setFollowedCoin } from "../../store/actions/user";
 import Layout from "./Layout";
 
 function HLCAverage(high, low, close) {
   return (high + low + close) / 3;
 }
 export class CoinDetails extends Component {
-  // static propTypes = {
-  // prop: PropTypes
-  // };
   // TO PREVENT UPDATES ON UNMOUNTED COMPONENT
   _isMounted = false;
   state = {
-    currency: this.props.currency,
     data: null,
     historicalData: null,
     dataLoading: false,
     timeSpan: "24H"
   };
   componentDidMount = async () => {
-    let { timeSpan, currency } = this.state;
-    const { coinInfo, fetchCoinsInfo } = this.props;
+    let { timeSpan } = this.state;
+    const { info, fetchCoinsInfo, currency } = this.props;
 
     this._isMounted = true;
-    if (!coinInfo) {
+    if (!info) {
       await fetchCoinsInfo();
     }
 
@@ -39,15 +35,15 @@ export class CoinDetails extends Component {
   componentWillUnmount() {
     this._isMounted = false;
   }
-  handleFetchCoinsData = async currency => {
-    const { coin } = this.props;
+  handleFetchCoinsData = async () => {
+    const { coin, currency } = this.props;
     let data = await API.fetchCoinsData([coin], currency, true);
     data = data[coin];
     if (this._isMounted) this.setState({ data });
   };
-  handleFetchHistoricalData = async (timeSpan, currency) => {
+  handleFetchHistoricalData = async timeSpan => {
     const { timeSpan: currentTimeSpan, dataLoading } = this.state;
-    const { coin } = this.props;
+    const { coin, currency } = this.props;
 
     if (dataLoading) return;
     this.setState({ timeSpan, dataLoading: true });
@@ -77,20 +73,13 @@ export class CoinDetails extends Component {
         });
     }
   };
-  onCurrencyChange = currency => {
-    const { currency: currentCurrency, timeSpan } = this.state;
-    if (currency !== currentCurrency) {
-      this.handleFetchCoinsData(currency);
-      this.handleFetchHistoricalData(timeSpan, currency);
-      this.setState({ currency });
-    }
-  };
+
   render() {
-    const { data, currency, historicalData, timeSpan } = this.state;
-    const { following, coinInfo, setUserCoin, inWallet } = this.props;
+    const { data, historicalData, timeSpan } = this.state;
+    const { following, currency, info, setFollowedCoin, inWallet } = this.props;
     return (
       <Layout
-        coinInfo={coinInfo}
+        info={info}
         data={data}
         currency={currency}
         historicalData={historicalData}
@@ -98,8 +87,7 @@ export class CoinDetails extends Component {
         inWallet={inWallet}
         timeSpan={timeSpan}
         onTimeSpanChange={this.handleFetchHistoricalData}
-        onCurrencyChange={this.onCurrencyChange}
-        onFollow={() => setUserCoin(coinInfo.symbol, !following)}
+        onFollow={() => setFollowedCoin(info.symbol, !following)}
       />
     );
   }
@@ -107,22 +95,22 @@ export class CoinDetails extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   const coin = ownProps.match.params.coin;
-  const following = state.user.coinsList.includes(coin);
+  const following = state.user.followed.includes(coin);
   const inWallet = state.user.wallet[coin] ? true : false;
-  const coinInfo = state.coins.coinsInfo ? state.coins.coinsInfo[coin] : null;
+  const info = state.coins.info ? state.coins.info[coin] : null;
+  const currency = state.user.currency;
   return {
     coin,
     following,
     inWallet,
-    userCoinsList: state.user.coinsList,
-    currency: state.user.currency,
-    coinInfo
+    currency,
+    info
   };
 };
 
 const mapDispatchToProps = dispatch => ({
   fetchCoinsInfo: () => dispatch(fetchCoinsInfo()),
-  setUserCoin: (coin, follow) => dispatch(setUserCoin(coin, follow))
+  setFollowedCoin: (coin, follow) => dispatch(setFollowedCoin(coin, follow))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoinDetails);

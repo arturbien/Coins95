@@ -51,7 +51,7 @@ export const backgrounds = [
 ];
 
 const initialState = {
-  coinsList: [],
+  followed: [],
   wallet: {},
   seenEvents: [],
   currency: "EUR",
@@ -62,17 +62,17 @@ const initialState = {
 };
 
 const userReducer = (state = initialState, action) => {
-  let coinsList;
+  let followed;
   const newState = (function() {
     switch (action.type) {
       case FOLLOW_COIN:
-        coinsList = [...new Set([...state.coinsList, action.payload])];
-        return { ...state, coinsList };
+        followed = [...new Set([...state.followed, action.payload])];
+        return { ...state, followed };
       case UNFOLLOW_COIN:
-        coinsList = state.coinsList.filter(
+        followed = state.followed.filter(
           userCoin => userCoin !== action.payload
         );
-        return { ...state, coinsList };
+        return { ...state, followed };
       case SET_THEME:
         return { ...state, theme: action.payload };
       case SET_BACKGROUND:

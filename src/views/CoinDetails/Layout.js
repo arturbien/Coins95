@@ -24,30 +24,27 @@ import LinkButton from "../../components/LinkButton/LinkButton";
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
 const Layout = ({
-  coinInfo,
+  info,
   data,
-  currency,
   historicalData,
   following,
   inWallet,
   timeSpan,
   onFollow,
-  onTimeSpanChange,
-  onCurrencyChange,
-  ...otherProps
+  onTimeSpanChange
 }) => {
   useLockBodyScroll();
 
   let coinName, symbol, sortOrder, HIGH24HOUR, LOW24HOUR, MKTCAP, imageURL;
   coinName = symbol = sortOrder = HIGH24HOUR = LOW24HOUR = MKTCAP = "-";
-  if (coinInfo && data) {
-    coinName = coinInfo.coinName;
-    symbol = coinInfo.symbol;
-    sortOrder = coinInfo.sortOrder;
+  if (info && data) {
+    coinName = info.coinName;
+    symbol = info.symbol;
+    sortOrder = info.sortOrder;
     HIGH24HOUR = data.HIGH24HOUR;
     LOW24HOUR = data.LOW24HOUR;
     MKTCAP = data.MKTCAP;
-    imageURL = coinInfo.imageURL;
+    imageURL = info.imageURL;
   }
   return (
     <SWindow>
@@ -75,10 +72,10 @@ const Layout = ({
             label="Follow"
             value={true}
             checked={following}
-            disabled={!coinInfo}
+            disabled={!info}
             onChange={onFollow}
           />
-          <LinkButton to={`/wallet/${symbol}`} disabled={!coinInfo}>
+          <LinkButton to={`/wallet/${symbol}`} disabled={!info}>
             {inWallet ? "Edit in wallet" : "Add to wallet"}
           </LinkButton>
         </TopToolbar>

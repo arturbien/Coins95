@@ -119,14 +119,6 @@ class API {
     const data = response.data.Data;
     return data;
   };
-  // fetchCoinsInfo = async (IDs, limit, currency = "usd") => {
-  //   let query = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=${limit}&page=1&sparkline=false`;
-  //   if (IDs) {
-  //     query += `&ids=${IDs.join(",")}`;
-  //   }
-  //   const response = await axios.get(query);
-  //   const data = response.data;
-  // };
 }
 
 export default new API();
