@@ -29,7 +29,7 @@ const SortableContainer = sortableContainer(({ children }) => {
   return <ul>{children}</ul>;
 });
 
-const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
+const Layout = ({ data, currency, sortUserHoldings, match }) => {
   const handleSortEnd = ({ oldIndex, newIndex }) => {
     const coinsList = arrayMove(
       data.map(coinData => coinData.symbol),
@@ -49,7 +49,9 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
     <Wrapper>
       <Top>
         <div>
-          <header>@zlotousty </header>
+          <header>
+            <a href="https://twitter.com/artur_bien?lang=en">@artur_bien</a>
+          </header>
           <Divider />
           <section>
             <Avatar
@@ -64,7 +66,11 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
               </TotalBalance>
               <div>
                 <Toolbar>
-                  <LinkButton fullWidth style={{ marginRight: 8 }} to="/search">
+                  <LinkButton
+                    fullWidth
+                    style={{ marginRight: 8 }}
+                    to={"/search"}
+                  >
                     + Add
                   </LinkButton>
                   <CurrencySelect />
@@ -134,14 +140,14 @@ const Layout = ({ data, currency, sortUserHoldings, history, match }) => {
                           value={coin._amount}
                         >{`${coin._amount} ${coin.symbol}`}</data>
                       </Balance>
-                      <Button
+                      <LinkButton
                         size="md"
                         square
                         variant="menu"
-                        onClick={() => history.push(`/wallet/${coin.symbol}`)}
+                        to={`/wallet/${coin.symbol}`}
                       >
                         <MenuIcon />
-                      </Button>
+                      </LinkButton>
                     </RightCol>
                   </MainRow>
                 </SortableItem>

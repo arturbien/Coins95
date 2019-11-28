@@ -6,6 +6,13 @@ import { Switch, Route, withRouter } from "react-router";
 import { Button, Radio, Fieldset } from "react95";
 
 import ClippyIcon from "../../assets/img/clippy4.png";
+import CryingEmoji from "../../assets/img/emojis/32/face-crying.png";
+
+const Emoji = styled.img`
+  display: inline-block;
+  height: 23px;
+  width: 23px;
+`;
 
 const Clippy = props => {
   const [isOpened, setIsOpened] = useState(false);
@@ -26,10 +33,7 @@ const Clippy = props => {
                         fontSize: "1.1em"
                       }}
                     >
-                      Old Clippy's DEAD{" "}
-                      <span role="img" aria-label="sad emoji">
-                        😥
-                      </span>
+                      Old Clippy's DEAD <Emoji src={CryingEmoji} />
                     </h3>
                     <br />
                     <br />

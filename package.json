@@ -1,21 +1,22 @@
 {
   "name": "coins95",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "authors": [
     "Artur Bień"
   ],
-  "description": "Refreshed Windows95 UI components for modern web apps - React95",
+  "description": "Cryptocurrency app",
   "keywords": [
     "react",
     "styled-components",
     "windows95",
-    "component",
+    "crypto",
+    "bitcoin",
+    "cryptocurrency",
     "vaporwave"
   ],
   "dependencies": {
     "array-move": "^2.1.0",
     "axios": "^0.18.1",
-    "classnames": "^2.2.6",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
