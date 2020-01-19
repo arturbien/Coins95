@@ -37,4 +37,7 @@ export default styled(Table)`
   td:not(:last-child) {
     border-right: 1px solid ${({ theme }) => theme.borderLight};
   }
+  td {
+    cursor: pointer;
+  }
 `;

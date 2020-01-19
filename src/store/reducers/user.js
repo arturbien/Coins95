@@ -25,6 +25,7 @@ import Honey from "../../assets/img/backgrounds/honey.png";
 import WaterIMG from "../../assets/img/backgrounds/water.gif";
 import PoolsideIMG from "../../assets/img/backgrounds/poolside.gif";
 import NoiseIMG from "../../assets/img/backgrounds/noise.gif";
+
 // import Marble from "../../assets/img/backgrounds/marble.png";
 // import Arches from "../../assets/img/backgrounds/arches.png";
 
