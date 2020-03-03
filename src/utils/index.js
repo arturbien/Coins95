@@ -81,7 +81,8 @@ export function copyToClipboard(str) {
       textarea = document.createElement("textarea");
       textarea.setAttribute("readonly", true);
       textarea.setAttribute("contenteditable", true);
-      textarea.style.position = "fixed"; // prevent scroll from jumping to the bottom when focus is set.
+      // prevent scroll from jumping to the bottom when focus is set.
+      textarea.style.position = "fixed";
       textarea.value = str;
 
       document.body.appendChild(textarea);
