@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link, Route } from "react-router-dom";
 import { withRouter } from "react-router";
 import arrayMove from "array-move";
-import { Divider, Button, Toolbar, Anchor } from "react95";
+import { Divider, Toolbar, Anchor } from "react95";
 import {
   sortableContainer,
   sortableElement,
