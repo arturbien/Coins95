@@ -77,8 +77,6 @@ export function copyToClipboard(str) {
     navigator.clipboard.writeText(str);
   } else {
     let textarea;
-    let result;
-
     try {
       textarea = document.createElement("textarea");
       textarea.setAttribute("readonly", true);
@@ -99,10 +97,9 @@ export function copyToClipboard(str) {
       sel.addRange(range);
 
       textarea.setSelectionRange(0, textarea.value.length);
-      result = document.execCommand("copy");
+      document.execCommand("copy");
     } catch (err) {
       console.error(err);
-      result = null;
     } finally {
       document.body.removeChild(textarea);
     }
