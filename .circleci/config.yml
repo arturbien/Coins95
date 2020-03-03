@@ -1,6 +1,9 @@
 version: 2
 jobs:
   build:
+    branches:
+      only:
+        - master
     docker:
       - image: 'circleci/node:8'
     working_directory: ~/repo
@@ -21,11 +24,3 @@ jobs:
       - run:
           name: 'Deploy to Firebase Hosting'
           command: './node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN'
-workflows:
-  version: 2
-  build:
-    jobs:
-      - build:
-          filters:
-            branches:
-              only: master
