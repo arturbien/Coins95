@@ -1,9 +1,6 @@
 version: 2
 jobs:
-  build:
-    branches:
-      only:
-        - master
+  build-job:
     docker:
       - image: 'circleci/node:8'
     working_directory: ~/repo
@@ -14,13 +11,38 @@ jobs:
             - 'v1-dependencies-{{ checksum "package.json" }}'
             - v1-dependencies-
       - run: 'npm install'
-      - save_cache:
-          paths:
-            - node_modules
-          key: 'v1-dependencies-{{ checksum "package.json" }}'
       - run:
           name: 'Build Project'
           command: 'npm run build'
+      - save_cache:
+          paths:
+            - node_modules
+            - dist
+          key: 'v1-dependencies-{{ checksum "package.json" }}'
+      - run:
+          name: 'Run Tests'
+          command: 'npm run test'
+  deploy-job:
+    docker:
+      - image: 'circleci/node:8'
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - 'v1-dependencies-{{ checksum "package.json" }}'
+            - v1-dependencies-
       - run:
           name: 'Deploy to Firebase Hosting'
           command: './node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN'
+workflows:
+  version: 2
+  - deploy:
+    - build-job
+    - deploy-job:
+        requires: 
+          - build-job
+        filters:
+          branches:
+            only:
+              - master
