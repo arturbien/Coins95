@@ -17,7 +17,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-            - dist
+            - build
           key: 'v1-dependencies-{{ checksum "package.json" }}'
   deploy-job:
     docker:
