@@ -19,9 +19,6 @@ jobs:
             - node_modules
             - dist
           key: 'v1-dependencies-{{ checksum "package.json" }}'
-      - run:
-          name: 'Run Tests'
-          command: 'npm run test'
   deploy-job:
     docker:
       - image: 'circleci/node:8'
