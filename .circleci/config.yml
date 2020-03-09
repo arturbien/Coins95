@@ -17,7 +17,6 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-            - build
           key: 'v1-dependencies-{{ checksum "package.json" }}'
       - persist_to_workspace:
           root: ~/repo
