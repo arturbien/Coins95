@@ -19,16 +19,19 @@ jobs:
             - node_modules
             - build
           key: 'v1-dependencies-{{ checksum "package.json" }}'
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - node_modules
+            - build
   deploy-job:
     docker:
       - image: 'circleci/node:8'
     working_directory: ~/repo
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - 'v1-dependencies-{{ checksum "package.json" }}'
-            - v1-dependencies-
+      - attach_workspace:
+          at: ~/repo
       - run:
           name: 'Deploy to Firebase Hosting'
           command: './node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN'
