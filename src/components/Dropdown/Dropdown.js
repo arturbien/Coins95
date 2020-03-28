@@ -1,8 +1,14 @@
 import React from "react";
+import styled from "styled-components";
 import propTypes from "prop-types";
 
 import { List, ListItem } from "react95";
 
+const SList = styled(List)`
+  position: absolute;
+  top: 100%;
+  right: 0;
+`
 const Menu = ({ horizontalAlign, verticalAlign, trigger, items }) => {
   const [open, setOpen] = React.useState(false);
 
@@ -23,7 +29,7 @@ const Menu = ({ horizontalAlign, verticalAlign, trigger, items }) => {
   return (
     <div style={{ position: "relative", display: "inline-block" }}>
       {open && (
-        <List
+        <SList
           horizontalAlign={horizontalAlign}
           verticalAlign={verticalAlign}
           open={open}
@@ -31,7 +37,7 @@ const Menu = ({ horizontalAlign, verticalAlign, trigger, items }) => {
           style={{ zIndex: 1 }}
         >
           {listItems}
-        </List>
+        </SList>
       )}
       <TriggerElement onClick={toggle} active={open} />
     </div>
@@ -39,8 +45,6 @@ const Menu = ({ horizontalAlign, verticalAlign, trigger, items }) => {
 };
 
 Menu.propTypes = {
-  horizontalAlign: propTypes.oneOf(["left", "right"]),
-  verticalAlign: propTypes.oneOf(["top", "bottom"]),
   // trigger: propTypes.element,
   items: propTypes.arrayOf(
     propTypes.shape({

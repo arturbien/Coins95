@@ -179,8 +179,6 @@ const LastItem = ({ onVisible }) => {
 };
 let ArticleMenu = ({ url, text }) => (
   <Dropdown
-    verticalAlign="bottom"
-    horizontalAlign="right"
     trigger={({ ...props }) => (
       <Button
         disabled={url === null}
