@@ -33,12 +33,12 @@ const Layout = ({
     <Fullpage style={{ paddingTop: "0.5rem" }}>
       <Tabs value={activeTab} onChange={setActiveTab}>
         <Tab value={0}>Appearance</Tab>
-        <Tab value={1}>Background</Tab>
+        <Tab value={1}>Font</Tab>
+        <Tab value={2}>Background</Tab>
         {/* <Tab value={2}>About</Tab> */}
       </Tabs>
-      <div style={{ height: 400 }}>
+      <TabBody style={{ height: 440 }}>
         {activeTab === 0 && (
-          <TabBody>
             <Fieldset label="Theme:">
               <Radio
                 value="default"
@@ -48,13 +48,71 @@ const Layout = ({
               />
               <br />
               <Radio
-                value="coldGray"
-                onChange={() => setTheme("coldGray")}
-                checked={theme === "coldGray"}
-                label="🍇 grape"
+                value="rose"
+                onChange={() => setTheme("rose")}
+                checked={theme === "rose"}
+                label="🌹 Rose"
+              />
+              <br />
+              <Radio
+                value="rainyDay"
+                onChange={() => setTheme("rainyDay")}
+                checked={theme === "rainyDay"}
+                label="☔️ Rainy Day"
+              />
+              <br />
+              <Radio
+                value="plum"
+                onChange={() => setTheme("plum")}
+                checked={theme === "plum"}
+                label="🌸 Plum"
+              />
+              <br />
+              <Radio
+                value="marine"
+                onChange={() => setTheme("marine")}
+                checked={theme === "marine"}
+                label="🛳 Marine"
+              />
+              <br />
+              <Radio
+                value="eggplant"
+                onChange={() => setTheme("eggplant")}
+                checked={theme === "eggplant"}
+                label="🍆 Eggplant"
+              />
+              <br />
+              <Radio
+                value="storm"
+                onChange={() => setTheme("storm")}
+                checked={theme === "storm"}
+                label="⛈ Storm"
+              />
+              <br />
+              <Radio
+                value="candy"
+                onChange={() => setTheme("candy")}
+                checked={theme === "candy"}
+                label="🍭 Candy"
+              />
+              <br />
+              <Radio
+                value="modernDark"
+                onChange={() => setTheme("modernDark")}
+                checked={theme === "modernDark"}
+                label="📟 Modern Dark"
+              />
+              <br />
+              <Radio
+                value="lilac"
+                onChange={() => setTheme("lilac")}
+                checked={theme === "lilac"}
+                label="🍇 Lilac"
               />
             </Fieldset>
-            <Fieldset label="Font:" style={{ marginTop: "1.5rem" }}>
+        )}
+        {activeTab === 1 && (
+            <Fieldset label="Font:" >
               <Checkbox
                 style={{}}
                 name="vintageFont"
@@ -64,10 +122,9 @@ const Layout = ({
                 checked={vintageFont}
               />
             </Fieldset>
-          </TabBody>
         )}
-        {activeTab === 1 && (
-          <TabBody>
+        {activeTab === 2 && (
+          <>
             <Monitor backgroundColor={backgrounds[background].value} />
             <Fieldset label="Wallpaper:">
               <Select
@@ -92,7 +149,7 @@ const Layout = ({
               </Button>
               {/* <input type="color" /> */}
             </Fieldset>
-          </TabBody>
+          </>
         )}
         {/* {activeTab === 2 && (
           <TabBody>
@@ -100,7 +157,7 @@ const Layout = ({
               The project was started by Artur Bien, an eastern european UI artist </Text>
           </TabBody>
         )} */}
-      </div>
+      </TabBody>
     </Fullpage>
   );
 };

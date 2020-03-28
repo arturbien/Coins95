@@ -62,7 +62,6 @@ const Layout = ({
             style={{
               position: "absolute",
               right: "6px",
-              top: "5px",
               fontWeight: "bold"
             }}
             onClick={goBack}

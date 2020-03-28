@@ -34,7 +34,6 @@ const Layout = ({ data, onFollow, ...otherProps }) => {
           style={{
             position: "absolute",
             right: "7px",
-            top: "5px",
             fontWeight: "bold"
           }}
           onClick={() => otherProps.history.goBack()}
@@ -65,7 +64,7 @@ let SWindowContent = styled(WindowContent)`
   height: 100%;
   width: 100%;
   padding-top: 4px;
-  padding-bottom: 42px;
+  padding-bottom: 37px;
   padding-left: 0.25rem;
   padding-right: 0.25rem;
 `;

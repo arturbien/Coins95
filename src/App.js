@@ -31,6 +31,9 @@ const ResetStyles = createGlobalStyle`
     font-family: ${({ vintageFont }) =>
       vintageFont ? "MS-Sans-Serif" : "sans-serif"};
   }
+  body {
+    color: ${({theme}) => theme.text};
+  }
   #background {
     position: fixed;
     z-index: -1;

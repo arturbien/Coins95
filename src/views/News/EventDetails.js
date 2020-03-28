@@ -49,7 +49,6 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
           style={{
             position: "absolute",
             right: "6px",
-            top: "5px",
             fontWeight: "bold"
           }}
           onClick={() => setOpenedEvent(null)}
