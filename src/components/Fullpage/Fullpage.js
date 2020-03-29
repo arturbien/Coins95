@@ -6,19 +6,20 @@ import { Window, WindowContent } from "react95";
 let SWindow = styled(Window)`
   box-sizing: border-box;
   position: relative;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  height: calc(100% - var(--safe-area-inset-bottom));
+  padding-bottom: 43px;
 `;
 let SWindowContent = styled(WindowContent)`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  height: 100%;
   width: 100%;
   padding-top: 4px;
-  padding-bottom: 56px;
   padding-left: 0.25rem;
   padding-right: 0.25rem;
+  height: 100%;
 `;
 
 const Fullpage = ({ children, ...otherProps }) => (

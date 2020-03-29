@@ -73,7 +73,8 @@ export default withRouter(NavBar);
 const Nav = styled(AppBar)`
   top: auto;
   bottom: 0;
-  z-index: 666;
+  z-index: 2;
+  bottom: var(--safe-area-inset-bottom); 
 `;
 const Icon = styled.img`
   /* image-rendering: pixelated; */

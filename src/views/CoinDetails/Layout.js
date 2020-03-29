@@ -6,12 +6,12 @@ import {
   Cutout,
   Fieldset,
   Toolbar,
-  Window,
   WindowContent,
   Checkbox
 } from "react95";
 
 import SimpleLineChart from "./SimpleLineChart";
+import FullPageWindow from "../../components/FullPageWindow/FullPageWindow";
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
 import CenteredHourglass from "../../components/CenteredHourglass/CenteredHourglass";
@@ -150,9 +150,7 @@ const Layout = ({
 
 export default Layout;
 
-const SWindow = styled(Window)`
-  width: 100%;
-  height: 100%;
+const SWindow = styled(FullPageWindow)`
   display: flex !important;
   flex-direction: column;
 `;

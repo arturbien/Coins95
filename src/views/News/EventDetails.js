@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 import {
-  Window,
   WindowContent,
   Select,
   Cutout,
@@ -11,6 +10,7 @@ import {
   Bar
 } from "react95";
 
+import FullPageWindow from "../../components/FullPageWindow/FullPageWindow";
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import EventExplorerIcon from "../../assets/img/eventExplorer.png";
@@ -116,13 +116,10 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
 
 export default EventDetails;
 
-const SWindow = styled(Window)`
-  box-sizing: border-box;
+const SWindow = styled(FullPageWindow)`
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
   z-index: 9999;
   display: flex;
   flex-direction: column;
