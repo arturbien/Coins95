@@ -33,7 +33,8 @@ const Layout = ({ data, onFollow, ...otherProps }) => {
           size="sm"
           style={{
             position: "absolute",
-            right: "7px",
+            right: 2,
+            top: 3,
             fontWeight: "bold"
           }}
           onClick={() => otherProps.history.goBack()}
