@@ -25,7 +25,17 @@ const ViewportContent = styled.div`
   width: 100%;
   overflow: auto;
 `;
-
+const BottomCornersCover = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  background: black;
+  z-index: 999;
+  height: 0;
+  height:var(--safe-area-inset-bottom);
+`;
 export default ({ children, maxWidth = 450, maxHeight = 896 }) => {
   const [width, height] = useWindowSize();
   return width > maxWidth || height > maxHeight ? (
@@ -33,6 +43,6 @@ export default ({ children, maxWidth = 450, maxHeight = 896 }) => {
       <ViewportContent>{children}</ViewportContent>
     </Viewport>
   ) : (
-    <>{children}</>
+    <>{children}<BottomCornersCover /></>
   );
 };

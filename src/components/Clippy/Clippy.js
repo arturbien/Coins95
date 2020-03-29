@@ -92,7 +92,7 @@ const Modal = styled.div`
   align-items: flex-end;
   justify-content: space-around;
   top: 0;
-  bottom: 0;
+  bottom: var(--safe-area-inset-bottom);
   left: 0;
   right: 0;
   padding: 2rem 2rem 113px 2rem;
@@ -110,8 +110,8 @@ const ModalBody = styled.div`
   &:after {
     content: "";
     display: inline-block;
-    position: fixed;
-    bottom: 115px;
+    position: absolute;
+    bottom: 0;
     left: 50%;
     transform: translate(-100%, 100%);
     width: 1.5rem;
@@ -127,7 +127,7 @@ const Fab = styled.button`
   display: inline-block;
   width: 60px;
   height: 60px;
-  position: fixed;
+  position: absolute;
   bottom: 55px;
   left: 50%;
   transform: translate(-50%, 50%);

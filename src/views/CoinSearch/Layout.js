@@ -5,8 +5,9 @@ import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
-import { Button, Window, WindowContent } from "react95";
+import { Button, WindowContent } from "react95";
 
+import FullPageWindow from "../../components/FullPageWindow/FullPageWindow";
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import CoinsTable from "./CoinsTable";
 import CloseIcon from "../../components/CloseIcon/CloseIcon";
@@ -15,7 +16,7 @@ import SearchIcon from "../../assets/img/system-search.png";
 const Layout = ({ data, onFollow, ...otherProps }) => {
   useLockBodyScroll();
   return (
-    <SWindow>
+    <FullPageWindow>
       <WindowHeader>
         <img
           alt="Search icon"
@@ -45,19 +46,12 @@ const Layout = ({ data, onFollow, ...otherProps }) => {
       <SWindowContent>
         <CoinsTable data={data} onFollow={onFollow} />
       </SWindowContent>
-    </SWindow>
+    </FullPageWindow>
   );
 };
 
 export default withRouter(Layout);
 
-//TODO use Fullpage component ?
-let SWindow = styled(Window)`
-  box-sizing: border-box;
-  position: relative;
-  height: 100%;
-  width: 100%;
-`;
 let SWindowContent = styled(WindowContent)`
   box-sizing: border-box;
   display: flex;
