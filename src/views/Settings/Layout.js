@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import styled from "styled-components";
+import styled from "styled-components";
 
 import {
   Tab,
@@ -9,6 +9,7 @@ import {
   Radio,
   Button,
   Checkbox,
+  Slider,
   Select
 } from "react95";
 
@@ -19,13 +20,23 @@ import Monitor from "./Monitor";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
+const SField = styled.div`
+  margin-bottom: 20px;
+`;
+
+const Pad = styled.div`
+  padding: 16px;
+`
+
 const Layout = ({
   theme,
   setTheme,
   background,
   setBackground,
   vintageFont,
-  toggleVintageFont
+  toggleVintageFont,
+  fontSize,
+  setFontSize,
 }) => {
   const [activeTab, setActiveTab] = useState(0);
   useLockBodyScroll();
@@ -37,8 +48,9 @@ const Layout = ({
         <Tab value={2}>Background</Tab>
         {/* <Tab value={2}>About</Tab> */}
       </Tabs>
-      <TabBody style={{ height: 440 }}>
+      <TabBody style={{ height: 490 }}>
         {activeTab === 0 && (
+          <SField>
             <Fieldset label="Theme:">
               <Radio
                 value="default"
@@ -110,18 +122,44 @@ const Layout = ({
                 label="🍇 Lilac"
               />
             </Fieldset>
+          </SField>
         )}
         {activeTab === 1 && (
-            <Fieldset label="Font:" >
-              <Checkbox
-                style={{}}
-                name="vintageFont"
-                value="vintageFont"
-                label="Vintage font"
-                onChange={() => toggleVintageFont(!vintageFont)}
-                checked={vintageFont}
-              />
-            </Fieldset>
+          <>
+            <SField>
+              <Fieldset label="Font:">
+                <Checkbox
+                  style={{}}
+                  name="vintageFont"
+                  value="vintageFont"
+                  label="Vintage font"
+                  onChange={() => toggleVintageFont(!vintageFont)}
+                  checked={vintageFont}
+                />
+              </Fieldset>
+            </SField>
+            <SField>
+              <Fieldset label="Font size:">
+                <Pad>
+
+                  <Slider
+                  min={0.8}
+                  max={1.2}
+                  step={null}
+                  value={fontSize}
+                  onChange={val => setFontSize(val)}
+                  marks={[
+                    { value: 0.8, label: '0.8' },
+                    { value: 0.9, label: '0.9' },
+                    { value: 1, label: '1' },
+                    { value: 1.1, label: '1.1' },
+                    { value: 1.2, label: '1.2' },
+                  ]}
+                  />
+                  </Pad>
+              </Fieldset>
+            </SField>
+          </>
         )}
         {activeTab === 2 && (
           <>

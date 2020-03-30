@@ -3,8 +3,8 @@ import styled, { css } from "styled-components";
 export default styled.div`
   position: relative;
   padding: 0 0.25rem;
-  height: 1.6rem;
-  line-height: 1.6rem;
+  height: 27px;
+  line-height: 27px;
   white-space: nowrap;
   overflow-x: hidden;
   text-overflow: ellipsis;
