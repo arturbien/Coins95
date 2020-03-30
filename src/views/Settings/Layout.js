@@ -43,13 +43,41 @@ const Layout = ({
   return (
     <Fullpage style={{ paddingTop: "0.5rem" }}>
       <Tabs value={activeTab} onChange={setActiveTab}>
-        <Tab value={0}>Appearance</Tab>
-        <Tab value={1}>Font</Tab>
-        <Tab value={2}>Background</Tab>
+        <Tab value={0}>Background</Tab>
+        <Tab value={1}>Appearance</Tab>
+        <Tab value={2}>Text</Tab>
         {/* <Tab value={2}>About</Tab> */}
       </Tabs>
       <TabBody style={{ height: 490 }}>
-        {activeTab === 0 && (
+      {activeTab === 0 && (
+          <>
+            <Monitor backgroundColor={backgrounds[background].value} />
+            <Fieldset label="Wallpaper:">
+              <Select
+                height={145}
+                onChange={value =>
+                  setBackground(
+                    backgrounds.findIndex(item => item.value === value)
+                  )
+                }
+                items={backgrounds}
+                selectedIndex={background}
+              />
+              <Button
+                style={{
+                  padding: "0 40px",
+                  float: "right",
+                  marginTop: "0.5rem"
+                }}
+                disabled
+              >
+                Browse...
+              </Button>
+              {/* <input type="color" /> */}
+            </Fieldset>
+          </>
+        )}
+        {activeTab === 1 && (
           <SField>
             <Fieldset label="Theme:">
               <Radio
@@ -124,7 +152,7 @@ const Layout = ({
             </Fieldset>
           </SField>
         )}
-        {activeTab === 1 && (
+        {activeTab === 2 && (
           <>
             <SField>
               <Fieldset label="Font:">
@@ -139,7 +167,7 @@ const Layout = ({
               </Fieldset>
             </SField>
             <SField>
-              <Fieldset label="Font size:">
+              <Fieldset label="Size:">
                 <Pad>
 
                   <Slider
@@ -161,40 +189,6 @@ const Layout = ({
             </SField>
           </>
         )}
-        {activeTab === 2 && (
-          <>
-            <Monitor backgroundColor={backgrounds[background].value} />
-            <Fieldset label="Wallpaper:">
-              <Select
-                height={145}
-                onChange={value =>
-                  setBackground(
-                    backgrounds.findIndex(item => item.value === value)
-                  )
-                }
-                items={backgrounds}
-                selectedIndex={background}
-              />
-              <Button
-                style={{
-                  padding: "0 40px",
-                  float: "right",
-                  marginTop: "0.5rem"
-                }}
-                disabled
-              >
-                Browse...
-              </Button>
-              {/* <input type="color" /> */}
-            </Fieldset>
-          </>
-        )}
-        {/* {activeTab === 2 && (
-          <TabBody>
-            <Text>
-              The project was started by Artur Bien, an eastern european UI artist </Text>
-          </TabBody>
-        )} */}
       </TabBody>
     </Fullpage>
   );
