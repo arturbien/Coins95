@@ -4,6 +4,7 @@ import {
   SET_THEME,
   SET_BACKGROUND,
   TOGGLE_VINTAGE_FONT,
+  SET_FONT_SIZE,
   SET_EVENT_SEEN,
   SET_USER_HOLDINGS,
   DELETE_USER_HOLDINGS,
@@ -59,6 +60,7 @@ const initialState = {
   vintageFont: true,
   theme: "default",
   background: 7,
+  fontSize: 1,
   ...persistedState
 };
 
@@ -80,6 +82,8 @@ const userReducer = (state = initialState, action) => {
         return { ...state, background: action.payload };
       case TOGGLE_VINTAGE_FONT:
         return { ...state, vintageFont: action.payload };
+      case SET_FONT_SIZE:
+          return { ...state, fontSize: action.payload };
       case SET_EVENT_SEEN:
         const eventId = action.payload;
         const seenEvents = [...state.seenEvents, eventId];

@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import {
   setTheme,
   setBackground,
-  toggleVintageFont
+  toggleVintageFont,
+  setFontSize
 } from "../../store/actions/user";
 
 import Layout from "./Layout";
@@ -21,7 +22,9 @@ export class Settings extends Component {
       background,
       setBackground,
       vintageFont,
-      toggleVintageFont
+      toggleVintageFont,
+      fontSize,
+      setFontSize
     } = this.props;
     return (
       <Layout
@@ -31,6 +34,8 @@ export class Settings extends Component {
         setBackground={setBackground}
         vintageFont={vintageFont}
         toggleVintageFont={toggleVintageFont}
+        fontSize={fontSize}
+        setFontSize={setFontSize}
       />
     );
   }
@@ -39,13 +44,15 @@ export class Settings extends Component {
 const mapStateToProps = state => ({
   theme: state.user.theme,
   background: state.user.background,
-  vintageFont: state.user.vintageFont
+  vintageFont: state.user.vintageFont,
+  fontSize: state.user.fontSize
 });
 
 const mapDispatchToProps = dispatch => ({
   setTheme: theme => dispatch(setTheme(theme)),
   toggleVintageFont: vintageFont => dispatch(toggleVintageFont(vintageFont)),
-  setBackground: backgroundIndex => dispatch(setBackground(backgroundIndex))
+  setFontSize: fontSize => dispatch(setFontSize(fontSize)),
+  setBackground: backgroundIndex => dispatch(setBackground(backgroundIndex)),
 });
 
 export default connect(

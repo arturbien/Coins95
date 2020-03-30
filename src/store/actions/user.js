@@ -7,6 +7,7 @@ import {
   SET_USER_HOLDINGS,
   DELETE_USER_HOLDINGS,
   SORT_USER_HOLDINGS,
+  SET_FONT_SIZE,
   SET_USER_CURRENCY
 } from "./actionTypes";
 
@@ -31,7 +32,10 @@ export const toggleVintageFont = isVintage => ({
   type: TOGGLE_VINTAGE_FONT,
   payload: isVintage
 });
-
+export const setFontSize = fontSize => ({
+  type: SET_FONT_SIZE,
+  payload: fontSize
+})
 export const setUserHoldings = ({ amount, coin }) => ({
   type: SET_USER_HOLDINGS,
   payload: {

@@ -26,6 +26,9 @@ const ResetStyles = createGlobalStyle`
     font-family: 'MS-Sans-Serif';
     src:  url('${woff2}') format('woff2');
   }
+  html {
+    font-size: ${({fontSize}) => `${fontSize * 16}px`};
+  }
   html, body, #root {
     height: 100%;
     font-family: ${({ vintageFont }) =>
@@ -79,13 +82,14 @@ const ResetStyles = createGlobalStyle`
 
 class App extends Component {
   render() {
-    const { theme, background, vintageFont } = this.props;
+    const { theme, background, vintageFont, fontSize } = this.props;
     return (
       <Viewport>
         <ThemeProvider theme={themes[theme]}>
           <>
             <ResetStyles
               vintageFont={vintageFont}
+              fontSize={fontSize}
               background={backgrounds[background].value}
             />
             <BrowserRouter>
@@ -116,6 +120,7 @@ class App extends Component {
 const mapStateToProps = state => ({
   theme: state.user.theme,
   background: state.user.background,
-  vintageFont: state.user.vintageFont
+  vintageFont: state.user.vintageFont,
+  fontSize: state.user.fontSize,
 });
 export default connect(mapStateToProps, null)(App);
