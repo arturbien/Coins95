@@ -94,6 +94,7 @@ const Layout = ({
               style={{ width: "50%" }}
               onClick={handleAccept}
               disabled={!data}
+              primary
             >
               OK
             </Button>
