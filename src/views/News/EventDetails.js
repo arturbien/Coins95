@@ -16,9 +16,9 @@ import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import EventExplorerIcon from "../../assets/img/eventExplorer.png";
 import CloseIcon from "../../components/CloseIcon/CloseIcon";
 
-const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
+const EventDetails = ({ events:eventsProp, openedEventIndex, setOpenedEvent }) => {
   useLockBodyScroll();
-
+  const events = eventsProp.map(e => ({label: e.title, value: e.id}))
   const {
     title,
     description,
@@ -28,12 +28,7 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
     organizer
     // website,
     // email
-  } = events[openedEventIndex];
-
-  const eventSelectItems = events.map((e, i) => ({
-    label: `${e.title}`,
-    value: i
-  }));
+  } = eventsProp[openedEventIndex];
   return (
     <SWindow>
       <WindowHeader>
@@ -59,15 +54,16 @@ const EventDetails = ({ events, openedEventIndex, setOpenedEvent }) => {
       </WindowHeader>
       <SWindowContent>
         <EventSelectWrapper>
-          <div style={{ flexShrink: 0, margin: "0 0.5rem 0 0.125rem" }}>
+          <div style={{ flexShrink: 0, margin: "0 0.5rem 0 0.125rem", height: 35 }}>
             <Bar />
             <Bar />
           </div>
           <Select
-            items={eventSelectItems}
-            selectedIndex={openedEventIndex}
-            width={320}
-            height={250}
+            // TODO can't test select due to lack of events caused by COVID19
+            disabled
+            options={events}
+            value={events[openedEventIndex].value}
+            width={'100%'}
             onChange={index => setOpenedEvent(index)}
           />
         </EventSelectWrapper>
