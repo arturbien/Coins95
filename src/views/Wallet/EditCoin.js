@@ -9,9 +9,10 @@ import { formatCurrency } from "../../utils";
 
 import API from "../../API";
 
-import { Toolbar, Button, TextField, Window, WindowContent } from "react95";
+import { Toolbar, Button, Window, WindowContent } from "react95";
 
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
+import KeyboardInput from "../../components/KeyboardInput/KeyboardInput";
 import CoinIcon from "../../components/CoinIcon/CoinIcon";
 import CloseIcon from "../../components/CloseIcon/CloseIcon";
 
@@ -77,11 +78,11 @@ const Layout = ({
           </Field>
           <Field>
             <Label>{data && data.FROMSYMBOL}</Label>
-            <TextField
+            <KeyboardInput
               disabled={!data}
-              value={amount}
+              value={amount.toString()}
               onChange={handleAmountChange}
-              width={"100%"}
+              style={{width:"100%"}}
             />
           </Field>
           <Toolbar style={{ justifyContent: "flex-end" }}>
@@ -128,7 +129,7 @@ const EditWindowWrapper = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;
-  z-index: 999999;
+  z-index: 99;
   top: 0;
   left: 0;
   padding: 1rem;

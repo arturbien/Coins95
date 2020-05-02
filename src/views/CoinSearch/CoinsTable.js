@@ -10,9 +10,6 @@ import {
   TableHeadCell,
   TableDataCell,
   Checkbox,
-  Toolbar,
-  TextField,
-  Button
 } from "react95";
 import FlexTable from "../../components/FlexTable/FlexTable";
 
@@ -28,26 +25,24 @@ class CoinsTable extends React.Component {
     super(props);
     this.state = {
       orderBy: "rank",
-      desc: false,
-      searchPhrase: ""
+      desc: false
     };
   }
-  handleChangeOrder = orderBy => {
+  handleChangeOrder = (orderBy) => {
     if (orderBy === this.state.orderBy) {
-      this.setState(prevState => ({ desc: !prevState.desc }));
+      this.setState((prevState) => ({ desc: !prevState.desc }));
     } else {
       this.setState({ orderBy, desc: true });
     }
   };
-  handleInputChange = e => this.setState({ searchPhrase: e.target.value });
+  handleInputChange = (e) => this.setState({ searchPhrase: e.target.value });
   render() {
-    const { history, data, onFollow } = this.props;
-    let { searchPhrase } = this.state;
+    let { history, data, onFollow ,searchPhrase} = this.props;
     searchPhrase = searchPhrase.toLowerCase();
     const orderPairs = {
       rank: "sortOrder",
       name: "coinName",
-      following: "isFollowed"
+      following: "isFollowed",
     };
 
     let tableData;
@@ -59,7 +54,7 @@ class CoinsTable extends React.Component {
       desc = this.state.orderBy === "name" ? -desc : desc;
 
       const orderedData = [...data]
-        .filter(coin => {
+        .filter((coin) => {
           return coin.coinName.toLowerCase().includes(searchPhrase);
         })
         .sort((a, b) => {
@@ -73,21 +68,21 @@ class CoinsTable extends React.Component {
           symbol,
           imageURL,
           sortOrder,
-          isFollowed
+          isFollowed,
         } = coinData;
+        const onClick = () => history.push(`/coins/${symbol}`);
         return (
-          <TableRow key={i} onClick={() => history.push(`/coins/${symbol}`)}>
-            <TableDataCell>
+          <TableRow key={i} >
+            <TableDataCell onClick={onClick}>
               <SFileIcon height={22} imageURL={imageURL} />
               <CoinName>{`${coinName.toLowerCase()}.${name.toLowerCase()}`}</CoinName>
             </TableDataCell>
-            <TableDataCell style={{ textAlign: "right" }}>
+            <TableDataCell style={{ textAlign: "right" }} onClick={onClick}>
               {sortOrder}
             </TableDataCell>
             <TableDataCell
               style={{ textAlign: "right" }}
-              onClick={e => {
-                e.stopPropagation();
+              onClick={(e) => {
                 onFollow(symbol, !isFollowed);
               }}
             >
@@ -105,21 +100,6 @@ class CoinsTable extends React.Component {
 
     return (
       <>
-        <SearchWrapper>
-          <TextField
-            placeholder="Search..."
-            value={searchPhrase}
-            onChange={this.handleInputChange}
-            width="100%"
-            style={{ marginRight: "4px" }}
-          />
-          <Button
-            disabled={searchPhrase === ""}
-            onClick={() => this.setState({ searchPhrase: "" })}
-          >
-            Clear
-          </Button>
-        </SearchWrapper>
         <TableWrapper>
           <Table>
             <TableHead>
@@ -156,14 +136,11 @@ class CoinsTable extends React.Component {
 }
 
 CoinsTable.propTypes = {
-  data: PropTypes.array
+  data: PropTypes.array,
 };
 
 export default withRouter(CoinsTable);
 
-const SearchWrapper = styled(Toolbar)`
-  margin: 0 -4px;
-`;
 let TableFooter = styled.footer`
   margin-top: 0.5rem;
   margin-bottom: 2px;
