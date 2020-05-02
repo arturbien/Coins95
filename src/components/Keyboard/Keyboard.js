@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import styled , {css} from "styled-components";
-import { createMaterialStyles, shadeColor } from "../../utils";
+import styled from "styled-components";
+import { createMaterialStyles } from "../../utils";
 import { Button, Divider } from "react95";
 import CryingEmoji from "../../assets/img/emojis/32/face-crying.png";
 import emojisList from "./emojis";
