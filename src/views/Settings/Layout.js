@@ -38,30 +38,32 @@ const Layout = ({
   fontSize,
   setFontSize,
 }) => {
+  console.log(background);
   const [activeTab, setActiveTab] = useState(0);
+  const handleChange = (e, value) => setActiveTab(value);
   useLockBodyScroll();
   return (
     <Fullpage style={{ paddingTop: "0.5rem" }}>
-      <Tabs value={activeTab} onChange={setActiveTab}>
+      <Tabs value={activeTab} onChange={handleChange}>
         <Tab value={0}>Background</Tab>
         <Tab value={1}>Appearance</Tab>
         <Tab value={2}>Text</Tab>
         {/* <Tab value={2}>About</Tab> */}
       </Tabs>
-      <TabBody style={{ height: 490 }}>
+      <TabBody style={{ height: 510 }}>
       {activeTab === 0 && (
           <>
             <Monitor backgroundColor={backgrounds[background].value} />
             <Fieldset label="Wallpaper:">
               <Select
-                height={145}
-                onChange={value =>
+                width="100%"
+                onChange={e =>
                   setBackground(
-                    backgrounds.findIndex(item => item.value === value)
+                    backgrounds.findIndex(b => b.value === e.target.value)
                   )
                 }
-                items={backgrounds}
-                selectedIndex={background}
+                options={backgrounds}
+                value={backgrounds[background].value}
               />
               <Button
                 style={{
@@ -102,10 +104,10 @@ const Layout = ({
               />
               <br />
               <Radio
-                value="plum"
-                onChange={() => setTheme("plum")}
-                checked={theme === "plum"}
-                label="🌸 Plum"
+                value="travel"
+                onChange={() => setTheme("travel")}
+                checked={theme === "travel"}
+                label="🧳 Travel"
               />
               <br />
               <Radio
@@ -116,17 +118,24 @@ const Layout = ({
               />
               <br />
               <Radio
-                value="eggplant"
-                onChange={() => setTheme("eggplant")}
-                checked={theme === "eggplant"}
-                label="🍆 Eggplant"
+                value="spruce"
+                onChange={() => setTheme("spruce")}
+                checked={theme === "spruce"}
+                label="🥬 Spruce"
               />
               <br />
               <Radio
-                value="storm"
-                onChange={() => setTheme("storm")}
-                checked={theme === "storm"}
-                label="⛈ Storm"
+                value="molecule"
+                onChange={() => setTheme("molecule")}
+                checked={theme === "molecule"}
+                label="🧪 Molecule"
+              />
+              <br />
+              <Radio
+                value="theSixtiesUSA"
+                onChange={() => setTheme("theSixtiesUSA")}
+                checked={theme === "theSixtiesUSA"}
+                label="🌷 The 60's USA"
               />
               <br />
               <Radio
@@ -137,10 +146,10 @@ const Layout = ({
               />
               <br />
               <Radio
-                value="modernDark"
-                onChange={() => setTheme("modernDark")}
-                checked={theme === "modernDark"}
-                label="📟 Modern Dark"
+                value="tokyoDark"
+                onChange={() => setTheme("tokyoDark")}
+                checked={theme === "tokyoDark"}
+                label="📟 Tokyo Dark"
               />
               <br />
               <Radio
@@ -170,12 +179,12 @@ const Layout = ({
               <Fieldset label="Size:">
                 <Pad>
 
-                  <Slider
+                <Slider
                   min={0.8}
                   max={1.2}
                   step={null}
                   value={fontSize}
-                  onChange={val => setFontSize(val)}
+                  onChange={(e, val) => setFontSize(val)}
                   marks={[
                     { value: 0.8, label: '0.8' },
                     { value: 0.9, label: '0.9' },

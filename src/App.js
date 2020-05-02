@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { themes, reset } from "react95";
+import { themes, styleReset } from "react95";
 
 import woff2 from "./assets/fonts/MS-Sans-Serif.woff2";
 
@@ -21,7 +21,7 @@ import NavBar from "./components/NavBar/NavBar";
 import { backgrounds } from "./store/reducers/user";
 
 const ResetStyles = createGlobalStyle`
-  ${reset}
+  ${styleReset}
   @font-face {
     font-family: 'MS-Sans-Serif';
     src:  url('${woff2}') format('woff2');
