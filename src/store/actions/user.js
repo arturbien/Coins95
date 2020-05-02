@@ -3,53 +3,58 @@ import {
   UNFOLLOW_COIN,
   SET_THEME,
   SET_BACKGROUND,
+  SET_CUSTOM_BACKGROUND,
   TOGGLE_VINTAGE_FONT,
   SET_USER_HOLDINGS,
   DELETE_USER_HOLDINGS,
   SORT_USER_HOLDINGS,
   SET_FONT_SIZE,
-  SET_USER_CURRENCY
+  SET_USER_CURRENCY,
 } from "./actionTypes";
 
-export const setCurrency = currency => ({
+export const setCurrency = (currency) => ({
   type: SET_USER_CURRENCY,
-  payload: currency
+  payload: currency,
 });
 export const setFollowedCoin = (coin, follow) => ({
   type: follow ? FOLLOW_COIN : UNFOLLOW_COIN,
-  payload: coin
+  payload: coin,
 });
 
-export const setTheme = theme => ({
+export const setTheme = (theme) => ({
   type: SET_THEME,
-  payload: theme
+  payload: theme,
 });
-export const setBackground = backgroundIndex => ({
+export const setBackground = (background) => ({
   type: SET_BACKGROUND,
-  payload: backgroundIndex
+  payload: background,
 });
-export const toggleVintageFont = isVintage => ({
+export const setCustomBackground = (color) => ({
+  type: SET_CUSTOM_BACKGROUND,
+  payload: color,
+});
+export const toggleVintageFont = (isVintage) => ({
   type: TOGGLE_VINTAGE_FONT,
-  payload: isVintage
+  payload: isVintage,
 });
-export const setFontSize = fontSize => ({
+export const setFontSize = (fontSize) => ({
   type: SET_FONT_SIZE,
-  payload: fontSize
-})
+  payload: fontSize,
+});
 export const setUserHoldings = ({ amount, coin }) => ({
   type: SET_USER_HOLDINGS,
   payload: {
     amount,
-    coin
-  }
+    coin,
+  },
 });
 
-export const deleteUserHoldings = coin => ({
+export const deleteUserHoldings = (coin) => ({
   type: DELETE_USER_HOLDINGS,
-  payload: coin
+  payload: coin,
 });
 
-export const sortUserHoldings = coinsList => ({
+export const sortUserHoldings = (coinsList) => ({
   type: SORT_USER_HOLDINGS,
-  payload: coinsList
+  payload: coinsList,
 });

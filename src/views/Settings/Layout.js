@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
+import {createDisabledTextStyles} from "../../utils";
 
 import {
   Tab,
@@ -7,13 +8,11 @@ import {
   TabBody,
   Fieldset,
   Radio,
-  Button,
   Checkbox,
   Slider,
-  Select
+  Select,
+  ColorInput
 } from "react95";
-
-import { backgrounds } from "../../store/reducers/user";
 
 import Fullpage from "../../components/Fullpage/Fullpage";
 import Monitor from "./Monitor";
@@ -32,13 +31,15 @@ const Layout = ({
   theme,
   setTheme,
   background,
+  backgrounds,
   setBackground,
+  setCustomBackground,
   vintageFont,
   toggleVintageFont,
   fontSize,
   setFontSize,
 }) => {
-  console.log(background);
+  console.log("Settings: ", backgrounds);
   const [activeTab, setActiveTab] = useState(0);
   const handleChange = (e, value) => setActiveTab(value);
   useLockBodyScroll();
@@ -53,29 +54,26 @@ const Layout = ({
       <TabBody style={{ height: 510 }}>
       {activeTab === 0 && (
           <>
-            <Monitor backgroundColor={backgrounds[background].value} />
+            <Monitor backgroundColor={background.value} />
             <Fieldset label="Wallpaper:">
               <Select
                 width="100%"
                 onChange={e =>
                   setBackground(
-                    backgrounds.findIndex(b => b.value === e.target.value)
+                    backgrounds.find(b => b.value === e.target.value)
                   )
                 }
                 options={backgrounds}
-                value={backgrounds[background].value}
+                value={background.value}
               />
-              <Button
-                style={{
-                  padding: "0 40px",
-                  float: "right",
-                  marginTop: "0.5rem"
-                }}
-                disabled
-              >
-                Browse...
-              </Button>
-              {/* <input type="color" /> */}
+              <CustomColorField isDisabled={backgrounds[0].value !== background.value}>
+                <label>Custom color:</label>
+              <ColorInput 
+                value={backgrounds[0].value}
+                onChange={e => setCustomBackground(e.target.value)}
+                disabled={backgrounds[0].value !== background.value}
+                />
+                </CustomColorField>
             </Fieldset>
           </>
         )}
@@ -208,3 +206,18 @@ export default Layout;
 // const Text = styled.div`
 //   line-height: 1.5;
 // `;
+
+const CustomColorField = styled.div`
+  float: right;
+  margin-right: 0px;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  label {
+    font-size: 1rem;
+    padding-right: 1rem;
+    ${({isDisabled}) => isDisabled && css`
+      ${createDisabledTextStyles()}
+    `}
+  }
+`;
