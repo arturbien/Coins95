@@ -7,8 +7,11 @@ import {
   YAxis
   // XAxis
 } from "recharts";
+import { useContext } from 'react';
+import { ThemeContext } from 'styled-components';
 
 const SimpleLineChart = ({ data }) => {
+  const themeContext = useContext(ThemeContext);
   return (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart data={data}>
@@ -23,7 +26,7 @@ const SimpleLineChart = ({ data }) => {
         <Line
           type="monotone"
           dataKey="AVG"
-          stroke="#ff0000"
+          stroke={themeContext.progress}
           strokeWidth={2}
           dot={false}
         />

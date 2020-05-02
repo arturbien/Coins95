@@ -18,7 +18,6 @@ import Settings from "./views/Settings/Settings";
 
 import Viewport from "./components/Viewport/Viewport";
 import NavBar from "./components/NavBar/NavBar";
-import { backgrounds } from "./store/reducers/user";
 
 const ResetStyles = createGlobalStyle`
   ${styleReset}
@@ -27,7 +26,7 @@ const ResetStyles = createGlobalStyle`
     src:  url('${woff2}') format('woff2');
   }
   html {
-    font-size: ${({fontSize}) => `${fontSize * 16}px`};
+    font-size: ${({ fontSize }) => `${fontSize * 16}px`};
   }
   html, body, #root {
     height: 100%;
@@ -35,7 +34,7 @@ const ResetStyles = createGlobalStyle`
       vintageFont ? "MS-Sans-Serif" : "sans-serif"};
   }
   body {
-    color: ${({theme}) => theme.text};
+    color: ${({ theme }) => theme.text};
     --safe-area-inset-bottom: constant(safe-area-inset-bottom); 
     --safe-area-inset-bottom: env(safe-area-inset-bottom);
     &:before {
@@ -47,6 +46,29 @@ const ResetStyles = createGlobalStyle`
       height: var(--safe-area-inset-bottom);
       background: black;
       z-index: 9999999;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+        z-index: 99999;
+        opacity: .7;
+        filter: alpha(opacity=70);
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+        background-image: radial-gradient(ellipse at center,transparent 0,transparent 60%,rgba(0,0,0,0) 100%),repeating-linear-gradient(0deg,transparent,transparent 1px,rgba(0,0,0,.1) 3px);
+        background-size: 100% 100%,100% 6px;
+        -webkit-animation: flicker .3s linear infinite;
+        animation: flicker .3s linear infinite;
     }
   }
   #background {
@@ -71,12 +93,7 @@ const ResetStyles = createGlobalStyle`
         vintageFont ? "MS-Sans-Serif" : "sans-serif"};
     
   }
-  input[disabled],
-  fieldset[disabled]  {
 
- -webkit-text-fill-color: unset;
-  opacity: 1;
-  }
   * {
     scrollbar-width: none
   }
@@ -100,7 +117,7 @@ class App extends Component {
             <ResetStyles
               vintageFont={vintageFont}
               fontSize={fontSize}
-              background={backgrounds[background].value}
+              background={background.value}
             />
             <BrowserRouter>
               <>
@@ -127,7 +144,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   theme: state.user.theme,
   background: state.user.background,
   vintageFont: state.user.vintageFont,
