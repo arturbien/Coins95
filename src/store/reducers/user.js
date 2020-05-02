@@ -11,6 +11,8 @@ import {
   DELETE_USER_HOLDINGS,
   SORT_USER_HOLDINGS,
   SET_USER_CURRENCY,
+  TOGGLE_SCAN_LINES,
+  SET_SCAN_LINES_INTENSITY,
 } from "../actions/actionTypes";
 
 import { saveState, loadState } from "../localStorage";
@@ -56,6 +58,9 @@ const initialState = {
   backgrounds,
   background: backgrounds[0],
   fontSize: 1,
+  scanLines: false,
+  // scanLinesIntensity in %
+  scanLinesIntensity: 0,
   ...persistedState,
 };
 
@@ -88,6 +93,10 @@ const userReducer = (state = initialState, action) => {
         return { ...state, vintageFont: action.payload };
       case SET_FONT_SIZE:
         return { ...state, fontSize: action.payload };
+      case TOGGLE_SCAN_LINES:
+        return { ...state, scanLines: action.payload };
+      case SET_SCAN_LINES_INTENSITY:
+        return { ...state, scanLinesIntensity: action.payload };
       case SET_EVENT_SEEN:
         const eventId = action.payload;
         const seenEvents = [...state.seenEvents, eventId];
