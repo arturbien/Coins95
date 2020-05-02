@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
-
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import { Button, WindowContent,  Toolbar } from "react95";
 

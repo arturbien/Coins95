@@ -35,7 +35,6 @@ class CoinsTable extends React.Component {
       this.setState({ orderBy, desc: true });
     }
   };
-  handleInputChange = (e) => this.setState({ searchPhrase: e.target.value });
   render() {
     let { history, data, onFollow ,searchPhrase} = this.props;
     searchPhrase = searchPhrase.toLowerCase();

@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
 
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { createGlobalStyle, ThemeProvider, css } from "styled-components";
 import { themes, styleReset } from "react95";
 
 import woff2 from "./assets/fonts/MS-Sans-Serif.woff2";
@@ -47,29 +47,44 @@ const ResetStyles = createGlobalStyle`
       background: black;
       z-index: 9999999;
     }
-    &:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-        z-index: 99999;
-        opacity: .7;
-        filter: alpha(opacity=70);
-        position: fixed;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        pointer-events: none;
-        background-image: radial-gradient(ellipse at center,transparent 0,transparent 60%,rgba(0,0,0,0) 100%),repeating-linear-gradient(0deg,transparent,transparent 1px,rgba(0,0,0,.1) 3px);
-        background-size: 100% 100%,100% 6px;
-        -webkit-animation: flicker .3s linear infinite;
-        animation: flicker .3s linear infinite;
-    }
+    ${({ scanLines, scanLinesIntensity }) =>
+      scanLines &&
+      css`
+        &:after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 99999;
+          opacity: 0.7;
+          filter: alpha(opacity=70);
+          position: fixed;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          pointer-events: none;
+          background-image: radial-gradient(
+              ellipse at center,
+              transparent 0,
+              transparent 60%,
+              rgba(0, 0, 0, ${(0.15 * scanLinesIntensity) / 100}) 100%
+            ),
+            repeating-linear-gradient(
+              0deg,
+              transparent,
+              transparent 1px,
+              rgba(0, 0, 0, ${(0.35 * scanLinesIntensity) / 100}) 3px
+            );
+          background-size: 100% 100%, 100% 6px;
+          -webkit-animation: flicker 0.3s linear infinite;
+          animation: flicker 0.3s linear infinite;
+        }
+      `} 
   }
   #background {
     position: fixed;
@@ -109,7 +124,14 @@ const ResetStyles = createGlobalStyle`
 
 class App extends Component {
   render() {
-    const { theme, background, vintageFont, fontSize } = this.props;
+    const {
+      theme,
+      background,
+      vintageFont,
+      fontSize,
+      scanLines,
+      scanLinesIntensity,
+    } = this.props;
     return (
       <Viewport>
         <ThemeProvider theme={themes[theme]}>
@@ -117,6 +139,8 @@ class App extends Component {
             <ResetStyles
               vintageFont={vintageFont}
               fontSize={fontSize}
+              scanLines={scanLines}
+              scanLinesIntensity={scanLinesIntensity}
               background={background.value}
             />
             <BrowserRouter>
@@ -149,5 +173,7 @@ const mapStateToProps = (state) => ({
   background: state.user.background,
   vintageFont: state.user.vintageFont,
   fontSize: state.user.fontSize,
+  scanLines: state.user.scanLines,
+  scanLinesIntensity: state.user.scanLinesIntensity,
 });
 export default connect(mapStateToProps, null)(App);

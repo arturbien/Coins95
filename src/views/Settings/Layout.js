@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import styled, {css} from "styled-components";
-import {createDisabledTextStyles} from "../../utils";
+import styled, { css } from "styled-components";
+import { createDisabledTextStyles } from "../../utils";
 
 import {
   Tab,
@@ -11,7 +11,7 @@ import {
   Checkbox,
   Slider,
   Select,
-  ColorInput
+  ColorInput,
 } from "react95";
 
 import Fullpage from "../../components/Fullpage/Fullpage";
@@ -19,17 +19,13 @@ import Monitor from "./Monitor";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
-const SField = styled.div`
-  margin-bottom: 20px;
-`;
-
-const Pad = styled.div`
-  padding: 16px;
-`
-
 const Layout = ({
   theme,
   setTheme,
+  scanLines,
+  toggleScanLines,
+  scanLinesIntensity,
+  setScanLinesIntensity,
   background,
   backgrounds,
   setBackground,
@@ -48,32 +44,35 @@ const Layout = ({
       <Tabs value={activeTab} onChange={handleChange}>
         <Tab value={0}>Background</Tab>
         <Tab value={1}>Appearance</Tab>
-        <Tab value={2}>Text</Tab>
+        <Tab value={2}>System</Tab>
         {/* <Tab value={2}>About</Tab> */}
       </Tabs>
       <TabBody style={{ height: 510 }}>
-      {activeTab === 0 && (
+        {activeTab === 0 && (
           <>
             <Monitor backgroundColor={background.value} />
-            <Fieldset label="Wallpaper:">
+            <Fieldset label="Wallpaper:" style={{ marginTop: 20 }}>
               <Select
                 width="100%"
-                onChange={e =>
+                onChange={(e) =>
                   setBackground(
-                    backgrounds.find(b => b.value === e.target.value)
+                    backgrounds.find((b) => b.value === e.target.value)
                   )
                 }
+                menuMaxHeight={300}
                 options={backgrounds}
                 value={background.value}
               />
-              <CustomColorField isDisabled={backgrounds[0].value !== background.value}>
+              <CustomColorField
+                isDisabled={backgrounds[0].value !== background.value}
+              >
                 <label>Custom color:</label>
-              <ColorInput 
-                value={backgrounds[0].value}
-                onChange={e => setCustomBackground(e.target.value)}
-                disabled={backgrounds[0].value !== background.value}
+                <ColorInput
+                  value={backgrounds[0].value}
+                  onChange={(e) => setCustomBackground(e.target.value)}
+                  disabled={backgrounds[0].value !== background.value}
                 />
-                </CustomColorField>
+              </CustomColorField>
             </Fieldset>
           </>
         )}
@@ -164,34 +163,60 @@ const Layout = ({
             <SField>
               <Fieldset label="Font:">
                 <Checkbox
-                  style={{}}
                   name="vintageFont"
                   value="vintageFont"
                   label="Vintage font"
                   onChange={() => toggleVintageFont(!vintageFont)}
                   checked={vintageFont}
                 />
+                <Pad>
+                  <SliderLabel>Size:</SliderLabel>
+                  <Slider
+                    min={0.8}
+                    max={1.2}
+                    step={null}
+                    value={fontSize}
+                    onChange={(e, val) => setFontSize(val)}
+                    marks={[
+                      { value: 0.8, label: "0.8" },
+                      { value: 0.9, label: "0.9" },
+                      { value: 1, label: "1" },
+                      { value: 1.1, label: "1.1" },
+                      { value: 1.2, label: "1.2" },
+                    ]}
+                  />
+                </Pad>
               </Fieldset>
             </SField>
+            <SField></SField>
             <SField>
-              <Fieldset label="Size:">
-                <Pad>
-
-                <Slider
-                  min={0.8}
-                  max={1.2}
-                  step={null}
-                  value={fontSize}
-                  onChange={(e, val) => setFontSize(val)}
-                  marks={[
-                    { value: 0.8, label: '0.8' },
-                    { value: 0.9, label: '0.9' },
-                    { value: 1, label: '1' },
-                    { value: 1.1, label: '1.1' },
-                    { value: 1.2, label: '1.2' },
-                  ]}
+              <Fieldset
+                label={
+                  <Checkbox
+                    style={{}}
+                    name="scanLines"
+                    value="scanLines"
+                    label="Scan lines"
+                    onChange={() => toggleScanLines(!scanLines)}
+                    checked={scanLines}
                   />
-                  </Pad>
+                }
+              >
+                <Pad>
+                  <SliderLabel isDisabled={!scanLines}>Intensity:</SliderLabel>
+                  <Slider
+                    disabled={!scanLines}
+                    step={10}
+                    min={0}
+                    max={100}
+                    marks={[
+                      { value: 0, label: "min" },
+                      { value: 100, label: "max" },
+                    ]}
+                    value={scanLinesIntensity}
+                    onChange={(e, val) => setScanLinesIntensity(val)}
+                  />
+                </Pad>
               </Fieldset>
             </SField>
           </>
@@ -216,8 +241,28 @@ const CustomColorField = styled.div`
   label {
     font-size: 1rem;
     padding-right: 1rem;
-    ${({isDisabled}) => isDisabled && css`
+    ${({ isDisabled }) =>
+      isDisabled &&
+      css`
+        ${createDisabledTextStyles()}
+      `}
+  }
+`;
+
+const SField = styled.div`
+  margin-bottom: 30px;
+`;
+
+const SliderLabel = styled.label`
+  display: inline-block
+  margin-bottom: 0.5rem;
+  margin-left: -1rem;
+  ${({ isDisabled }) =>
+    isDisabled &&
+    css`
       ${createDisabledTextStyles()}
     `}
-  }
+`;
+const Pad = styled.div`
+  padding: 8px 16px;
 `;
