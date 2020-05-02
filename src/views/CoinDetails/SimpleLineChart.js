@@ -12,8 +12,9 @@ import { ThemeContext } from 'styled-components';
 
 const SimpleLineChart = ({ data }) => {
   const themeContext = useContext(ThemeContext);
+  const lineColor = ['default','maring'].includes(themeContext.name)? 'red':themeContext.progress;
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="100%" >
       <LineChart data={data}>
         <YAxis
           type="number"
@@ -26,7 +27,7 @@ const SimpleLineChart = ({ data }) => {
         <Line
           type="monotone"
           dataKey="AVG"
-          stroke={themeContext.progress}
+          stroke={lineColor}
           strokeWidth={2}
           dot={false}
         />
