@@ -1,19 +1,23 @@
-import React from "react";
-// import propTypes from "prop-types";
-
+import React, {useState} from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
-import { Button, WindowContent } from "react95";
+import { Button, WindowContent,  Toolbar } from "react95";
 
 import FullPageWindow from "../../components/FullPageWindow/FullPageWindow";
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import CoinsTable from "./CoinsTable";
 import CloseIcon from "../../components/CloseIcon/CloseIcon";
+import KeyboardInput from "../../components/KeyboardInput/KeyboardInput";
 import SearchIcon from "../../assets/img/system-search.png";
 
 const Layout = ({ data, onFollow, ...otherProps }) => {
+  const [searchPhrase, setSearchPhrase]=useState('')
+
+  const handleSearch = e => {
+    setSearchPhrase(e.target.value);
+  }
   useLockBodyScroll();
   return (
     <FullPageWindow>
@@ -44,7 +48,27 @@ const Layout = ({ data, onFollow, ...otherProps }) => {
         </Button>
       </WindowHeader>
       <SWindowContent>
-        <CoinsTable data={data} onFollow={onFollow} />
+      <SearchWrapper>
+          <KeyboardInput
+            placeholder="Search..."
+            value={searchPhrase}
+            onChange={handleSearch}
+            width="100%"
+            style={{ marginRight: "4px", width: '100%' }}
+            // onFocus={e =>{
+            //   e.preventDefault();
+            //   setShowKeyboard(true);
+            // }}
+            // onBlur={() => setShowKeyboard(false)}
+          />
+          <Button
+            disabled={searchPhrase === ""}
+            onClick={() => setSearchPhrase('')}
+          >
+            Clear
+          </Button>
+        </SearchWrapper>
+        <CoinsTable searchPhrase={searchPhrase} data={data} onFollow={onFollow} />
       </SWindowContent>
     </FullPageWindow>
   );
@@ -62,4 +86,8 @@ let SWindowContent = styled(WindowContent)`
   padding-bottom: 37px;
   padding-left: 0.25rem;
   padding-right: 0.25rem;
+`;
+
+const SearchWrapper = styled(Toolbar)`
+  margin: 0 -4px;
 `;

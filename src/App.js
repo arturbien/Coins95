@@ -38,6 +38,16 @@ const ResetStyles = createGlobalStyle`
     color: ${({theme}) => theme.text};
     --safe-area-inset-bottom: constant(safe-area-inset-bottom); 
     --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    &:before {
+      content: '';
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: var(--safe-area-inset-bottom);
+      background: black;
+      z-index: 9999999;
+    }
   }
   #background {
     position: fixed;
