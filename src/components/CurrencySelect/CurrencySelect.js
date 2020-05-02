@@ -8,16 +8,13 @@ const CurrencySelect = ({ selectedCurrency, setCurrency }) => {
     value: currency,
     label: currency
   }));
-  const selectedIndex = currencies.findIndex(
-    currency => currency.value === selectedCurrency
-  );
   return (
     <Select
       style={{ flexShrink: 0 }}
       width={85}
-      onChange={value => setCurrency(value)}
-      selectedIndex={selectedIndex}
-      items={currencies}
+      onChange={(e) => setCurrency(e.target.value)}
+      value={selectedCurrency}
+      options={currencies}
     />
   );
 };
