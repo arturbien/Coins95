@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import useWindowSize from "../../hooks/useWindowSize";
+import iPhoneImage from "../../assets/img/iphone.png";
 
 const Viewport = styled.div`
   position: relative;
@@ -19,6 +20,34 @@ const Viewport = styled.div`
 
   overflow: hidden;
   box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.35);
+
+  overflow: visible;
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+   
+    pointer-events: none;
+  }
+  &:before {
+    box-sizing: content-box;
+    border-bottom: 70px solid black;
+    border-top: 70px solid black;
+    height: 100%;
+    width: 100%;
+    border-radius: 56px;
+    box-shadow: 14px 4px 24px 18px rgba(0,0,0,0.5);
+  }
+  &:after {
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    height: 852px;
+    width: 461px;
+    background: url(${iPhoneImage});
+    background-size: cover;
+  }
 `;
 const ViewportContent = styled.div`
   height: 100%;
@@ -39,7 +68,7 @@ const BottomCornersCover = styled.div`
 export default ({ children, maxWidth = 450, maxHeight = 896 }) => {
   const [width, height] = useWindowSize();
   return width > maxWidth || height > maxHeight ? (
-    <Viewport maxWidth={maxWidth} maxHeight={maxHeight} id="swag">
+    <Viewport maxWidth={maxWidth} maxHeight={maxHeight} id="device">
       <ViewportContent>{children}</ViewportContent>
     </Viewport>
   ) : (
