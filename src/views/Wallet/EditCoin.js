@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
@@ -9,10 +9,9 @@ import { formatCurrency } from "../../utils";
 
 import API from "../../API";
 
-import { Toolbar, Button, Window, WindowContent } from "react95";
+import { Toolbar, Button, Window, WindowContent, TextField } from "react95";
 
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
-import KeyboardInput from "../../components/KeyboardInput/KeyboardInput";
 import CoinIcon from "../../components/CoinIcon/CoinIcon";
 import CloseIcon from "../../components/CloseIcon/CloseIcon";
 
@@ -26,6 +25,7 @@ const Layout = ({
 }) => {
   const [data, setData] = useState(null);
   const [amount, setAmount] = useState(holdings || 0);
+  const inputRef = useRef();
   useEffect(() => {
     async function fetchData() {
       let data = await API.fetchCoinsData([coin], currency, false);
@@ -35,6 +35,11 @@ const Layout = ({
     fetchData();
   }, [coin, currency]);
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  })
   const handleAmountChange = e => {
     const value = e.target.value;
     if (/^\d*\.?\d*$/.test(value)) {
@@ -78,7 +83,8 @@ const Layout = ({
           </Field>
           <Field>
             <Label>{data && data.FROMSYMBOL}</Label>
-            <KeyboardInput
+            <TextField
+              ref={inputRef}
               disabled={!data}
               value={amount.toString()}
               onChange={handleAmountChange}

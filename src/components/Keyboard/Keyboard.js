@@ -169,7 +169,7 @@ const EmojiGroup = styled.div`
   padding-right: 16px
 `;
 const EmojiGroupName = styled.h4`
-  color: ${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.materialText};
   margin-bottom: 0.5rem;
   margin-top: 0.25rem;
   display: inline-block;

@@ -16,18 +16,12 @@ import {
 } from "../actions/actionTypes";
 
 import { saveState, loadState } from "../localStorage";
-
-import BricksIMG from "../../assets/img/backgrounds/bricks.png";
-
-import MazeIMG from "../../assets/img/backgrounds/egypt.png";
-
 import Rivets from "../../assets/img/backgrounds/rivets.png";
 import Zigzag from "../../assets/img/backgrounds/zigzag.png";
 import PurpleSquares from "../../assets/img/backgrounds/purpleSquares.png";
 import Honey from "../../assets/img/backgrounds/honey.png";
 
 import WaterIMG from "../../assets/img/backgrounds/water.gif";
-import PoolsideIMG from "../../assets/img/backgrounds/poolside.gif";
 import NoiseIMG from "../../assets/img/backgrounds/noise.gif";
 
 const LOCAL_STORAGE_KEY = "user";
@@ -35,16 +29,12 @@ const persistedState = loadState(LOCAL_STORAGE_KEY) || {};
 
 export const backgrounds = [
   { value: "#008080", label: "(Custom)" },
-  { value: `url(${BricksIMG})`, label: "Bricks" },
-  { value: `url(${MazeIMG})`, label: "Maze" },
-
   { value: `url(${Rivets})`, label: "Rivets" },
   { value: `url(${Zigzag})`, label: "Zig-zag" },
   { value: `url(${PurpleSquares})`, label: "Purple squares" },
   { value: `url(${Honey})`, label: "Honey" },
 
   { value: `url(${WaterIMG})`, label: "Water" },
-  { value: `url(${PoolsideIMG})`, label: "Poolside OS" },
   { value: `url(${NoiseIMG})`, label: "Noise" },
 ];
 

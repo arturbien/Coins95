@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, {ThemeProvider} from "styled-components";
 
 import { Switch, Route, withRouter } from "react-router";
 
-import { Button, Radio, Fieldset } from "react95";
+import { Button, Radio, Fieldset, themes } from "react95";
 
 import ClippyIcon from "../../assets/img/clippy4.png";
 import CryingEmoji from "../../assets/img/emojis/32/face-crying.png";
@@ -13,12 +13,29 @@ const Emoji = styled.img`
   height: 23px;
   width: 23px;
 `;
-
+const actions = [
+  {
+    label: 'One time donation via PayPal',
+    value: 'https://www.paypal.me/react95'
+  },
+  { 
+    label: 'Support on Patreon',
+    value: 'https://www.patreon.com/arturbien'
+  },
+  { 
+    label: 'Share on Twitter',
+    value: 'https://twitter.com/intent/tweet?url=https%3A%2F%2Fcoins95.web.app%2F&text=This%20is%20the%20cutest%20app%20I%20have%20ever%20seen!%20%E2%99%A5%EF%B8%8F'
+  }
+];
 const Clippy = props => {
   const [isOpened, setIsOpened] = useState(false);
+  const [action, setAction] = useState(actions[0].value);
 
+  const handleChange = e => {
+    setAction(e.target.value);
+  }
   return (
-    <>
+    <ThemeProvider theme={themes.default}>
       {isOpened && (
         <Modal onClick={() => setIsOpened(false)}>
           <ModalBody onClick={e => e.stopPropagation()}>
@@ -33,43 +50,25 @@ const Clippy = props => {
                         fontSize: "1.1em"
                       }}
                     >
-                      Old Clippy's DEAD <Emoji src={CryingEmoji} />
+                      Clippy is dead  <Emoji src={CryingEmoji} />
                     </h3>
-                    <br />
-                    <br />
-                    <p>And now what?</p>
-                    <br />
-                    <Fieldset label="Options" variant="flat">
-                      <Radio
-                        value="1"
-                        label="contribute to React95"
-                        checked={true}
-                        variant="flat"
-                      />
-                      <br />
-                      <Radio
-                        disabled
-                        value="2"
-                        label="cry about it"
-                        checked={false}
-                        variant="flat"
-                      />
-                      <br />
-                      <Radio
-                        disabled
-                        value="3"
-                        label="install Windows 95"
-                        checked={false}
-                        variant="flat"
-                      />
+                    <p style={{lineHeight:'1.5', margin: '1rem 0 2rem'}}>I'm trying to bring it back to life.
+                    <br />I've spent couple of months working on this app and I am not even interested in crypto. If you like what you see, show some love.
+                    </p>
+                    <Fieldset label="Actions:" variant="flat">
+                      {actions.map(o => <><Radio {...o} onChange={handleChange} checked={action===o.value} variant="flat"/><br/></>)}
+              
                     </Fieldset>
                     <br />
                     <Button
+                     as="a"
+                     href={action}
                       variant="flat"
+                      primary
                       fullWidth
-                      onClick={() => setIsOpened(false)}
+                      // onClick={() => window.location.replace(action)}
                     >
-                      Confirm
+                      Continue
                     </Button>
                   </>
                 )}
@@ -79,7 +78,7 @@ const Clippy = props => {
         </Modal>
       )}
       <Fab onClick={() => setIsOpened(!isOpened)} />
-    </>
+    </ThemeProvider>
   );
 };
 
@@ -103,9 +102,11 @@ const ModalBody = styled.div`
   position: relative;
   padding: 1rem;
   border: 2px solid ${({ theme }) => theme.borderDarkest};
+  color: ${({ theme }) => theme.materialText};
+
   border-radius: 0.5rem;
   background: ${({ theme }) => theme.tooltip};
-  box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.35);
+  filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.55));
 
   &:after {
     content: "";
@@ -120,7 +121,6 @@ const ModalBody = styled.div`
 
     border-right: 2px solid ${({ theme }) => theme.borderDarkest};
     background: ${({ theme }) => theme.tooltip};
-    box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.35);
   }
 `;
 const Fab = styled.button`

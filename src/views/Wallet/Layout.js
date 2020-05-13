@@ -29,7 +29,7 @@ const SortableContainer = sortableContainer(({ children }) => {
   return <ul>{children}</ul>;
 });
 
-const Layout = ({ data, currency, sortUserHoldings, match }) => {
+const Layout = ({ data, currency, sortUserHoldings, match, location }) => {
   const handleSortEnd = ({ oldIndex, newIndex }) => {
     const coinsList = arrayMove(
       data.map(coinData => coinData.symbol),
@@ -50,7 +50,7 @@ const Layout = ({ data, currency, sortUserHoldings, match }) => {
       <Top>
         <div>
           <header>
-            <a href="https://twitter.com/artur_bien?lang=en">@artur_bien</a>
+            <a href="https://twitter.com/artur_bien?lang=en">@bill_the_thustler</a>
           </header>
           <Divider />
           <section>
@@ -69,7 +69,9 @@ const Layout = ({ data, currency, sortUserHoldings, match }) => {
                   <LinkButton
                     fullWidth
                     style={{ marginRight: 8 }}
-                    to={"/search"}
+                    to={{pathname:"/search", state: {
+                      from: location.pathname
+                    }}}
                   >
                     + Add
                   </LinkButton>
@@ -78,22 +80,16 @@ const Layout = ({ data, currency, sortUserHoldings, match }) => {
               </div>
             </div>
           </section>
-          <div style={{ paddingLeft: "0.5rem", fontSize: "0.9rem" }}>
+          <div style={{ paddingLeft: "0.5rem", fontSize: "0.9rem", lineHeight: "1.5" }}>
             <p style={{ lineHeight: 1.5 }}>
-              <b style={{ fontWeight: "bold" }}>{"Artur Bien"}</b>
+              <b style={{ fontWeight: "bold" }}>Bill the Hustler</b>
             </p>
 
             <p>
-              <a href={`mailto:artur.bien@gmail.com`}>
-                {"artur.bien@gmail.com"}
-              </a>
+            Ever since i left yo dumbass i been winning 😗💋<br/>
+            💰 Hustler<br/>
+            💪 Fitness geek 
             </p>
-            <Anchor
-              href="https://www.expensive.toys"
-              style={{ lineHeight: 1.5, textDecoration: "none" }}
-            >
-              www.expensive.toys
-            </Anchor>
           </div>
         </div>
         <div>
@@ -119,7 +115,9 @@ const Layout = ({ data, currency, sortUserHoldings, match }) => {
                   <MainRow>
                     <LeftCol>
                       <DragHandle />
-                      <Link to={`/coins/${coin.symbol}`}>
+                      <Link to={{pathname:`/coins/${coin.symbol}`, state: {
+                        from: location.pathname
+                      }}}>
                         <CoinLinkContent>
                           <CoinIcon
                             src={coin.imageURL}
@@ -212,7 +210,6 @@ const TotalBalance = styled.div`
   font-size: 2rem;
   margin-right: 0.5rem;
   margin-bottom: 0.75rem;
-  /* color: ${({ theme }) => theme.textDisabled}; */
   text-align: right;
 `;
 const ListWrapper = styled.section`

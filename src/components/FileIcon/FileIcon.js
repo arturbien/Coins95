@@ -43,7 +43,9 @@ const Icon = styled.span`
     z-index: 2;
   }
 `;
-const IconIMG = styled.img`
+const IconIMG = styled.img.attrs(() => ({
+  loading:'lazy'
+}))`
   width: 100%;
   height: 100%;
   object-fit: contain;

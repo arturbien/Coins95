@@ -35,15 +35,16 @@ class CoinsTable extends React.Component {
   };
 
   render() {
-    let { history, data } = this.props;
+    let { history, data, location } = this.props;
     const searchParams = new URLSearchParams(history.location.search);
     let orderBy = searchParams.get("orderBy");
-    // by default sort by price descending
-    if (!orderBy) {
-      return <Redirect to="?orderBy=price&desc=true" />;
+    let desc = searchParams.get("desc") === "false" ? -1 : 1;
+
+    if (!location.search.includes('orderBy')) {
+      orderBy = 'price';
+      desc = 1;
     }
 
-    let desc = searchParams.get("desc") === "false" ? -1 : 1;
 
     const orderPairs = {
       price: "PRICE",

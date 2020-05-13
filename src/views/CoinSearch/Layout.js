@@ -1,25 +1,28 @@
 import React, {useState} from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
-import { Button, WindowContent,  Toolbar } from "react95";
+import { Button, WindowContent, TextField, Toolbar } from "react95";
 
 import FullPageWindow from "../../components/FullPageWindow/FullPageWindow";
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import CoinsTable from "./CoinsTable";
 import CloseIcon from "../../components/CloseIcon/CloseIcon";
-import KeyboardInput from "../../components/KeyboardInput/KeyboardInput";
+import LinkButton from "../../components/LinkButton/LinkButton";
+
 import SearchIcon from "../../assets/img/system-search.png";
 
 const Layout = ({ data, onFollow, ...otherProps }) => {
   const [searchPhrase, setSearchPhrase]=useState('')
+  // const location = useLocation();
+  
 
   const handleSearch = e => {
     setSearchPhrase(e.target.value);
   }
   useLockBodyScroll();
   return (
-    <FullPageWindow>
+    <FullPageWindow style={{position: 'absolute', top: '0'}}>
       <WindowHeader>
         <img
           alt="Search icon"
@@ -32,7 +35,7 @@ const Layout = ({ data, onFollow, ...otherProps }) => {
           }}
         />
         Search
-        <Button
+        <LinkButton
           square
           size="sm"
           style={{
@@ -41,24 +44,19 @@ const Layout = ({ data, onFollow, ...otherProps }) => {
             top: 3,
             fontWeight: "bold"
           }}
-          onClick={() => otherProps.history.goBack()}
+          goBack
         >
           <CloseIcon />
-        </Button>
+        </LinkButton>
       </WindowHeader>
       <SWindowContent>
       <SearchWrapper>
-          <KeyboardInput
+          <TextField
             placeholder="Search..."
             value={searchPhrase}
             onChange={handleSearch}
             width="100%"
             style={{ marginRight: "4px", width: '100%' }}
-            // onFocus={e =>{
-            //   e.preventDefault();
-            //   setShowKeyboard(true);
-            // }}
-            // onBlur={() => setShowKeyboard(false)}
           />
           <Button
             disabled={searchPhrase === ""}
