@@ -75,10 +75,10 @@ const Layout = ({
             label="Follow"
             value={true}
             checked={following}
-            disabled={!info}
+            disabled={!info || !data}
             onChange={onFollow}
           />
-          <LinkButton to={`/wallet/${symbol}`} disabled={!info}>
+          <LinkButton to={`/wallet/${(info||{}).symbol}`} disabled={!info}>
             {inWallet ? "Edit in wallet" : "Add to wallet"}
           </LinkButton>
         </TopToolbar>
@@ -172,7 +172,7 @@ const ChartWrapper = styled(Cutout)`
   position: relative;
   width: 100%;
   flex: 1;
-  background: black;
+  background: ${({theme}) => theme.canvas};
   /* background: radial-gradient(#1d8a99, teal); */
   padding: 1em;
 `;

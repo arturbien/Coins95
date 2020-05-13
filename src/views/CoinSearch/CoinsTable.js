@@ -36,7 +36,9 @@ class CoinsTable extends React.Component {
     }
   };
   render() {
-    let { history, data, onFollow ,searchPhrase} = this.props;
+    let { history, location, data, onFollow ,searchPhrase} = this.props;
+    const currentUrl = location.pathname + location.search;
+
     searchPhrase = searchPhrase.toLowerCase();
     const orderPairs = {
       rank: "sortOrder",
@@ -69,7 +71,9 @@ class CoinsTable extends React.Component {
           sortOrder,
           isFollowed,
         } = coinData;
-        const onClick = () => history.push(`/coins/${symbol}`);
+        const onClick = () => history.push({pathname: `/coins/${symbol}`, state: {
+          from: currentUrl
+        }});
         return (
           <TableRow key={i} >
             <TableDataCell onClick={onClick}>

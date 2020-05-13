@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 import packageJSON from "../../../package.json";
 
@@ -15,9 +16,11 @@ const DashboardLayout = ({
   data,
   showingFollowing,
   showFollowing,
-  showTop
+  showTop,
 }) => {
   useLockBodyScroll();
+  const location = useLocation();
+  const currentUrl = location.pathname + location.search;
   return (
     <Fullpage>
       <Header>
@@ -26,7 +29,16 @@ const DashboardLayout = ({
           <span>95</span>
           <small>v{packageJSON.version}</small>
         </h1>
-        <LinkButton to="/search">Search...</LinkButton>
+        <LinkButton
+          to={{
+            pathname: "/search",
+            state: {
+              from: currentUrl,
+            },
+          }}
+        >
+          Search...
+        </LinkButton>
       </Header>
       <CoinsTableWrapper>
         <CoinsTable data={data} />
@@ -38,8 +50,8 @@ const DashboardLayout = ({
           {
             label: "Following",
             onClick: showFollowing,
-            active: showingFollowing
-          }
+            active: showingFollowing,
+          },
         ]}
       />
     </Fullpage>

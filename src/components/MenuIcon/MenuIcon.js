@@ -7,7 +7,7 @@ export default styled.span`
   height: 3px;
 
   transform: rotateZ(${({ horizontal }) => (horizontal ? "90deg" : "0deg")});
-  background: ${({ theme }) => theme.text};
+  background: ${({ theme }) => theme.materialText};
   &:after,
   &:before {
     content: "";
@@ -17,7 +17,7 @@ export default styled.span`
     width: 3px;
     height: 3px;
 
-    background: ${({ theme }) => theme.text};
+    background: ${({ theme }) => theme.materialText};
   }
   &:after {
     top: -6px;

@@ -27,7 +27,7 @@ export default styled(Table)`
     border-bottom: 1px solid ${({ theme }) => theme.borderLight};
   }
   tr:hover th {
-    color: ${({ theme }) => theme.text};
+    color: ${({ theme }) => theme.materialText};
   }
   th,
   td {

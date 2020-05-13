@@ -35,11 +35,6 @@ const NewsList = ({ news, fetchNews }) => {
     };
     const observer = new IntersectionObserver(callback, options);
     lazyImages.forEach(lazyImage => {
-      lazyImage.style.opacity = 0;
-      lazyImage.style.transition = "0.25s all ease-in-out";
-      lazyImage.onload = function() {
-        lazyImage.style.opacity = 1;
-      };
       observer.observe(lazyImage);
     });
     return () => {
@@ -290,6 +285,7 @@ let ArticleHeader = styled.header`
 let Square = styled.div`
   width: 100%;
   position: relative;
+  background: ${({theme}) => theme.material};
   &:before {
     content: "";
     left: 0;

@@ -35,7 +35,6 @@ const Layout = ({
   fontSize,
   setFontSize,
 }) => {
-  console.log("Settings: ", backgrounds);
   const [activeTab, setActiveTab] = useState(0);
   const handleChange = (e, value) => setActiveTab(value);
   useLockBodyScroll();
@@ -115,17 +114,10 @@ const Layout = ({
               />
               <br />
               <Radio
-                value="spruce"
-                onChange={() => setTheme("spruce")}
-                checked={theme === "spruce"}
-                label="🥬 Spruce"
-              />
-              <br />
-              <Radio
-                value="molecule"
-                onChange={() => setTheme("molecule")}
-                checked={theme === "molecule"}
-                label="🧪 Molecule"
+                value="olive"
+                onChange={() => setTheme("olive")}
+                checked={theme === "olive"}
+                label="🍸 Olive"
               />
               <br />
               <Radio
@@ -150,10 +142,10 @@ const Layout = ({
               />
               <br />
               <Radio
-                value="lilac"
-                onChange={() => setTheme("lilac")}
-                checked={theme === "lilac"}
-                label="🍇 Lilac"
+                value="vaporTeal"
+                onChange={() => setTheme("vaporTeal")}
+                checked={theme === "vaporTeal"}
+                label="💨 Vapor Teal"
               />
             </Fieldset>
           </SField>

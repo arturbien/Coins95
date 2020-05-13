@@ -12,18 +12,19 @@ import { ThemeContext } from 'styled-components';
 
 const SimpleLineChart = ({ data }) => {
   const themeContext = useContext(ThemeContext);
-  const lineColor = ['default','maring'].includes(themeContext.name)? 'red':themeContext.progress;
+  const lineColor = themeContext.progress;
+  const textColor = themeContext.canvasText;
   return (
-    <ResponsiveContainer width="100%" height="100%" >
+    <ResponsiveContainer width="100%" height="100%" style={{background: 'red'}} >
       <LineChart data={data}>
         <YAxis
           type="number"
           domain={["auto", "auto"]}
           mirror
-          tick={{ stroke: "#ffffff" }}
+          tick={{ stroke: textColor }}
         />
 
-        <CartesianGrid strokeDasharray="3 3" stroke="#ffffff" />
+        <CartesianGrid strokeDasharray="3 3" stroke={textColor} />
         <Line
           type="monotone"
           dataKey="AVG"

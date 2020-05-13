@@ -133,8 +133,9 @@ const SWindowContent = styled(WindowContent)`
 `;
 const SCutout = styled(Cutout)`
   flex: 1;
-  background: white;
+  background: ${({theme}) => theme.canvas};
   overflow: hidden;
+  color: ${({theme}) => theme.canvasText};
 `;
 const Description = styled.div`
   box-sizing: border-box;
@@ -142,7 +143,6 @@ const Description = styled.div`
   padding: 0.5rem 0.5rem 1rem 0.5rem;
   overflow-y: scroll;
   line-height: 1.5;
-
   > h1 {
     margin-top: 1rem;
     font-weight: bold;

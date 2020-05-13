@@ -71,9 +71,9 @@ export const createMaterialStyles = (mode = "top") => css`
 `;
 
 export const createDisabledTextStyles = () => css`
-  -webkit-text-fill-color: ${({ theme }) => theme.textDisabled};
-  color: ${({ theme }) => theme.textDisabled};
-  text-shadow: 1px 1px ${({ theme }) => theme.textDisabledShadow};
+  -webkit-text-fill-color: ${({ theme }) => theme.materialTextDisabled};
+  color: ${({ theme }) => theme.materialTextDisabled};
+  text-shadow: 1px 1px ${({ theme }) => theme.materialTextDisabledShadow};
 `;
 
 export function copyToClipboard(str) {
