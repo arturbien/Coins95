@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { withRouter, useLocation } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import { Button, WindowContent, TextField, Toolbar } from "react95";
@@ -12,10 +12,8 @@ import LinkButton from "../../components/LinkButton/LinkButton";
 
 import SearchIcon from "../../assets/img/system-search.png";
 
-const Layout = ({ data, onFollow, ...otherProps }) => {
+const Layout = ({ data, onFollow}) => {
   const [searchPhrase, setSearchPhrase]=useState('')
-  // const location = useLocation();
-  
 
   const handleSearch = e => {
     setSearchPhrase(e.target.value);

@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/accessible-emoji */
 import React from "react";
 import styled from "styled-components";
 import { Link, Route } from "react-router-dom";
 import { withRouter } from "react-router";
 import arrayMove from "array-move";
-import { Divider, Toolbar, Anchor } from "react95";
+import { Divider, Toolbar } from "react95";
 import {
   sortableContainer,
   sortableElement,
