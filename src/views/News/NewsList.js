@@ -274,7 +274,7 @@ let SourceIMG = styled.img`
 
 let ArticleSource = styled.header`
   ${createMaterialStyles("bottom")}
-
+  line-height: 1;
   padding: 0.5rem;
 `;
 let ArticleHeader = styled.header`

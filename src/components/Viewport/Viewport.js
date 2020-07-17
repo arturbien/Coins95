@@ -14,6 +14,32 @@ const Viewport = styled.div`
   @media only screen and (min-width: 450px) and (min-height: 600px) {
     height: 680px;
     width: 400px;
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+     
+      pointer-events: none;
+    }
+    &:before {
+      box-sizing: content-box;
+      border-bottom: 70px solid black;
+      border-top: 70px solid black;
+      height: 100%;
+      width: 100%;
+      border-radius: 56px;
+      box-shadow: 14px 4px 24px 18px rgba(0,0,0,0.5);
+    }
+    &:after {
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      height: 852px;
+      width: 461px;
+      background: url(${iPhoneImage});
+      background-size: cover;
+    }
   }
   max-height: 100%;
   max-width: 100%;
@@ -22,32 +48,7 @@ const Viewport = styled.div`
   box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.35);
 
   overflow: visible;
-  &:before, &:after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-   
-    pointer-events: none;
-  }
-  &:before {
-    box-sizing: content-box;
-    border-bottom: 70px solid black;
-    border-top: 70px solid black;
-    height: 100%;
-    width: 100%;
-    border-radius: 56px;
-    box-shadow: 14px 4px 24px 18px rgba(0,0,0,0.5);
-  }
-  &:after {
-    z-index: 99999;
-    transform: translate(-50%, -50%);
-    height: 852px;
-    width: 461px;
-    background: url(${iPhoneImage});
-    background-size: cover;
-  }
+  
 `;
 const ViewportContent = styled.div`
   height: 100%;
