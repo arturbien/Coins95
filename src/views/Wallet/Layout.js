@@ -230,6 +230,7 @@ const MainRow = styled.div`
   height: auto;
   ${createMaterialStyles("full")}
   padding: 0.75rem 0.5rem;
+  line-height: 1;
 `;
 
 const LeftCol = styled.header`

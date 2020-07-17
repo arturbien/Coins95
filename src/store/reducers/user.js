@@ -44,7 +44,7 @@ const initialState = {
   seenEvents: [],
   currency: "EUR",
   vintageFont: true,
-  theme: "default",
+  theme: "original",
   backgrounds,
   background: backgrounds[0],
   fontSize: 1,

@@ -79,10 +79,10 @@ const Layout = ({
           <SField>
             <Fieldset label="Theme:">
               <Radio
-                value="default"
-                onChange={() => setTheme("default")}
-                checked={theme === "default"}
-                label="default"
+                value="original"
+                onChange={() => setTheme("original")}
+                checked={theme === "original"}
+                label="original"
               />
               <br />
               <Radio

@@ -6,7 +6,6 @@ import { Button } from "react95";
 
 const LinkButton = ({ goBack, to, history, children, ...otherProps }) => {
   const location = useLocation();
-  console.log(location.state)
   // if previous location is present then go back to it
   // otherwise go to main page
   const previousLocation = location.state ? location.state.from:'/';

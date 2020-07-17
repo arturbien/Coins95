@@ -1,29 +1,60 @@
-import React, { Component } from "react";
+import React, { Component, Suspense, lazy } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
 
 import { createGlobalStyle, ThemeProvider, css } from "styled-components";
-import { themes, styleReset } from "react95";
+import { styleReset } from "react95";
 
-import woff2 from "./assets/fonts/MS-Sans-Serif.woff2";
+import original from "react95/dist/themes/original";
+import rose from "react95/dist/themes/rose";
+import rainyDay from "react95/dist/themes/rainyDay";
+import travel from "react95/dist/themes/travel";
+import marine from "react95/dist/themes/marine";
+import olive from "react95/dist/themes/olive";
+import theSixtiesUSA from "react95/dist/themes/theSixtiesUSA";
+import candy from "react95/dist/themes/candy";
+import tokyoDark from "react95/dist/themes/tokyoDark";
+import vaporTeal from "react95/dist/themes/vaporTeal";
 
-import Dashboard from "./views/Dashboard/Dashboard";
-import CoinDetails from "./views/CoinDetails/CoinDetails";
-import CoinSearch from "./views/CoinSearch/CoinSearch";
-import Wallet from "./views/Wallet/Wallet";
-
-import News from "./views/News/News";
-import Settings from "./views/Settings/Settings";
+import ms_sans_serif from "react95/dist/fonts/ms_sans_serif.woff2";
+import ms_sans_serif_bold from "react95/dist/fonts/ms_sans_serif_bold.woff2";
 
 import Viewport from "./components/Viewport/Viewport";
 import NavBar from "./components/NavBar/NavBar";
 
+const themes = {
+  original,
+  rose,
+  rainyDay,
+  travel,
+  marine,
+  olive,
+  theSixtiesUSA,
+  candy,
+  tokyoDark,
+  vaporTeal,
+};
+const Dashboard = React.lazy(() => import("./views/Dashboard/Dashboard"));
+const CoinDetails = React.lazy(() => import("./views/CoinDetails/CoinDetails"));
+const CoinSearch = React.lazy(() => import("./views/CoinSearch/CoinSearch"));
+const Wallet = React.lazy(() => import("./views/Wallet/Wallet"));
+const News = React.lazy(() => import("./views/News/News"));
+const Settings = React.lazy(() => import("./views/Settings/Settings"));
+
 const ResetStyles = createGlobalStyle`
   ${styleReset}
   @font-face {
-    font-family: 'MS-Sans-Serif';
-    src:  url('${woff2}') format('woff2');
+    font-family: 'ms_sans_serif';
+    src: url('${ms_sans_serif}') format('woff2');
+    font-weight: 400;
+    font-style: normal
+  }
+  @font-face {
+    font-family: 'ms_sans_serif';
+    src: url('${ms_sans_serif_bold}') format('woff2');
+    font-weight: bold;
+    font-style: normal
   }
   html {
     font-size: ${({ fontSize }) => `${fontSize * 16}px`};
@@ -31,7 +62,7 @@ const ResetStyles = createGlobalStyle`
   html, body, #root {
     height: 100%;
     font-family: ${({ vintageFont }) =>
-      vintageFont ? "MS-Sans-Serif" : "sans-serif"};
+      vintageFont ? "ms_sans_serif" : "sans-serif"};
   }
   body {
     color: ${({ theme }) => theme.materialText};
@@ -101,12 +132,11 @@ const ResetStyles = createGlobalStyle`
   }
   * {
       font-family: ${({ vintageFont }) =>
-        vintageFont ? "MS-Sans-Serif" : "sans-serif"};
+        vintageFont ? "ms_sans_serif" : "sans-serif"};
   }
   #root input {
       font-family: ${({ vintageFont }) =>
-        vintageFont ? "MS-Sans-Serif" : "sans-serif"};
-    
+        vintageFont ? "ms_sans_serif" : "sans-serif"};
   }
 
   * {
@@ -150,15 +180,21 @@ class App extends Component {
                   <Route exact path={"/search"} component={null} />
                   <NavBar />
                 </Switch>
-                <Switch>
-                  <Route exact path={"/coins"} component={Dashboard} />
-                  <Route exact path={"/coins/:coin"} component={CoinDetails} />
-                  <Route exact path={"/search"} component={CoinSearch} />
-                  <Route path={"/wallet/"} component={Wallet} />
-                  <Route exact path={"/news"} component={News} />
-                  <Route exact path={"/settings"} component={Settings} />
-                  <Redirect exact from={"/"} to={"/coins"} />
-                </Switch>
+                <Suspense fallback={null}>
+                  <Switch>
+                    <Route exact path={"/coins"} component={Dashboard} />
+                    <Route
+                      exact
+                      path={"/coins/:coin"}
+                      component={CoinDetails}
+                    />
+                    <Route exact path={"/search"} component={CoinSearch} />
+                    <Route path={"/wallet/"} component={Wallet} />
+                    <Route exact path={"/news"} component={News} />
+                    <Route exact path={"/settings"} component={Settings} />
+                    <Redirect exact from={"/"} to={"/coins"} />
+                  </Switch>
+                </Suspense>
               </>
             </BrowserRouter>
           </>
