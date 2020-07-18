@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
@@ -20,6 +20,12 @@ import vaporTeal from "react95/dist/themes/vaporTeal";
 import ms_sans_serif from "react95/dist/fonts/ms_sans_serif.woff2";
 import ms_sans_serif_bold from "react95/dist/fonts/ms_sans_serif_bold.woff2";
 
+import Dashboard from "./views/Dashboard/Dashboard";
+import CoinDetails from "./views/CoinDetails/CoinDetails";
+import CoinSearch from "./views/CoinSearch/CoinSearch";
+import Wallet from "./views/Wallet/Wallet";
+import News from "./views/News/News";
+import Settings from "./views/Settings/Settings";
 import Viewport from "./components/Viewport/Viewport";
 import NavBar from "./components/NavBar/NavBar";
 
@@ -35,12 +41,7 @@ const themes = {
   tokyoDark,
   vaporTeal,
 };
-const Dashboard = React.lazy(() => import("./views/Dashboard/Dashboard"));
-const CoinDetails = React.lazy(() => import("./views/CoinDetails/CoinDetails"));
-const CoinSearch = React.lazy(() => import("./views/CoinSearch/CoinSearch"));
-const Wallet = React.lazy(() => import("./views/Wallet/Wallet"));
-const News = React.lazy(() => import("./views/News/News"));
-const Settings = React.lazy(() => import("./views/Settings/Settings"));
+
 
 const ResetStyles = createGlobalStyle`
   ${styleReset}
@@ -152,7 +153,7 @@ const ResetStyles = createGlobalStyle`
   }
 `;
 
-class App extends Component {
+class App extends React.Component {
   render() {
     const {
       theme,
@@ -180,7 +181,6 @@ class App extends Component {
                   <Route exact path={"/search"} component={null} />
                   <NavBar />
                 </Switch>
-                <Suspense fallback={null}>
                   <Switch>
                     <Route exact path={"/coins"} component={Dashboard} />
                     <Route
@@ -194,7 +194,6 @@ class App extends Component {
                     <Route exact path={"/settings"} component={Settings} />
                     <Redirect exact from={"/"} to={"/coins"} />
                   </Switch>
-                </Suspense>
               </>
             </BrowserRouter>
           </>
