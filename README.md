@@ -1,4 +1,4 @@
-<img width="650" alt="Screenshot 2020-07-19 at 01 09 03" src="https://user-images.githubusercontent.com/28541613/88466597-366e3b00-cece-11ea-945c-bd5d95279f0d.png">
+![okurka](https://user-images.githubusercontent.com/28541613/88466823-a087df80-ced0-11ea-9340-199690c9ffc9.png)
 
 [![CircleCI](https://circleci.com/gh/arturbien/coins/tree/master.svg?style=svg)](https://circleci.com/gh/arturbien/coins/tree/master)
 
