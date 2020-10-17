@@ -12,10 +12,10 @@ import {
   Slider,
   Select,
   ColorInput,
+  Desktop
 } from "react95";
 
 import Fullpage from "../../components/Fullpage/Fullpage";
-import Monitor from "./Monitor";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 
@@ -49,7 +49,7 @@ const Layout = ({
       <TabBody style={{ height: 510 }}>
         {activeTab === 0 && (
           <>
-            <Monitor backgroundColor={background.value} />
+            <CenteredDesktop  backgroundStyles={{background: background.value}}/>
             <Fieldset label="Wallpaper:" style={{ marginTop: 20 }}>
               <Select
                 width="100%"
@@ -257,4 +257,10 @@ const SliderLabel = styled.label`
 `;
 const Pad = styled.div`
   padding: 8px 16px;
+`;
+
+const CenteredDesktop = styled(Desktop)`
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 `;

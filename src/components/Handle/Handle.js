@@ -20,6 +20,7 @@ const Wrapper = styled.div`
   padding: 0.75rem 0.25rem;
   width: 27px;
   margin-right: 0.5rem;
+  cursor: grab;
 `;
 export default props => (
   <Wrapper {...props}>
