@@ -35,7 +35,8 @@ const Events = ({ events, fetchEvents, setEventSeen }) => {
   };
 
   let eventsList;
-  if (events) {
+  const hasEvents = events ? events.length : false;
+  if (hasEvents) {
     eventsList = events.map((e, i) => (
       <li key={e.id}>
         <Event onClick={() => onOpenEvent(i)}>
@@ -61,9 +62,13 @@ const Events = ({ events, fetchEvents, setEventSeen }) => {
       <FeedFooter>
         <WellContainer>
           <Well>
-            {events ? `Next event: ${events[0].title}` : "Loading events..."}{" "}
+            {events
+              ? events.length
+                ? `Next event: ${events[0].title}`
+                : "No upcoming events."
+              : "Loading events..."}{" "}
           </Well>
-          <Well>{events && `${events.length} event(s)`} </Well>
+          <Well>{hasEvents ? `${events.length} event(s)` : ""} </Well>
         </WellContainer>
       </FeedFooter>
       {openedEventIndex !== null && (
