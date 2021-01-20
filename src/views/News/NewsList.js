@@ -225,7 +225,8 @@ let ArticleIMG = styled.img`
   flex-shrink: 0;
   object-fit: cover;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-position: center;
 `;
 let Title = styled.h2`
   font-size: 0.9rem;
@@ -269,7 +270,6 @@ let SourceIMG = styled.img`
   height: 30px;
   margin-right: 0.5rem;
   border-radius: 50%;
-  object-fit: contain;
 `;
 
 let ArticleSource = styled.header`
@@ -292,6 +292,6 @@ let Square = styled.div`
     top: 0;
     display: block;
     width: 100%;
-    padding-top: 100%;
+    padding-top: 75%;
   }
 `;
