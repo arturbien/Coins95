@@ -1,10 +1,23 @@
 import React from "react";
-import propTypes from "prop-types";
 import styled from "styled-components";
 
 import { Button } from "react95";
 
-const ButtonSwitch = ({ buttons, size, ...otherProps }) => {
+type Size = "sm" | "md" | "lg";
+
+type ButtonShape = {
+  onClick: () => void;
+  active: boolean;
+  size: Size;
+  label: React.ReactNode;
+};
+
+type Props = {
+  size: Size;
+  buttons: ButtonShape[];
+};
+
+const ButtonSwitch = ({ buttons, size = "sm", ...otherProps }: Props) => {
   return (
     <Switch {...otherProps}>
       {buttons.map((btn, i) => (
@@ -22,19 +35,6 @@ const ButtonSwitch = ({ buttons, size, ...otherProps }) => {
   );
 };
 
-ButtonSwitch.defaultProps = {
-  size: "sm"
-};
-ButtonSwitch.propTypes = {
-  buttons: propTypes.arrayOf(
-    propTypes.shape({
-      label: propTypes.node,
-      onClick: propTypes.func,
-      active: propTypes.bool
-    })
-  ),
-  size: propTypes.oneOf(["sm", "md", "lg"])
-};
 export default ButtonSwitch;
 
 let Switch = styled.nav`

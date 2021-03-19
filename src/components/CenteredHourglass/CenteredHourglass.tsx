@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Hourglass } from "react95";
+
 const CenteredHourglass = () => (
   <div
     style={{

@@ -14,5 +14,5 @@ export default function() {
     return () => window.removeEventListener("resize", onResize);
   });
 
-  return [windowSize.width, windowSize.height];
+  return [windowSize.width, windowSize.height] as const;
 }

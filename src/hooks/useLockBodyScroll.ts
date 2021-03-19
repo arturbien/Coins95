@@ -1,7 +1,7 @@
 import { useLayoutEffect } from "react";
 
-export default function() {
-  const root = document.getElementById("root");
+export default function () {
+  const root = document.getElementById("root") as HTMLElement;
   useLayoutEffect(() => {
     // Get current scroll  Y value
     const scrollY = window.pageYOffset;
