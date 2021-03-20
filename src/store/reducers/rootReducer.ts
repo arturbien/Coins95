@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
   coins: coinsReducer,
   user: userReducer,
   news: newsReducer,
-  events: eventsReducer
+  events: eventsReducer,
 });
 
 export default rootReducer;

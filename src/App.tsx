@@ -1,21 +1,11 @@
 import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-
 import { connect } from "react-redux";
-
+import { AppState } from "./store";
 import { createGlobalStyle, ThemeProvider, css } from "styled-components";
 import { styleReset } from "react95";
 
-import original from "react95/dist/themes/original";
-import rose from "react95/dist/themes/rose";
-import rainyDay from "react95/dist/themes/rainyDay";
-import travel from "react95/dist/themes/travel";
-import marine from "react95/dist/themes/marine";
-import olive from "react95/dist/themes/olive";
-import theSixtiesUSA from "react95/dist/themes/theSixtiesUSA";
-import candy from "react95/dist/themes/candy";
-import tokyoDark from "react95/dist/themes/tokyoDark";
-import vaporTeal from "react95/dist/themes/vaporTeal";
+import themes from "./themes";
 
 import ms_sans_serif from "react95/dist/fonts/ms_sans_serif.woff2";
 import ms_sans_serif_bold from "react95/dist/fonts/ms_sans_serif_bold.woff2";
@@ -29,21 +19,13 @@ import Settings from "./views/Settings/Settings";
 import Viewport from "./components/Viewport/Viewport";
 import NavBar from "./components/NavBar/NavBar";
 
-const themes = {
-  original,
-  rose,
-  rainyDay,
-  travel,
-  marine,
-  olive,
-  theSixtiesUSA,
-  candy,
-  tokyoDark,
-  vaporTeal,
-};
-
-
-const ResetStyles = createGlobalStyle`
+const ResetStyles = createGlobalStyle<{
+  vintageFont: boolean;
+  fontSize: number;
+  scanLines: boolean;
+  scanLinesIntensity: number;
+  background: string;
+}>`
   ${styleReset}
   @font-face {
     font-family: 'ms_sans_serif';
@@ -153,57 +135,7 @@ const ResetStyles = createGlobalStyle`
   }
 `;
 
-class App extends React.Component {
-  render() {
-    const {
-      theme,
-      background,
-      vintageFont,
-      fontSize,
-      scanLines,
-      scanLinesIntensity,
-    } = this.props;
-    return (
-      <Viewport>
-        <ThemeProvider theme={themes[theme]}>
-          <>
-            <ResetStyles
-              vintageFont={vintageFont}
-              fontSize={fontSize}
-              scanLines={scanLines}
-              scanLinesIntensity={scanLinesIntensity}
-              background={background.value}
-            />
-            <BrowserRouter>
-              <>
-                <Switch>
-                  <Route exact path={"/coins/:coin"} component={null} />
-                  <Route exact path={"/search"} component={null} />
-                  <NavBar />
-                </Switch>
-                  <Switch>
-                    <Route exact path={"/coins"} component={Dashboard} />
-                    <Route
-                      exact
-                      path={"/coins/:coin"}
-                      component={CoinDetails}
-                    />
-                    <Route exact path={"/search"} component={CoinSearch} />
-                    <Route path={"/wallet/"} component={Wallet} />
-                    <Route exact path={"/news"} component={News} />
-                    <Route exact path={"/settings"} component={Settings} />
-                    <Redirect exact from={"/"} to={"/coins"} />
-                  </Switch>
-              </>
-            </BrowserRouter>
-          </>
-        </ThemeProvider>
-      </Viewport>
-    );
-  }
-}
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppState) => ({
   theme: state.user.theme,
   background: state.user.background,
   vintageFont: state.user.vintageFont,
@@ -211,4 +143,48 @@ const mapStateToProps = (state) => ({
   scanLines: state.user.scanLines,
   scanLinesIntensity: state.user.scanLinesIntensity,
 });
-export default connect(mapStateToProps, null)(App);
+
+const App = ({
+  theme,
+  background,
+  vintageFont,
+  fontSize,
+  scanLines,
+  scanLinesIntensity,
+}: ReturnType<typeof mapStateToProps>) => {
+  return (
+    <Viewport>
+      <ThemeProvider theme={themes[theme]}>
+        <>
+          <ResetStyles
+            vintageFont={vintageFont}
+            fontSize={fontSize}
+            scanLines={scanLines}
+            scanLinesIntensity={scanLinesIntensity}
+            background={background.value}
+          />
+          <BrowserRouter>
+            <>
+              <Switch>
+                <Route exact path={"/coins/:coin"} component={undefined} />
+                <Route exact path={"/search"} component={undefined} />
+                <NavBar />
+              </Switch>
+              <Switch>
+                <Route exact path={"/coins"} component={Dashboard} />
+                <Route exact path={"/coins/:coin"} component={CoinDetails} />
+                <Route exact path={"/search"} component={CoinSearch} />
+                <Route path={"/wallet/"} component={Wallet} />
+                <Route exact path={"/news"} component={News} />
+                <Route exact path={"/settings"} component={Settings} />
+                <Redirect exact from={"/"} to={"/coins"} />
+              </Switch>
+            </>
+          </BrowserRouter>
+        </>
+      </ThemeProvider>
+    </Viewport>
+  );
+};
+
+export default connect(mapStateToProps)(App);

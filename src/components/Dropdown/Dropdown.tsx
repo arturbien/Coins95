@@ -4,12 +4,18 @@ import propTypes from "prop-types";
 
 import { List, ListItem } from "react95";
 
-const SList = styled(List)`
-  position: absolute;
-  top: 100%;
-  right: 0;
-`
-const Menu = ({ horizontalAlign, verticalAlign, trigger, items }) => {
+type Props = Pick<
+  React.ComponentProps<typeof SList>,
+  "horizontalAlign" | "verticalAlign" | "open"
+> & {
+  trigger: React.ComponentType<any>;
+  items: {
+    onClick: () => void;
+    label: string;
+  }[];
+};
+
+const Menu = ({ horizontalAlign, verticalAlign, trigger, items }: Props) => {
   const [open, setOpen] = React.useState(false);
 
   function toggle() {
@@ -49,9 +55,15 @@ Menu.propTypes = {
   items: propTypes.arrayOf(
     propTypes.shape({
       label: propTypes.string,
-      onClick: propTypes.func
+      onClick: propTypes.func,
     })
-  )
+  ),
 };
 
 export default Menu;
+
+const SList = styled(List)`
+  position: absolute;
+  top: 100%;
+  right: 0;
+`;

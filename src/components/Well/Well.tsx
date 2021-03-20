@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export default styled.div`
+export default styled.div<{ draggable: boolean }>`
   position: relative;
   padding: 0 0.25rem;
   height: 27px;

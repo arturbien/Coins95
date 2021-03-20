@@ -22,7 +22,10 @@ const Wrapper = styled.div`
   margin-right: 0.5rem;
   cursor: grab;
 `;
-export default props => (
+
+type Props = React.ComponentProps<typeof Wrapper>;
+
+export default (props: Props) => (
   <Wrapper {...props}>
     <Bar />
     <Bar />

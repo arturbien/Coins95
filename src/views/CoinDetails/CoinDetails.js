@@ -17,7 +17,7 @@ export class CoinDetails extends Component {
     data: null,
     historicalData: null,
     dataLoading: false,
-    timeSpan: "24H"
+    timeSpan: "24H",
   };
   componentDidMount = async () => {
     let { timeSpan } = this.state;
@@ -28,7 +28,7 @@ export class CoinDetails extends Component {
       await fetchCoinsInfo();
     }
 
-    // let data = await API.fetchCoinsData([coin], currency);
+    // let data = await API.fetchCoinsDisplayData([coin], currency);
     this.handleFetchCoinsData(currency);
     this.handleFetchHistoricalData(timeSpan, currency);
   };
@@ -37,11 +37,11 @@ export class CoinDetails extends Component {
   }
   handleFetchCoinsData = async () => {
     const { coin, currency } = this.props;
-    let data = await API.fetchCoinsData([coin], currency, true);
+    let data = await API.fetchCoinsDisplayData([coin], currency, true);
     data = data[coin];
     if (this._isMounted) this.setState({ data });
   };
-  handleFetchHistoricalData = async timeSpan => {
+  handleFetchHistoricalData = async (timeSpan) => {
     const { timeSpan: currentTimeSpan, dataLoading } = this.state;
     const { coin, currency } = this.props;
 
@@ -54,7 +54,7 @@ export class CoinDetails extends Component {
         timeSpan,
         currency
       );
-      historicalData.forEach(historicalDataPoint => {
+      historicalData.forEach((historicalDataPoint) => {
         historicalDataPoint["HLCAverage"] = HLCAverage(
           historicalDataPoint.high,
           historicalDataPoint.low,
@@ -69,7 +69,7 @@ export class CoinDetails extends Component {
       if (this._isMounted)
         this.setState({
           dataLoading: false,
-          timeSpan: currentTimeSpan
+          timeSpan: currentTimeSpan,
         });
     }
   };
@@ -104,13 +104,13 @@ const mapStateToProps = (state, ownProps) => {
     following,
     inWallet,
     currency,
-    info
+    info,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   fetchCoinsInfo: () => dispatch(fetchCoinsInfo()),
-  setFollowedCoin: (coin, follow) => dispatch(setFollowedCoin(coin, follow))
+  setFollowedCoin: (coin, follow) => dispatch(setFollowedCoin(coin, follow)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoinDetails);

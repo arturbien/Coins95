@@ -3,7 +3,23 @@ import styled from "styled-components";
 import useWindowSize from "../../hooks/useWindowSize";
 import iPhoneImage from "../../assets/img/iphone.png";
 
-const Viewport = styled.div`
+type Props = React.ComponentProps<typeof Viewport>;
+
+export default ({ children, maxWidth = 450, maxHeight = 896 }: Props) => {
+  const [width, height] = useWindowSize();
+  return width > maxWidth || height > maxHeight ? (
+    <Viewport maxWidth={maxWidth} maxHeight={maxHeight} id="device">
+      <ViewportContent>{children}</ViewportContent>
+    </Viewport>
+  ) : (
+    <>
+      {children}
+      <BottomCornersCover />
+    </>
+  );
+};
+
+const Viewport = styled.div<{ maxHeight: number; maxWidth: number }>`
   position: relative;
   left: 50%;
   top: 50%;
@@ -14,13 +30,14 @@ const Viewport = styled.div`
   @media only screen and (min-width: 450px) and (min-height: 600px) {
     height: 680px;
     width: 400px;
-    &:before, &:after {
-      content: '';
+    &:before,
+    &:after {
+      content: "";
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-     
+
       pointer-events: none;
     }
     &:before {
@@ -30,7 +47,7 @@ const Viewport = styled.div`
       height: 100%;
       width: 100%;
       border-radius: 56px;
-      box-shadow: 14px 4px 24px 18px rgba(0,0,0,0.5);
+      box-shadow: 14px 4px 24px 18px rgba(0, 0, 0, 0.5);
     }
     &:after {
       z-index: 99999;
@@ -48,7 +65,6 @@ const Viewport = styled.div`
   box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.35);
 
   overflow: visible;
-  
 `;
 const ViewportContent = styled.div`
   height: 100%;
@@ -64,15 +80,5 @@ const BottomCornersCover = styled.div`
   background: black;
   z-index: 999;
   height: 0;
-  height:var(--safe-area-inset-bottom);
+  height: var(--safe-area-inset-bottom);
 `;
-export default ({ children, maxWidth = 450, maxHeight = 896 }) => {
-  const [width, height] = useWindowSize();
-  return width > maxWidth || height > maxHeight ? (
-    <Viewport maxWidth={maxWidth} maxHeight={maxHeight} id="device">
-      <ViewportContent>{children}</ViewportContent>
-    </Viewport>
-  ) : (
-    <>{children}<BottomCornersCover /></>
-  );
-};

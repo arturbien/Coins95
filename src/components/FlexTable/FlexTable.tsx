@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Table } from "react95";
+
 export default styled(Table)`
   display: flex;
   flex-direction: column;

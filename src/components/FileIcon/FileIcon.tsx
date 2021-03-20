@@ -3,12 +3,14 @@ import propTypes from "prop-types";
 
 import styled from "styled-components";
 
-const Icon = styled.span`
+type Icon = {
+  height: number;
+};
+const Icon = styled.span<Icon>`
   position: relative;
   display: inline-block;
-  height: ${({ height }) => (height ? parseInt(height) : 24)}px;
-  width: ${({ height }) =>
-    height ? Math.round(0.83 * parseInt(height)) : 20}px;
+  height: ${({ height }) => (height ? height : 24)}px;
+  width: ${({ height }) => (height ? Math.round(0.83 * height) : 20)}px;
   border-bottom: 2px solid #050608;
   border-right: 2px solid #050608;
   border-left: 2px solid #ced0cf;
@@ -44,7 +46,7 @@ const Icon = styled.span`
   }
 `;
 const IconIMG = styled.img.attrs(() => ({
-  loading:'lazy'
+  loading: "lazy",
 }))`
   width: 100%;
   height: 100%;
@@ -52,7 +54,11 @@ const IconIMG = styled.img.attrs(() => ({
   position: absolute;
   transition: 0.2s all ease-out;
 `;
-const FileIcon = ({ imageURL, height, ...otherProps }) => {
+
+type Props = Icon & {
+  imageURL: string;
+};
+const FileIcon = ({ imageURL, height, ...otherProps }: Props) => {
   return (
     <Icon {...otherProps} height={height}>
       {imageURL && <IconIMG src={imageURL} alt={`icon`} />}
@@ -61,7 +67,7 @@ const FileIcon = ({ imageURL, height, ...otherProps }) => {
 };
 
 FileIcon.propTypes = {
-  imageURL: propTypes.string
+  imageURL: propTypes.string,
 };
 
 export default FileIcon;

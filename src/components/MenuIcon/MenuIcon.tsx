@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default styled.span`
+export default styled.span<{ horizontal: boolean }>`
   position: relative;
   display: inline-block;
   width: 3px;

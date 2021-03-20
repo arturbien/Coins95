@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
-
 import { Switch, Route, withRouter } from "react-router";
 
 import { Button, Radio, Fieldset } from "react95";
@@ -10,12 +9,7 @@ import original from "react95/dist/themes/original";
 import ClippyIcon from "../../assets/img/clippy4.png";
 import CryingEmoji from "../../assets/img/emojis/32/face-crying.png";
 
-const Emoji = styled.img`
-  display: inline-block;
-  height: 23px;
-  width: 23px;
-`;
-const actions = [
+const options = [
   {
     label: "One time donation via PayPal",
     value: "https://www.paypal.me/react95",
@@ -30,13 +24,15 @@ const actions = [
       "https://twitter.com/intent/tweet?url=https%3A%2F%2Fcoins95.web.app%2F&text=This%20is%20the%20cutest%20app%20I%20have%20ever%20seen!%20%E2%99%A5%EF%B8%8F",
   },
 ];
-const Clippy = (props) => {
-  const [isOpened, setIsOpened] = useState(false);
-  const [action, setAction] = useState(actions[0].value);
 
-  const handleChange = (e) => {
+const Clippy = () => {
+  const [isOpened, setIsOpened] = useState(false);
+  const [action, setAction] = useState(options[0].value);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAction(e.target.value);
   };
+
   return (
     <ThemeProvider theme={original}>
       {isOpened && (
@@ -63,7 +59,7 @@ const Clippy = (props) => {
                       show some love.
                     </p>
                     <Fieldset label="Actions:" variant="flat">
-                      {actions.map((o) => (
+                      {options.map((o) => (
                         <>
                           <Radio
                             {...o}
@@ -82,7 +78,6 @@ const Clippy = (props) => {
                       variant="flat"
                       primary
                       fullWidth
-                      // onClick={() => window.location.replace(action)}
                     >
                       Continue
                     </Button>
@@ -114,6 +109,7 @@ const Modal = styled.div`
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(5px);
 `;
+
 const ModalBody = styled.div`
   position: relative;
   padding: 1rem;
@@ -139,6 +135,7 @@ const ModalBody = styled.div`
     background: ${({ theme }) => theme.tooltip};
   }
 `;
+
 const Fab = styled.button`
   display: inline-block;
   width: 60px;
@@ -179,4 +176,10 @@ const Fab = styled.button`
       background-position: 50% calc(50% + 2px);
     }
   }
+`;
+
+const Emoji = styled.img`
+  display: inline-block;
+  height: 23px;
+  width: 23px;
 `;

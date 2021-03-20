@@ -6,39 +6,70 @@ import {
   SET_CUSTOM_BACKGROUND,
   TOGGLE_VINTAGE_FONT,
   SET_FONT_SIZE,
-  SET_EVENT_SEEN,
   SET_USER_HOLDINGS,
   DELETE_USER_HOLDINGS,
   SORT_USER_HOLDINGS,
   SET_USER_CURRENCY,
   TOGGLE_SCAN_LINES,
   SET_SCAN_LINES_INTENSITY,
-} from "../actions/actionTypes";
+} from "../actions/actionConstants";
+import { ActionTypes } from "../actions/actionTypes";
+
+import { CoinsList } from "./coins";
+
+import { SET_EVENT_SEEN } from "../actions/events";
 
 import { saveState, loadState } from "../localStorage";
+
+import { ThemeNames } from "../../themes";
+
 import Rivets from "../../assets/img/backgrounds/rivets.png";
 import Zigzag from "../../assets/img/backgrounds/zigzag.png";
 import PurpleSquares from "../../assets/img/backgrounds/purpleSquares.png";
 import Honey from "../../assets/img/backgrounds/honey.png";
-
-import WaterIMG from "../../assets/img/backgrounds/water.gif";
-import NoiseIMG from "../../assets/img/backgrounds/noise.gif";
+import Water from "../../assets/img/backgrounds/water.gif";
+import Noise from "../../assets/img/backgrounds/noise.gif";
 
 const LOCAL_STORAGE_KEY = "user";
 const persistedState = loadState(LOCAL_STORAGE_KEY) || {};
 
-export const backgrounds = [
+export type Background = { value: string; label: string };
+
+export const backgrounds: Background[] = [
   { value: "#008080", label: "(Custom)" },
+
   { value: `url(${Rivets})`, label: "Rivets" },
   { value: `url(${Zigzag})`, label: "Zig-zag" },
   { value: `url(${PurpleSquares})`, label: "Purple squares" },
   { value: `url(${Honey})`, label: "Honey" },
-
-  { value: `url(${WaterIMG})`, label: "Water" },
-  { value: `url(${NoiseIMG})`, label: "Noise" },
+  { value: `url(${Water})`, label: "Water" },
+  { value: `url(${Noise})`, label: "Noise" },
 ];
 
-const initialState = {
+export const currencies = ["USD", "EUR", "PLN", "JPY"] as const;
+
+export type Currency = typeof currencies[number];
+
+type Wallet = {
+  [coinName: string]: { symbol: string; amount: number; order: number };
+};
+
+type UserState = {
+  followed: CoinsList;
+  wallet: Wallet;
+  seenEvents: any;
+  currency: Currency;
+  vintageFont: boolean;
+  theme: ThemeNames;
+  backgrounds: Background[];
+  background: Background;
+  fontSize: number;
+  scanLines: boolean;
+  // scanLinesIntensity in %
+  scanLinesIntensity: number;
+};
+
+const initialState: UserState = {
   followed: [],
   wallet: {},
   seenEvents: [],
@@ -49,24 +80,25 @@ const initialState = {
   background: backgrounds[0],
   fontSize: 1,
   scanLines: false,
-  // scanLinesIntensity in %
   scanLinesIntensity: 0,
   ...persistedState,
 };
 
-const userReducer = (state = initialState, action) => {
-  let followed;
-  const newState = (function () {
+const userReducer = (state = initialState, action: ActionTypes): UserState => {
+  const newState = (function (): UserState {
     switch (action.type) {
-      case FOLLOW_COIN:
-        followed = [...new Set([...state.followed, action.payload])];
+      case FOLLOW_COIN: {
+        const followed = [...new Set([...state.followed, action.payload])];
         return { ...state, followed };
-      case UNFOLLOW_COIN:
-        followed = state.followed.filter(
-          (userCoin) => userCoin !== action.payload
+      }
+      case UNFOLLOW_COIN: {
+        const followed = state.followed.filter(
+          (userCoin: string) => userCoin !== action.payload
         );
         return { ...state, followed };
+      }
       case SET_THEME:
+        let a = action;
         return { ...state, theme: action.payload };
       case SET_BACKGROUND:
         return { ...state, background: action.payload };
@@ -94,7 +126,8 @@ const userReducer = (state = initialState, action) => {
       case SET_USER_HOLDINGS:
         const { amount, coin } = action.payload;
         const wallet = { ...state.wallet };
-        const order = wallet[coin] ? wallet[coin].order : wallet.length;
+        const numberOfCoinsInWallet = Object.keys(wallet).length;
+        const order = wallet[coin] ? wallet[coin].order : numberOfCoinsInWallet;
         wallet[coin] = { symbol: coin, amount, order };
         return { ...state, wallet };
       case DELETE_USER_HOLDINGS: {
@@ -103,8 +136,14 @@ const userReducer = (state = initialState, action) => {
         return { ...state, wallet };
       }
       case SORT_USER_HOLDINGS: {
-        const wallet = {};
-        action.payload.forEach((coin) => (wallet[coin] = state.wallet[coin]));
+        const coinsList: string[] = action.payload;
+        const wallet = coinsList.reduce((obj, coinName) => {
+          return {
+            ...obj,
+            [coinName]: state.wallet[coinName],
+          };
+        }, {});
+
         return { ...state, wallet };
       }
       case SET_USER_CURRENCY:

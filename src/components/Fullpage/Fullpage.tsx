@@ -22,7 +22,9 @@ let SWindowContent = styled(WindowContent)`
   height: 100%;
 `;
 
-const Fullpage = ({ children, ...otherProps }) => (
+type Props = React.ComponentProps<typeof SWindowContent>;
+
+const Fullpage = ({ children, ...otherProps }: Props) => (
   <SWindow>
     <SWindowContent {...otherProps}>{children}</SWindowContent>
   </SWindow>
