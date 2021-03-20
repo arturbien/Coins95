@@ -1,26 +1,30 @@
-import React, {useState} from "react";
-import { withRouter } from "react-router-dom";
+import React, { useState } from "react";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import { Button, WindowContent, TextField, Toolbar } from "react95";
 
 import FullPageWindow from "../../components/FullPageWindow/FullPageWindow";
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
-import CoinsTable from "./CoinsTable";
+import CoinsTable, { CoinsTableProps } from "./CoinsTable";
 import CloseIcon from "../../components/CloseIcon/CloseIcon";
 import LinkButton from "../../components/LinkButton/LinkButton";
 
 import SearchIcon from "../../assets/img/system-search.png";
 
-const Layout = ({ data, onFollow}) => {
-  const [searchPhrase, setSearchPhrase]=useState('')
+type Props = RouteComponentProps<{}> &
+  Pick<CoinsTableProps, "data" | "onFollow">;
 
-  const handleSearch = e => {
+const Layout = ({ data, onFollow }: Props) => {
+  const [searchPhrase, setSearchPhrase] = useState("");
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchPhrase(e.target.value);
-  }
+  };
+
   useLockBodyScroll();
   return (
-    <FullPageWindow style={{position: 'absolute', top: '0'}}>
+    <FullPageWindow style={{ position: "absolute", top: "0" }}>
       <WindowHeader>
         <img
           alt="Search icon"
@@ -29,7 +33,7 @@ const Layout = ({ data, onFollow}) => {
             height: 27,
             marginTop: 2,
             marginRight: "0.5rem",
-            imageRendering: "pixelated"
+            imageRendering: "pixelated",
           }}
         />
         Search
@@ -40,7 +44,7 @@ const Layout = ({ data, onFollow}) => {
             position: "absolute",
             right: 2,
             top: 3,
-            fontWeight: "bold"
+            fontWeight: "bold",
           }}
           goBack
         >
@@ -48,27 +52,32 @@ const Layout = ({ data, onFollow}) => {
         </LinkButton>
       </WindowHeader>
       <SWindowContent>
-      <SearchWrapper>
+        <SearchWrapper>
           <TextField
             placeholder="Search..."
             value={searchPhrase}
             onChange={handleSearch}
             width="100%"
-            style={{ marginRight: "4px", width: '100%' }}
+            style={{ marginRight: "4px", width: "100%" }}
           />
           <Button
             disabled={searchPhrase === ""}
-            onClick={() => setSearchPhrase('')}
+            onClick={() => setSearchPhrase("")}
           >
             Clear
           </Button>
         </SearchWrapper>
-        <CoinsTable searchPhrase={searchPhrase} data={data} onFollow={onFollow} />
+        <CoinsTable
+          searchPhrase={searchPhrase}
+          data={data}
+          onFollow={onFollow}
+        />
       </SWindowContent>
     </FullPageWindow>
   );
 };
 
+// TODO: remove withRouter?
 export default withRouter(Layout);
 
 let SWindowContent = styled(WindowContent)`

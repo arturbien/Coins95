@@ -21,7 +21,7 @@ import { SET_EVENT_SEEN } from "../actions/events";
 
 import { saveState, loadState } from "../localStorage";
 
-import { ThemeNames } from "../../themes";
+import { ThemeName } from "../../themes";
 
 import Rivets from "../../assets/img/backgrounds/rivets.png";
 import Zigzag from "../../assets/img/backgrounds/zigzag.png";
@@ -34,6 +34,8 @@ const LOCAL_STORAGE_KEY = "user";
 const persistedState = loadState(LOCAL_STORAGE_KEY) || {};
 
 export type Background = { value: string; label: string };
+// TODO: nominal type for Color?
+export type Color = string;
 
 export const backgrounds: Background[] = [
   { value: "#008080", label: "(Custom)" },
@@ -60,7 +62,7 @@ type UserState = {
   seenEvents: any;
   currency: Currency;
   vintageFont: boolean;
-  theme: ThemeNames;
+  theme: ThemeName;
   backgrounds: Background[];
   background: Background;
   fontSize: number;

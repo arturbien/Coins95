@@ -14,7 +14,7 @@ import {
   SET_SCAN_LINES_INTENSITY,
 } from "./actionConstants";
 
-import { ThemeNames } from "../../themes";
+import { ThemeName } from "../../themes";
 import { Background, Currency } from "../reducers/user";
 
 // TODO: find a better way than 'as const' to handle action creator return types
@@ -30,7 +30,7 @@ export const setFollowedCoin = (coin: string, follow: boolean) =>
     payload: coin,
   } as const);
 
-export const setTheme = (theme: ThemeNames) =>
+export const setTheme = (theme: ThemeName) =>
   ({
     type: SET_THEME,
     payload: theme,

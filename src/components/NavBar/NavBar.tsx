@@ -28,6 +28,7 @@ const NavBar = (props: Props) => {
           <Icon src={HomeIcon} alt="icon" />
         </SwitchButton>
         <SwitchButton
+          active={currentLocation.startsWith("/wallet")}
           onClick={() => props.history.push("/wallet")}
           fullWidth
           size="lg"
@@ -39,6 +40,7 @@ const NavBar = (props: Props) => {
           />
         </SwitchButton>
         <SwitchButton
+          active={currentLocation === "/news"}
           onClick={() => props.history.push("/news")}
           fullWidth
           size="lg"
@@ -46,6 +48,7 @@ const NavBar = (props: Props) => {
           <Icon src={WorldIcon} alt="icon" />
         </SwitchButton>
         <SwitchButton
+          active={currentLocation === "/settings"}
           onClick={() => props.history.push("/settings")}
           fullWidth
           size="lg"

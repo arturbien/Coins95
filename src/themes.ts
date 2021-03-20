@@ -26,4 +26,20 @@ const themes = {
 
 export default themes;
 
-export type ThemeNames = keyof typeof themes;
+export type ThemeName = keyof typeof themes;
+
+// making sure every theme has a label assigned
+export const themesLabels: {
+  [swag in ThemeName]: string;
+} = {
+  original: "original",
+  rose: "🌹 Rose",
+  rainyDay: "☔️ Rainy Day",
+  travel: "🧳 Travel",
+  marine: "🛳 Marine",
+  olive: "🍸 Olive",
+  theSixtiesUSA: "🌷 The 60's USA",
+  candy: "🍭 Candy",
+  tokyoDark: "📟 Tokyo Dark",
+  vaporTeal: "💨 Vapor Teal",
+};

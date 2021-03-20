@@ -1,5 +1,11 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import styled, { css } from "styled-components";
+
+import { AppDispatch, AppState } from "../../store";
+import { Background, Color } from "../../store/reducers/user";
+import { ThemeName, themesLabels } from "../../themes";
+
 import { createDisabledTextStyles } from "../../utils";
 
 import {
@@ -12,31 +18,48 @@ import {
   Slider,
   Select,
   ColorInput,
-  Desktop
+  Desktop,
 } from "react95";
 
 import Fullpage from "../../components/Fullpage/Fullpage";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
+import {
+  setTheme,
+  setBackground,
+  setCustomBackground,
+  toggleVintageFont,
+  toggleScanLines,
+  setScanLinesIntensity,
+  setFontSize,
+} from "../../store/actions/user";
 
-const Layout = ({
+type Props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
+
+const Settings = ({
   theme,
   setTheme,
-  scanLines,
-  toggleScanLines,
-  scanLinesIntensity,
-  setScanLinesIntensity,
   background,
   backgrounds,
   setBackground,
   setCustomBackground,
+  scanLines,
+  toggleScanLines,
+  setScanLinesIntensity,
+  scanLinesIntensity,
   vintageFont,
   toggleVintageFont,
   fontSize,
   setFontSize,
-}) => {
+}: Props) => {
   const [activeTab, setActiveTab] = useState(0);
-  const handleChange = (e, value) => setActiveTab(value);
+
+  const handleChange = (
+    e: React.MouseEvent | React.TouchEvent,
+    value: number
+  ) => setActiveTab(value);
+
   useLockBodyScroll();
   return (
     <Fullpage style={{ paddingTop: "0.5rem" }}>
@@ -49,13 +72,18 @@ const Layout = ({
       <TabBody style={{ height: 510 }}>
         {activeTab === 0 && (
           <>
-            <CenteredDesktop  backgroundStyles={{background: background.value}}/>
+            <CenteredDesktop
+              backgroundStyles={{ background: background.value }}
+            />
             <Fieldset label="Wallpaper:" style={{ marginTop: 20 }}>
               <Select
                 width="100%"
                 onChange={(e) =>
                   setBackground(
-                    backgrounds.find((b) => b.value === e.target.value)
+                    backgrounds.find(
+                      (b) => b.value === e.target.value
+                      // TODO: is this a good approach?
+                    ) as Background
                   )
                 }
                 menuMaxHeight={300}
@@ -78,6 +106,17 @@ const Layout = ({
         {activeTab === 1 && (
           <SField>
             <Fieldset label="Theme:">
+              {/* {Object.keys(themesLabels).map((themeName) => (
+                <>
+                  <Radio
+                    value={themeName}
+                    onChange={() => setTheme(themeName)}
+                    checked={theme === themeName}
+                    label={themesLabels[themeName]}
+                  />
+                  <br />
+                </>
+              ))} */}
               <Radio
                 value="original"
                 onChange={() => setTheme("original")}
@@ -168,7 +207,10 @@ const Layout = ({
                     max={1.2}
                     step={null}
                     value={fontSize}
-                    onChange={(e, val) => setFontSize(val)}
+                    onChange={(
+                      e: React.KeyboardEvent | React.TouchEvent,
+                      val: number
+                    ) => setFontSize(val)}
                     marks={[
                       { value: 0.8, label: "0.8" },
                       { value: 0.9, label: "0.9" },
@@ -218,13 +260,33 @@ const Layout = ({
   );
 };
 
-export default Layout;
+const mapStateToProps = (state: AppState) => ({
+  theme: state.user.theme,
+  background: state.user.background,
+  backgrounds: state.user.backgrounds,
+  vintageFont: state.user.vintageFont,
+  scanLines: state.user.scanLines,
+  scanLinesIntensity: state.user.scanLinesIntensity,
+  fontSize: state.user.fontSize,
+});
 
-// const Text = styled.div`
-//   line-height: 1.5;
-// `;
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  setTheme: (theme: ThemeName) => dispatch(setTheme(theme)),
+  toggleVintageFont: (vintageFont: boolean) =>
+    dispatch(toggleVintageFont(vintageFont)),
+  setFontSize: (fontSize: number) => dispatch(setFontSize(fontSize)),
+  toggleScanLines: (scanLinesOn: boolean) =>
+    dispatch(toggleScanLines(scanLinesOn)),
+  setScanLinesIntensity: (intensity: number) =>
+    dispatch(setScanLinesIntensity(intensity)),
+  setBackground: (background: Background) =>
+    dispatch(setBackground(background)),
+  setCustomBackground: (color: Color) => dispatch(setCustomBackground(color)),
+});
 
-const CustomColorField = styled.div`
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);
+
+const CustomColorField = styled.div<{ isDisabled: boolean }>`
   float: right;
   margin-right: 0px;
   margin-top: 1rem;
@@ -245,7 +307,7 @@ const SField = styled.div`
   margin-bottom: 30px;
 `;
 
-const SliderLabel = styled.label`
+const SliderLabel = styled.label<{ isDisabled?: boolean }>`
   display: inline-block
   margin-bottom: 0.5rem;
   margin-left: -1rem;

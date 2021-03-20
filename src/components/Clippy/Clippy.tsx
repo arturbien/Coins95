@@ -93,6 +93,7 @@ const Clippy = () => {
   );
 };
 
+// TODO: remove withRouter?
 export default withRouter(Clippy);
 
 const Modal = styled.div`

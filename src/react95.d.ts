@@ -65,7 +65,7 @@ declare module "react95" {
       }
     >
   ): React.ReactElement;
-  export function CheckBox(
+  export function Checkbox(
     props: React.PropsWithChildren<
       JSX.IntrinsicElements["input"] & {
         name?: string;
@@ -229,10 +229,12 @@ declare module "react95" {
     }
   ): React.ReactElement;
   export function Slider(
-    props: React.PropsWithRef<JSX.IntrinsicElements["div"]> & {
+    props: React.PropsWithRef<
+      Omit<JSX.IntrinsicElements["div"], "onChange">
+    > & {
       value?: number;
       defaultValue?: number;
-      step?: number;
+      step?: number | null;
       min?: number;
       max?: number;
       size?: string | number;
@@ -246,10 +248,10 @@ declare module "react95" {
       ) => void;
       onMouseDown?: (event: React.MouseEvent) => void;
       name?: string;
-      marks?: boolean | Array<{ label?: React.ReactElement; value: number }>;
+      marks?: boolean | Array<{ label?: React.ReactNode; value: number }>;
       variant?: InputVariant;
       orientation?: Orientation;
-      disable?: boolean;
+      disabled?: boolean;
     }
   ): React.ReactElement;
   export function Tab<T = any>(
@@ -286,7 +288,7 @@ declare module "react95" {
     props: React.PropsWithChildren<JSX.IntrinsicElements["tr"]>
   ): React.ReactElement;
   export function Tabs<T = any>(
-    props: JSX.IntrinsicElements["div"] & {
+    props: Omit<JSX.IntrinsicElements["div"], "onChange"> & {
       value?: T;
       onChange?: (e: React.MouseEvent | React.TouchEvent, value: T) => void;
       children?: React.ReactChild | React.ReactChild[];

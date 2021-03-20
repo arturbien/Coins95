@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-import { withRouter } from "react-router-dom";
+import { RouteComponentProps, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import {
   TableHead,
@@ -20,34 +19,59 @@ import WellContainer from "../../components/WellContainer/WellContainer";
 
 const COIN_LIMIT = 40;
 
-class CoinsTable extends React.Component {
-  constructor(props) {
+type CoinRow = {
+  name: string;
+  coinName: string;
+  symbol: string;
+  imageURL: string;
+  sortOrder: number;
+  isFollowed: boolean;
+  // [a: string]: any;
+};
+
+export type CoinsTableProps = {
+  data: CoinRow[] | null;
+  onFollow: (coinName: string, follow: boolean) => void;
+  searchPhrase: string;
+} & RouteComponentProps<{}>;
+
+type State = {
+  orderBy: "rank" | "name" | "following";
+  desc: boolean;
+};
+
+class CoinsTable extends React.Component<CoinsTableProps, State> {
+  constructor(props: CoinsTableProps) {
     super(props);
     this.state = {
       orderBy: "rank",
-      desc: false
+      desc: false,
     };
   }
-  handleChangeOrder = (orderBy) => {
+
+  handleChangeOrder = (orderBy: State["orderBy"]) => {
     if (orderBy === this.state.orderBy) {
       this.setState((prevState) => ({ desc: !prevState.desc }));
     } else {
       this.setState({ orderBy, desc: true });
     }
   };
+
   render() {
-    let { history, location, data, onFollow ,searchPhrase} = this.props;
+    let { history, location, data, onFollow, searchPhrase } = this.props;
     const currentUrl = location.pathname + location.search;
 
     searchPhrase = searchPhrase.toLowerCase();
+
+    // TODO: use those values instead of rank/name/following
     const orderPairs = {
       rank: "sortOrder",
       name: "coinName",
       following: "isFollowed",
-    };
+    } as const;
 
     let tableData;
-    if (!data) {
+    if (data === null) {
       tableData = null;
     } else {
       const orderBy = orderPairs[this.state.orderBy];
@@ -71,11 +95,15 @@ class CoinsTable extends React.Component {
           sortOrder,
           isFollowed,
         } = coinData;
-        const onClick = () => history.push({pathname: `/coins/${symbol}`, state: {
-          from: currentUrl
-        }});
+        const onClick = () =>
+          history.push({
+            pathname: `/coins/${symbol}`,
+            state: {
+              from: currentUrl,
+            },
+          });
         return (
-          <TableRow key={i} >
+          <TableRow key={i}>
             <TableDataCell onClick={onClick}>
               <SFileIcon height={22} imageURL={imageURL} />
               <CoinName>{`${coinName.toLowerCase()}.${name.toLowerCase()}`}</CoinName>
@@ -127,7 +155,9 @@ class CoinsTable extends React.Component {
           <WellContainer>
             <Well>
               {data
-                ? `Showing ${tableData.length} coin(s) of ${data.length} total`
+                ? `Showing ${tableData ? tableData.length : 0} coin(s) of ${
+                    data.length
+                  } total`
                 : "Loading..."}
             </Well>
             <Well draggable />
@@ -137,10 +167,6 @@ class CoinsTable extends React.Component {
     );
   }
 }
-
-CoinsTable.propTypes = {
-  data: PropTypes.array,
-};
 
 export default withRouter(CoinsTable);
 
