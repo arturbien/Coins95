@@ -1,10 +1,16 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { AppDispatch, AppState } from "../../store";
 
 import { fetchCoinsInfo, fetchCoinsData } from "../../store/actions/coins";
 import { sortUserHoldings } from "../../store/actions/user";
 
 import Layout from "./Layout";
+
+type Props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
+
+export type WalletData = Pick<Props, "data">;
 
 const Wallet = ({
   info,
@@ -12,8 +18,8 @@ const Wallet = ({
   currency,
   fetchCoinsInfo,
   fetchCoinsData,
-  sortUserHoldings
-}) => {
+  sortUserHoldings,
+}: Props) => {
   // TODO fix missing dependencies issue
   useEffect(() => {
     if (!info) {
@@ -32,7 +38,7 @@ const Wallet = ({
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: AppState) => {
   const wallet = state.user.wallet;
   const info = state.coins.info;
   const coinsData = state.coins.coinsData;
@@ -40,23 +46,24 @@ const mapStateToProps = state => {
 
   const data =
     info && coinsData
-      ? Object.values(wallet).map(coin => ({
+      ? Object.values(wallet).map((coin) => ({
           ...info[coin.symbol],
           ...coinsData[coin.symbol],
-          _amount: coin.amount
+          _amount: coin.amount,
         }))
       : null;
   return {
     info,
     data,
-    currency
+    currency,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  fetchCoinsInfo: () => dispatch(fetchCoinsInfo()),
-  fetchCoinsData: () => dispatch(fetchCoinsData()),
-  sortUserHoldings: coinsList => dispatch(sortUserHoldings(coinsList))
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  fetchCoinsInfo: () => dispatch<any>(fetchCoinsInfo()),
+  fetchCoinsData: () => dispatch<any>(fetchCoinsData()),
+  sortUserHoldings: (coinsList: string[]) =>
+    dispatch(sortUserHoldings(coinsList)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

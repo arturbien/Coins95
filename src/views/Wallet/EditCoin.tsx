@@ -2,18 +2,25 @@ import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
-import { withRouter } from "react-router";
+import { RouteComponentProps, withRouter } from "react-router";
 
 import { setUserHoldings, deleteUserHoldings } from "../../store/actions/user";
 import { formatCurrency } from "../../utils";
 
-import API from "../../API";
+import API, { FormattedCoinData } from "../../API";
 
 import { Toolbar, Button, Window, WindowContent, TextField } from "react95";
 
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import CoinIcon from "../../components/CoinIcon/CoinIcon";
 import CloseIcon from "../../components/CloseIcon/CloseIcon";
+import { AppDispatch, AppState } from "../../store";
+
+type OwnProps = RouteComponentProps<{ coin: string }>;
+
+type Props = OwnProps &
+  ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
 const Layout = ({
   coin,
@@ -21,16 +28,17 @@ const Layout = ({
   holdings,
   history,
   setUserHoldings,
-  deleteUserHoldings
-}) => {
-  const [data, setData] = useState(null);
-  const [amount, setAmount] = useState(holdings || 0);
-  const inputRef = useRef();
+  deleteUserHoldings,
+}: Props) => {
+  const [data, setData] = useState<FormattedCoinData | null>(null);
+  const [amount, setAmount] = useState((holdings || 0).toString());
+  const inputRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     async function fetchData() {
-      let data = await API.fetchCoinsData([coin], currency, false);
-      data = data[coin];
-      setData(data);
+      const data = await API.fetchCoinsData([coin], currency);
+      const coinData = data[coin];
+      setData(coinData);
     }
     fetchData();
   }, [coin, currency]);
@@ -39,18 +47,23 @@ const Layout = ({
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  })
-  const handleAmountChange = e => {
+  });
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (/^\d*\.?\d*$/.test(value)) {
       setAmount(value);
     }
   };
   const goBack = () => history.push(`/wallet`);
+
+  const parsedAmount = parseFloat(amount) || 0;
+
   const handleAccept = () => {
-    setUserHoldings({ coin, amount: parseFloat(amount) || 0 });
+    setUserHoldings({ coin, amount: parsedAmount });
     goBack();
   };
+
   const handleDelete = () => {
     deleteUserHoldings(coin);
     goBack();
@@ -58,9 +71,10 @@ const Layout = ({
 
   return (
     <EditWindowWrapper onClick={goBack}>
-      <EditWindow onClick={e => e.stopPropagation()}>
+      <EditWindow onClick={(e) => e.stopPropagation()}>
         <WindowHeader>
-          <CoinIcon src={data && data.imageURL} />
+          {/* TODO: is it good approach? */}
+          <CoinIcon src={data ? data.imageURL : ""} />
           {" " + coin}
           <Button
             square
@@ -69,7 +83,7 @@ const Layout = ({
               position: "absolute",
               right: 2,
               top: 3,
-              fontWeight: "bold"
+              fontWeight: "bold",
             }}
             onClick={goBack}
           >
@@ -79,16 +93,16 @@ const Layout = ({
         <WindowContent>
           <Field>
             <Label>{data && data.TOSYMBOL}</Label>
-            <data>{data ? formatCurrency(data.PRICE * amount) : 0}</data>
+            <data>{data ? formatCurrency(data.PRICE * parsedAmount) : 0}</data>
           </Field>
           <Field>
             <Label>{data && data.FROMSYMBOL}</Label>
             <TextField
               ref={inputRef}
               disabled={!data}
-              value={amount.toString()}
+              value={amount}
               onChange={handleAmountChange}
-              style={{width:"100%"}}
+              style={{ width: "100%" }}
             />
           </Field>
           <Toolbar style={{ justifyContent: "flex-end" }}>
@@ -112,7 +126,7 @@ const Layout = ({
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: AppState, ownProps: OwnProps) => {
   const coin = ownProps.match.params.coin;
   const holdings = state.user.wallet[coin]
     ? state.user.wallet[coin].amount
@@ -120,13 +134,13 @@ const mapStateToProps = (state, ownProps) => {
   return {
     coin,
     holdings,
-    currency: state.user.currency
+    currency: state.user.currency,
   };
 };
-const mapDispatchToProps = dispatch => ({
-  setUserHoldings: ({ amount, coin }) =>
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  setUserHoldings: ({ amount, coin }: { amount: number; coin: string }) =>
     dispatch(setUserHoldings({ amount, coin })),
-  deleteUserHoldings: coin => dispatch(deleteUserHoldings(coin))
+  deleteUserHoldings: (coin: string) => dispatch(deleteUserHoldings(coin)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Layout));
 

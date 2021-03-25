@@ -269,6 +269,9 @@ declare namespace CryptoCompare {
   };
 }
 
+export type FormattedCoinData = CryptoCompare.RawCoinData & {
+  imageURL: string;
+};
 class API {
   axios: AxiosInstance;
 
@@ -373,7 +376,7 @@ class API {
     );
 
     const formattedData: {
-      [coinName: string]: CryptoCompare.RawCoinData & { imageURL: string };
+      [coinName: string]: FormattedCoinData;
     } = {};
     const data = response.data.RAW;
 

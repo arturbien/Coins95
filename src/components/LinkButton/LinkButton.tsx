@@ -6,8 +6,9 @@ import { Button } from "react95";
 
 // TODO: rethink the goBack/to prop since they're mutually exclusive
 type Props = RouteComponentProps<{}> & {
-  goBack: boolean;
-  to?: string;
+  goBack?: boolean;
+  // TODO: get rid of 'any'
+  to?: any;
   children: React.ReactNode;
 } & React.ComponentProps<typeof Button>;
 
