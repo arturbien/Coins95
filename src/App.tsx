@@ -1,23 +1,16 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { AppState } from "./store";
-import { createGlobalStyle, ThemeProvider, css } from "styled-components";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { styleReset } from "react95";
-
-import themes from "./themes";
-
 import ms_sans_serif from "react95/dist/fonts/ms_sans_serif.woff2";
 import ms_sans_serif_bold from "react95/dist/fonts/ms_sans_serif_bold.woff2";
-
-import Dashboard from "./views/Dashboard/Dashboard";
-import CoinDetails from "./views/CoinDetails/CoinDetails";
-import CoinSearch from "./views/CoinSearch/CoinSearch";
-import Wallet from "./views/Wallet/Wallet";
-import News from "./views/News/News";
-import Settings from "./views/Settings/Settings";
-import Viewport from "./components/Viewport/Viewport";
+import { createGlobalStyle, css, ThemeProvider } from "styled-components";
 import NavBar from "./components/NavBar/NavBar";
+import Viewport from "./components/Viewport/Viewport";
+import { AppState } from "./store";
+import themes from "./themes";
+import Scroller from "./views/Assistant/Scroller";
+import Settings from "./views/Settings/Settings";
 
 const ResetStyles = createGlobalStyle<{
   vintageFont: boolean;
@@ -51,6 +44,8 @@ const ResetStyles = createGlobalStyle<{
     color: ${({ theme }) => theme.materialText};
     --safe-area-inset-bottom: constant(safe-area-inset-bottom); 
     --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    --safe-area-inset-top: constant(safe-area-inset-top); 
+    --safe-area-inset-top: env(safe-area-inset-top);
     &:before {
       content: '';
       position: fixed;
@@ -171,13 +166,8 @@ const App = ({
                 <NavBar />
               </Switch>
               <Switch>
-                <Route exact path={"/coins"} component={Dashboard} />
-                <Route exact path={"/coins/:coin"} component={CoinDetails} />
-                <Route exact path={"/search"} component={CoinSearch} />
-                <Route path={"/wallet/"} component={Wallet} />
-                <Route exact path={"/news"} component={News} />
-                <Route exact path={"/settings"} component={Settings} />
-                <Redirect exact from={"/"} to={"/coins"} />
+                <Route path={"/settings"} component={Settings} />
+                <Route path={"/"} component={Scroller} />
               </Switch>
             </>
           </BrowserRouter>

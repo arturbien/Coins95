@@ -100,7 +100,6 @@ const userReducer = (state = initialState, action: ActionTypes): UserState => {
         return { ...state, followed };
       }
       case SET_THEME:
-        let a = action;
         return { ...state, theme: action.payload };
       case SET_BACKGROUND:
         return { ...state, background: action.payload };

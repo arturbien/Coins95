@@ -1,38 +1,33 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import styled, { css } from "styled-components";
-
-import { AppDispatch, AppState } from "../../store";
-import { Background, Color } from "../../store/reducers/user";
-import { ThemeName, themesLabels } from "../../themes";
-
-import { createDisabledTextStyles } from "../../utils";
-
 import {
-  Tab,
-  Tabs,
-  TabBody,
-  Fieldset,
-  Radio,
   Checkbox,
-  Slider,
-  Select,
   ColorInput,
   Desktop,
+  Fieldset,
+  Radio,
+  Select,
+  Slider,
+  Tab,
+  TabBody,
+  Tabs,
 } from "react95";
-
+import styled, { css } from "styled-components";
 import Fullpage from "../../components/Fullpage/Fullpage";
-
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
+import { AppDispatch, AppState } from "../../store";
 import {
-  setTheme,
   setBackground,
   setCustomBackground,
-  toggleVintageFont,
-  toggleScanLines,
-  setScanLinesIntensity,
   setFontSize,
+  setScanLinesIntensity,
+  setTheme,
+  toggleScanLines,
+  toggleVintageFont,
 } from "../../store/actions/user";
+import { Background, Color } from "../../store/reducers/user";
+import { ThemeName } from "../../themes";
+import { createDisabledTextStyles } from "../../utils";
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;

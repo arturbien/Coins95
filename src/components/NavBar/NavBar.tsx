@@ -1,83 +1,74 @@
 import React from "react";
-import { withRouter, RouteComponentProps } from "react-router";
-
+import { RouteComponentProps, withRouter } from "react-router";
 import styled from "styled-components";
+import ClippyIcon from "../../assets/img/clippy4.png";
 
-import Clippy from "../Clippy/Clippy";
-
-import { AppBar, Button, Toolbar } from "react95";
-
-import GearsIcon from "../../assets/img/emblem-system.png";
-import WorldIcon from "../../assets/img/worldIcon.png";
-import UserIcon from "../../assets/img/avatar-default.png";
-import HomeIcon from "../../assets/img/homeIcon.png";
+// TODO: move that to css variable?
+export const NavbarHeight = 80;
 
 type Props = RouteComponentProps<{}>;
 
 const NavBar = (props: Props) => {
-  const currentLocation = props.location.pathname;
   return (
-    <Nav fixed>
-      <SToolbar>
-        <SwitchButton
-          active={currentLocation === "/coins"}
-          onClick={() => props.history.push("/coins")}
-          fullWidth
-          size="lg"
-        >
-          <Icon src={HomeIcon} alt="icon" />
-        </SwitchButton>
-        <SwitchButton
-          active={currentLocation.startsWith("/wallet")}
-          onClick={() => props.history.push("/wallet")}
-          fullWidth
-          size="lg"
-        >
-          <Icon
-            style={{ height: 21, opacity: 0.9 }}
-            src={UserIcon}
-            alt="icon"
-          />
-        </SwitchButton>
-        <SwitchButton
-          active={currentLocation === "/news"}
-          onClick={() => props.history.push("/news")}
-          fullWidth
-          size="lg"
-        >
-          <Icon src={WorldIcon} alt="icon" />
-        </SwitchButton>
-        <SwitchButton
-          active={currentLocation === "/settings"}
-          onClick={() => props.history.push("/settings")}
-          fullWidth
-          size="lg"
-        >
-          <Icon src={GearsIcon} alt="icon" style={{ height: 30 }} />
-        </SwitchButton>
-      </SToolbar>
-      <Clippy />
+    <Nav>
+      <Fab />
     </Nav>
   );
 };
 
 export default withRouter(NavBar);
 
-const Nav = styled(AppBar)`
-  top: auto;
-  bottom: 0;
+const Nav = styled.div`
+  pointer-events: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  top: var(--safe-area-inset-top);
+  bottom: auto;
   z-index: 2;
-  bottom: var(--safe-area-inset-bottom);
-`;
-const Icon = styled.img`
-  /* image-rendering: pixelated; */
-  filter: grayscale(1);
-  height: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 1rem;
+  height: ${NavbarHeight}px;
 `;
 
-const SwitchButton = styled(Button)`
-  margin: 0 1px;
-`;
-const SToolbar = styled(Toolbar)`
-  margin: 0 -1px;
+const Fab = styled.button`
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #b96ac9;
+  border-top: 4px solid #e980fc;
+  border-left: 4px solid #e980fc;
+  border-bottom: 4px solid #6f2dbd;
+  border-right: 4px solid #6f2dbd;
+
+  box-shadow: 4px 4px 10px 0 rgba(0, 0, 0, 0.45);
+
+  &:after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background-image: url(${ClippyIcon});
+    background-size: 30px;
+    background-repeat: no-repeat;
+    filter: drop-shadow(1px 1px 0px #e980fc) drop-shadow(-1px -1px 0px #6f2dbd);
+    background-position: center;
+  }
+
+  &:active {
+    border-bottom: 4px solid #e980fc;
+    border-right: 4px solid #e980fc;
+    border-top: 4px solid #6f2dbd;
+    border-left: 4px solid #6f2dbd;
+    box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, 0.55);
+
+    &:after {
+      background-position: 50% calc(50% + 2px);
+    }
+  }
 `;

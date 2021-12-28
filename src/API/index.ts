@@ -365,15 +365,16 @@ class API {
   };
 
   fetchCoinsData = async (coinsList: string[], currency: string = "EUR") => {
-    const response = await this.axios.get<CryptoCompare.CoinsDataRequestResponse>(
-      `data/pricemultifull`,
-      {
-        params: {
-          fsyms: coinsList.join(","),
-          tsyms: currency,
-        } as CryptoCompare.CoinsDataRequestParams,
-      }
-    );
+    const response =
+      await this.axios.get<CryptoCompare.CoinsDataRequestResponse>(
+        `data/pricemultifull`,
+        {
+          params: {
+            fsyms: coinsList.join(","),
+            tsyms: currency,
+          } as CryptoCompare.CoinsDataRequestParams,
+        }
+      );
 
     const formattedData: {
       [coinName: string]: FormattedCoinData;
@@ -389,19 +390,20 @@ class API {
     return formattedData;
   };
 
-  fetchCoinsDisplayData = async <T extends boolean>(
+  fetchCoinsDisplayData = async (
     coinsList: string[],
     currency: string = "EUR"
   ) => {
-    const response = await this.axios.get<CryptoCompare.CoinsDataRequestResponse>(
-      `data/pricemultifull`,
-      {
-        params: {
-          fsyms: coinsList.join(","),
-          tsyms: currency,
-        } as CryptoCompare.CoinsDataRequestParams,
-      }
-    );
+    const response =
+      await this.axios.get<CryptoCompare.CoinsDataRequestResponse>(
+        `data/pricemultifull`,
+        {
+          params: {
+            fsyms: coinsList.join(","),
+            tsyms: currency,
+          } as CryptoCompare.CoinsDataRequestParams,
+        }
+      );
 
     const formattedData: {
       [coinName: string]: CryptoCompare.DisplayCoinData & {
