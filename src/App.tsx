@@ -36,7 +36,7 @@ const ResetStyles = createGlobalStyle<{
     font-size: ${({ fontSize }) => `${fontSize * 16}px`};
   }
   html, body, #root {
-    height: 100%;
+    /* height: 100%; */
     font-family: ${({ vintageFont }) =>
       vintageFont ? "ms_sans_serif" : "sans-serif"};
   }
@@ -117,7 +117,7 @@ const ResetStyles = createGlobalStyle<{
         vintageFont ? "ms_sans_serif" : "sans-serif"};
   }
 
-  * {
+  /* * {
     scrollbar-width: none
   }
   ::-webkit-scrollbar {
@@ -127,7 +127,7 @@ const ResetStyles = createGlobalStyle<{
   /* Optional: show position indicator in red */
   ::-webkit-scrollbar-thumb {
     background: transparent;
-  }
+  } */
 `;
 
 const mapStateToProps = (state: AppState) => ({

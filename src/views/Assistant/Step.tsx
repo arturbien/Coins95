@@ -20,14 +20,16 @@ const StepContent = styled.div<{ fullHeight?: boolean }>`
   position: relative;
   box-sizing: border-box;
 
-  height: ${(p) => (p.fullHeight ? "100%" : "auto")};
-  max-height: 100%;
-  // overflow scroll or auto?
-  overflow-y: auto;
-  overscroll-behavior-y: none;
+  height: auto;
 
   display: flex;
   flex-direction: column;
+  /* scroll-snap-align: start; */
+  justify-content: flex-end;
+  pointer-events: none;
+  border-top-width: ${NavbarHeight}px;
+  border-top-style: solid;
+  border-color: transparent;
 `;
 
 // fills entire Step height
@@ -35,14 +37,7 @@ const StepContent = styled.div<{ fullHeight?: boolean }>`
 const StepInner = styled.div`
   box-sizing: border-box;
 
-  flex: 1;
-  border-top-width: ${NavbarHeight}px;
-  border-top-style: solid;
-  border-color: transparent;
-
-  justify-content: flex-end;
-  display: flex;
-  flex-direction: column;
+  pointer-events: auto;
 `;
 
 /**

@@ -2,8 +2,8 @@ import React from "react";
 import { Button, TextField, Toolbar, Window, WindowContent } from "react95";
 import styled from "styled-components";
 import SearchIcon from "../../assets/img/system-search.png";
+import { NavbarHeight } from "../../components/NavBar/NavBar";
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
-import { AddStepHandler } from "./Scroller";
 // iOS Safari doesn't support native .scrollIntoView({ behavior: 'smooth'})
 import Step, { StepComponent } from "./Step";
 
@@ -15,6 +15,8 @@ const AddCardButtonsWrapper = styled.div`
     margin-top: 0.5rem;
   }
 `;
+
+type AddStepHandler = (card: CardTypes) => void;
 
 export type CardTypes = "full-height" | "short" | "scrollable" | "collapsible";
 
@@ -42,27 +44,25 @@ const AddStepButtons = ({ onAddStep }: { onAddStep?: AddStepHandler }) => {
 };
 
 // TODO: this 'top' property hack is nasty to make up for Card padding-top
-const GoBackOverlay = styled.div`
-  // z-index to make up for negative margin on next card
-  z-index: 999;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+// const GoBackOverlay = styled.div`
+//   // z-index to make up for negative margin on next card
+//   z-index: 999;
+//   position: absolute;
+//   top: 0;
+//   bottom: 0;
+//   left: 0;
+//   right: 0;
 
-  background: rgba(0, 0, 0, 0.4);
-  pointer-events: none;
-  opacity: 0;
-  // transition of the same duration as step transition!!
-  transition: opacity ease-in-out 500ms;
-  &:not([aria-disabled="true"]) {
-    pointer-events: unset;
-    opacity: 1;
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
-  }
-`;
+//   background: rgba(0, 0, 0, 0.4);
+//   opacity: 0;
+//   // transition of the same duration as step transition!!
+//   transition: opacity ease-in-out 500ms;
+//   &:not([aria-disabled="true"]) {
+//     opacity: 1;
+//     -webkit-backdrop-filter: blur(2px);
+//     backdrop-filter: blur(2px);
+//   }
+// `;
 
 const SWindow = styled(Window)`
   box-sizing: border-box;
@@ -91,7 +91,7 @@ const Card = ({
   return (
     <SWindow {...othetProps}>
       {children}
-      <GoBackOverlay role="button" onClick={goBack} aria-disabled={!goBack} />
+      {/* <GoBackOverlay role="button" onClick={goBack} aria-disabled={!goBack} /> */}
     </SWindow>
   );
 };
@@ -174,7 +174,7 @@ export const ScrollableCard: StepComponent = ({
   return (
     <Step {...otherProps}>
       <Card goBack={goBack}>
-        <WindowHeader>Scrolled card</WindowHeader>
+        <WindowHeader>Long card</WindowHeader>
         <SWindowContent>
           {[loremIpsum, loremIpsum, loremIpsum, loremIpsum, loremIpsum]}
           {onAddStep && <AddStepButtons onAddStep={onAddStep} />}
@@ -193,14 +193,14 @@ export const CollapsibleCard: StepComponent = ({
   return (
     <Step {...otherProps}>
       <Card goBack={goBack}>
-        <WindowHeader>Scrolled card</WindowHeader>
+        <WindowHeader>Collapsible card</WindowHeader>
         <SWindowContent>
           <Button fullWidth onClick={() => setIsExpanded((state) => !state)}>
             Expand
           </Button>
           <div
             style={{
-              maxHeight: isExpanded ? "1000px" : 0,
+              maxHeight: isExpanded ? "1500px" : 0,
               transition: "max-height ease-in-out 500ms",
               overflow: "hidden",
             }}
@@ -220,8 +220,8 @@ export const FullHeightCard: StepComponent = ({
   goBack,
   ...otherProps
 }) => (
-  <Step fullHeight {...otherProps}>
-    <Card goBack={goBack}>
+  <Step {...otherProps}>
+    <Card goBack={goBack} style={{ height: `calc(100vh - ${NavbarHeight}px` }}>
       <WindowHeader>Full height card</WindowHeader>
       <SWindowContent>
         {onAddStep && <AddStepButtons onAddStep={onAddStep} />}

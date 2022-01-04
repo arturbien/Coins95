@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import FullPageWindow from "../../components/FullPageWindow/FullPageWindow";
 import { NavbarHeight } from "../../components/NavBar/NavBar";
-import useLockBodyScroll from "../../hooks/useLockBodyScroll";
+// import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import { elementScrollTo } from "../../lib/seamless-scroll-polyfill/scroll";
 import scrollIntoView from "smooth-scroll-into-view-if-needed";
 import {
@@ -16,10 +16,11 @@ import {
 
 import { StepComponent } from "./Step";
 
-export type AddStepHandler = (card: CardTypes) => void;
+export type AddStepHandler = (currentCardId: number, card: CardTypes) => void;
 
 const FlowSteps = styled(FullPageWindow)`
-  overflow: hidden;
+  overflow: auto;
+  /* scroll-snap-type: y proximity; */
 `;
 // https://easings.net/#easeInOutQuart
 function easeInOutQuart(x: number): number {
@@ -75,7 +76,7 @@ const scrollCardTo = (target: HTMLElement, distance: number) =>
  * @returns
  */
 const Scroller = () => {
-  useLockBodyScroll();
+  // useLockBodyScroll();
   const [stepIndex, setStepIndex] = React.useState(0);
   const [steps, setSteps] = React.useState<StepComponent[]>([SearchCard]);
   const scrollerRef = React.useRef<null | HTMLDivElement>(null);
@@ -86,6 +87,7 @@ const Scroller = () => {
     const scroller = scrollerRef.current;
     if (scroller) {
       scroller.style.pointerEvents = interactive ? "" : "none";
+      scroller.style.scrollSnapType = interactive ? "y proximity" : "none";
     }
   }, []);
 
@@ -110,7 +112,6 @@ const Scroller = () => {
     },
     []
   );
-
   const goBack = async () => {
     toggleInteractivity(false);
     transitioning.current = true;
@@ -140,15 +141,24 @@ const Scroller = () => {
     }
   };
 
-  const handleStepAdded: AddStepHandler = async (card) => {
+  const handleStepAdded: AddStepHandler = async (currentCardId, card) => {
     // align curent card to the bottom before starting transition to another step
     // when user is scrolled to the bottom of the card and triggers "next step"
     toggleInteractivity(false);
     transitioning.current = true;
     try {
       // when step is added, we first want to align current card to the bottom, before we start the transition
-      await alignCurrentStep(stepIndex, false);
-      const updatedSteps = [...steps];
+      console.log({ currentCardId });
+      try {
+        const clickedStep = document.querySelector(
+          `[data-step-id='${currentCardId}']`
+        ) as HTMLElement;
+        await scrollCardIntoView(clickedStep, "end");
+      } catch (err) {
+        console.log("Could not align step on handleStepAdded", err);
+      }
+      const updatedSteps = [...steps.slice(0, currentCardId + 1)];
+
       switch (card) {
         case "full-height":
           updatedSteps.push(FullHeightCard);
@@ -204,46 +214,46 @@ const Scroller = () => {
   // aligning elements that expanded and became longer.
   // its hacky. other way would be to force steps to be 100vh MINIMUM
   // Do NOT align automatically during transition.
-  React.useLayoutEffect(() => {
-    const alignInterval = setInterval(async () => {
-      if (!transitioning.current) {
-        const lastStepElement = document.querySelector(
-          `[data-step-id='${stepIndex}']`
-        ) as HTMLElement;
-        if (lastStepElement) {
-          transitioning.current = true;
-          await scrollCardIntoView(lastStepElement, "nearest");
-          transitioning.current = false;
-        }
-      }
-    }, 1000);
+  // React.useLayoutEffect(() => {
+  //   const alignInterval = setInterval(async () => {
+  //     if (!transitioning.current) {
+  //       const lastStepElement = document.querySelector(
+  //         `[data-step-id='${stepIndex}']`
+  //       ) as HTMLElement;
+  //       if (lastStepElement) {
+  //         transitioning.current = true;
+  //         await scrollCardIntoView(lastStepElement, "nearest");
+  //         transitioning.current = false;
+  //       }
+  //     }
+  //   }, 1000);
 
-    return () => {
-      clearInterval(alignInterval);
-    };
-  }, [stepIndex]);
+  //   return () => {
+  //     clearInterval(alignInterval);
+  //   };
+  // }, [stepIndex]);
 
-  const onCurrentStepScroll = (e: React.UIEvent<HTMLElement>) => {
-    const currentStepElement = e.currentTarget;
+  // const onCurrentStepScroll = (e: React.UIEvent<HTMLElement>) => {
+  //   const currentStepElement = e.currentTarget;
 
-    if (currentStepElement) {
-      // disable scroll if step is not sticking to the top of the screen (see collapsible / expandable example)
+  //   if (currentStepElement) {
+  //     // disable scroll if step is not sticking to the top of the screen (see collapsible / expandable example)
 
-      const previousStepElement =
-        currentStepElement.previousElementSibling as HTMLDivElement | null;
+  //     const previousStepElement =
+  //       currentStepElement.previousElementSibling as HTMLDivElement | null;
 
-      if (previousStepElement) {
-        e.preventDefault();
-        // when using translateY instead of 'bottom' the element is not clickable when 'go back overlay'
-        // previousStepElement.style.transform = `translateY(${-currentStepElement.scrollTop}px)`;
-        previousStepElement.style.bottom = `${currentStepElement.scrollTop}px`;
-        //   if (distance <= 0) {
-        //     previousStepElement.style.bottom = "auto";
-        //   } else {
-        //   }
-      }
-    }
-  };
+  //     if (previousStepElement) {
+  //       e.preventDefault();
+  //       // when using translateY instead of 'bottom' the element is not clickable when 'go back overlay'
+  //       // previousStepElement.style.transform = `translateY(${-currentStepElement.scrollTop}px)`;
+  //       previousStepElement.style.bottom = `${currentStepElement.scrollTop}px`;
+  //       //   if (distance <= 0) {
+  //       //     previousStepElement.style.bottom = "auto";
+  //       //   } else {
+  //       //   }
+  //     }
+  //   }
+  // };
   console.log({ steps });
 
   return (
@@ -251,17 +261,18 @@ const Scroller = () => {
       {steps.map((Step, index) => (
         <Step
           key={index}
-          onAddStep={handleStepAdded}
+          onAddStep={(step) => handleStepAdded(index, step)}
           // Clicking any of the previous steps takes user one step back
           goBack={index < stepIndex ? goBack : undefined}
-          onScroll={index === stepIndex ? onCurrentStepScroll : undefined}
+          // onScroll={index === stepIndex ? onCurrentStepScroll : undefined}
           data-step-id={index}
           // first element has to stick to the bottom edge of the screen.
           // Makes the bottom of previous card is always visible (to click go back)
           style={{
             marginTop: index === 0 ? 0 : -NavbarHeight,
+            minHeight: index === 0 ? "100%" : "",
             // disable scroll on previous cards
-            overflow: index < stepIndex ? "hidden" : "",
+            // overflow: index < stepIndex ? "hidden" : "",
           }}
         />
       ))}
