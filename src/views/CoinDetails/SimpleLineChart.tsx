@@ -4,18 +4,27 @@ import {
   LineChart,
   Line,
   CartesianGrid,
-  YAxis
+  YAxis,
   // XAxis
 } from "recharts";
-import { useContext } from 'react';
-import { ThemeContext } from 'styled-components';
+import { useContext } from "react";
+import { ThemeContext } from "styled-components";
 
-const SimpleLineChart = ({ data }) => {
+type Props = {
+  data: {
+    AVG: number;
+    HIGH: number;
+    LOW: number;
+  }[];
+};
+
+const SimpleLineChart = ({ data }: Props) => {
   const themeContext = useContext(ThemeContext);
   const lineColor = themeContext.progress;
   const textColor = themeContext.canvasText;
+
   return (
-    <ResponsiveContainer width="100%" height="100%" style={{background: 'red'}} >
+    <ResponsiveContainer width="100%" height="100%">
       <LineChart data={data}>
         <YAxis
           type="number"
