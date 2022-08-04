@@ -87,14 +87,8 @@ class CoinsTable extends React.Component<CoinsTableProps, State> {
         })
         .splice(0, COIN_LIMIT);
       tableData = orderedData.map((coinData, i) => {
-        const {
-          name,
-          coinName,
-          symbol,
-          imageURL,
-          sortOrder,
-          isFollowed,
-        } = coinData;
+        const { name, coinName, symbol, imageURL, sortOrder, isFollowed } =
+          coinData;
         const onClick = () =>
           history.push({
             pathname: `/coins/${symbol}`,
@@ -113,7 +107,7 @@ class CoinsTable extends React.Component<CoinsTableProps, State> {
             </TableDataCell>
             <TableDataCell
               style={{ textAlign: "right" }}
-              onClick={(e) => {
+              onClick={() => {
                 onFollow(symbol, !isFollowed);
               }}
             >

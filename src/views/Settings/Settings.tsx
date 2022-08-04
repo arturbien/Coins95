@@ -4,34 +4,34 @@ import styled, { css } from "styled-components";
 
 import { AppDispatch, AppState } from "../../store";
 import { Background, Color } from "../../store/reducers/user";
-import { ThemeName, themesLabels } from "../../themes";
+import { ThemeName } from "../../themes";
 
 import { createDisabledTextStyles } from "../../utils";
 
 import {
-  Tab,
-  Tabs,
-  TabBody,
-  Fieldset,
-  Radio,
   Checkbox,
-  Slider,
-  Select,
   ColorInput,
   Desktop,
+  Fieldset,
+  Radio,
+  Select,
+  Slider,
+  Tab,
+  TabBody,
+  Tabs,
 } from "react95";
 
 import Fullpage from "../../components/Fullpage/Fullpage";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import {
-  setTheme,
   setBackground,
   setCustomBackground,
-  toggleVintageFont,
-  toggleScanLines,
-  setScanLinesIntensity,
   setFontSize,
+  setScanLinesIntensity,
+  setTheme,
+  toggleScanLines,
+  toggleVintageFont,
 } from "../../store/actions/user";
 
 type Props = ReturnType<typeof mapStateToProps> &
@@ -75,6 +75,7 @@ const Settings = ({
             <CenteredDesktop
               backgroundStyles={{ background: background.value }}
             />
+            <select onChange={(e) => {}}></select>
             <Fieldset label="Wallpaper:" style={{ marginTop: 20 }}>
               <Select
                 width="100%"
@@ -207,10 +208,7 @@ const Settings = ({
                     max={1.2}
                     step={null}
                     value={fontSize}
-                    onChange={(
-                      e: React.KeyboardEvent | React.TouchEvent,
-                      val: number
-                    ) => setFontSize(val)}
+                    onChange={(_, val) => setFontSize(val)}
                     marks={[
                       { value: 0.8, label: "0.8" },
                       { value: 0.9, label: "0.9" },
@@ -308,7 +306,7 @@ const SField = styled.div`
 `;
 
 const SliderLabel = styled.label<{ isDisabled?: boolean }>`
-  display: inline-block
+  display: inline-block;
   margin-bottom: 0.5rem;
   margin-left: -1rem;
   ${({ isDisabled }) =>
