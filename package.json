@@ -21,7 +21,7 @@
     "@types/react-dom": "^17.0.2",
     "array-move": "^2.1.0",
     "assert-never": "^1.2.1",
-    "axios": "^0.18.1",
+    "axios": "^0.21.2",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
