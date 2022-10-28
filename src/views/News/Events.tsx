@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import styled, { css } from "styled-components";
 
 import { fetchEvents, setEventSeen } from "../../store/actions/events";
@@ -12,9 +12,12 @@ import Well from "../../components/Well/Well";
 import WellContainer from "../../components/WellContainer/WellContainer";
 
 import { Bar } from "react95";
+import { AppDispatch, AppState } from "../../store";
 
-const Events = ({ events, fetchEvents, setEventSeen }) => {
-  const [openedEventIndex, setOpenedEventIndex] = useState(null);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const Events = ({ events, fetchEvents, setEventSeen }: PropsFromRedux) => {
+  const [openedEventIndex, setOpenedEventIndex] = useState<number | null>(null);
 
   useEffect(() => {
     if (!events) {
@@ -22,10 +25,10 @@ const Events = ({ events, fetchEvents, setEventSeen }) => {
     }
   }, [events, fetchEvents]);
 
-  const onOpenEvent = index => {
+  const onOpenEvent = (index: number | null) => {
     if (index === null) {
       setOpenedEventIndex(null);
-    } else if (index >= 0 && index < events.length) {
+    } else if (events && index >= 0 && index < events.length) {
       const { id, seen } = events[index];
       if (!seen) {
         setEventSeen(id);
@@ -35,8 +38,7 @@ const Events = ({ events, fetchEvents, setEventSeen }) => {
   };
 
   let eventsList;
-  const hasEvents = events ? events.length : false;
-  if (hasEvents) {
+  if (events) {
     eventsList = events.map((e, i) => (
       <li key={e.id}>
         <Event onClick={() => onOpenEvent(i)}>
@@ -68,10 +70,10 @@ const Events = ({ events, fetchEvents, setEventSeen }) => {
                 : "No upcoming events."
               : "Loading events..."}{" "}
           </Well>
-          <Well>{hasEvents ? `${events.length} event(s)` : ""} </Well>
+          <Well>{events ? `${events.length} event(s)` : ""} </Well>
         </WellContainer>
       </FeedFooter>
-      {openedEventIndex !== null && (
+      {openedEventIndex !== null && events && (
         <EventDetails
           setOpenedEvent={onOpenEvent}
           events={events}
@@ -82,25 +84,26 @@ const Events = ({ events, fetchEvents, setEventSeen }) => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: AppState) => {
   const events = state.events;
   const seenEvents = state.user.seenEvents;
   return {
     events: events
-      ? events.map(event => ({
+      ? events.map((event) => ({
           ...event,
-          seen: seenEvents.includes(event.id)
+          seen: seenEvents.includes(event.id),
         }))
-      : null
+      : null,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
   fetchEvents: () => dispatch(fetchEvents()),
-  setEventSeen: eventID => dispatch(setEventSeen(eventID))
+  setEventSeen: (eventID: string) => dispatch(setEventSeen(eventID)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Events);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+export default connector(Events);
 
 let EventSlider = styled.div`
   overflow-x: scroll;
@@ -146,7 +149,7 @@ let Event = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-let EventImageWrapper = styled.div`
+let EventImageWrapper = styled.div<{ seen: boolean }>`
   box-sizing: border-box;
   position: relative;
   height: 4rem;

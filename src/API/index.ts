@@ -1,27 +1,33 @@
+import assertNever from "assert-never";
 import axios, { AxiosInstance } from "axios";
-import { CoinsList, CoinsInfo } from "../store/reducers/coins";
+import { CoinsInfo, CoinsList } from "../store/reducers/coins";
 
 const cryptocompareURL = "https://www.cryptocompare.com";
 
-declare namespace CoinGecko {
-  type Event = {
+export namespace CoinGecko {
+  export type Event = {
     id: string;
     organizer: string;
     title: string;
+    screenshot: string;
+    city: string;
+    description: string;
+    start_date: string;
+    end_date: string;
   };
 
-  type EventsResponse = {
+  export type EventsResponse = {
     count: number;
     data: Event[];
     page: number;
   };
 }
 
-declare namespace CryptoCompare {
+export namespace CryptoCompare {
   // TODO: are there any other values for SortOrder?
-  type SortOrder = "latest";
+  export type SortOrder = "latest";
 
-  type NewsRequestParams = {
+  export type NewsRequestParams = {
     lTs: number;
     sortOrder: SortOrder;
     extraParams: string;
@@ -32,7 +38,7 @@ declare namespace CryptoCompare {
     lang: string;
   };
 
-  type NewsItem = {
+  export type NewsItem = {
     body: string;
     categories: string;
     downvotes: string;
@@ -53,7 +59,7 @@ declare namespace CryptoCompare {
     url: string;
   };
 
-  type NewsRequestResponse = {
+  export type NewsRequestResponse = {
     Data: NewsItem[];
     HasWarning: boolean;
     Message: string;
@@ -62,7 +68,7 @@ declare namespace CryptoCompare {
     Type: number;
   };
 
-  type TopListRequestParams = {
+  export type TopListRequestParams = {
     limit: number;
     page: number;
     tsym: string;
@@ -71,7 +77,7 @@ declare namespace CryptoCompare {
     sign: boolean;
   };
 
-  type CoinInfo = {
+  export type CoinInfo = {
     Algorithm: string;
     AssetLaunchDate: string;
     BlockNumber: number;
@@ -97,7 +103,7 @@ declare namespace CryptoCompare {
     Url: string;
   };
 
-  type TopListRequestResponse = {
+  export type TopListRequestResponse = {
     Data: { CoinInfo: CoinInfo }[];
     HasWarning: boolean;
     Message: "Success";
@@ -107,14 +113,14 @@ declare namespace CryptoCompare {
     Type: number;
   };
 
-  type CoinsListRequestParams = {
+  export type CoinsListRequestParams = {
     builtOn: string;
     summary: boolean;
     extraParams: string;
     sign: boolean;
   };
 
-  type CoinsListResponse = {
+  export type CoinsListResponse = {
     BaseImageUrl: string;
     BaseLinkUrl: string;
 
@@ -135,12 +141,38 @@ declare namespace CryptoCompare {
     Type: number;
   };
 
-  type CoinsDataRequestParams = {
+  export type HistoricalDataRequestResponse = {
+    Response: "Success";
+    Type: number;
+    Aggregated: boolean;
+    TimeTo: number;
+    TimeFrom: number;
+    FirstValueInArray: true;
+    ConversionType: {
+      type: "direct";
+      conversionSymbol: "";
+    };
+    Data: {
+      time: number;
+      high: number;
+      low: number;
+      open: number;
+      volumefrom: number;
+      volumeto: number;
+      close: number;
+      conversionType: "direct";
+      conversionSymbol: "";
+    }[];
+    RateLimit: {};
+    HasWarning: boolean;
+  };
+
+  export type CoinsDataRequestParams = {
     fsyms: string;
     tsyms: string;
   };
 
-  type DisplayCoinData = {
+  export type DisplayCoinData = {
     CHANGE24HOUR: string;
     CHANGEDAY: string;
     CHANGEHOUR: string;
@@ -184,7 +216,7 @@ declare namespace CryptoCompare {
     VOLUMEHOUR: string;
     VOLUMEHOURTO: string;
   };
-  type RawCoinData = {
+  export type RawCoinData = {
     CHANGE24HOUR: number;
     CHANGEDAY: number;
     CHANGEHOUR: number;
@@ -228,7 +260,7 @@ declare namespace CryptoCompare {
     VOLUMEHOUR: number;
     VOLUMEHOURTO: number;
   };
-  type CoinsDataRequestResponse = {
+  export type CoinsDataRequestResponse = {
     DISPLAY: {
       [coinName: string]: {
         [currency: string]: DisplayCoinData;
@@ -239,33 +271,6 @@ declare namespace CryptoCompare {
         [currency: string]: RawCoinData;
       };
     };
-  };
-
-  type HistoricalDataRequestResponse = {
-    Aggregated: boolean;
-    ConversionType: {
-      conversionSymbol: string;
-      type: "direct";
-    };
-    Data: {
-      HLCAverage: number;
-      close: number;
-      conversionSymbol: string;
-      conversionType: string;
-      high: number;
-      low: number;
-      open: number;
-      time: number;
-      volumefrom: number;
-      volumeto: number;
-    }[];
-    FirstValueInArray: boolean;
-    HasWarning: boolean;
-    RateLimit: {};
-    Response: "Success";
-    TimeFrom: number;
-    TimeTo: number;
-    Type: number;
   };
 }
 
@@ -290,11 +295,15 @@ class API {
     return data;
   };
 
-  fetchNews = async (
-    timestamp: number,
-    sortOrder: CryptoCompare.SortOrder = "latest",
-    limit = 15
-  ) => {
+  fetchNews = async ({
+    timestamp,
+    sortOrder = "latest",
+    limit = 15,
+  }: {
+    timestamp?: number;
+    sortOrder?: CryptoCompare.SortOrder;
+    limit?: number;
+  }) => {
     const query = `/data/v2/news/`;
 
     let news = await this.axios.get<CryptoCompare.NewsRequestResponse>(query, {
@@ -365,15 +374,16 @@ class API {
   };
 
   fetchCoinsData = async (coinsList: string[], currency: string = "EUR") => {
-    const response = await this.axios.get<CryptoCompare.CoinsDataRequestResponse>(
-      `data/pricemultifull`,
-      {
-        params: {
-          fsyms: coinsList.join(","),
-          tsyms: currency,
-        } as CryptoCompare.CoinsDataRequestParams,
-      }
-    );
+    const response =
+      await this.axios.get<CryptoCompare.CoinsDataRequestResponse>(
+        `data/pricemultifull`,
+        {
+          params: {
+            fsyms: coinsList.join(","),
+            tsyms: currency,
+          } as CryptoCompare.CoinsDataRequestParams,
+        }
+      );
 
     const formattedData: {
       [coinName: string]: FormattedCoinData;
@@ -389,19 +399,20 @@ class API {
     return formattedData;
   };
 
-  fetchCoinsDisplayData = async <T extends boolean>(
+  fetchCoinsDisplayData = async (
     coinsList: string[],
     currency: string = "EUR"
   ) => {
-    const response = await this.axios.get<CryptoCompare.CoinsDataRequestResponse>(
-      `data/pricemultifull`,
-      {
-        params: {
-          fsyms: coinsList.join(","),
-          tsyms: currency,
-        } as CryptoCompare.CoinsDataRequestParams,
-      }
-    );
+    const response =
+      await this.axios.get<CryptoCompare.CoinsDataRequestResponse>(
+        `data/pricemultifull`,
+        {
+          params: {
+            fsyms: coinsList.join(","),
+            tsyms: currency,
+          } as CryptoCompare.CoinsDataRequestParams,
+        }
+      );
 
     const formattedData: {
       [coinName: string]: CryptoCompare.DisplayCoinData & {
@@ -453,10 +464,11 @@ class API {
         query = `https://min-api.cryptocompare.com/data/histoday?fsym=${coin}&tsym=EUR&limit=${maxDataPoints}&aggregate=${aggregate}`;
         break;
       default:
-        return false;
+        assertNever(timeSpan);
     }
 
-    const response = await this.axios.get(query);
+    const response =
+      await this.axios.get<CryptoCompare.HistoricalDataRequestResponse>(query);
     const data = response.data.Data;
     return data;
   };

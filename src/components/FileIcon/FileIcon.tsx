@@ -3,10 +3,9 @@ import propTypes from "prop-types";
 
 import styled from "styled-components";
 
-type Icon = {
+const Icon = styled.span<{
   height: number;
-};
-const Icon = styled.span<Icon>`
+}>`
   position: relative;
   display: inline-block;
   height: ${({ height }) => (height ? height : 24)}px;
@@ -55,8 +54,9 @@ const IconIMG = styled.img.attrs(() => ({
   transition: 0.2s all ease-out;
 `;
 
-type Props = Icon & {
+type Props = {
   imageURL: string;
+  height: number;
 };
 const FileIcon = ({ imageURL, height, ...otherProps }: Props) => {
   return (

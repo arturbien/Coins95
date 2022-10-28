@@ -74,6 +74,7 @@ const Clippy = () => {
                     <br />
                     <Button
                       as="a"
+                      //@ts-ignore
                       href={action}
                       variant="flat"
                       primary

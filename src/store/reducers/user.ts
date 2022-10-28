@@ -12,12 +12,11 @@ import {
   SET_USER_CURRENCY,
   TOGGLE_SCAN_LINES,
   SET_SCAN_LINES_INTENSITY,
+  SET_EVENT_SEEN,
 } from "../actions/actionConstants";
 import { ActionTypes } from "../actions/actionTypes";
 
 import { CoinsList } from "./coins";
-
-import { SET_EVENT_SEEN } from "../actions/events";
 
 import { saveState, loadState } from "../localStorage";
 
@@ -59,7 +58,7 @@ type Wallet = {
 type UserState = {
   followed: CoinsList;
   wallet: Wallet;
-  seenEvents: any;
+  seenEvents: string[];
   currency: Currency;
   vintageFont: boolean;
   theme: ThemeName;
@@ -100,7 +99,6 @@ const userReducer = (state = initialState, action: ActionTypes): UserState => {
         return { ...state, followed };
       }
       case SET_THEME:
-        let a = action;
         return { ...state, theme: action.payload };
       case SET_BACKGROUND:
         return { ...state, background: action.payload };

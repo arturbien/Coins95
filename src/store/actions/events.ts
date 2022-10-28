@@ -1,21 +1,20 @@
-import API from "../../API";
+import API, { CoinGecko } from "../../API";
 
-import { AppDispatch } from "..";
+import { AppThunk } from "..";
+import {
+  FETCH_EVENTS_ERROR,
+  FETCH_EVENTS_REQUEST,
+  FETCH_EVENTS_SUCCESS,
+  SET_EVENT_SEEN,
+} from "./actionConstants";
 
-export const FETCH_EVENTS_REQUEST = "FETCH_EVENTS_REQUEST";
-export const FETCH_EVENTS_SUCCESS = "FETCH_EVENTS_SUCCESS";
-export const FETCH_EVENTS_ERROR = "FETCH_EVENTS_ERROR";
-export const SET_EVENT_SEEN = "SET_EVENT_SEEN";
-
-export const setEvents = (events: any[]) =>
+export const setEvents = (events: CoinGecko.Event[]) =>
   ({
     type: FETCH_EVENTS_SUCCESS,
     payload: events,
   } as const);
 
-export const fetchEvents = (timestamp: number) => async (
-  dispatch: AppDispatch
-) => {
+export const fetchEvents = (): AppThunk => async (dispatch) => {
   dispatch({ type: FETCH_EVENTS_REQUEST });
   try {
     // TODO

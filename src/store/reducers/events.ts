@@ -1,9 +1,8 @@
-import { FETCH_EVENTS_SUCCESS } from "../actions/events";
+import { CoinGecko } from "../../API";
+import { FETCH_EVENTS_SUCCESS } from "../actions/actionConstants";
 import { ActionTypes } from "../actions/actionTypes";
 
-type Event = {};
-
-type EventsState = Event[] | null;
+type EventsState = CoinGecko.Event[] | null;
 const initialState: EventsState = null;
 
 const eventsReducer = (

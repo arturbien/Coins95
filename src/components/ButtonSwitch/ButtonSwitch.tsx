@@ -8,7 +8,6 @@ type Size = "sm" | "md" | "lg";
 type ButtonShape = {
   onClick: () => void;
   active: boolean;
-  size: Size;
   label: React.ReactNode;
 };
 

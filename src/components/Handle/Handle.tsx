@@ -25,10 +25,12 @@ const Wrapper = styled.div`
 
 type Props = React.ComponentProps<typeof Wrapper>;
 
-export default (props: Props) => (
+const Handle = (props: Props) => (
   <Wrapper {...props}>
     <Bar />
     <Bar />
     <Bar />
   </Wrapper>
 );
+
+export default Handle;

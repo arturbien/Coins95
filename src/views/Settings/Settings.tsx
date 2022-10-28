@@ -33,6 +33,7 @@ import {
   toggleScanLines,
   toggleVintageFont,
 } from "../../store/actions/user";
+import { SelectOption } from "react95/dist/Select/Select.types";
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -60,6 +61,13 @@ const Settings = ({
     value: number
   ) => setActiveTab(value);
 
+  const onBackgroundChange = (e: SelectOption<string>) => {
+    const newBackground = backgrounds.find(
+      (b) => b.value === e.value
+      // TODO: is this a good approach?
+    );
+    newBackground && setBackground(newBackground);
+  };
   useLockBodyScroll();
   return (
     <Fullpage style={{ paddingTop: "0.5rem" }}>
@@ -79,14 +87,7 @@ const Settings = ({
             <Fieldset label="Wallpaper:" style={{ marginTop: 20 }}>
               <Select
                 width="100%"
-                onChange={(e) =>
-                  setBackground(
-                    backgrounds.find(
-                      (b) => b.value === e.target.value
-                      // TODO: is this a good approach?
-                    ) as Background
-                  )
-                }
+                onChange={onBackgroundChange}
                 menuMaxHeight={300}
                 options={backgrounds}
                 value={background.value}

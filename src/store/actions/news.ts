@@ -16,12 +16,14 @@ export const setNews = (news: News, extend: boolean) =>
     },
   } as const);
 
-export const fetchNews = (timestamp: number): AppThunk => async (dispatch) => {
-  dispatch({ type: FETCH_NEWS_REQUEST });
-  try {
-    const news = await API.fetchNews(timestamp);
-    dispatch(setNews(news, timestamp ? true : false));
-  } catch (error) {
-    dispatch({ type: FETCH_NEWS_ERROR });
-  }
-};
+export const fetchNews =
+  (timestamp?: number): AppThunk =>
+  async (dispatch) => {
+    dispatch({ type: FETCH_NEWS_REQUEST });
+    try {
+      const news = await API.fetchNews({ timestamp });
+      dispatch(setNews(news, timestamp ? true : false));
+    } catch (error) {
+      dispatch({ type: FETCH_NEWS_ERROR });
+    }
+  };

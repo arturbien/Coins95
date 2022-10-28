@@ -1,6 +1,6 @@
 import { useLayoutEffect } from "react";
 
-export default function () {
+function useLockBodyScroll() {
   const root = document.getElementById("root") as HTMLElement;
   useLayoutEffect(() => {
     // Get current scroll  Y value
@@ -28,3 +28,5 @@ export default function () {
     };
   }, [root]); // Empty array ensures effect is only run on mount and unmount
 }
+
+export default useLockBodyScroll;

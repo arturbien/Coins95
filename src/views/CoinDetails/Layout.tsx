@@ -2,27 +2,58 @@ import React from "react";
 // import propTypes from "prop-types";
 
 import styled from "styled-components";
-import {
-  Cutout,
-  Fieldset,
-  Toolbar,
-  WindowContent,
-  Checkbox
-} from "react95";
+import { Cutout, Fieldset, Toolbar, WindowContent, Checkbox } from "react95";
 
 import SimpleLineChart from "./SimpleLineChart";
 import FullPageWindow from "../../components/FullPageWindow/FullPageWindow";
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import ButtonSwitch from "../../components/ButtonSwitch/ButtonSwitch";
 import CenteredHourglass from "../../components/CenteredHourglass/CenteredHourglass";
-// import CurrencySelect from "../../components/CurrencySelect/CurrencySelect";
 import CoinIcon from "../../components/CoinIcon/CoinIcon";
 import CloseIcon from "../../components/CloseIcon/CloseIcon";
 
 import LinkButton from "../../components/LinkButton/LinkButton";
 
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
+import { CryptoCompare } from "../../API";
 
+export type Timespan = "24H" | "1H" | "1M" | "3M" | "1Y";
+
+type Props = {
+  info: {
+    name: string;
+    symbol: string;
+    fullName: string;
+    coinName: string;
+    imageURL: string;
+    totalCoinSupply: number;
+    totalCoinsMined: number;
+    sortOrder: number;
+  } | null;
+  data:
+    | (CryptoCompare.DisplayCoinData & {
+        imageURL: string;
+      })
+    | null;
+
+  historicalData:
+    | {
+        HLCAverage: number;
+        time: number;
+        high: number;
+        low: number;
+        open: number;
+        volumefrom: number;
+        volumeto: number;
+        close: number;
+      }[]
+    | null;
+  following: boolean;
+  inWallet: boolean;
+  timeSpan: Timespan;
+  onFollow: () => void;
+  onTimeSpanChange: (timespan: Timespan) => Promise<void>;
+};
 const Layout = ({
   info,
   data,
@@ -31,8 +62,8 @@ const Layout = ({
   inWallet,
   timeSpan,
   onFollow,
-  onTimeSpanChange
-}) => {
+  onTimeSpanChange,
+}: Props) => {
   useLockBodyScroll();
 
   let coinName, symbol, sortOrder, HIGH24HOUR, LOW24HOUR, MKTCAP, imageURL;
@@ -50,10 +81,7 @@ const Layout = ({
     <SWindow>
       <WindowHeader>
         <CoinIcon src={imageURL} />
-        {`${coinName}.${symbol}`
-          .split(" ")
-          .join("_")
-          .toLowerCase()}
+        {`${coinName}.${symbol}`.split(" ").join("_").toLowerCase()}
         <LinkButton
           square
           size="sm"
@@ -61,7 +89,7 @@ const Layout = ({
             position: "absolute",
             right: 2,
             top: 3,
-            fontWeight: "bold"
+            fontWeight: "bold",
           }}
           goBack
         >
@@ -73,12 +101,11 @@ const Layout = ({
           <Checkbox
             name="follow"
             label="Follow"
-            value={true}
             checked={following}
             disabled={!info || !data}
             onChange={onFollow}
           />
-          <LinkButton to={`/wallet/${(info||{}).symbol}`} disabled={!info}>
+          <LinkButton to={`/wallet/${(info || {}).symbol}`} disabled={!info}>
             {inWallet ? "Edit in wallet" : "Add to wallet"}
           </LinkButton>
         </TopToolbar>
@@ -89,7 +116,7 @@ const Layout = ({
                 name: i,
                 AVG: historicalDataPoint.HLCAverage,
                 HIGH: historicalDataPoint.high,
-                LOW: historicalDataPoint.low
+                LOW: historicalDataPoint.low,
               }))}
             />
           )}
@@ -97,32 +124,33 @@ const Layout = ({
         </ChartWrapper>
 
         <ButtonSwitch
+          size="sm"
           buttons={[
             {
               label: "1H",
               onClick: () => onTimeSpanChange("1H"),
-              active: timeSpan === "1H"
+              active: timeSpan === "1H",
             },
             {
               label: "24H",
               onClick: () => onTimeSpanChange("24H"),
-              active: timeSpan === "24H"
+              active: timeSpan === "24H",
             },
             {
               label: "1M",
               onClick: () => onTimeSpanChange("1M"),
-              active: timeSpan === "1M"
+              active: timeSpan === "1M",
             },
             {
               label: "3M",
               onClick: () => onTimeSpanChange("3M"),
-              active: timeSpan === "3M"
+              active: timeSpan === "3M",
             },
             {
               label: "1Y",
               onClick: () => onTimeSpanChange("1Y"),
-              active: timeSpan === "1Y"
-            }
+              active: timeSpan === "1Y",
+            },
           ]}
         />
         <SFieldset label={"Coin information"}>
@@ -172,7 +200,7 @@ const ChartWrapper = styled(Cutout)`
   position: relative;
   width: 100%;
   flex: 1;
-  background: ${({theme}) => theme.canvas};
+  background: ${({ theme }) => theme.canvas};
   /* background: radial-gradient(#1d8a99, teal); */
   padding: 1em;
 `;

@@ -11,23 +11,18 @@ type Props = ReturnType<typeof mapStateToProps> &
 
 const CurrencySelect = ({ selectedCurrency, setCurrency }: Props) => {
   // TODO: options type should be a union type of Option
-  const options = currencies.map((currency) => ({
-    value: currency,
-    label: currency,
-  }));
-
-  const handleChange = (
-    e: React.FormEvent,
-    newOption: typeof options[number]
-  ) => {
-    setCurrency(newOption.value);
-  };
+  const options = currencies.map<{ value: Currency; label: string }>(
+    (currency) => ({
+      value: currency,
+      label: currency,
+    })
+  );
 
   return (
     <Select
       style={{ flexShrink: 0 }}
       width={85}
-      onChange={handleChange}
+      onChange={(selectedOption) => setCurrency(selectedOption.value)}
       value={selectedCurrency}
       options={options}
     />

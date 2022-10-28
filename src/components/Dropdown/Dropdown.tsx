@@ -4,9 +4,8 @@ import propTypes from "prop-types";
 
 import { List, ListItem } from "react95";
 
-type Props = Pick<
-  React.ComponentProps<typeof SList>,
-  "horizontalAlign" | "verticalAlign" | "open"
+type Props = Partial<
+  Pick<React.ComponentProps<typeof SList>, "horizontalAlign" | "verticalAlign">
 > & {
   trigger: React.ComponentType<any>;
   items: {
@@ -36,9 +35,9 @@ const Menu = ({ horizontalAlign, verticalAlign, trigger, items }: Props) => {
     <div style={{ position: "relative", display: "inline-block" }}>
       {open && (
         <SList
-          horizontalAlign={horizontalAlign}
-          verticalAlign={verticalAlign}
-          open={open}
+          // horizontalAlign={horizontalAlign}
+          // verticalAlign={verticalAlign}
+          // open={open}
           onClick={handleClose}
           style={{ zIndex: 1 }}
         >

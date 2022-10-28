@@ -3,14 +3,14 @@ import styled from "styled-components";
 import useWindowSize from "../../hooks/useWindowSize";
 import iPhoneImage from "../../assets/img/iphone.png";
 
-type Props = React.ComponentProps<typeof Viewport>;
+type Props = React.ComponentProps<typeof StyledViewport>;
 
-export default ({ children, maxWidth = 450, maxHeight = 896 }: Props) => {
+const Viewport = ({ children, maxWidth = 450, maxHeight = 896 }: Props) => {
   const [width, height] = useWindowSize();
   return width > maxWidth || height > maxHeight ? (
-    <Viewport maxWidth={maxWidth} maxHeight={maxHeight} id="device">
+    <StyledViewport maxWidth={maxWidth} maxHeight={maxHeight} id="device">
       <ViewportContent>{children}</ViewportContent>
-    </Viewport>
+    </StyledViewport>
   ) : (
     <>
       {children}
@@ -19,7 +19,9 @@ export default ({ children, maxWidth = 450, maxHeight = 896 }: Props) => {
   );
 };
 
-const Viewport = styled.div<{ maxHeight: number; maxWidth: number }>`
+export default Viewport;
+
+const StyledViewport = styled.div<{ maxHeight: number; maxWidth: number }>`
   position: relative;
   left: 50%;
   top: 50%;

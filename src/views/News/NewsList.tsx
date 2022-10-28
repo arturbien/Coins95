@@ -1,7 +1,7 @@
 import React, { useLayoutEffect, useRef } from "react";
 import styled from "styled-components";
 
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { fetchNews } from "../../store/actions/news";
 
 import { timeSince, createMaterialStyles, copyToClipboard } from "../../utils";
@@ -10,31 +10,36 @@ import { Divider, Button, Hourglass } from "react95";
 
 import Dropdown from "../../components/Dropdown/Dropdown";
 import MenuIcon from "../../components/MenuIcon/MenuIcon";
+import { AppDispatch, AppState } from "../../store";
 
-const NewsList = ({ news, fetchNews }) => {
-  // useEffect(() => {
-  //   fetchNews();
-  // }, []);
+type NewType = ConnectedProps<typeof connector>;
+
+type PropsFromRedux = NewType;
+
+const NewsList = ({ news, fetchNews }: PropsFromRedux) => {
   useLayoutEffect(() => {
     const lazyImages = Array.from(document.querySelectorAll("[data-src]"));
     const options = {
       root: null,
       rootMargin: "400px 0px 1600px 0px",
-      threshold: 0
+      threshold: 0,
     };
-    const callback = function(entries, observer) {
-      entries.forEach(entry => {
+    const callback: IntersectionObserverCallback = function (
+      entries,
+      observer
+    ) {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          let lazyImage = entry.target;
+          let lazyImage = entry.target as HTMLImageElement;
 
-          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.src = lazyImage.dataset.src as string;
           lazyImage.removeAttribute("data-src");
           observer.unobserve(lazyImage);
         }
       });
     };
     const observer = new IntersectionObserver(callback, options);
-    lazyImages.forEach(lazyImage => {
+    lazyImages.forEach((lazyImage) => {
       observer.observe(lazyImage);
     });
     return () => {
@@ -52,7 +57,7 @@ const NewsList = ({ news, fetchNews }) => {
   news = news.sort((a, b) => b.published_on - a.published_on);
   const lastNewsTimestamp = news[news.length - 1].published_on;
   // why sorting here works but not when sorted in API file or in reducer?
-  const newsItems = news.map(n => {
+  const newsItems = news.map((n) => {
     const date = timeSince(n.published_on);
     const hashtags = n.categories
       .split("|")
@@ -104,29 +109,29 @@ const NewsList = ({ news, fetchNews }) => {
     </Ul>
   );
 };
-const mapStateToProps = state => ({
-  news: state.news
+const mapStateToProps = (state: AppState) => ({
+  news: state.news,
 });
 
-const mapDispatchToProps = dispatch => ({
-  fetchNews: timestamp => dispatch(fetchNews(timestamp))
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  fetchNews: (timestamp?: number) => dispatch(fetchNews(timestamp)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewsList);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
-const LastItem = ({ onVisible }) => {
+export default connector(NewsList);
+
+const LastItem = ({ onVisible }: { onVisible: () => void }) => {
   const loader = useRef(null);
   useLayoutEffect(() => {
+    if (!loader.current) return;
     var options = {
       root: null,
       rootMargin: "400px 0px 3200px 0px",
-      threshold: 0
+      threshold: 0,
     };
-    var callback = function(entries, observer) {
-      entries.forEach(entry => {
+    var callback: IntersectionObserverCallback = function (entries, observer) {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           onVisible();
         }
@@ -156,7 +161,7 @@ const LastItem = ({ onVisible }) => {
               </Row>
             </div>
             <div>
-              <ArticleMenu link={null} />
+              <ArticleMenu />
             </div>
           </Row>
         </ArticleSource>
@@ -172,7 +177,7 @@ const LastItem = ({ onVisible }) => {
     </Li>
   );
 };
-let ArticleMenu = ({ url, text }) => (
+let ArticleMenu = ({ url, text }: { url?: string; text?: string }) => (
   <Dropdown
     trigger={({ ...props }) => (
       <Button
@@ -185,28 +190,30 @@ let ArticleMenu = ({ url, text }) => (
       </Button>
     )}
     items={[
-      navigator.share
-        ? {
-            label: "Share",
-            onClick: () => {
-              navigator
-                .share({
-                  url,
-                  text,
-                  title: document.title
-                })
-                .then(() => console.log("Successful share"))
-                .catch(error => console.log("Error sharing", error));
-            }
-          }
-        : null,
+      ...(navigator.share
+        ? [
+            {
+              label: "Share",
+              onClick: () => {
+                navigator
+                  .share({
+                    url,
+                    text,
+                    title: document.title,
+                  })
+                  .then(() => console.log("Successful share"))
+                  .catch((error) => console.log("Error sharing", error));
+              },
+            },
+          ]
+        : []),
       {
         label: "Copy link",
         onClick: () => {
-          copyToClipboard(url);
-        }
-      }
-    ].filter(option => option !== null)}
+          url && copyToClipboard(url);
+        },
+      },
+    ].filter((option) => option !== null)}
   />
 );
 
@@ -285,7 +292,7 @@ let ArticleHeader = styled.header`
 let Square = styled.div`
   width: 100%;
   position: relative;
-  background: ${({theme}) => theme.material};
+  background: ${({ theme }) => theme.material};
   &:before {
     content: "";
     left: 0;

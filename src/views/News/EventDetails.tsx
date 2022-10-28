@@ -1,31 +1,38 @@
 import React from "react";
 import styled from "styled-components";
 
-import {
-  WindowContent,
-  Select,
-  Cutout,
-  Toolbar,
-  Button,
-  Bar
-} from "react95";
+import { WindowContent, Select, Cutout, Toolbar, Button, Bar } from "react95";
 
 import FullPageWindow from "../../components/FullPageWindow/FullPageWindow";
 import WindowHeader from "../../components/WindowHeader/WindowHeader";
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import EventExplorerIcon from "../../assets/img/eventExplorer.png";
 import CloseIcon from "../../components/CloseIcon/CloseIcon";
+import { CoinGecko } from "../../API";
 
-const EventDetails = ({ events:eventsProp, openedEventIndex, setOpenedEvent }) => {
+const EventDetails = ({
+  events: eventsProp,
+  openedEventIndex,
+  setOpenedEvent,
+}: {
+  events: (CoinGecko.Event & {
+    seen: boolean;
+  })[];
+  openedEventIndex: number;
+  setOpenedEvent: (id: number | null) => void;
+}) => {
   useLockBodyScroll();
-  const events = eventsProp.map(e => ({label: e.title, value: e.id}))
+  const events = eventsProp.map((e, index) => ({
+    label: e.title,
+    value: index,
+  }));
   const {
     title,
     description,
     screenshot,
     start_date,
     end_date,
-    organizer
+    organizer,
     // website,
     // email
   } = eventsProp[openedEventIndex];
@@ -45,7 +52,7 @@ const EventDetails = ({ events:eventsProp, openedEventIndex, setOpenedEvent }) =
             position: "absolute",
             right: 2,
             top: 3,
-            fontWeight: "bold"
+            fontWeight: "bold",
           }}
           onClick={() => setOpenedEvent(null)}
         >
@@ -54,7 +61,9 @@ const EventDetails = ({ events:eventsProp, openedEventIndex, setOpenedEvent }) =
       </WindowHeader>
       <SWindowContent>
         <EventSelectWrapper>
-          <div style={{ flexShrink: 0, margin: "0 0.5rem 0 0.125rem", height: 35 }}>
+          <div
+            style={{ flexShrink: 0, margin: "0 0.5rem 0 0.125rem", height: 35 }}
+          >
             <Bar />
             <Bar />
           </div>
@@ -63,8 +72,8 @@ const EventDetails = ({ events:eventsProp, openedEventIndex, setOpenedEvent }) =
             disabled
             options={events}
             value={events[openedEventIndex].value}
-            width={'100%'}
-            onChange={index => setOpenedEvent(index)}
+            width={"100%"}
+            onChange={(e) => setOpenedEvent(e.value)}
           />
         </EventSelectWrapper>
         <SCutout>
@@ -133,9 +142,9 @@ const SWindowContent = styled(WindowContent)`
 `;
 const SCutout = styled(Cutout)`
   flex: 1;
-  background: ${({theme}) => theme.canvas};
+  background: ${({ theme }) => theme.canvas};
   overflow: auto;
-  color: ${({theme}) => theme.canvasText};
+  color: ${({ theme }) => theme.canvasText};
 `;
 const Description = styled.div`
   box-sizing: border-box;
