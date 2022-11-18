@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { ThemeProvider } from "styled-components";
 import { Switch, Route, withRouter } from "react-router";
 
-import { Button, Radio, Fieldset } from "react95";
+import { Button, Radio, GroupBox } from "react95";
 
 import original from "react95/dist/themes/original";
 
@@ -58,7 +58,7 @@ const Clippy = () => {
                       not even interested in crypto. If you like what you see,
                       show some love.
                     </p>
-                    <Fieldset label="Actions:" variant="flat">
+                    <GroupBox label="Actions:" variant="flat">
                       {options.map((o) => (
                         <>
                           <Radio
@@ -70,7 +70,7 @@ const Clippy = () => {
                           <br />
                         </>
                       ))}
-                    </Fieldset>
+                    </GroupBox>
                     <br />
                     <Button
                       as="a"

@@ -10,9 +10,8 @@ import { createDisabledTextStyles } from "../../utils";
 
 import {
   Checkbox,
-  ColorInput,
   Desktop,
-  Fieldset,
+  GroupBox,
   Radio,
   Select,
   Slider,
@@ -23,6 +22,7 @@ import {
 
 import Fullpage from "../../components/Fullpage/Fullpage";
 
+import { SelectOption } from "react95/dist/Select/Select.types";
 import useLockBodyScroll from "../../hooks/useLockBodyScroll";
 import {
   setBackground,
@@ -33,7 +33,7 @@ import {
   toggleScanLines,
   toggleVintageFont,
 } from "../../store/actions/user";
-import { SelectOption } from "react95/dist/Select/Select.types";
+import BackgroundColorPicker from "./BackgroundColorPicker";
 
 type Props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -56,10 +56,7 @@ const Settings = ({
 }: Props) => {
   const [activeTab, setActiveTab] = useState(0);
 
-  const handleChange = (
-    e: React.MouseEvent | React.TouchEvent,
-    value: number
-  ) => setActiveTab(value);
+  const handleChange = (value: number) => setActiveTab(value);
 
   const onBackgroundChange = (e: SelectOption<string>) => {
     const newBackground = backgrounds.find(
@@ -69,6 +66,12 @@ const Settings = ({
     newBackground && setBackground(newBackground);
   };
   useLockBodyScroll();
+
+  const swag = React.useCallback(
+    (color: string) => setCustomBackground(color),
+    [setCustomBackground]
+  );
+
   return (
     <Fullpage style={{ paddingTop: "0.5rem" }}>
       <Tabs value={activeTab} onChange={handleChange}>
@@ -83,8 +86,7 @@ const Settings = ({
             <CenteredDesktop
               backgroundStyles={{ background: background.value }}
             />
-            <select onChange={(e) => {}}></select>
-            <Fieldset label="Wallpaper:" style={{ marginTop: 20 }}>
+            <GroupBox label="Wallpaper:" style={{ marginTop: 20 }}>
               <Select
                 width="100%"
                 onChange={onBackgroundChange}
@@ -96,18 +98,19 @@ const Settings = ({
                 isDisabled={backgrounds[0].value !== background.value}
               >
                 <label>Custom color:</label>
-                <ColorInput
+
+                <BackgroundColorPicker
                   value={backgrounds[0].value}
-                  onChange={(e) => setCustomBackground(e.target.value)}
                   disabled={backgrounds[0].value !== background.value}
+                  onChange={swag}
                 />
               </CustomColorField>
-            </Fieldset>
+            </GroupBox>
           </>
         )}
         {activeTab === 1 && (
           <SField>
-            <Fieldset label="Theme:">
+            <GroupBox label="Theme:">
               {/* {Object.keys(themesLabels).map((themeName) => (
                 <>
                   <Radio
@@ -188,13 +191,13 @@ const Settings = ({
                 checked={theme === "vaporTeal"}
                 label="💨 Vapor Teal"
               />
-            </Fieldset>
+            </GroupBox>
           </SField>
         )}
         {activeTab === 2 && (
           <>
             <SField>
-              <Fieldset label="Font:">
+              <GroupBox label="Font:">
                 <Checkbox
                   name="vintageFont"
                   value="vintageFont"
@@ -209,7 +212,7 @@ const Settings = ({
                     max={1.2}
                     step={null}
                     value={fontSize}
-                    onChange={(_, val) => setFontSize(val)}
+                    onChange={(val) => setFontSize(val)}
                     marks={[
                       { value: 0.8, label: "0.8" },
                       { value: 0.9, label: "0.9" },
@@ -219,11 +222,11 @@ const Settings = ({
                     ]}
                   />
                 </Pad>
-              </Fieldset>
+              </GroupBox>
             </SField>
             <SField></SField>
             <SField>
-              <Fieldset
+              <GroupBox
                 label={
                   <Checkbox
                     style={{}}
@@ -247,10 +250,10 @@ const Settings = ({
                       { value: 100, label: "max" },
                     ]}
                     value={scanLinesIntensity}
-                    onChange={(e, val) => setScanLinesIntensity(val)}
+                    onChange={(val) => setScanLinesIntensity(val)}
                   />
                 </Pad>
-              </Fieldset>
+              </GroupBox>
             </SField>
           </>
         )}

@@ -2,7 +2,7 @@ import React from "react";
 // import propTypes from "prop-types";
 
 import styled from "styled-components";
-import { Cutout, Fieldset, Toolbar, WindowContent, Checkbox } from "react95";
+import { Cutout, GroupBox, Toolbar, WindowContent, Checkbox } from "react95";
 
 import SimpleLineChart from "./SimpleLineChart";
 import FullPageWindow from "../../components/FullPageWindow/FullPageWindow";
@@ -153,7 +153,7 @@ const Layout = ({
             },
           ]}
         />
-        <SFieldset label={"Coin information"}>
+        <SGroupBox label={"Coin information"}>
           <Row>
             <Col>Rank:</Col>
             <Col>{sortOrder ? sortOrder : "-"}</Col>
@@ -170,7 +170,7 @@ const Layout = ({
             <Col>Total market cap:</Col>
             <Col>{MKTCAP}</Col>
           </Row>
-        </SFieldset>
+        </SGroupBox>
       </SWindowContent>
     </SWindow>
   );
@@ -204,7 +204,7 @@ const ChartWrapper = styled(Cutout)`
   /* background: radial-gradient(#1d8a99, teal); */
   padding: 1em;
 `;
-const SFieldset = styled(Fieldset)`
+const SGroupBox = styled(GroupBox)`
   margin: 1rem 0.25rem calc(0.25rem + 4px) calc(0.25rem + 2px);
 `;
 const Row = styled.div`
