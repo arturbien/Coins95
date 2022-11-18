@@ -12,4 +12,4 @@
 * add app to your homescreen and enjoy it in fullscreen mode!
 * crypto data from [CryptoCompare API](https://min-api.cryptocompare.com/) 
 
-Made with *[React95](https://github.com/arturbien/React95)* 💖
+Made with *[React95](https://github.com/react95-io/React95)* 💖
